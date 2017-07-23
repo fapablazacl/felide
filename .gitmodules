@@ -1,0 +1,3 @@
+[submodule "dep/wtl"]
+	path = dep/wtl
+	url = https://github.com/devwarecl/wtl.git
