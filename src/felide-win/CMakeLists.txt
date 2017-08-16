@@ -1,5 +1,5 @@
 
-set (target felide)
+set (target felide-win)
 
 set (sources 
 	"Main.cpp"
