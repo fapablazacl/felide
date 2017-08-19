@@ -7,7 +7,13 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 
 set(target "felide-gtk3")
 
-set(sources "Main.cpp" "MainWindow.hpp" "MainWindow.cpp")
+set(sources 
+    "Main.cpp" 
+    "MainWindow.hpp" 
+    "MainWindow.cpp"
+    "MainApplication.hpp" 
+    "MainApplication.cpp"
+)
 
 add_executable(${target} ${sources})
 
