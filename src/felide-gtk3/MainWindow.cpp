@@ -3,19 +3,24 @@
 #include <iostream>
 
 namespace felide {
-    MainWindow::MainWindow() : m_button("Hello World!") {
+    MainWindow::MainWindow() {
+        m_sourceView.get_buffer()->set_text("This is a test!");
+        m_sourceView.show();
+
+        m_notebook.append_page(m_sourceView);
         this->set_border_width(10);
 
+        /*
         m_button.signal_clicked().connect(
             sigc::mem_fun(
                 *this, 
                 &MainWindow::OnButtonClicked
             )
         );
+        */
+        this->add(m_notebook);
 
-        this->add(m_button);
-
-        m_button.show();
+        m_notebook.show();
     }
 
     MainWindow::~MainWindow() {}
