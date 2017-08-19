@@ -4,26 +4,26 @@
 CAppModule _Module;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	using felide::view::win::CMainFrame;
+    using felide::view::win::CMainFrame;
 
-	_Module.Init(NULL, hInstance);
+    _Module.Init(NULL, hInstance);
 
-	CMainFrame mainFrame;
-	MSG msg;
+    CMainFrame mainFrame;
+    MSG msg;
 
-	if (NULL == mainFrame.Create(NULL, CWindow::rcDefault, _T("My First ATL Window!"))) {
-		return 1;
-	}
+    if (NULL == mainFrame.Create(NULL, CWindow::rcDefault, _T("My First ATL Window!"))) {
+        return 1;
+    }
 
-	mainFrame.ShowWindow(nCmdShow);
-	mainFrame.UpdateWindow();
+    mainFrame.ShowWindow(nCmdShow);
+    mainFrame.UpdateWindow();
 
-	while (::GetMessage(&msg, NULL, 0, 0) > 0) {
-		::TranslateMessage(&msg);
-		::DispatchMessage(&msg);
-	}
+    while (::GetMessage(&msg, NULL, 0, 0) > 0) {
+        ::TranslateMessage(&msg);
+        ::DispatchMessage(&msg);
+    }
 
-	_Module.Term();
+    _Module.Term();
 
-	return static_cast<int>(msg.wParam);
+    return static_cast<int>(msg.wParam);
 }
