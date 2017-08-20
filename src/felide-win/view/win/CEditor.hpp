@@ -5,6 +5,8 @@
 #include <atlwin.h>
 #include <atlapp.h>
 #include <atlctrls.h>
+#include <atlmisc.h>
+#include <atlcrack.h>
 
 namespace felide::view::win {
 
@@ -16,11 +18,14 @@ namespace felide::view::win {
         DECLARE_WND_CLASS(_T("CEditor"))
         
         BEGIN_MSG_MAP(CEditor)
-            MESSAGE_HANDLER(WM_CREATE, OnCreate)
+            MSG_WM_CREATE(OnCreate)
+            MSG_WM_SIZE(OnSize)
         END_MSG_MAP()
 
     public:
-        LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+        int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+        void OnSize(UINT nType, CSize size);
 
     private:
         CEdit m_edit;

@@ -5,6 +5,7 @@
 #include <atlapp.h>
 #include <atlframe.h>
 #include <atlctrls.h>
+#include <atluser.h>
 
 #include "CEditor.hpp"
 
@@ -18,6 +19,7 @@ namespace felide::view::win {
             MESSAGE_HANDLER(WM_CREATE, OnCreate)
             MESSAGE_HANDLER(WM_CLOSE, OnClose)
             MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+            MESSAGE_HANDLER(WM_SIZE, OnSize)
         END_MSG_MAP()
 
     public:
@@ -26,6 +28,8 @@ namespace felide::view::win {
         LRESULT OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 
         LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+
+        LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 
     private:
         CEditor m_editor;
