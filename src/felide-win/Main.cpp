@@ -11,7 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     CMainFrame mainFrame;
     MSG msg;
 
-    if (NULL == mainFrame.Create(NULL, CWindow::rcDefault, _T("My First ATL Window!"))) {
+    if (NULL == mainFrame.Create(NULL, CWindow::rcDefault, _T("felide"))) {
         return 1;
     }
 
