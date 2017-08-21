@@ -27,6 +27,10 @@ namespace felide::view::win {
 
         void OnSize(UINT nType, CSize size);
 
+        void SetText(const CString &string);
+
+        CString GetText() const;
+
     private:
         CEdit m_edit;
     };

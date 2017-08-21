@@ -1,6 +1,9 @@
 
 #include "CMainFrame.hpp"
 
+#include <felide/FileUtil.hpp>
+#include <atldlgs.h>
+
 namespace felide::view::win {
     int CMainFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
@@ -8,7 +11,15 @@ namespace felide::view::win {
     }
 
     int CMainFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+        CFileDialog dialog(TRUE, _T("All Files\0*.*"));
 
+        if (dialog.DoModal() == IDOK) {
+            CString filename = dialog.m_szFileName;
+            CString content = FileUtil::load((LPCSTR)filename).c_str();
+
+            m_editor.SetText(content);
+        }
+        
         return 0;
     }
 

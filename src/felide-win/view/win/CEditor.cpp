@@ -16,4 +16,12 @@ namespace felide::view::win {
     void CEditor::OnSize(UINT nType, CSize size) {
         m_edit.ResizeClient(size.cx, size.cy, TRUE);
     }
+
+    void CEditor::SetText(const CString &string) {
+        m_edit.SetWindowText(string);
+    }
+
+    CString CEditor::GetText() const {
+        return "";
+    }
 }
