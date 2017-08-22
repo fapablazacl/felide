@@ -14,6 +14,8 @@ namespace felide {
             throw std::runtime_error("Couldn't open the file '" + filename + "'.");
         }
 
+        fs.seekg(0);
+
         std::string content;
         content.assign(fstream_iterator(fs), fstream_iterator());
 

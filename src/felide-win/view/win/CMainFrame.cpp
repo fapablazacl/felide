@@ -15,6 +15,9 @@ namespace felide::view::win {
 
         if (dialog.DoModal() == IDOK) {
             CString filename = dialog.m_szFileName;
+
+            auto content2 = FileUtil::load(dialog.m_szFileName).c_str();
+
             CString content = FileUtil::load((LPCSTR)filename).c_str();
 
             m_editor.SetText(content);
