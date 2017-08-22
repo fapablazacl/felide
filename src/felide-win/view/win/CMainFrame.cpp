@@ -44,6 +44,13 @@ namespace felide::view::win {
     }
 
     int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+        this->InitFrame();
+        this->InitMenuBar();
+
+        return 0;
+    }
+
+    void CMainFrame::InitFrame() {
         // set the main view
         RECT rcClient;
         this->GetClientRect(&rcClient);
@@ -51,7 +58,9 @@ namespace felide::view::win {
         const DWORD dwStyle = WS_CHILD | WS_VISIBLE;
 
         m_editor.Create(m_hWnd, rcClient, "", dwStyle);
+    }
 
+    void CMainFrame::InitMenuBar() {
         // create the menu 
         m_menu.CreateMenu();
 
@@ -76,8 +85,6 @@ namespace felide::view::win {
         m_menu.AppendMenu(MF_STRING, editMenu, "Edit");
 
         this->SetMenu(m_menu);
-
-        return 0;
     }
 
     void CMainFrame::OnClose() {

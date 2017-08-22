@@ -81,6 +81,11 @@ namespace felide::view::win {
         void OnSize(UINT nType, CSize size);
 
     private:
+        void InitFrame();
+
+        void InitMenuBar();
+
+    private:
         CEditor m_editor;
         CMenu m_menu;
     };
