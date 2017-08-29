@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 3.5)
 
 project (felide)
 
-option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API" 	OFF)
-option (FELIDE_UI_GTK3      	"Build the IDE user interface using the GTK+ toolkit" 	OFF)
+option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
+option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 
 # Specify the use of the C++17 standard
 if (MSVC)
