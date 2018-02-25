@@ -2,44 +2,76 @@
 #include <gtkmm.h>
 #include <iostream>
 
+#include <felide/FileUtil.hpp>
+
 class HelloWorldWindow : public Gtk::ApplicationWindow {
 public:
-    HelloWorldWindow() : m_button("Hello, World") {
+    HelloWorldWindow() {
         // setup supported actions
-        add_action("notify", sigc::mem_fun(*this, &HelloWorldWindow::on_action_notify));
-        add_action("exit", sigc::mem_fun(*this, &HelloWorldWindow::on_action_exit));
-        
+        add_action("file_new", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_new));
+        add_action("file_open", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_open));
+        add_action("file_save", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_save));
+        add_action("file_save_as", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_save_as));
+        add_action("file_exit", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_exit));
+
         // setup client area
         set_border_width(10);
-        m_button.signal_clicked().connect(sigc::mem_fun(*this, &HelloWorldWindow::on_button_clicked));
-        add(m_button);
+        add(m_scrolledWindow);
 
-        m_button.show();
+        m_scrolledWindow.set_border_width(5);
+        m_scrolledWindow.add(m_textView);
+        m_scrolledWindow.show();
+        m_textView.show();
     }
 
     virtual ~HelloWorldWindow() {}
 
 private:
-    void on_button_clicked() {
-        std::cout << "Hello, World!" << std::endl;
+    void on_action_file_new() {
+        m_title = "Untitled";
+        m_path = "";
     }
 
-    void on_action_exit() {
+    void on_action_file_open() {
+        auto fileFilter = Gtk::FileFilter::create();
+        fileFilter->set_name("Text files");
+        fileFilter->add_mime_type("text/plain");
+
+        Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FILE_CHOOSER_ACTION_OPEN);
+        dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+        dialog.add_button("_Open", Gtk::RESPONSE_OK);
+        dialog.set_transient_for(*this);
+        dialog.add_filter(fileFilter);
+
+        int result = dialog.run();
+
+        if (result == Gtk::RESPONSE_OK) {
+            const std::string filePath = dialog.get_filename();
+            const std::string fileContent = felide::FileUtil::load(filePath);
+
+            set_title(filePath);
+            m_textView.get_buffer()->set_text(fileContent);
+        }
+    }
+
+    void on_action_file_save() {
+        
+    }
+
+    void on_action_file_save_as() {
+        
+    }
+
+    void on_action_file_exit() {
         hide();
     }
 
-    void on_action_notify() {
-        std::cout << "Notify!" << std::endl;
-
-        auto note = Gio::Notification::create("Felide Message!");
-        note->set_body("Notification from" + Glib::get_application_name());
-        // note->add_button("Print", "app.print", Glib::ustring("Hello World"));
-        note->add_button("Greet App", "app.greet");
-        get_application()->send_notification("note", note);
-    }
-
 private:
-    Gtk::Button m_button;
+    std::string m_title;
+    std::string m_path;
+
+    Gtk::ScrolledWindow m_scrolledWindow;
+    Gtk::TextView m_textView;
     Glib::RefPtr<Gio::Menu> m_mainMenu;
 };
 
@@ -56,30 +88,24 @@ public:
     virtual void on_startup() override {
         Gtk::Application::on_startup();
 
-        add_action("greet", sigc::mem_fun(*this, &HelloWorldApplication::on_action_greet));
-
         // application menu
         Glib::RefPtr<Gio::Menu> fileMenu = Gio::Menu::create();
-        fileMenu->append("_Notify", "win.notify");
-        fileMenu->append("_Exit", "win.exit");
+        fileMenu->append("_New", "win.file_new");
+        fileMenu->append("_Open", "win.file_open");
+        fileMenu->append("_Save", "win.file_save");
+        fileMenu->append("Save _As", "win.file_save_as");
+        fileMenu->append("_Exit", "win.file_exit");
 
         Glib::RefPtr<Gio::Menu> mainMenu = Gio::Menu::create();
         mainMenu->append_submenu("_File", fileMenu);
 
         set_menubar(mainMenu);
     }
-
-private:
-    void on_action_greet() {
-        std::cout << "Application::on_action_greet" << std::endl;
-    }
 };
 
 int main(int argc, char* argv[]) {
-    Glib::RefPtr<HelloWorldApplication> app 
-        = HelloWorldApplication::create(argc, argv, "org.devwarecl.felide");
+    auto app = HelloWorldApplication::create(argc, argv, "org.devwarecl.felide");
 
     HelloWorldWindow window;
-
     return app->run(window);
 }

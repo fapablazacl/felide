@@ -17,4 +17,4 @@ set (sources
 
 add_executable (${target} ${sources})
 
-target_link_libraries (${target} ${GTKMM_LIBRARIES})
+target_link_libraries (${target} ${GTKMM_LIBRARIES} felide-core)
