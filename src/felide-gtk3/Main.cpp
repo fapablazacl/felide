@@ -4,6 +4,10 @@
 
 #include <felide/FileUtil.hpp>
 
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
+
 class Editor : public Gtk::Bin {
 public:
     Editor() {
@@ -75,13 +79,42 @@ public:
     }
 
     void LoadProject(const std::string &projectPath) {
+        // internal variable cleanup
         m_projectPath = projectPath;
-
         m_refTreeStore->clear();
 
-        // load the new model
-        Gtk::TreeModel::Row row = *(m_refTreeStore->append());
-        row[m_treeModel.m_itemName] = "This is a test";
+        // populate the model
+        fs::path path(projectPath);
+        Gtk::TreeModel::iterator treeIterator = m_refTreeStore->append();
+        Gtk::TreeModel::Row row = *treeIterator;
+        row[m_treeModel.m_itemName] = this->GetPathName(path);
+
+        this->PopulateTreeNode(path, treeIterator);
+    }
+
+private:
+    std::string GetPathName(const fs::path &path) {
+        return path.filename();
+    }
+
+    void PopulateTreeNode(fs::path path, Gtk::TreeModel::iterator treeIterator) {
+        if (fs::is_directory(path)) {
+            fs::directory_iterator subPathIterator(path);
+            fs::directory_iterator end;
+
+            while (subPathIterator != end) {
+                fs::path subPath = subPathIterator->path();
+
+                Gtk::TreeModel::iterator childIterator = m_refTreeStore->append(treeIterator->children());
+                Gtk::TreeModel::Row childRow = *childIterator;
+
+                childRow[m_treeModel.m_itemName] = this->GetPathName(subPath);
+
+                this->PopulateTreeNode(subPath, childIterator);
+
+                subPathIterator++;
+            }
+        }
     }
 
 private:
