@@ -61,7 +61,9 @@ private:
  */ 
 class ProjectExplorer : public Gtk::Bin {
 public:
-    explicit ProjectExplorer() {
+    explicit ProjectExplorer(EditorPanel *editorPanel) {
+        m_editorPanel = editorPanel;
+
         // setup UI
         add(m_scrolled);
 
@@ -105,7 +107,8 @@ private:
             Glib::ustring name = row[m_treeModel.m_itemName];
             Glib::ustring path = row[m_treeModel.m_itemPath];
 
-            std::cout << path << std::endl;
+            const std::string content = felide::FileUtil::load(path);
+            m_editorPanel->OpenEditor(name, content);
         }
     }
 
@@ -146,17 +149,20 @@ private:
         Gtk::TreeModelColumn<Glib::ustring> m_itemPath;
     };
 
+private:
     std::string m_projectPath;
     Gtk::ScrolledWindow m_scrolled;
 
     ProjectItemModel m_treeModel;
     Gtk::TreeView m_treeView;
     Glib::RefPtr<Gtk::TreeStore> m_refTreeStore;
+
+    EditorPanel *m_editorPanel;
 };
 
 class HelloWorldWindow : public Gtk::ApplicationWindow {
 public:
-    HelloWorldWindow() {
+    HelloWorldWindow() : m_projectExplorer(&m_editorPanel) {
         // setup supported actions
         add_action("file_new", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_new));
         add_action("file_open", sigc::mem_fun(*this, &HelloWorldWindow::on_action_file_open));
