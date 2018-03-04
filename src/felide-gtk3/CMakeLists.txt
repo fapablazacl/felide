@@ -11,8 +11,14 @@ set (sources
     "Main.cpp" 
     "MainWindow.hpp" 
     "MainWindow.cpp"
-    "MainApplication.hpp" 
+    "MainApplication.hpp"
     "MainApplication.cpp"
+    "ProjectExplorer.hpp"
+    "ProjectExplorer.cpp"
+    "Editor.hpp"
+    "Editor.cpp"
+    "EditorPanel.hpp"
+    "EditorPanel.cpp"
 )
 
 add_executable (${target} ${sources})
