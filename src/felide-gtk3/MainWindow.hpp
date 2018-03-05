@@ -28,6 +28,8 @@ namespace Felide::GTK3 {
 
         void on_action_file_exit();
 
+        void on_item_activated(std::string path);
+
     private:
         std::string m_title;
         std::string m_path;

@@ -1,13 +1,15 @@
 
 #include "ProjectExplorer.hpp"
 
+#include <iostream>
+#include <experimental/filesystem>
 #include <felide/FileUtil.hpp>
 #include "EditorPanel.hpp"
 
-namespace Felide::GTK3 {
-    ProjectExplorer::ProjectExplorer(EditorPanel *editorPanel) {
-        m_editorPanel = editorPanel;
+namespace fs = std::experimental::filesystem;
 
+namespace Felide::GTK3 {
+    ProjectExplorer::ProjectExplorer() {
         // setup UI
         add(m_scrolled);
 
@@ -23,8 +25,9 @@ namespace Felide::GTK3 {
 
         show_all_children();
 
-        // connect 
-        m_treeView.get_selection()->signal_changed().connect(sigc::mem_fun(*this, &ProjectExplorer::OnItemSelected));
+        // connect event handlers
+        // m_treeView.get_selection()->signal_changed().connect(sigc::mem_fun(*this, &ProjectExplorer::OnItemSelected));
+        m_treeView.signal_row_activated().connect(sigc::mem_fun(*this, &ProjectExplorer::OnItemActivated));
     }
 
     void ProjectExplorer::LoadProject(const std::string &projectPath) {
@@ -42,7 +45,22 @@ namespace Felide::GTK3 {
         this->PopulateTreeNode(path, treeIterator);
     }
 
+    void ProjectExplorer::OnItemActivated(const Gtk::TreeModel::Path& treePath, Gtk::TreeViewColumn* column) {
+        Gtk::TreeModel::iterator iterator = m_treeView.get_model()->get_iter(treePath);
+
+        if (!iterator) {
+            return;
+        }
+        
+        Gtk::TreeModel::Row row = *iterator;
+        std::string name = row[m_treeModel.m_itemName];
+        std::string path = row[m_treeModel.m_itemPath];
+
+        m_signal_item_activated(path);
+    }
+
     void ProjectExplorer::OnItemSelected() {
+        /*
         Gtk::TreeModel::iterator iterator = m_treeView.get_selection()->get_selected();
 
         if (iterator) {
@@ -53,6 +71,7 @@ namespace Felide::GTK3 {
             const std::string content = felide::FileUtil::load(path);
             m_editorPanel->OpenEditor(name, content);
         }
+        */
     }
 
     std::string ProjectExplorer::GetPathName(const fs::path &path) {

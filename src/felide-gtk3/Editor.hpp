@@ -5,7 +5,7 @@
 #include <string>
 #include <gtkmm.h>
 
-namespace Felide::GTK3 {    
+namespace Felide::GTK3 {
     /**
      * @brief A Simple Text Editor control with scrollbars
      */

@@ -1,10 +1,11 @@
 
 #include "MainWindow.hpp"
 
+#include <iostream>
 #include <felide/FileUtil.hpp>
 
 namespace Felide::GTK3 {
-    MainWindow::MainWindow() : m_projectExplorer(&m_editorPanel) {
+    MainWindow::MainWindow() {
         // setup supported actions
         add_action("file_new", sigc::mem_fun(*this, &MainWindow::on_action_file_new));
         add_action("file_open", sigc::mem_fun(*this, &MainWindow::on_action_file_open));
@@ -18,6 +19,8 @@ namespace Felide::GTK3 {
 
         m_paned.add1(m_projectExplorer);
         m_projectExplorer.show();
+
+        m_projectExplorer.signal_item_activated().connect(sigc::mem_fun(*this, &MainWindow::on_item_activated));
 
         m_paned.add2(m_editorPanel);
         m_editorPanel.show();
@@ -46,12 +49,12 @@ namespace Felide::GTK3 {
 
         int result = dialog.run();
 
-        if (result == Gtk::RESPONSE_OK) {
-            const std::string filePath = dialog.get_filename();
-            const std::string fileContent = felide::FileUtil::load(filePath);
+        if (result == Gtk::RESPONSE_OK) {            
+            const std::string path = dialog.get_filename();
+            const std::string name = fs::path(path).filename().string();
+            const std::string content = felide::FileUtil::load(path);
 
-            // set_title(filePath);
-            m_editorPanel.OpenEditor(filePath, fileContent);
+            m_editorPanel.OpenEditor(path, name, content);
         }
     }
 
@@ -80,5 +83,15 @@ namespace Felide::GTK3 {
 
     void MainWindow::on_action_file_exit() {
         hide();
+    }
+
+    void MainWindow::on_item_activated(std::string path) {
+        if (fs::is_directory(path)) {
+            return;
+        }
+
+        const std::string name = fs::path(path).filename().string();
+        const std::string content = felide::FileUtil::load(path);
+        m_editorPanel.OpenEditor(path, name, content);
     }
 }
