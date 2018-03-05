@@ -38,6 +38,25 @@ namespace Felide::GTK3 {
         m_path = "";
     }
 
+    void MainWindow::on_action_file_open_project() {
+        Gtk::FileChooserDialog dialog("Please choose a Folder", Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+        dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+        dialog.add_button("_Open", Gtk::RESPONSE_OK);
+        dialog.set_transient_for(*this);
+
+        int result = dialog.run();
+
+        if (result == Gtk::RESPONSE_OK) {
+            const std::string folderPath = dialog.get_filename();
+
+            m_projectExplorer.LoadProject(folderPath);
+        }
+    }
+
+    void MainWindow::on_action_file_save() {
+
+    }
+
     void MainWindow::on_action_file_open() {
         auto fileFilter = Gtk::FileFilter::create();
         fileFilter->set_name("Text files");
@@ -60,31 +79,23 @@ namespace Felide::GTK3 {
         }
     }
 
-    void MainWindow::on_action_file_open_project() {
-        Gtk::FileChooserDialog dialog("Please choose a Folder", Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    void MainWindow::on_action_file_save_as() {
+        // trigger dialog
+        auto fileFilter = Gtk::FileFilter::create();
+        fileFilter->set_name("Text files");
+        fileFilter->add_mime_type("text/plain");
+
+        Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FILE_CHOOSER_ACTION_SAVE);
         dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
         dialog.add_button("_Open", Gtk::RESPONSE_OK);
         dialog.set_transient_for(*this);
+        dialog.add_filter(fileFilter);
 
         int result = dialog.run();
 
         if (result == Gtk::RESPONSE_OK) {
-            const std::string folderPath = dialog.get_filename();
-
-            m_projectExplorer.LoadProject(folderPath);
+            const std::string filePath = dialog.get_filename();
         }
-    }
-
-    void MainWindow::on_action_file_save() {
-        Editor *editor = m_editorPanel.GetCurrentEditor();
-
-        
-
-        assert(editor);
-    }
-
-    void MainWindow::on_action_file_save_as() {
-        
     }
 
     void MainWindow::on_action_file_exit() {

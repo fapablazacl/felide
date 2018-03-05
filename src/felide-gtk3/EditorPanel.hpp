@@ -13,7 +13,7 @@ namespace Felide::GTK3 {
 
         void OpenEditor(const std::string &key, const std::string &title, const std::string &content);
 
-        Editor* GetCurrentEditor() const;
+        Editor* GetCurrentEditor();
 
     private:
         Gtk::Notebook m_notebook;

@@ -14,7 +14,7 @@ namespace Felide::GTK3 {
         Editor *editor = nullptr;
 
         if (it == m_editors.end()) {
-            editor = new Editor();
+            editor = new Editor(key);
 
             editor->set_text(content);
             editor->show();
@@ -29,7 +29,13 @@ namespace Felide::GTK3 {
         m_notebook.set_current_page(pageIndex);
     }
 
-    Editor* EditorPanel::GetCurrentEditor() const {
-        return nullptr;
+    Editor* EditorPanel::GetCurrentEditor() {
+        const int pageIndex = m_notebook.get_current_page();
+
+        if (pageIndex == -1) {
+            return nullptr;
+        }
+
+        return static_cast<Editor*>(m_notebook.get_nth_page(pageIndex));
     }
 }
