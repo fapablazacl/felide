@@ -16,6 +16,6 @@ namespace Felide::GTK3 {
     }
 
     std::string Editor::get_text() const {
-        return "TODO!";
+        return m_textView.get_buffer()->get_text();
     }
 }

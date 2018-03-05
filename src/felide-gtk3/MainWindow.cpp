@@ -1,8 +1,10 @@
 
 #include "MainWindow.hpp"
 
+#include <cassert>
 #include <iostream>
 #include <felide/FileUtil.hpp>
+#include "Editor.hpp"
 
 namespace Felide::GTK3 {
     MainWindow::MainWindow() {
@@ -74,7 +76,11 @@ namespace Felide::GTK3 {
     }
 
     void MainWindow::on_action_file_save() {
+        Editor *editor = m_editorPanel.GetCurrentEditor();
+
         
+
+        assert(editor);
     }
 
     void MainWindow::on_action_file_save_as() {
