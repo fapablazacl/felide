@@ -43,6 +43,11 @@ namespace Felide::GTK3 {
         row[m_treeModel.m_itemPath] = path.string();
 
         this->PopulateTreeNode(path, treeIterator);
+
+        Gtk::TreeModel::Path treePath;
+        treePath.push_back(0);
+
+        m_treeView.expand_row(treePath, false);
     }
 
     void ProjectExplorer::OnItemActivated(const Gtk::TreeModel::Path& treePath, Gtk::TreeViewColumn* column) {

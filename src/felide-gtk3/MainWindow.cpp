@@ -29,6 +29,8 @@ namespace Felide::GTK3 {
 
         add(m_paned);
         m_paned.show();
+
+        maximize();
     }
 
     MainWindow::~MainWindow() {}
@@ -48,13 +50,12 @@ namespace Felide::GTK3 {
 
         if (result == Gtk::RESPONSE_OK) {
             const std::string folderPath = dialog.get_filename();
-
             m_projectExplorer.LoadProject(folderPath);
         }
     }
 
     void MainWindow::on_action_file_save() {
-
+        // TODO: Add implementation
     }
 
     void MainWindow::on_action_file_open() {
@@ -109,6 +110,7 @@ namespace Felide::GTK3 {
 
         const std::string name = fs::path(path).filename().string();
         const std::string content = felide::FileUtil::load(path);
+
         m_editorPanel.OpenEditor(path, name, content);
     }
 }
