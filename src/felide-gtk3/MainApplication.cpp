@@ -14,16 +14,19 @@ namespace Felide::GTK3 {
 
         // application menu
         Glib::RefPtr<Gio::Menu> fileMenu = Gio::Menu::create();
-        fileMenu->append("_New", "win.file_new");
-        fileMenu->append("_Open File", "win.file_open");
+        // fileMenu->append("_New", "win.file_new");
+        // fileMenu->append("_Open File", "win.file_open");
         fileMenu->append("_Open Project", "win.file_open_project");
         fileMenu->append("_Save", "win.file_save");
-        fileMenu->append("Save _As", "win.file_save_as");
+        // fileMenu->append("Save _As", "win.file_save_as");
         fileMenu->append("_Exit", "win.file_exit");
 
         Glib::RefPtr<Gio::Menu> mainMenu = Gio::Menu::create();
         mainMenu->append_submenu("_File", fileMenu);
 
         set_menubar(mainMenu);
+
+        set_accel_for_action("win.file_save", "<Ctrl>S");
+        set_accel_for_action("win.file_open_project", "<Ctrl>O");
     }
 }

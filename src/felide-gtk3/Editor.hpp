@@ -29,6 +29,7 @@ namespace Felide::GTK3 {
         bool get_dirty_flag() const;
 
     private:
+        //! The Item identifier
         std::string m_key;
         mutable bool m_stored_flag = false;
         mutable bool m_dirty_flag = false;

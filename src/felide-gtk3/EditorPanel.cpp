@@ -5,12 +5,16 @@
 namespace Felide::GTK3 {
     class EditorHeader : public Gtk::HBox {
     public:
-        explicit EditorHeader(const std::string &title) 
-            : m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU))
-        {
+        explicit EditorHeader(EditorPanel *editorPanel, Editor *editor, const std::string &title) 
+                : m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
+            m_editorPanel = editorPanel;
+            m_editor = editor;
+
             m_titleLabel.set_text(title);
             m_closeButton.set_image(m_closeImage);
             m_closeButton.set_relief(Gtk::RELIEF_NONE);
+
+            m_closeButton.signal_clicked().connect(sigc::mem_fun(*this, &EditorHeader::on_button_close));
 
             pack_start(m_titleLabel, true, 0);
             pack_end(m_closeButton);
@@ -18,6 +22,13 @@ namespace Felide::GTK3 {
         }
 
     private:
+        void on_button_close() {
+            m_editorPanel->close_editor(m_editor);
+        }
+
+    private:
+        EditorPanel *m_editorPanel;
+        Editor *m_editor;
         Gtk::Image m_closeImage;
         Gtk::Label m_titleLabel;
         Gtk::Button m_closeButton;
@@ -35,12 +46,11 @@ namespace Felide::GTK3 {
 
         if (it == m_editors.end()) {
             editor = new Editor(key);
-
             editor->set_text(content);
             editor->show();
 
             // TODO: Find a way to not dynamically instance the editor header
-            m_notebook.append_page(*editor, *(new EditorHeader(title)));
+            m_notebook.append_page(*editor, *(new EditorHeader(this, editor, title)));
             m_editors[key] = editor;
         } else {
             editor = it->second;
@@ -77,5 +87,7 @@ namespace Felide::GTK3 {
         if (pageIndex > -1) {
             m_notebook.remove_page(pageIndex);
         }
+
+        m_editors.erase(editor->get_key());
     }
 }

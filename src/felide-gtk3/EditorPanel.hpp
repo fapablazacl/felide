@@ -6,9 +6,15 @@
 #include <map>
 
 namespace Felide::GTK3 {
-
     class Editor;
     class EditorPanel : public Gtk::Bin {
+    public:
+        typedef sigc::signal<void, Editor*> signal_editor_closed_t;
+
+        signal_editor_closed_t signal_editor_closed() {
+            return m_signal_editor_closed;
+        }
+
     public:
         EditorPanel();
 
@@ -21,6 +27,7 @@ namespace Felide::GTK3 {
     private:
         Gtk::Notebook m_notebook;
         std::map<std::string, Editor*> m_editors;
+        signal_editor_closed_t m_signal_editor_closed;
     };
 }
 
