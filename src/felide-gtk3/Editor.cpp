@@ -11,6 +11,12 @@ namespace Felide::GTK3 {
         m_textView.show();
 
         m_key = key;
+
+        // TODO: Refactor out into configuration settings
+        m_textView.set_show_line_numbers(true);
+        m_textView.set_highlight_current_line(true);
+        m_textView.set_tab_width(4);
+        m_textView.set_monospace(true);
     }
 
     void Editor::set_text(const std::string &text) {

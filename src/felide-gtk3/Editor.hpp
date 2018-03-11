@@ -4,6 +4,7 @@
 
 #include <string>
 #include <gtkmm.h>
+#include <gtksourceviewmm.h>
 
 namespace Felide::GTK3 {
     /**
@@ -32,7 +33,7 @@ namespace Felide::GTK3 {
         mutable bool m_stored_flag = false;
         mutable bool m_dirty_flag = false;
         Gtk::ScrolledWindow m_scrolled;
-        Gtk::TextView m_textView;
+        Gsv::View m_textView;
     };
 }
 

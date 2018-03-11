@@ -13,7 +13,7 @@ else ()
     set (CMAKE_CXX_STANDARD 17)
 endif (MSVC)
 
-# IDE Code
+# IDE Core
 include_directories ("src/felide-core")
 add_subdirectory ("src/felide-core")
 
