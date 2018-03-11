@@ -55,7 +55,23 @@ namespace Felide::GTK3 {
     }
 
     void MainWindow::on_action_file_save() {
+        Editor* editor = m_editorPanel.GetCurrentEditor();
+
+        if (!editor) {
+            return;
+        }
+
+        // TODO: Don't always assume that a Key is a Path
+        std::string path = editor->get_key();
+        std::string text = editor->get_text();
+
+        felide::FileUtil::save(path, text);
+    }
+
+    void MainWindow::on_action_file_close() {
         // TODO: Add implementation
+        Editor *editor = m_editorPanel.GetCurrentEditor();
+        m_editorPanel.close_editor(editor);
     }
 
     void MainWindow::on_action_file_open() {

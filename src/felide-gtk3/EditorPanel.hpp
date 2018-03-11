@@ -6,6 +6,7 @@
 #include <map>
 
 namespace Felide::GTK3 {
+
     class Editor;
     class EditorPanel : public Gtk::Bin {
     public:
@@ -14,6 +15,8 @@ namespace Felide::GTK3 {
         void OpenEditor(const std::string &key, const std::string &title, const std::string &content);
 
         Editor* GetCurrentEditor();
+
+        void close_editor(Editor *editor);
 
     private:
         Gtk::Notebook m_notebook;

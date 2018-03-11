@@ -2,7 +2,23 @@
 #include "EditorPanel.hpp"
 #include "Editor.hpp"
 
-namespace Felide::GTK3 {
+namespace Felide::GTK3 {    
+    class EditorHeader : public Gtk::HBox {
+    public:
+        explicit EditorHeader(const std::string &title) {
+            m_titleLabel.set_text(title);
+            m_closeButton.set_label("X");
+
+            pack_start(m_titleLabel, true, 0);
+            pack_end(m_closeButton);
+            show_all();
+        }
+
+    private:
+        Gtk::Label m_titleLabel;
+        Gtk::Button m_closeButton;
+    };
+
     EditorPanel::EditorPanel() {
         add(m_notebook);
         m_notebook.show();
@@ -19,7 +35,8 @@ namespace Felide::GTK3 {
             editor->set_text(content);
             editor->show();
 
-            m_notebook.append_page(*editor, title);
+            // TODO: Find a way to not dynamically instance the editor header
+            m_notebook.append_page(*editor, *(new EditorHeader(title)));
             m_editors[key] = editor;
         } else {
             editor = it->second;
@@ -37,5 +54,24 @@ namespace Felide::GTK3 {
         }
 
         return static_cast<Editor*>(m_notebook.get_nth_page(pageIndex));
+    }
+
+    void EditorPanel::close_editor(Editor *editor) {
+        if (!editor) {
+            return;
+        }
+
+        int pageIndex = -1;
+
+        for (int i=0; i<m_notebook.get_n_pages(); i++) {
+            if (editor == m_notebook.get_nth_page(i)) {
+                pageIndex = i;
+                break;
+            }
+        }
+
+        if (pageIndex > -1) {
+            m_notebook.remove_page(pageIndex);
+        }
     }
 }

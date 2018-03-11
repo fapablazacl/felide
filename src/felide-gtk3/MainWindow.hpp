@@ -22,6 +22,8 @@ namespace Felide::GTK3 {
 
         void on_action_file_open_project();
 
+        void on_action_file_close();
+
         void on_action_file_save();
 
         void on_action_file_save_as();
