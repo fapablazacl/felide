@@ -2,12 +2,15 @@
 #include "EditorPanel.hpp"
 #include "Editor.hpp"
 
-namespace Felide::GTK3 {    
+namespace Felide::GTK3 {
     class EditorHeader : public Gtk::HBox {
     public:
-        explicit EditorHeader(const std::string &title) {
+        explicit EditorHeader(const std::string &title) 
+            : m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU))
+        {
             m_titleLabel.set_text(title);
-            m_closeButton.set_label("X");
+            m_closeButton.set_image(m_closeImage);
+            m_closeButton.set_relief(Gtk::RELIEF_NONE);
 
             pack_start(m_titleLabel, true, 0);
             pack_end(m_closeButton);
@@ -15,6 +18,7 @@ namespace Felide::GTK3 {
         }
 
     private:
+        Gtk::Image m_closeImage;
         Gtk::Label m_titleLabel;
         Gtk::Button m_closeButton;
     };
