@@ -55,8 +55,6 @@ namespace Felide::GTK3 {
     }
 
     void MainWindow::on_action_file_save() {
-        std::cout << "MainWindow::on_action_file_save" << std::endl;
-
         Editor* editor = m_editorPanel.GetCurrentEditor();
 
         if (!editor) {
