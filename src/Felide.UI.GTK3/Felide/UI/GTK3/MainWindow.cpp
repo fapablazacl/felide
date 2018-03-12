@@ -3,8 +3,8 @@
 
 #include <cassert>
 #include <iostream>
-#include <felide/FileUtil.hpp>
-#include "Editor.hpp"
+#include <Felide/FileUtil.hpp>
+#include <Felide/UI/GTK3/Editor.hpp>
 
 namespace Felide::GTK3 {
     MainWindow::MainWindow() {

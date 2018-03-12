@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <experimental/filesystem>
-#include <felide/FileUtil.hpp>
-#include "EditorPanel.hpp"
+#include <Felide/FileUtil.hpp>
+#include <Felide/UI/GTK3/EditorPanel.hpp>
 
 namespace fs = std::experimental::filesystem;
 
