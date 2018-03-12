@@ -2,6 +2,8 @@
 #include "EditorPanel.hpp"
 #include "Editor.hpp"
 
+#include <iostream>
+
 namespace Felide::GTK3 {
     class EditorHeader : public Gtk::HBox {
     public:
@@ -9,16 +11,26 @@ namespace Felide::GTK3 {
                 : m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
             m_editorPanel = editorPanel;
             m_editor = editor;
+            m_title = title;
 
-            m_titleLabel.set_text(title);
+            update_title_label();
+            
             m_closeButton.set_image(m_closeImage);
             m_closeButton.set_relief(Gtk::RELIEF_NONE);
-
             m_closeButton.signal_clicked().connect(sigc::mem_fun(*this, &EditorHeader::on_button_close));
 
             pack_start(m_titleLabel, true, 0);
             pack_end(m_closeButton);
             show_all();
+        }
+
+        void update_title_label() {
+            std::string title = m_title;
+            if (m_editor->get_dirty_flag()) {
+                title += " *";
+            }
+
+            m_titleLabel.set_text(title);
         }
 
     private:
@@ -29,6 +41,7 @@ namespace Felide::GTK3 {
     private:
         EditorPanel *m_editorPanel;
         Editor *m_editor;
+        std::string m_title;
         Gtk::Image m_closeImage;
         Gtk::Label m_titleLabel;
         Gtk::Button m_closeButton;
@@ -47,10 +60,15 @@ namespace Felide::GTK3 {
         if (it == m_editors.end()) {
             editor = new Editor(key);
             editor->set_text(content);
+            editor->set_dirty_flag(false);
             editor->show();
 
+            EditorHeader *header = new EditorHeader(this, editor, title);
+
+            editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header, &EditorHeader::update_title_label));
+
             // TODO: Find a way to not dynamically instance the editor header
-            m_notebook.append_page(*editor, *(new EditorHeader(this, editor, title)));
+            m_notebook.append_page(*editor, *header);
             m_editors[key] = editor;
         } else {
             editor = it->second;

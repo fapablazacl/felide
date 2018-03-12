@@ -55,6 +55,8 @@ namespace Felide::GTK3 {
     }
 
     void MainWindow::on_action_file_save() {
+        std::cout << "MainWindow::on_action_file_save" << std::endl;
+
         Editor* editor = m_editorPanel.GetCurrentEditor();
 
         if (!editor) {
@@ -66,10 +68,11 @@ namespace Felide::GTK3 {
         std::string text = editor->get_text();
 
         felide::FileUtil::save(path, text);
+
+        editor->set_dirty_flag(false);
     }
 
     void MainWindow::on_action_file_close() {
-        // TODO: Add implementation
         Editor *editor = m_editorPanel.GetCurrentEditor();
         m_editorPanel.close_editor(editor);
     }

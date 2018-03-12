@@ -12,6 +12,13 @@ namespace Felide::GTK3 {
      */
     class Editor : public Gtk::Bin {
     public:
+        typedef sigc::signal<void> signal_editor_dirty_changed_t;
+
+        signal_editor_dirty_changed_t& signal_editor_dirty_changed() {
+            return m_signal_editor_dirty_changed;
+        }
+
+    public:
         explicit Editor(const std::string &key);
 
         void set_text(const std::string &text);
@@ -20,21 +27,21 @@ namespace Felide::GTK3 {
 
         std::string get_key() const;
 
-        void set_stored_flag(const bool flag);
-
-        bool get_stored_flag() const;
-
         void set_dirty_flag(const bool flag);
 
         bool get_dirty_flag() const;
 
     private:
+        void on_text_buffer_changed();
+        
+    private:
         //! The Item identifier
         std::string m_key;
-        mutable bool m_stored_flag = false;
         mutable bool m_dirty_flag = false;
         Gtk::ScrolledWindow m_scrolled;
         Gsv::View m_textView;
+
+        signal_editor_dirty_changed_t m_signal_editor_dirty_changed;
     };
 }
 

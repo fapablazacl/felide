@@ -1,6 +1,8 @@
 
 #include "Editor.hpp"
 
+#include <iostream>
+
 namespace Felide::GTK3 {
     Editor::Editor(const std::string &key) {
         add(m_scrolled);
@@ -17,6 +19,11 @@ namespace Felide::GTK3 {
         m_textView.set_highlight_current_line(true);
         m_textView.set_tab_width(4);
         m_textView.set_monospace(true);
+        m_textView.get_buffer()->signal_changed().connect(sigc::mem_fun(*this, &Editor::on_text_buffer_changed));
+    }
+
+    void Editor::on_text_buffer_changed() {
+        set_dirty_flag(true);
     }
 
     void Editor::set_text(const std::string &text) {
@@ -31,16 +38,11 @@ namespace Felide::GTK3 {
         return m_key;
     }
 
-    void Editor::set_stored_flag(const bool flag) {
-        m_stored_flag = flag;
-    }
-
-    bool Editor::get_stored_flag() const {
-        return m_stored_flag;
-    }
-
     void Editor::set_dirty_flag(const bool flag) {
-        m_dirty_flag = flag;
+        if (m_dirty_flag != flag) {
+            m_dirty_flag = flag;
+            m_signal_editor_dirty_changed();
+        }
     }
 
     bool Editor::get_dirty_flag() const {
