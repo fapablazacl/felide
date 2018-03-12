@@ -31,7 +31,7 @@ namespace felide {
         }
 
         if (content.size() > 0) {
-            fs.write(content.c_str(), content.size() - 1);
+            fs.write(content.c_str(), content.size());
         } else {
             fs.write("", 1);
         }
