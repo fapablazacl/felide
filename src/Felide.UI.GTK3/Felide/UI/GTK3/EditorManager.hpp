@@ -1,13 +1,13 @@
 
-#ifndef __FELIDE_GTK3_EDITORPANEL_HPP__
-#define __FELIDE_GTK3_EDITORPANEL_HPP__
+#ifndef __FELIDE_GTK3_EDITORMANAGER_HPP__
+#define __FELIDE_GTK3_EDITORMANAGER_HPP__
 
 #include <gtkmm.h>
 #include <map>
 
 namespace Felide::GTK3 {
     class Editor;
-    class EditorPanel : public Gtk::Bin {
+    class EditorManager : public Gtk::Bin {
     public:
         typedef sigc::signal<void, Editor*> signal_editor_closed_t;
 
@@ -16,11 +16,11 @@ namespace Felide::GTK3 {
         }
 
     public:
-        EditorPanel();
+        EditorManager();
 
-        void OpenEditor(const std::string &key, const std::string &title, const std::string &content);
+        void open_editor(const std::string &key, const std::string &title, const std::string &content);
 
-        Editor* GetCurrentEditor();
+        Editor* get_current_editor();
 
         void close_editor(Editor *editor);
 

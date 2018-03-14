@@ -22,8 +22,8 @@ set (felide_ui_gtk3_src
     "Felide/UI/GTK3/ProjectExplorer.cpp"
     "Felide/UI/GTK3/Editor.hpp"
     "Felide/UI/GTK3/Editor.cpp"
-    "Felide/UI/GTK3/EditorPanel.hpp"
-    "Felide/UI/GTK3/EditorPanel.cpp"
+    "Felide/UI/GTK3/EditorManager.hpp"
+    "Felide/UI/GTK3/EditorManager.cpp"
 )
 
 source_group ("\\" FILES ${src})

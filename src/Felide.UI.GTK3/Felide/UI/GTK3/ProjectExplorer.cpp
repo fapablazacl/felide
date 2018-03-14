@@ -4,7 +4,6 @@
 #include <iostream>
 #include <experimental/filesystem>
 #include <Felide/FileUtil.hpp>
-#include <Felide/UI/GTK3/EditorPanel.hpp>
 
 namespace fs = std::experimental::filesystem;
 
@@ -74,7 +73,7 @@ namespace Felide::GTK3 {
             Glib::ustring path = row[m_treeModel.m_itemPath];
 
             const std::string content = felide::FileUtil::load(path);
-            m_editorPanel->OpenEditor(name, content);
+            m_editorManager->OpenEditor(name, content);
         }
         */
     }

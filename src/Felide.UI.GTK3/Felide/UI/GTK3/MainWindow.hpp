@@ -5,7 +5,7 @@
 #include <gtkmm.h>
 #include <string>
 
-#include "EditorPanel.hpp"
+#include "EditorManager.hpp"
 #include "ProjectExplorer.hpp"
 
 namespace Felide::GTK3 {
@@ -36,7 +36,7 @@ namespace Felide::GTK3 {
         std::string m_title;
         std::string m_path;
 
-        EditorPanel m_editorPanel;
+        EditorManager m_editorManager;
         ProjectExplorer m_projectExplorer;
 
         Glib::RefPtr<Gio::Menu> m_mainMenu;

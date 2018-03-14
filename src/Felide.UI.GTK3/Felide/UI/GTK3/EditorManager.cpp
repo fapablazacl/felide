@@ -1,5 +1,5 @@
 
-#include "EditorPanel.hpp"
+#include "EditorManager.hpp"
 #include "Editor.hpp"
 
 #include <iostream>
@@ -7,7 +7,7 @@
 namespace Felide::GTK3 {
     class EditorHeader : public Gtk::HBox {
     public:
-        explicit EditorHeader(EditorPanel *editorPanel, Editor *editor, const std::string &title) 
+        explicit EditorHeader(EditorManager *editorPanel, Editor *editor, const std::string &title) 
                 : m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
             m_editorPanel = editorPanel;
             m_editor = editor;
@@ -39,7 +39,7 @@ namespace Felide::GTK3 {
         }
 
     private:
-        EditorPanel *m_editorPanel;
+        EditorManager *m_editorPanel;
         Editor *m_editor;
         std::string m_title;
         Gtk::Image m_closeImage;
@@ -47,12 +47,12 @@ namespace Felide::GTK3 {
         Gtk::Button m_closeButton;
     };
 
-    EditorPanel::EditorPanel() {
+    EditorManager::EditorManager() {
         add(m_notebook);
         m_notebook.show();
     }
 
-    void EditorPanel::OpenEditor(const std::string &key, const std::string &title, const std::string &content) {
+    void EditorManager::open_editor(const std::string &key, const std::string &title, const std::string &content) {
         auto it = m_editors.find(key);
 
         Editor *editor = nullptr;
@@ -78,7 +78,7 @@ namespace Felide::GTK3 {
         m_notebook.set_current_page(pageIndex);
     }
 
-    Editor* EditorPanel::GetCurrentEditor() {
+    Editor* EditorManager::get_current_editor() {
         const int pageIndex = m_notebook.get_current_page();
 
         if (pageIndex == -1) {
@@ -88,7 +88,7 @@ namespace Felide::GTK3 {
         return static_cast<Editor*>(m_notebook.get_nth_page(pageIndex));
     }
 
-    void EditorPanel::close_editor(Editor *editor) {
+    void EditorManager::close_editor(Editor *editor) {
         if (!editor) {
             return;
         }

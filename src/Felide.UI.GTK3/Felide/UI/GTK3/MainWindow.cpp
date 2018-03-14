@@ -24,8 +24,8 @@ namespace Felide::GTK3 {
 
         m_projectExplorer.signal_item_activated().connect(sigc::mem_fun(*this, &MainWindow::on_item_activated));
 
-        m_paned.add2(m_editorPanel);
-        m_editorPanel.show();
+        m_paned.add2(m_editorManager);
+        m_editorManager.show();
 
         add(m_paned);
         m_paned.show();
@@ -55,7 +55,7 @@ namespace Felide::GTK3 {
     }
 
     void MainWindow::on_action_file_save() {
-        Editor* editor = m_editorPanel.GetCurrentEditor();
+        Editor* editor = m_editorManager.get_current_editor();
 
         if (!editor) {
             return;
@@ -71,8 +71,8 @@ namespace Felide::GTK3 {
     }
 
     void MainWindow::on_action_file_close() {
-        Editor *editor = m_editorPanel.GetCurrentEditor();
-        m_editorPanel.close_editor(editor);
+        Editor *editor = m_editorManager.get_current_editor();
+        m_editorManager.close_editor(editor);
     }
 
     void MainWindow::on_action_file_open() {
@@ -93,7 +93,7 @@ namespace Felide::GTK3 {
             const std::string name = fs::path(path).filename().string();
             const std::string content = felide::FileUtil::load(path);
 
-            m_editorPanel.OpenEditor(path, name, content);
+            m_editorManager.open_editor(path, name, content);
         }
     }
 
@@ -128,6 +128,6 @@ namespace Felide::GTK3 {
         const std::string name = fs::path(path).filename().string();
         const std::string content = felide::FileUtil::load(path);
 
-        m_editorPanel.OpenEditor(path, name, content);
+        m_editorManager.open_editor(path, name, content);
     }
 }
