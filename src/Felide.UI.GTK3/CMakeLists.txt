@@ -14,20 +14,20 @@ set (src
 )
 
 set (felide_ui_gtk3_src
+    "Felide/UI/GTK3/Helper.hpp"
     "Felide/UI/GTK3/MainWindow.hpp" 
     "Felide/UI/GTK3/MainWindow.cpp"
     "Felide/UI/GTK3/MainApplication.hpp"
     "Felide/UI/GTK3/MainApplication.cpp"
     "Felide/UI/GTK3/ProjectExplorer.hpp"
     "Felide/UI/GTK3/ProjectExplorer.cpp"
-    "Felide/UI/GTK3/Editor.hpp"
-    "Felide/UI/GTK3/Editor.cpp"
-    "Felide/UI/GTK3/EditorManager.hpp"
-    "Felide/UI/GTK3/EditorManager.cpp"
+    "Felide/UI/GTK3/EditorManager/Editor.hpp"
+    "Felide/UI/GTK3/EditorManager/Editor.cpp"
+    "Felide/UI/GTK3/EditorManager/EditorManager.hpp"
+    "Felide/UI/GTK3/EditorManager/EditorManager.cpp"
+    "Felide/UI/GTK3/EditorManager/EditorHeader.hpp"
+    "Felide/UI/GTK3/EditorManager/EditorHeader.cpp"
 )
-
-source_group ("\\" FILES ${src})
-source_group ("\\Felide\\UI\\GTK3" FILES ${felide_ui_gtk3_src})
 
 add_executable (${target} ${src} ${felide_ui_gtk3_src})
 target_link_libraries (${target} ${GTKMM_LIBRARIES} Felide.Core stdc++fs)

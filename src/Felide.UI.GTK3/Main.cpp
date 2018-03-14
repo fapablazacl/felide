@@ -1,14 +1,13 @@
 
 #include <gtkmm.h>
-#include <iostream>
-
-#include <Felide/FileUtil.hpp>
 #include <Felide/UI/GTK3/MainWindow.hpp>
 #include <Felide/UI/GTK3/MainApplication.hpp>
 
 int main(int argc, char* argv[]) {
-    auto app = Felide::GTK3::MainApplication::create(argc, argv, "org.devwarecl.felide");
+    using namespace Felide::GTK3;
 
-    Felide::GTK3::MainWindow window;
-    return app->run(window);
+    auto window = MainWindow::create_raw();
+    auto app = MainApplication::create(argc, argv, "org.devwarecl.felide");
+    
+    return app->run(*window);
 }
