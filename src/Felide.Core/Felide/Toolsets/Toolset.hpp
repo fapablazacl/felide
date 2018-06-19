@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 
-namespace borc {
+namespace Felide {
     class Project;
     class Compiler;
     class Linker;

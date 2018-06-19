@@ -6,7 +6,7 @@
 #include <list>
 #include <algorithm>
 
-namespace borc {
+namespace Felide {
     template<typename T>
     class TreeNode final {
     public:

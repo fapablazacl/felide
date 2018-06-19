@@ -4,7 +4,7 @@
 
 #include <memory>
 
-namespace borc {
+namespace Felide {
     class Task;
     class TaskPerformer {
     public:

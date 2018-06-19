@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace borc {
+namespace Felide {
     enum class TargetAction {
         Build = 1
     };

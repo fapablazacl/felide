@@ -1,6 +1,6 @@
 
 #include "Target.hpp"
 
-namespace borc {
+namespace Felide {
     Target::~Target() {}
 }

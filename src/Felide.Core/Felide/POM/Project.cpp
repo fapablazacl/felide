@@ -11,7 +11,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace borc {
+namespace Felide {
     class ProjectImpl : public Project {
     public:
         explicit ProjectImpl(const std::string name, const std::string &path) {

@@ -4,7 +4,7 @@
 
 #include "Task.hpp"
 
-namespace borc {
+namespace Felide {
     /**
      * @brief Creates a directory hierarchy if doesn't exists, and false in another case
      */

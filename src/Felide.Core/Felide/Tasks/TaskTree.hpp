@@ -4,7 +4,7 @@
 
 #include "TaskNode.hpp"
 
-namespace borc {
+namespace Felide {
     /**
      * @brief A single task dependency hierarchy
      */    

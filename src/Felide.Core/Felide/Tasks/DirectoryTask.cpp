@@ -3,13 +3,13 @@
 
 #include <experimental/filesystem>
 
-namespace borc {
+namespace Felide {
     DirectoryTask::DirectoryTask(const std::string &directory) {
         m_directory = directory;
     }
     
     void DirectoryTask::perform() {
-        namespace fs = boost::filesystem;
+        namespace fs = std::experimental::filesystem;
 
         fs::path path = m_directory;
 

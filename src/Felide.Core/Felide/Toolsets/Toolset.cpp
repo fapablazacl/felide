@@ -1,6 +1,6 @@
 
 #include "Toolset.hpp"
 
-namespace borc {
+namespace Felide {
     Toolset::~Toolset() {}
 }

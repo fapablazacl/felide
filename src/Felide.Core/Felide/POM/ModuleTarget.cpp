@@ -14,7 +14,7 @@
 #include <Felide/Toolsets/Toolset.hpp>
 #include <Felide/Tasks/Task.hpp>
 
-namespace borc {
+namespace Felide {
 
     enum class ModuleTargetSourceManagerStorage {
         Implicit, 

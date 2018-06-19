@@ -7,7 +7,7 @@
 #include <string>
 #include <memory>
 
-namespace borc {
+namespace Felide {
     class Task;
 
     class Source;

@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-namespace borc {
+namespace Felide {
     std::string to_string(const TargetAction action) {
         switch (action) {
             case TargetAction::Build: return "TargetAction::Build";

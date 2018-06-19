@@ -13,7 +13,7 @@
 #include <Felide/Tasks/LogTask.hpp>
 #include <Felide/POM/Source.hpp>
 
-namespace borc {
+namespace Felide {
     CompilerCpp::CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types) {
         assert(registry);
 

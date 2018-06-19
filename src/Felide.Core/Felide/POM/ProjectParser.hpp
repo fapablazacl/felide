@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-namespace borc {
+namespace Felide {
     class Project;
     class ProjectParser {
     public:

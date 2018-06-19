@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace borc {
+namespace Felide {
     /**
      * @brief A task to be performed an a later time.
      */

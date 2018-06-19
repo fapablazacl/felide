@@ -3,7 +3,7 @@
 
 #include "TaskNodeVisitorSerial.hpp"
 
-namespace borc {
+namespace Felide {
     std::unique_ptr<TaskNodeVisitor> TaskNodeVisitor::create() {
         return std::make_unique<TaskNodeVisitorSerial>();
     }

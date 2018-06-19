@@ -1,3 +1,6 @@
 [submodule "dep/wtl"]
 	path = dep/wtl
 	url = https://github.com/devwarecl/wtl.git
+[submodule "dep/fmt"]
+	path = dep/fmt
+	url = https://github.com/fmtlib/fmt.git

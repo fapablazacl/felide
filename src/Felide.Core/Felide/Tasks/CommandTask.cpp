@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-namespace borc {
+namespace Felide {
     CommandTask::CommandTask(const std::string &command) : m_command(command) {}
 
     CommandTask::~CommandTask() {}

@@ -1,6 +1,6 @@
 
 #include "TaskHierarchy.hpp"
 
-namespace borc {
+namespace Felide {
     TaskHierarchy::~TaskHierarchy() {}
 }

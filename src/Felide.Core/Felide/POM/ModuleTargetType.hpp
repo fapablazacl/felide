@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace borc {
+namespace Felide {
     enum class ModuleTargetType {
         Program = 1,
         Library = 2

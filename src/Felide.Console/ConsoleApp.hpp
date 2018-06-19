@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-namespace borc {
+namespace Felide {
     class ConsoleApp {
     public:
         virtual ~ConsoleApp() {}

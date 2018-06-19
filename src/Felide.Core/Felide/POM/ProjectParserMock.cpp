@@ -9,11 +9,11 @@
 #include <Felide/POM/ModuleTarget.hpp>
 #include <Felide/POM/Source.hpp>
 
-namespace borc {
+namespace Felide {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
         namespace fs = boost::filesystem;
 
-        auto borcProject = borc::Project::create("borc");
+        auto borcProject = Felide::Project::create("borc");
         
 #if defined(CMAKE_SOURCE_DIR)
         borcProject->setPath(BOOST_STRINGIZE(CMAKE_SOURCE_DIR));

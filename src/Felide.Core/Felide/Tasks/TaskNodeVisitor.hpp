@@ -5,7 +5,7 @@
 #include <functional>
 #include <memory>
 
-namespace borc {
+namespace Felide {
     class Task;
     
     template<typename T>

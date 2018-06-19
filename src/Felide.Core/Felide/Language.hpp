@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-namespace borc {
+namespace Felide {
     class Toolset;
     class FileType;
 

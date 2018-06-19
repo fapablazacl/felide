@@ -2,9 +2,9 @@
 #include <catch.hpp>
 #include <Felide/FileType.hpp>
 
-TEST_CASE("FileType Test Case", "borc::FileType") {
-    borc::FileType fileType{"Java Files", {".java", ".class"}};
-    borc::FileType fileType2{"C++ Source Files", {".cpp", ".cc", ".cxx", ".c++"}};
+TEST_CASE("FileType Test Case", "Felide::FileType") {
+    Felide::FileType fileType{"Java Files", {".java", ".class"}};
+    Felide::FileType fileType2{"C++ Source Files", {".cpp", ".cc", ".cxx", ".c++"}};
 
     SECTION("constructor should set correctly the 'name' and 'extensions' attributes") {
         REQUIRE(fileType.name == "Java Files");

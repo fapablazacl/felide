@@ -1,6 +1,6 @@
 
 #include "ProjectParser.hpp"
 
-namespace borc {
+namespace Felide {
     ProjectParser::~ProjectParser() {}
 }

@@ -16,7 +16,7 @@
 #include <Felide/Toolsets/CompilerCpp.hpp>
 #include <Felide/Toolsets/LinkerCpp.hpp>
 
-namespace borc {
+namespace Felide {
     class ToolsetCppImpl : public ToolsetCpp {
     public:
         explicit ToolsetCppImpl(FileTypeRegistry *registry) {

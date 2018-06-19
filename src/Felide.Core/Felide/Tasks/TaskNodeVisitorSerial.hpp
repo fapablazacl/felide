@@ -4,7 +4,7 @@
 
 #include "TaskNodeVisitor.hpp"
 
-namespace borc {
+namespace Felide {
     /**
      * @brief A task node visitor that performs the specified complete hierarchy.
      */    

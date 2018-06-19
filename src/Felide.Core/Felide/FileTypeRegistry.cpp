@@ -7,7 +7,7 @@
 #include <Felide/FileType.hpp>
 #include <Felide/POM/Source.hpp>
 
-namespace borc {
+namespace Felide {
     class FileTypeRegistryImpl : public FileTypeRegistry {
     public:
         FileTypeRegistryImpl() {}

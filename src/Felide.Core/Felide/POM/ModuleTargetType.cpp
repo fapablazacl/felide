@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 
-namespace borc {
+namespace Felide {
     std::string to_string(const ModuleTargetType type) {
         switch (type) {
         case ModuleTargetType::Program: return "ModuleTargetType::Program";

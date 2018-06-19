@@ -6,6 +6,8 @@ project (felide)
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 
+add_subdirectory("dep/fmt/")
+
 # Specify the use of the C++17 standard
 if (MSVC)
     add_definitions ("/std:c++latest")

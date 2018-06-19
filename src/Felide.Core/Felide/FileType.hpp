@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace borc {
+namespace Felide {
     /**
      * @brief A generic file type
      */

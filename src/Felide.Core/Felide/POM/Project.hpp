@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-namespace borc {
+namespace Felide {
     enum class TargetAction;
 
     class TaskPerformer;
@@ -79,7 +79,7 @@ namespace borc {
         /**
          * @brief Add a new target, prexisting target, linked to this project. 
          *
-         * Intented to be called by borc::Project::createTarget<TargetImpl>
+         * Intented to be called by Felide::Project::createTarget<TargetImpl>
          */
         virtual Target* addTarget(std::unique_ptr<Target> target) = 0;
 

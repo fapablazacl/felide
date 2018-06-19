@@ -5,7 +5,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace borc {
+namespace Felide {
     Source::Source(const std::string &filePath, const Target *target) {
         m_filePath = filePath;
         m_target = target;

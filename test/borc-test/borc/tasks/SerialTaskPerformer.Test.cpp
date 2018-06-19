@@ -2,7 +2,7 @@
 #include "SerialTaskPerformer.hpp"
 #include "Task.hpp"
 
-namespace borc {
+namespace Felide {
     SerialTaskPerformer::~SerialTaskPerformer() {}
 
     void SerialTaskPerformer::appendTask(std::unique_ptr<Task> task) {

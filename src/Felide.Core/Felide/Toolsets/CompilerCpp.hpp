@@ -8,7 +8,7 @@
 
 #include <vector>
 
-namespace borc {
+namespace Felide {
     struct CompilerConfigCpp {
         //! The symbol used for compiler switches
         std::string switchSymbol;

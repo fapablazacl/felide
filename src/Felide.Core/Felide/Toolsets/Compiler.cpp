@@ -1,6 +1,6 @@
 
 #include "Compiler.hpp"
 
-namespace borc {
+namespace Felide {
     Compiler::~Compiler() {}
 }

@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-namespace borc {
+namespace Felide {
     template<typename T>
     class TreeNode;
 

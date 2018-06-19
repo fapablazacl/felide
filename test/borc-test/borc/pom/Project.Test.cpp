@@ -6,7 +6,7 @@
 #include "Target.hpp"
 #include "Source.hpp"
 
-namespace borc {
+namespace Felide {
     Project::Project(const std::string name) : m_name(name) {}
 
     Project::~Project() {}

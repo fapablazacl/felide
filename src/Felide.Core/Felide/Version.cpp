@@ -6,7 +6,7 @@
 #include <sstream>
 #include <vector>
 
-namespace borc {
+namespace Felide {
     Version::Version(const int major) {
         setMajor(major);
     }

@@ -2,7 +2,7 @@
 #include "TaskHierarchyImpl.hpp"
 #include "Task.hpp"
 
-namespace borc {
+namespace Felide {
     TaskHierarchyImpl::TaskHierarchyImpl() {}
 
     TaskHierarchyImpl::~TaskHierarchyImpl() {}

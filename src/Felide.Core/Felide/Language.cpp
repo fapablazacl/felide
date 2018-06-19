@@ -1,6 +1,6 @@
 
 #include "Language.hpp"
 
-namespace borc {
+namespace Felide {
     Language::~Language() {}
 }

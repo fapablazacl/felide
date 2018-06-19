@@ -7,7 +7,7 @@
 
 #include <Felide/FileTypeRegistry.hpp>
 
-namespace borc {
+namespace Felide {
     template<typename T>
     class TreeNode;
 

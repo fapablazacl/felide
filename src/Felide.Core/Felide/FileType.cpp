@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-namespace borc {
+namespace Felide {
     /*
     bool FileType::operator== (const FileType &rhs) const {
         return name == rhs.name;

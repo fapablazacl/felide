@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace borc {
+namespace Felide {
     LogTask::LogTask(const std::string &command) 
         : m_command(command) {}
     

@@ -4,7 +4,7 @@
 
 #include "Task.hpp"
 
-namespace borc {
+namespace Felide {
     class LogTask : public Task {
     public:
         LogTask(const std::string &command);

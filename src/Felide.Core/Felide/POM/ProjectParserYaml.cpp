@@ -13,7 +13,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace borc {
+namespace Felide {
     static std::map<std::string, ModuleTargetType> s_types = {
         {"library", ModuleTargetType::Library},
         {"program", ModuleTargetType::Program},

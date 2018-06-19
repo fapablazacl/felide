@@ -5,14 +5,14 @@
 #include <Felide/POM/Target.hpp>
 #include <Felide/POM/Source.hpp>
 
-namespace borc {
+namespace Felide {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
-        auto borcProject = std::make_unique<borc::Project>("borc");
+        auto borcProject = std::make_unique<Felide::Project>("borc");
         
         auto borcTarget = borcProject->addTarget()
             ->setName("borc")
             ->setPath("src/borc")
-            ->setType(borc::TargetType::Program);
+            ->setType(Felide::TargetType::Program);
 
         std::vector<std::string> borcTargetSources = {
             "Program.cpp",

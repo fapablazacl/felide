@@ -1,6 +1,6 @@
 
 #include "Linker.hpp"
 
-namespace borc {
+namespace Felide {
     Linker::~Linker() {}
 }

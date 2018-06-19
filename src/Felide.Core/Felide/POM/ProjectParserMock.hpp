@@ -4,7 +4,7 @@
 
 #include "ProjectParser.hpp"
 
-namespace borc {
+namespace Felide {
     class Project;
     class ProjectParserMock : public ProjectParser {
     public:

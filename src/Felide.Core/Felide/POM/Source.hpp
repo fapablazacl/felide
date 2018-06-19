@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace borc {
+namespace Felide {
 
     class Target;
     /**

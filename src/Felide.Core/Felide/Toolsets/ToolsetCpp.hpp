@@ -8,7 +8,7 @@
 #include <vector>
 #include <memory>
 
-namespace borc {
+namespace Felide {
     class Target;
     class Source;
     class FileTypeRegistry;

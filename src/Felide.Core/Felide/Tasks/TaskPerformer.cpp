@@ -1,6 +1,6 @@
 
 #include "TaskPerformer.hpp"
 
-namespace borc {
+namespace Felide {
     TaskPerformer::~TaskPerformer() {}
 }

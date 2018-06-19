@@ -6,7 +6,7 @@
 
 #include <vector>
 
-namespace borc {
+namespace Felide {
     class SerialTaskPerformer : public TaskPerformer {
     public:
         virtual ~SerialTaskPerformer();

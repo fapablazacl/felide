@@ -4,7 +4,7 @@
 #include <Felide/Tasks/TaskNodeVisitorSerial.hpp>
 #include <Felide/Tasks/Task.hpp>
 
-namespace borc {
+namespace Felide {
     TaskNodeVisitorSerial::~TaskNodeVisitorSerial() {}
 
     void TaskNodeVisitorSerial::visit(TreeNode<Task> *nodeTask, std::function<void(Task*)> fn) {

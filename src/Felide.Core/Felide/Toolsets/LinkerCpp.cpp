@@ -13,7 +13,7 @@
 
 #include <fmt/format.h>
 
-namespace borc {
+namespace Felide {
     LinkerCpp::LinkerCpp(const std::string &toolName) {
         m_toolName = toolName;
     }

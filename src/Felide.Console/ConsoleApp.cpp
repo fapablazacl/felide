@@ -13,13 +13,13 @@
 #include <Felide/Tasks/TaskNodeVisitor.hpp>
 #include <Felide/Toolsets/ToolsetCpp.hpp>
 
-namespace borc {
+namespace Felide {
     class ConsoleAppImpl : public ConsoleApp {
     public:
         explicit ConsoleAppImpl(const std::string &path) {
             m_path = path;
-            m_registry = borc::FileTypeRegistry::create();
-            m_toolset = borc::ToolsetCpp::create(m_registry.get());
+            m_registry = Felide::FileTypeRegistry::create();
+            m_toolset = Felide::ToolsetCpp::create(m_registry.get());
         }
 
         virtual void list() override {
@@ -35,10 +35,10 @@ namespace borc {
         
         virtual void build(const std::string &targetName) override {
             auto project = this->parseProject(); 
-            auto taskTree = project->createTask(borc::TargetAction::Build);
-            auto taskVisitor = borc::TaskNodeVisitor::create();
+            auto taskTree = project->createTask(Felide::TargetAction::Build);
+            auto taskVisitor = Felide::TaskNodeVisitor::create();
     
-            taskVisitor->visit(taskTree.get(), [](borc::Task *task) {
+            taskVisitor->visit(taskTree.get(), [](Felide::Task *task) {
                 if (task) {
                     task->perform();
                 }
@@ -50,12 +50,12 @@ namespace borc {
         }
 
     private:
-        std::unique_ptr<borc::Project> parseProject() {
-            auto parser = borc::ProjectParserYaml::create();
+        std::unique_ptr<Felide::Project> parseProject() {
+            auto parser = Felide::ProjectParserYaml::create();
             auto project = parser->parse(m_path);
     
             auto targets = project->getTargets();
-            for (borc::Target* target : targets) {
+            for (Felide::Target* target : targets) {
                 target->setToolset(m_toolset.get());
             }
 
@@ -64,8 +64,8 @@ namespace borc {
 
     private:
         std::string m_path;
-        std::unique_ptr<borc::FileTypeRegistry> m_registry;
-        std::unique_ptr<borc::ToolsetCpp> m_toolset;
+        std::unique_ptr<Felide::FileTypeRegistry> m_registry;
+        std::unique_ptr<Felide::ToolsetCpp> m_toolset;
     };
 
     std::unique_ptr<ConsoleApp> ConsoleApp::create(const std::string &path) {

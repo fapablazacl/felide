@@ -7,7 +7,7 @@
 
 #include "Target.hpp"
 
-namespace borc {
+namespace Felide {
     class Source;
     class Project;
     class Language;
