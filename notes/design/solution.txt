@@ -1,0 +1,102 @@
+
+=================================================
+BORC
+=================================================
+
+Is a set of command line utilities and libraries for building software products based on a simple set of rules.
+
+Inputs:
+  - Source Files 
+  - Build descriptions
+  
+Output:
+  - Software artifacts.
+
+Possible use-cases:
+  - Cleanly manage the asset pipeline for a game.
+  - Orchestrate the build proccess for a whole software product line, composed of many programs.
+  - Manage the building for a multi-technology project.
+  - Automatically import dependencies from version control systems.
+
+
+=================================================
+Non-Functional Requirements:
+=================================================
+
+  - Software architecture features.
+    - Library-based.
+    - Plugin-based.
+    - Scripting-based.
+  - Build characteristics:
+    - Ultra-Fast builds
+      - Parallel builds by default.
+      - Exploit build acceleration of the build tools used.
+    - Deterministic builds. Always.
+	- Convention-over-Configuration.
+	- Cross - Platform support.
+    - Windows Support.
+    - Linux Support.
+  
+
+=================================================
+Functional Requirements:
+=================================================
+
+	- Integration with another build systems
+    - Invocation of another command line utilities
+	- Support for C/C++ projects
+    - Precompiled-Headers by - default.
+		- The libraries can be of two sub-types:
+      - Static: Linked directly in the executable it self
+      - Dynamic. Linked indirectly at runtime.
+    - Executables and libraries must specify the C/C++ runtime-library. This library can be any combination of:
+      - Debug or Release
+      - Dynamic or Static 
+      - Single or Multi - Threaded
+      - 32 or 64 bits.
+      - It is recomended that all targets follow the same options for the C/C++ runtime library.
+    - Cross - Compiling support
+
+
+=================================================
+Physical File Description
+=================================================
+
+  The BORC definitions are expressed in a text files, and is splitted in multiple files. The extension chosen is
+  '.borc'. The main description file is 'main.borc'. 
+  
+  - Description File Format
+  The format of those description files is a hierarchical and descriptive one, based on YAML documents. Each major entity 
+  is decribed on its own borc file. Those entities are:
+
+    - Projects
+    - Executables
+    - Libraries
+    - Toolchain
+    
+- Build a machine-learning library, with many front-ends to other languages, with the following characteristics:
+	- Core in C++, and library interfaces for Python, Java and C#
+	- The project folder layout could be (Highly simplified):
+		+ DeepThoughts
+			- main.borc
+			+ src
+				+ dt-core
+					- Network.cpp
+					- Network.hpp
+					- Fuzz.cpp
+					- Fuzz.hpp
+					- dt-core.borc
+				+ dt-python
+					- dt-python.cpp
+					- dt-python.borc (depends on dt-core).
+				+ dt-cs
+					- dt-cs.cpp
+					- dt-cs.borc (depends on dt-core).
+				+ dt-java
+					- dt-java.cpp
+					- dt-java.borc (depends on dt-core).
+
+	- Dependening on the asked library interfaces, the building of this project could need:
+		- A C++ compiler (GCC, clang or Visual C++, etc)
+		- A Java Development Kit (Oracle, OpenJDK, etc)
+		- A .NET Implementation (Microsoft, Mono)

@@ -1,0 +1,13 @@
+target:
+  name: borc-core
+  type: library
+  lang: c++17
+  sources:
+    paths:
+      - borc
+  public:
+    headers:
+      paths:
+        - borc
+  dependencies:
+    - fmt

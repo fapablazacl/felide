@@ -1,0 +1,13 @@
+target:
+  name: borc
+  type: program
+  lang: c++17
+  sources:
+    files:
+      - ConsoleApp.hpp
+      - ConsoleApp.cpp
+      - Main.cpp
+  dependencies:
+    - borc-core
+    - yaml-cpp
+    - fmt

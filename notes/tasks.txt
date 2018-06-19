@@ -1,0 +1,34 @@
+
+=================================================
+First Iteration (MVP): 
+=================================================
+- Develop the minimal core of the build system
+    - Define how to concile the build-description file approach (like cmake) vs the IDE embeddable approach (like Visual Studio)
+        - Define a format that
+    - Define the classes of the content of the project and its targets, properly, in order to be buildable.
+        - [OK] Independent of the Toolchain used.
+        - [OK] Independent of the Programming Language used.
+        - [OK] Must express the dependency relationships between targets.
+        - [OK] Model the current BORC project structure for testing purposes.
+		- [OK] Support for automatic source file scanning.
+        - Implement a project parser format
+		
+    - Define the classes needed to express toolchains
+        - The toolchains holds information about the available:
+            - [OK] Compilers, Linkers and Generators used.
+		- For C/C++, the toolchain, compiler and linker classes must be independent from the compiler used.
+			- Need to define a configuration-based approach.
+
+    - Define the classes needed for generate the tasks neccesary in order to build the project
+        - [OK] Need A toolchain and a Project
+        - [OK] Must express the dependency relationships between the building of those tasks
+
+    - Define the classes needed for execute those tasks
+        - [OK] Must support the build proccess in serial
+		- [POSTPONED] Must support the build proccess in parallel.
+
+    - Define the classes neeed for running the executable targets of the project
+        - Must add to the path environment variable the locations of the runtime-dependencies
+        - Dependens on the Project Model.
+
+- Develop the main command line tool of the build system

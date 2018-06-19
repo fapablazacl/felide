@@ -1,0 +1,3 @@
+
+- All the files have the extension .borc, and have the YAML format for the description of the targets.
+- The only mandatory file is the 'main.borc' file, that has the project definition (like name, version, etc)
