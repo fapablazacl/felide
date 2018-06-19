@@ -5,9 +5,8 @@
 namespace Felide::GTK3 {
     class EditorHeaderImpl : public EditorHeader {
     public:
-        explicit EditorHeaderImpl(Editor *editor, const std::string &title) 
-                : m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
-            m_editor = editor;
+        explicit EditorHeaderImpl(Editor &editor, const std::string &title) 
+                : m_editor(editor), m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
             m_title = title;
 
             update_title_label();
@@ -36,14 +35,14 @@ namespace Felide::GTK3 {
         }
 
     private:
-        Editor *m_editor = nullptr;
+        Editor &m_editor;
         std::string m_title;
         Gtk::Image m_closeImage;
         Gtk::Label m_titleLabel;
         Gtk::Button m_closeButton;
     };
 
-    Glib::RefPtr<EditorHeader> EditorHeader::create(Editor *editor, const std::string &title) {
+    Glib::RefPtr<EditorHeader> EditorHeader::create(Editor &editor, const std::string &title) {
         return Glib::RefPtr<EditorHeader>(new EditorHeaderImpl(editor, title));
     }
 }

@@ -1,6 +1,7 @@
 
 #include "EditorManager.hpp"
 #include "Editor.hpp"
+#include "EditorHeader.hpp"
 
 #include <map>
 #include <iostream>
@@ -26,7 +27,7 @@ namespace Felide::GTK3 {
                 editor->set_dirty_flag(false);
                 editor->show();
 
-                auto header = EditorHeader::create(editor, title);
+                auto header = EditorHeader::create(ref(editor), title);
                 editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header, &EditorHeader::update_title_label));
 
                 // TODO: Find a way to not dynamically instance the editor header

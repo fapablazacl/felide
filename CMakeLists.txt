@@ -5,6 +5,7 @@ project (felide)
 
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
+option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
 
 add_subdirectory("dep/fmt/")
 
@@ -28,4 +29,8 @@ endif ()
 # GTK3 Toolkit
 if (FELIDE_UI_GTK3)
     add_subdirectory ("src/Felide.UI.GTK3")
+endif ()
+
+if (FELIDE_UI_QT5)
+    add_subdirectory ("src/Felide.UI.QT5")
 endif ()

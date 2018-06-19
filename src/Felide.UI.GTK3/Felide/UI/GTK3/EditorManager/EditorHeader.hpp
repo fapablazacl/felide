@@ -9,7 +9,7 @@ namespace Felide::GTK3 {
     class Editor;
     class EditorHeader : public Gtk::HBox {
     public:
-        static Glib::RefPtr<EditorHeader> create(Editor *editor, const std::string &title);
+        static Glib::RefPtr<EditorHeader> create(Editor &editor, const std::string &title);
 
         virtual ~EditorHeader() {}
 
