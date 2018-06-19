@@ -1,9 +1,9 @@
 
 #include "ProjectParserMock.hpp"
 
-#include <borc/pom/Project.hpp>
-#include <borc/pom/Target.hpp>
-#include <borc/pom/Source.hpp>
+#include <Felide/POM/Project.hpp>
+#include <Felide/POM/Target.hpp>
+#include <Felide/POM/Source.hpp>
 
 namespace borc {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
@@ -26,16 +26,16 @@ namespace borc {
             "borc/SerialTaskPerformer.cpp",
             "borc/FileTypeRegistry.hpp",
             "borc/FileTypeRegistry.cpp",
-            "borc/pom/Target.hpp",
-            "borc/pom/Target.cpp",
-            "borc/pom/Project.hpp",
-            "borc/pom/Project.cpp",
-            "borc/pom/Source.hpp",
-            "borc/pom/Source.cpp",
-            "borc/pom/ProjectParser.hpp",
-            "borc/pom/ProjectParser.cpp",
-            "borc/pom/ProjectParserMock.hpp",
-            "borc/pom/ProjectParserMock.cpp",
+            "borc/POM/Target.hpp",
+            "borc/POM/Target.cpp",
+            "borc/POM/Project.hpp",
+            "borc/POM/Project.cpp",
+            "borc/POM/Source.hpp",
+            "borc/POM/Source.cpp",
+            "borc/POM/ProjectParser.hpp",
+            "borc/POM/ProjectParser.cpp",
+            "borc/POM/ProjectParserMock.hpp",
+            "borc/POM/ProjectParserMock.cpp",
             "borc/cpp/CppProject.hpp",
             "borc/cpp/CppProject.cpp"
         };

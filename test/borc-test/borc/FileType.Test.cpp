@@ -1,6 +1,6 @@
 
 #include <catch.hpp>
-#include <borc/FileType.hpp>
+#include <Felide/FileType.hpp>
 
 TEST_CASE("FileType Test Case", "borc::FileType") {
     borc::FileType fileType{"Java Files", {".java", ".class"}};

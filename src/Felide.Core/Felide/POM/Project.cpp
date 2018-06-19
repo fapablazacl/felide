@@ -3,11 +3,11 @@
 
 #include <stdexcept>
 #include <boost/filesystem.hpp>
-#include <borc/TreeNode.hpp>
-#include <borc/pom/TargetAction.hpp>
-#include <borc/pom/ModuleTarget.hpp>
-#include <borc/pom/Source.hpp>
-#include <borc/tasks/Task.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/POM/TargetAction.hpp>
+#include <Felide/POM/ModuleTarget.hpp>
+#include <Felide/POM/Source.hpp>
+#include <Felide/Tasks/Task.hpp>
 
 namespace fs = boost::filesystem;
 

@@ -5,14 +5,14 @@
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 
-#include <borc/TreeNode.hpp>
-#include <borc/Language.hpp>
-#include <borc/pom/ModuleTargetType.hpp>
-#include <borc/pom/Project.hpp>
-#include <borc/pom/Source.hpp>
-#include <borc/pom/TargetAction.hpp>
-#include <borc/toolsets/Toolset.hpp>
-#include <borc/tasks/Task.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/Language.hpp>
+#include <Felide/POM/ModuleTargetType.hpp>
+#include <Felide/POM/Project.hpp>
+#include <Felide/POM/Source.hpp>
+#include <Felide/POM/TargetAction.hpp>
+#include <Felide/Toolsets/Toolset.hpp>
+#include <Felide/Tasks/Task.hpp>
 
 namespace borc {
 

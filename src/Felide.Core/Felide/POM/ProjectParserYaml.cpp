@@ -4,7 +4,7 @@
 #include <map>
 #include <iostream>
 #include <boost/filesystem.hpp>
-#include <borc/Version.hpp>
+#include <Felide/Version.hpp>
 #include <yaml-cpp/yaml.h>
 
 #include "ModuleTarget.hpp"

@@ -1,11 +1,11 @@
 
 #include "LinkerCpp.hpp"
 
-#include <borc/TreeNode.hpp>
-#include <borc/pom/Source.hpp>
-#include <borc/pom/Target.hpp>
-#include <borc/tasks/LogTask.hpp>
-#include <borc/tasks/Task.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/POM/Source.hpp>
+#include <Felide/POM/Target.hpp>
+#include <Felide/Tasks/LogTask.hpp>
+#include <Felide/Tasks/Task.hpp>
 
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>

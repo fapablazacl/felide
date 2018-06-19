@@ -4,8 +4,8 @@
 #include <vector>
 #include <cassert>
 #include <algorithm>
-#include <borc/FileType.hpp>
-#include <borc/pom/Source.hpp>
+#include <Felide/FileType.hpp>
+#include <Felide/POM/Source.hpp>
 
 namespace borc {
     class FileTypeRegistryImpl : public FileTypeRegistry {

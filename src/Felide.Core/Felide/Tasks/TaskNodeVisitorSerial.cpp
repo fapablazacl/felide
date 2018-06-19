@@ -1,8 +1,8 @@
 
 #include <cassert>
-#include <borc/TreeNode.hpp>
-#include <borc/tasks/TaskNodeVisitorSerial.hpp>
-#include <borc/tasks/Task.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/Tasks/TaskNodeVisitorSerial.hpp>
+#include <Felide/Tasks/Task.hpp>
 
 namespace borc {
     TaskNodeVisitorSerial::~TaskNodeVisitorSerial() {}

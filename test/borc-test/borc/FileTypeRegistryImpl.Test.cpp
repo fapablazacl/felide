@@ -1,9 +1,9 @@
 
 #include <catch.hpp>
 
-#include <borc/pom/Source.hpp>
-#include <borc/FileType.hpp>
-#include <borc/FileTypeRegistry.hpp>
+#include <Felide/POM/Source.hpp>
+#include <Felide/FileType.hpp>
+#include <Felide/FileTypeRegistry.hpp>
 
 TEST_CASE("FileTypeRegistryImpl Test Case", "borc::FileTypeRegistryImpl") {
     borc::FileType fileType{"Java Files", {".java", ".class"}};

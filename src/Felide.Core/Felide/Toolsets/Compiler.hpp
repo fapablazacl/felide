@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-#include <borc/FileTypeRegistry.hpp>
+#include <Felide/FileTypeRegistry.hpp>
 
 namespace borc {
     template<typename T>

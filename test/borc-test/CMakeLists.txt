@@ -15,20 +15,20 @@ set (sources_borc
 )
 
 set (sources_borc_tasks
-    "borc/tasks/Task.Test.cpp"
-    "borc/tasks/TaskNode.Test.cpp"
-    "borc/tasks/TaskNodeVisitor.Test.cpp"
-    "borc/tasks/TaskNodeVisitorSerial.Test.cpp"
-    "borc/tasks/LogTask.Test.cpp"
-    "borc/tasks/CommandTask.Test.cpp"
+    "borc/Tasks/Task.Test.cpp"
+    "borc/Tasks/TaskNode.Test.cpp"
+    "borc/Tasks/TaskNodeVisitor.Test.cpp"
+    "borc/Tasks/TaskNodeVisitorSerial.Test.cpp"
+    "borc/Tasks/LogTask.Test.cpp"
+    "borc/Tasks/CommandTask.Test.cpp"
 )
 
 set (sources_borc_pom
-    "borc/pom/Target.Test.cpp"
-    "borc/pom/Project.Test.cpp"
-    "borc/pom/Source.Test.cpp"
-    "borc/pom/ProjectParser.Test.cpp"
-    "borc/pom/ProjectParserMock.Test.cpp"
+    "borc/POM/Target.Test.cpp"
+    "borc/POM/Project.Test.cpp"
+    "borc/POM/Source.Test.cpp"
+    "borc/POM/ProjectParser.Test.cpp"
+    "borc/POM/ProjectParserMock.Test.cpp"
 )
 
 set (sources_borc_toolchains

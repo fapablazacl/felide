@@ -2,16 +2,16 @@
 #include "ConsoleApp.hpp"
 
 #include <iostream>
-#include <borc/FileTypeRegistry.hpp>
-#include <borc/TreeNode.hpp>
-#include <borc/pom/Project.hpp>
-#include <borc/pom/Target.hpp>
-#include <borc/pom/TargetAction.hpp>
-#include <borc/pom/Source.hpp>
-#include <borc/pom/ProjectParserYaml.hpp>
-#include <borc/tasks/Task.hpp>
-#include <borc/tasks/TaskNodeVisitor.hpp>
-#include <borc/toolsets/ToolsetCpp.hpp>
+#include <Felide/FileTypeRegistry.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/POM/Project.hpp>
+#include <Felide/POM/Target.hpp>
+#include <Felide/POM/TargetAction.hpp>
+#include <Felide/POM/Source.hpp>
+#include <Felide/POM/ProjectParserYaml.hpp>
+#include <Felide/Tasks/Task.hpp>
+#include <Felide/Tasks/TaskNodeVisitor.hpp>
+#include <Felide/Toolsets/ToolsetCpp.hpp>
 
 namespace borc {
     class ConsoleAppImpl : public ConsoleApp {

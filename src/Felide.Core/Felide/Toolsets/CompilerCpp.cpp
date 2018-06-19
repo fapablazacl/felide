@@ -8,10 +8,10 @@
 
 #include <fmt/format.h>
 
-#include <borc/TreeNode.hpp>
-#include <borc/tasks/Task.hpp>
-#include <borc/tasks/LogTask.hpp>
-#include <borc/pom/Source.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/Tasks/Task.hpp>
+#include <Felide/Tasks/LogTask.hpp>
+#include <Felide/POM/Source.hpp>
 
 namespace borc {
     CompilerCpp::CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types) {

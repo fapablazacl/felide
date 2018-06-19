@@ -6,15 +6,15 @@
 #include <iostream>
 #include <stdexcept>
 
-#include <borc/FileTypeRegistry.hpp>
-#include <borc/TreeNode.hpp>
-#include <borc/tasks/Task.hpp>
-#include <borc/pom/Project.hpp>
-#include <borc/pom/ModuleTarget.hpp>
-#include <borc/pom/Source.hpp>
-#include <borc/pom/TargetAction.hpp>
-#include <borc/toolsets/CompilerCpp.hpp>
-#include <borc/toolsets/LinkerCpp.hpp>
+#include <Felide/FileTypeRegistry.hpp>
+#include <Felide/TreeNode.hpp>
+#include <Felide/Tasks/Task.hpp>
+#include <Felide/POM/Project.hpp>
+#include <Felide/POM/ModuleTarget.hpp>
+#include <Felide/POM/Source.hpp>
+#include <Felide/POM/TargetAction.hpp>
+#include <Felide/Toolsets/CompilerCpp.hpp>
+#include <Felide/Toolsets/LinkerCpp.hpp>
 
 namespace borc {
     class ToolsetCppImpl : public ToolsetCpp {
