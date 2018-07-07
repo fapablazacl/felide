@@ -1,7 +1,7 @@
 
 include_directories("../Felide.Core/")
 
-set (target "Felide.Console")
+set (target "felide-cli")
 set (sources 
 	"Main.cpp"
 	"ConsoleApp.hpp"

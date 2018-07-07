@@ -20,6 +20,10 @@ endif (MSVC)
 include_directories ("src/Felide.Core")
 add_subdirectory ("src/Felide.Core")
 
+# CLI Tools
+include_directories ("src/felide.cli")
+add_subdirectory ("src/felide.cli")
+
 # Windows API
 if (FELIDE_UI_WINDOWS)
     include_directories ("dep/wtl/Include")
