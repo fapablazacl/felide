@@ -1,7 +1,7 @@
 
 #include "ProjectParserMock.hpp"
 
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
 
 #include <felide/pom/Project.hpp>
 #include <felide/pom/Target.hpp>
@@ -11,7 +11,7 @@
 
 namespace felide {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
-        namespace fs = boost::filesystem;
+        namespace fs = std::experimental::filesystem;
 
         auto borcProject = felide::Project::create("borc");
         

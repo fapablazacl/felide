@@ -11,11 +11,11 @@ int main(int argc, char **argv) {
 #include <list>
 #include <stdexcept>
 #include <boost/program_options.hpp>
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
 
 #include "ConsoleApp.hpp"
 
-namespace fs = boost::filesystem;
+namespace fs = std::experimental::filesystem;
 namespace po = boost::program_options;
 
 int dispatch(const po::variables_map &vm, const po::options_description &desc);

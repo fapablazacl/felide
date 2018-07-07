@@ -1,8 +1,7 @@
 
 set (target "felide.core")
-set (src )
 
-set (src_felide
+set (sources
     "felide/Version.hpp"
     "felide/Version.cpp"
 	"felide/Language.hpp"
@@ -15,9 +14,10 @@ set (src_felide
     "felide/TreeNode.cpp"
     "felide/FileUtil.cpp"
 	"felide/FileUtil.hpp"
-)
 
-set (src_felide_tasks
+    "felide/util/Strings.hpp"
+    "felide/util/Strings.cpp"
+
     "felide/tasks/Task.hpp"
     "felide/tasks/Task.cpp"
     "felide/tasks/DirectoryTask.hpp"
@@ -30,19 +30,15 @@ set (src_felide_tasks
     "felide/tasks/LogTask.cpp"
     "felide/tasks/CommandTask.hpp"
     "felide/tasks/CommandTask.cpp"
-)
 
-set (src_felide_pom
 	"felide/pom/TargetAction.hpp"
     "felide/pom/TargetAction.cpp"
 	"felide/pom/Target.hpp"
     "felide/pom/Target.cpp"
-
 	"felide/pom/ModuleTarget.hpp"
     "felide/pom/ModuleTarget.cpp"
 	"felide/pom/ModuleTargetType.hpp"
     "felide/pom/ModuleTargetType.cpp"
-
     "felide/pom/Project.hpp"
     "felide/pom/Project.cpp"
     "felide/pom/Source.hpp"
@@ -53,9 +49,7 @@ set (src_felide_pom
     "felide/pom/ProjectParserMock.cpp"
     "felide/pom/ProjectParserYaml.hpp"
     "felide/pom/ProjectParserYaml.cpp"
-)
 
-set (src_felide_toolset
     "felide/toolsets/Compiler.hpp"
     "felide/toolsets/Compiler.cpp"
 	"felide/toolsets/CompilerCpp.hpp"
@@ -70,20 +64,8 @@ set (src_felide_toolset
     "felide/toolsets/ToolsetCpp.cpp"
 )
 
-include_directories(${Boost_INCLUDE_DIRS})
-
-source_group("\\"                   FILES ${src})
-source_group("\\Felide"             FILES ${src_felide})
-source_group("\\Felide\\Tasks"      FILES ${src_felide_tasks})
-source_group("\\Felide\\POM"        FILES ${src_felide_pom})
-source_group("\\Felide\\Toolsets"   FILES ${src_felide_toolset})
-
 add_library (${target} 
-	${src}
-    ${src_felide}
-    ${src_felide_tasks}
-	${src_felide_pom}
-    ${src_felide_toolset}
+	${sources}
 )
 
 target_link_libraries (

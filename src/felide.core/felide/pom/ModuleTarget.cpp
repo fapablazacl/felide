@@ -2,8 +2,7 @@
 #include "ModuleTarget.hpp"
 
 #include <algorithm>
-#include <boost/filesystem.hpp>
-#include <boost/range/iterator_range.hpp>
+#include <experimental/filesystem>
 
 #include <felide/TreeNode.hpp>
 #include <felide/Language.hpp>
@@ -14,8 +13,9 @@
 #include <felide/toolsets/Toolset.hpp>
 #include <felide/tasks/Task.hpp>
 
-namespace felide {
+namespace fs = std::experimental::filesystem;
 
+namespace felide {
     enum class ModuleTargetSourceManagerStorage {
         Implicit, 
         Explicit
@@ -57,7 +57,6 @@ namespace felide {
 
             auto targetTaskNode = m_toolset->createTask(action, this);
 
-            
             std::vector<Source> sources = this->getSources();
             for (Source &source : sources) {
                 // TODO: Fix this definition of use of the concept of 'sources'
@@ -128,8 +127,6 @@ namespace felide {
         }
 
         virtual std::vector<Source> getSources() const override {
-            namespace fs = boost::filesystem;
-
             std::vector<Source> sources;
 
             fs::path fullpath = fs::path(m_project->getPath()) / fs::path(m_path);
@@ -139,7 +136,7 @@ namespace felide {
                 throw std::runtime_error("The target directory isn't a directory");
             }
 
-            for (auto &entry : boost::make_iterator_range(fs::recursive_directory_iterator(fullpath), {})) {
+            for (auto &entry : fs::recursive_directory_iterator(fullpath)) {
                 fs::path sourcePath = entry.path();
 
                 if (fs::is_directory(sourcePath)) {

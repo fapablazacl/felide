@@ -1,9 +1,10 @@
 
 #include "ProjectParserYaml.hpp"
 
+#include <cassert>
 #include <map>
 #include <iostream>
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
 #include <felide/Version.hpp>
 #include <yaml-cpp/yaml.h>
 
@@ -11,7 +12,7 @@
 #include "ModuleTargetType.hpp"
 #include "Project.hpp"
 
-namespace fs = boost::filesystem;
+namespace fs = std::experimental::filesystem;
 
 namespace felide {
     static std::map<std::string, ModuleTargetType> s_types = {

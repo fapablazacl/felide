@@ -6,10 +6,10 @@
 
 #include <iostream>
 
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
 #include <yaml-cpp/yaml.h>
 
-namespace fs = boost::filesystem;
+namespace fs = std::experimental::filesystem;
 
 namespace felide {
     void parseTarget(Target *target, const YAML::Node &node) {

@@ -2,15 +2,13 @@
 #include "LinkerCpp.hpp"
 
 #include <felide/TreeNode.hpp>
+#include <felide/util/Strings.hpp>
 #include <felide/pom/Source.hpp>
 #include <felide/pom/Target.hpp>
 #include <felide/tasks/LogTask.hpp>
 #include <felide/tasks/Task.hpp>
 
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/algorithm/string/join.hpp>
-
+#include <experimental/filesystem>
 #include <fmt/format.h>
 
 namespace felide {
@@ -48,7 +46,7 @@ namespace felide {
             throw std::runtime_error("At linking stage we should have one or more object files");
         }
 
-        const std::string joinedObjectFiles = boost::join(objectFiles, " ");
+        const std::string joinedObjectFiles = join(objectFiles, " ");
 
         const std::string cmdTemplate = "{0} {1} {2}";
         const std::string targetName = target->getName();

@@ -1,9 +1,9 @@
 
 #include "Source.hpp"
 
-#include <boost/filesystem.hpp>
+#include <experimental/filesystem>
 
-namespace fs = boost::filesystem;
+namespace fs = std::experimental::filesystem;
 
 namespace felide {
     Source::Source(const std::string &filePath, const Target *target) {
@@ -14,7 +14,7 @@ namespace felide {
     Source::~Source() {}
 
     std::string Source::getExtension() const {
-        return fs::extension(m_filePath);
+        return fs::path(m_filePath).extension();
     }
 
     std::string Source::getFileTitle() const {

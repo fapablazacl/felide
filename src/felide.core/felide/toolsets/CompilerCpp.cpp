@@ -3,8 +3,7 @@
 
 #include <cassert>
 #include <memory>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
+#include <experimental/filesystem>
 
 #include <fmt/format.h>
 
@@ -52,7 +51,7 @@ namespace felide {
     std::unique_ptr<TreeNode<Task>> CompilerCpp::createTask(const Source *source) {
         assert(source);
 
-        namespace fs = boost::filesystem;
+        namespace fs = std::experimental::filesystem;
 
         const std::string commandTemplate = "{0} {1} /O0 /c /o {2}";
 
