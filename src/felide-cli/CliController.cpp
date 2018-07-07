@@ -1,5 +1,5 @@
 
-#include "ConsoleApp.hpp"
+#include "CliController.hpp"
 
 #include <iostream>
 #include <felide/FileTypeRegistry.hpp>
@@ -14,9 +14,9 @@
 #include <felide/toolsets/cpp/ToolsetCpp.hpp>
 
 namespace felide {
-    class ConsoleAppImpl : public ConsoleApp {
+    class CliControllerImpl : public CliController {
     public:
-        explicit ConsoleAppImpl(const std::string &path) {
+        explicit CliControllerImpl(const std::string &path) {
             m_path = path;
             m_registry = felide::FileTypeRegistry::create();
             m_toolset = felide::ToolsetCpp::create(m_registry.get());
@@ -68,7 +68,7 @@ namespace felide {
         std::unique_ptr<felide::ToolsetCpp> m_toolset;
     };
 
-    std::unique_ptr<ConsoleApp> ConsoleApp::create(const std::string &path) {
-        return std::make_unique<ConsoleAppImpl>(path);
+    std::unique_ptr<CliController> CliController::create(const std::string &path) {
+        return std::make_unique<CliControllerImpl>(path);
     }
 }

@@ -1,9 +1,28 @@
 
 #include <iostream>
+#include <cxxopts.hpp>
 
-int main(int argc, char **argv) {
-    std::cout << "Hola" << std::endl;
-    return 0;
+#include "CliController.hpp"
+
+int main(int argc, char *argv[]) {
+    cxxopts::Options options("felide-cli", "Command Line Interface for managing build, testing and packaging");
+
+    try {
+        options.add_options()
+            ("b,build", "Build using the current Toolset")
+            ("c,clean", "Cleans the local build directory")
+            ("h,help", "Shows this message")
+        ;
+
+        auto result = options.parse(argc, argv);
+
+        std::cout << options.help() << std::endl;
+        return 0;
+
+    } catch (const cxxopts::OptionParseException &exp) {
+        std::cout << exp.what() << std::endl;
+        return 1;
+    }
 }
 
 /*

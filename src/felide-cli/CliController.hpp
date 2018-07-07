@@ -7,9 +7,9 @@
 #include <string>
 
 namespace felide {
-    class ConsoleApp {
+    class CliController {
     public:
-        virtual ~ConsoleApp() {}
+        virtual ~CliController() {}
 
         virtual void build(const std::string &targetName) = 0;
 
@@ -18,7 +18,7 @@ namespace felide {
         virtual void list() = 0;
 
     public:
-        static std::unique_ptr<ConsoleApp> create(const std::string &path);
+        static std::unique_ptr<CliController> create(const std::string &path);
     };
 }
 

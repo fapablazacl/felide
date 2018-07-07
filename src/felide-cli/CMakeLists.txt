@@ -2,8 +2,8 @@
 set (target "felide-cli")
 set (sources 
 	"Main.cpp"
-	"ConsoleApp.hpp"
-	"ConsoleApp.cpp"
+	"CliController.hpp"
+	"CliController.cpp"
 )
 
 source_group("\\" FILES ${sources})

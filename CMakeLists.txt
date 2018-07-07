@@ -8,6 +8,7 @@ option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
 
 add_subdirectory("dep/fmt/")
+include_directories("dep/cxxopts/include")
 
 # Specify the use of the C++17 standard
 if (MSVC)
