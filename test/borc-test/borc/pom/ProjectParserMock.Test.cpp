@@ -1,18 +1,18 @@
 
 #include "ProjectParserMock.hpp"
 
-#include <Felide/POM/Project.hpp>
-#include <Felide/POM/Target.hpp>
-#include <Felide/POM/Source.hpp>
+#include <felide/pom/Project.hpp>
+#include <felide/pom/Target.hpp>
+#include <felide/pom/Source.hpp>
 
-namespace Felide {
+namespace felide {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
-        auto borcProject = std::make_unique<Felide::Project>("borc");
+        auto borcProject = std::make_unique<felide::Project>("borc");
         
         auto borcTarget = borcProject->addTarget()
             ->setName("borc")
             ->setPath("src/borc")
-            ->setType(Felide::TargetType::Program);
+            ->setType(felide::TargetType::Program);
 
         std::vector<std::string> borcTargetSources = {
             "Program.cpp",

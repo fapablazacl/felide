@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 
-namespace Felide {
+namespace felide {
     class ConsoleApp {
     public:
         virtual ~ConsoleApp() {}

@@ -1,5 +1,13 @@
 
 #include <iostream>
+
+int main(int argc, char **argv) {
+    std::cout << "Hola" << std::endl;
+    return 0;
+}
+
+/*
+#include <iostream>
 #include <list>
 #include <stdexcept>
 #include <boost/program_options.hpp>
@@ -43,14 +51,14 @@ int main(int argc, char **argv) {
     }
 }
 
-static std::unique_ptr<Felide::ConsoleApp> createApp() {
+static std::unique_ptr<felide::ConsoleApp> createApp() {
     fs::path borcfile = fs::current_path() / "main.borc";
 
     if (!fs::exists(borcfile)) {
         throw std::runtime_error("A borcfile doesn't exist in the current path");
     }
 
-    auto consoleApp = Felide::ConsoleApp::create(borcfile.string());
+    auto consoleApp = felide::ConsoleApp::create(borcfile.string());
 
     return consoleApp;
 }
@@ -71,3 +79,4 @@ int dispatch(const po::variables_map &vm, const po::options_description &desc) {
 
     return 0;
 }
+*/

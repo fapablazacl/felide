@@ -1,6 +1,6 @@
 
 #include "TaskHierarchy.hpp"
 
-namespace Felide {
+namespace felide {
     TaskHierarchy::~TaskHierarchy() {}
 }

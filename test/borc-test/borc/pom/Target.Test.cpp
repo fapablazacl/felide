@@ -5,7 +5,7 @@
 
 #include "Source.hpp"
 
-namespace Felide {
+namespace felide {
     std::string to_string(const TargetType type) {
         switch (type) {
         case TargetType::Program: return "TargetType::Program";

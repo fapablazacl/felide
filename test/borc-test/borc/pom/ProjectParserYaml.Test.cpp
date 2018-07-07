@@ -11,7 +11,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace Felide {
+namespace felide {
     void parseTarget(Target *target, const YAML::Node &node) {
         // get name
         target->setName(node["name"].as<std::string>());

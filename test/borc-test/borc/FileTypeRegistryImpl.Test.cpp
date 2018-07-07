@@ -1,17 +1,17 @@
 
 #include <catch.hpp>
 
-#include <Felide/POM/Source.hpp>
-#include <Felide/FileType.hpp>
-#include <Felide/FileTypeRegistry.hpp>
+#include <felide/pom/Source.hpp>
+#include <felide/FileType.hpp>
+#include <felide/FileTypeRegistry.hpp>
 
-TEST_CASE("FileTypeRegistryImpl Test Case", "Felide::FileTypeRegistryImpl") {
-    Felide::FileType fileType{"Java Files", {".java", ".class"}};
-    Felide::FileType fileType2{"C++ Source Files", {".cpp", ".cc", ".cxx", ".c++"}};
+TEST_CASE("FileTypeRegistryImpl Test Case", "felide::FileTypeRegistryImpl") {
+    felide::FileType fileType{"Java Files", {".java", ".class"}};
+    felide::FileType fileType2{"C++ Source Files", {".cpp", ".cc", ".cxx", ".c++"}};
 
     SECTION("addFileType method should") {
         SECTION("append the C++ File Type correctly") {
-            auto registry = Felide::FileTypeRegistry::create();
+            auto registry = felide::FileTypeRegistry::create();
             auto cppFileType = registry->addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
 
             REQUIRE(cppFileType != nullptr);
@@ -24,7 +24,7 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "Felide::FileTypeRegistryImpl") {
         }
 
         SECTION("append the Java File Type correctly") {
-            auto registry = Felide::FileTypeRegistry::create();
+            auto registry = felide::FileTypeRegistry::create();
             auto javaFileType = registry->addFileType("Java Files", {".java", ".class"});
 
             REQUIRE(javaFileType != nullptr);
@@ -34,8 +34,8 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "Felide::FileTypeRegistryImpl") {
             REQUIRE(javaFileType->extensions[1] == ".class");
         }
 
-        SECTION("return a nullptr Felide::FielType when inserting an empty extension list") {
-            auto registry = Felide::FileTypeRegistry::create();
+        SECTION("return a nullptr felide::FielType when inserting an empty extension list") {
+            auto registry = felide::FileTypeRegistry::create();
             
             auto csFileType = registry->addFileType("CS Files", {});
 
@@ -43,7 +43,7 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "Felide::FileTypeRegistryImpl") {
         }
 
         SECTION("return a different file type instance for each invocation") {
-            auto registry = Felide::FileTypeRegistry::create();
+            auto registry = felide::FileTypeRegistry::create();
 
             auto cppFileType = registry->addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
             auto javaFileType = registry->addFileType("Java Files", {".java", ".class"});
@@ -53,14 +53,14 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "Felide::FileTypeRegistryImpl") {
     }
 
     SECTION("getFileType method should detect file types correctly") {
-        auto registry = Felide::FileTypeRegistry::create();
+        auto registry = felide::FileTypeRegistry::create();
 
         auto cppFileType = registry->addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
         auto javaFileType = registry->addFileType("Java Files", {".java", ".class"});
 
-        Felide::Source cppSource("main.cc", nullptr);
-        Felide::Source javaClass("main.class", nullptr);
-        Felide::Source csClass("Main.cs", nullptr);
+        felide::Source cppSource("main.cc", nullptr);
+        felide::Source javaClass("main.class", nullptr);
+        felide::Source csClass("Main.cs", nullptr);
 
         REQUIRE(registry->getFileType(&cppSource) == cppFileType);
         REQUIRE(registry->getFileType(&javaClass) == javaFileType);

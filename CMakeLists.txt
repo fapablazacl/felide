@@ -17,8 +17,8 @@ else ()
 endif (MSVC)
 
 # IDE Core
-include_directories ("src/Felide.Core")
-add_subdirectory ("src/Felide.Core")
+include_directories ("src/felide.core")
+add_subdirectory ("src/felide.core")
 
 # CLI Tools
 include_directories ("src/felide.cli")
@@ -27,14 +27,14 @@ add_subdirectory ("src/felide.cli")
 # Windows API
 if (FELIDE_UI_WINDOWS)
     include_directories ("dep/wtl/Include")
-    add_subdirectory ("src/Felide.UI.WTL")
+    add_subdirectory ("src/felide.ui.wtl")
 endif ()
 
 # GTK3 Toolkit
 if (FELIDE_UI_GTK3)
-    add_subdirectory ("src/Felide.UI.GTK3")
+    add_subdirectory ("src/felide.ui.gtk3")
 endif ()
 
 if (FELIDE_UI_QT5)
-    add_subdirectory ("src/Felide.UI.QT5")
+    add_subdirectory ("src/felide.ui.qt5")
 endif ()

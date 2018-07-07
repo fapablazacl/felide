@@ -1,6 +1,4 @@
 
-include_directories("../Felide.Core/")
-
 set (target "felide-cli")
 set (sources 
 	"Main.cpp"
@@ -14,9 +12,10 @@ add_executable (${target} ${sources})
 
 target_link_libraries (
     ${target} 
-    Felide.Core
+    felide.core
     yaml-cpp
     fmt
+    stdc++fs
 )
 
 install(TARGETS ${target} DESTINATION "bin")
