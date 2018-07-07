@@ -52,16 +52,17 @@ set (sources
 
     "felide/toolsets/Compiler.hpp"
     "felide/toolsets/Compiler.cpp"
-	"felide/toolsets/CompilerCpp.hpp"
-    "felide/toolsets/CompilerCpp.cpp"
     "felide/toolsets/Linker.hpp"
     "felide/toolsets/Linker.cpp"
-	"felide/toolsets/LinkerCpp.hpp"
-    "felide/toolsets/LinkerCpp.cpp"
     "felide/toolsets/Toolset.hpp"
     "felide/toolsets/Toolset.cpp"
-	"felide/toolsets/ToolsetCpp.hpp"
-    "felide/toolsets/ToolsetCpp.cpp"
+
+    "felide/toolsets/cpp/CompilerCpp.hpp"
+    "felide/toolsets/cpp/CompilerCpp.cpp"
+	"felide/toolsets/cpp/LinkerCpp.hpp"
+    "felide/toolsets/cpp/LinkerCpp.cpp"
+	"felide/toolsets/cpp/ToolsetCpp.hpp"
+    "felide/toolsets/cpp/ToolsetCpp.cpp"
 )
 
 add_library (${target} 

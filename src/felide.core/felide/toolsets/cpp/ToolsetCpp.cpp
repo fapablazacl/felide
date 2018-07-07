@@ -1,5 +1,7 @@
 
 #include "ToolsetCpp.hpp"
+#include "CompilerCpp.hpp"
+#include "LinkerCpp.hpp"
 
 #include <cassert>
 #include <algorithm>
@@ -13,8 +15,6 @@
 #include <felide/pom/ModuleTarget.hpp>
 #include <felide/pom/Source.hpp>
 #include <felide/pom/TargetAction.hpp>
-#include <felide/toolsets/CompilerCpp.hpp>
-#include <felide/toolsets/LinkerCpp.hpp>
 
 namespace felide {
     class ToolsetCppImpl : public ToolsetCpp {

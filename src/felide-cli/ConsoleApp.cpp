@@ -11,7 +11,7 @@
 #include <felide/pom/ProjectParserYaml.hpp>
 #include <felide/tasks/Task.hpp>
 #include <felide/tasks/TaskNodeVisitor.hpp>
-#include <felide/toolsets/ToolsetCpp.hpp>
+#include <felide/toolsets/cpp/ToolsetCpp.hpp>
 
 namespace felide {
     class ConsoleAppImpl : public ConsoleApp {
