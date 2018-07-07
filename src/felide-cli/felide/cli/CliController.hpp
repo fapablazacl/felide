@@ -1,6 +1,6 @@
 
-#ifndef __borc_consoleapp_hpp__
-#define __borc_consoleapp_hpp__
+#ifndef __felide_cli_clicontroller_hpp__
+#define __felide_cli_clicontroller_hpp__
 
 #include <memory>
 #include <vector>
@@ -11,14 +11,14 @@ namespace felide {
     public:
         virtual ~CliController() {}
 
-        virtual void build(const std::string &targetName) = 0;
+        virtual void build() = 0;
 
         virtual void init() = 0;
 
         virtual void list() = 0;
 
     public:
-        static std::unique_ptr<CliController> create(const std::string &path);
+        static std::unique_ptr<CliController> create();
     };
 }
 

@@ -16,8 +16,8 @@
 namespace felide {
     class CliControllerImpl : public CliController {
     public:
-        explicit CliControllerImpl(const std::string &path) {
-            m_path = path;
+        explicit CliControllerImpl() {
+            // m_path = path;
             m_registry = FileTypeRegistry::create();
             m_toolset = ToolsetCpp::create(m_registry.get());
         }
@@ -33,7 +33,7 @@ namespace felide {
             }
         }
         
-        virtual void build(const std::string &targetName) override {
+        virtual void build() override {
             auto project = this->parseProject(); 
             auto taskTree = project->createTask(TargetAction::Build);
             auto taskVisitor = TaskNodeVisitor::create();
@@ -53,7 +53,7 @@ namespace felide {
         std::unique_ptr<Project> parseProject() {
             auto parser = ProjectParserYaml::create();
             auto project = parser->parse(m_path);
-    
+
             auto targets = project->getTargets();
             for (Target* target : targets) {
                 target->setToolset(m_toolset.get());
@@ -68,7 +68,7 @@ namespace felide {
         std::unique_ptr<ToolsetCpp> m_toolset;
     };
 
-    std::unique_ptr<CliController> CliController::create(const std::string &path) {
-        return std::make_unique<CliControllerImpl>(path);
+    std::unique_ptr<CliController> CliController::create() {
+        return std::make_unique<CliControllerImpl>();
     }
 }

@@ -1,47 +1,52 @@
 
 #include "CliApplication.hpp"
+#include "CliController.hpp"
 
 #include <cxxopts.hpp>
 
 namespace felide {
+    static const char AppTitle[] = "felide-cli";
+    static const char AppDescription[] = "Command Line Interface for managing build, testing and packaging";
+
     class CliApplicationImpl : public CliApplication {
     public:
         CliApplicationImpl(int argc, char **argv) : 
-            m_options("felide-cli", "Command Line Interface for managing build, testing and packaging") {
-            
+            m_options(AppTitle, AppDescription),
+            m_argc(argc),
+            m_argv(argv){
 
+            m_options.add_options()
+                ("b,build", "Build using the current Toolset")
+                ("c,clean", "Cleans the local build directory")
+                ("h,help", "Shows this message")
+            ;
+
+            m_controller = CliController::create();
         }
 
         virtual ~CliApplicationImpl() {}
 
         virtual void run() override {
+            auto parseResult = m_options.parse(m_argc, m_argv);
 
+            if (parseResult.count("build")) {
+                m_controller->build();
+            } else {
+                std::cout << m_options.help() << std::endl;
+            }
         }
     
     private:
         cxxopts::Options m_options;
+        int m_argc = 0;
+        char **m_argv = nullptr;
+        std::unique_ptr<CliController> m_controller;
     };
 
     std::unique_ptr<CliApplication> CliApplication::create(int argc, char **argv) {
         return std::make_unique<CliApplicationImpl>(argc, argv);
     }
 }
-
-
-
-/*
-options.add_options()
-            ("b,build", "Build using the current Toolset")
-            ("c,clean", "Cleans the local build directory")
-            ("h,help", "Shows this message")
-        ;
-
-        auto result = options.parse(argc, argv);
-
-        std::cout << options.help() << std::endl;
-
-        return 0;
-*/
 
 
 /*
