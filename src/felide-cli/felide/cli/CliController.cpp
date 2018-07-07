@@ -18,8 +18,8 @@ namespace felide {
     public:
         explicit CliControllerImpl(const std::string &path) {
             m_path = path;
-            m_registry = felide::FileTypeRegistry::create();
-            m_toolset = felide::ToolsetCpp::create(m_registry.get());
+            m_registry = FileTypeRegistry::create();
+            m_toolset = ToolsetCpp::create(m_registry.get());
         }
 
         virtual void list() override {
@@ -35,10 +35,10 @@ namespace felide {
         
         virtual void build(const std::string &targetName) override {
             auto project = this->parseProject(); 
-            auto taskTree = project->createTask(felide::TargetAction::Build);
-            auto taskVisitor = felide::TaskNodeVisitor::create();
+            auto taskTree = project->createTask(TargetAction::Build);
+            auto taskVisitor = TaskNodeVisitor::create();
     
-            taskVisitor->visit(taskTree.get(), [](felide::Task *task) {
+            taskVisitor->visit(taskTree.get(), [](Task *task) {
                 if (task) {
                     task->perform();
                 }
@@ -50,12 +50,12 @@ namespace felide {
         }
 
     private:
-        std::unique_ptr<felide::Project> parseProject() {
-            auto parser = felide::ProjectParserYaml::create();
+        std::unique_ptr<Project> parseProject() {
+            auto parser = ProjectParserYaml::create();
             auto project = parser->parse(m_path);
     
             auto targets = project->getTargets();
-            for (felide::Target* target : targets) {
+            for (Target* target : targets) {
                 target->setToolset(m_toolset.get());
             }
 
@@ -64,8 +64,8 @@ namespace felide {
 
     private:
         std::string m_path;
-        std::unique_ptr<felide::FileTypeRegistry> m_registry;
-        std::unique_ptr<felide::ToolsetCpp> m_toolset;
+        std::unique_ptr<FileTypeRegistry> m_registry;
+        std::unique_ptr<ToolsetCpp> m_toolset;
     };
 
     std::unique_ptr<CliController> CliController::create(const std::string &path) {

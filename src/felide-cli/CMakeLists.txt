@@ -2,11 +2,11 @@
 set (target "felide-cli")
 set (sources 
 	"Main.cpp"
-	"CliController.hpp"
-	"CliController.cpp"
+    "felide/cli/CliApplication.hpp"
+	"felide/cli/CliApplication.cpp"
+	"felide/cli/CliController.hpp"
+	"felide/cli/CliController.cpp"
 )
-
-source_group("\\" FILES ${sources})
 
 add_executable (${target} ${sources})
 
