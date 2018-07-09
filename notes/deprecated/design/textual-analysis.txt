@@ -8,7 +8,6 @@ C. Compiler:
     - Programming Language Compilers.
     - Assemblers.
     - File Format Converters.
-    - Etc.
     - Geometry Generators.
     - Image Generators.
     - Compressors.

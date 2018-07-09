@@ -1,16 +1,17 @@
-BORC
+felide-cli
 ====
 
 Introduction
 ------------
 
-BORC pretends to accelerate the development of C/C++ applications offering some features not found in other build systems out there.
+felide-cli pretends to accelerate the development of C/C++ applications offering some features not found in other build systems out there.
 
 
 Planned Features
 ----------------
 
-* Declarative, cross-platform, high-level orchestration description files.
+* Declarative, cross-platform, high-level build orchestration description files.
+* Supports documents, artifacts, archives builds.
 * Work with more than one compiler simultaneosly (ideal for cross-compiling).
 * Generates project stubs to start to work quickly.
 * C++ library interface, for integration with other tools (mainly IDEs).
