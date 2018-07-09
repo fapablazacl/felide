@@ -1,13 +1,7 @@
 target:
-  name: borc-core
+  name: felide.core
   type: library
-  lang: c++17
-  sources:
-    paths:
-      - borc
-  public:
-    headers:
-      paths:
-        - borc
+  lang: C++17
+  sources: felide/
   dependencies:
     - fmt

@@ -35,7 +35,7 @@ namespace felide {
             
             auto projectNode = borcfile["project"];
             auto project = this->parseProject(projectNode);
-
+            
             for (const YAML::Node targetNode : borcfile["targets"]) {
                 this->parseTarget(project.get(), targetNode);
             }

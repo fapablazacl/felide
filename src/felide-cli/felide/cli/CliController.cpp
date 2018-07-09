@@ -2,6 +2,7 @@
 #include "CliController.hpp"
 
 #include <iostream>
+#include <experimental/filesystem>
 #include <felide/FileTypeRegistry.hpp>
 #include <felide/TreeNode.hpp>
 #include <felide/pom/Project.hpp>
@@ -13,17 +14,26 @@
 #include <felide/tasks/TaskNodeVisitor.hpp>
 #include <felide/toolsets/cpp/ToolsetCpp.hpp>
 
+namespace fs = std::experimental::filesystem;
+
 namespace felide {
     class CliControllerImpl : public CliController {
     public:
         explicit CliControllerImpl() {
-            // m_path = path;
             m_registry = FileTypeRegistry::create();
             m_toolset = ToolsetCpp::create(m_registry.get());
+
+            if (m_path == "") {
+                m_path = fs::current_path() / "project.borc";
+            }
+
+            if (!fs::exists(m_path)) {
+                throw std::runtime_error("Error: supplied project file 'project.borc' doesn't exists");
+            }
         }
 
         virtual void list() override {
-            auto project = this->parseProject();
+            auto project = this->deserializeProject();
             auto targets = project->getTargets();
 
             std::cout << "Available targets:" << std::endl;
@@ -34,7 +44,9 @@ namespace felide {
         }
         
         virtual void build() override {
-            auto project = this->parseProject(); 
+            // 1. Parse the current directory and find a Borcfile.
+
+            auto project = this->deserializeProject(); 
             auto taskTree = project->createTask(TargetAction::Build);
             auto taskVisitor = TaskNodeVisitor::create();
     
@@ -50,7 +62,7 @@ namespace felide {
         }
 
     private:
-        std::unique_ptr<Project> parseProject() {
+        std::unique_ptr<Project> deserializeProject() {
             auto parser = ProjectParserYaml::create();
             auto project = parser->parse(m_path);
 
@@ -63,7 +75,7 @@ namespace felide {
         }
 
     private:
-        std::string m_path;
+        fs::path m_path;
         std::unique_ptr<FileTypeRegistry> m_registry;
         std::unique_ptr<ToolsetCpp> m_toolset;
     };
