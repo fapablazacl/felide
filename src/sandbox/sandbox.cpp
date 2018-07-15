@@ -4,46 +4,55 @@
 #include <vector>
 #include <algorithm>
 
-#include "Workspace.hpp"
-#include "Project.hpp"
-#include "ProjectFile.hpp"
+#include <felide/TreeNode.hpp>
+#include <felide/pom/Project.hpp>
+#include <felide/pom/ModuleTarget.hpp>
+#include <felide/pom/ModuleTargetType.hpp>
+#include <felide/pom/TargetAction.hpp>
+#include <felide/tasks/Task.hpp>
 
-namespace felide {
-    class Compiler {
-    public:
-        virtual std::string computeTargetFileTitle(const ProjectFile *file) {
-            return "";
-        }
+#include <felide/cpp/ModuleToolset.hpp>
 
-        void compile(const ProjectFile *file) {
+#include <felide/FileTypeRegistry.hpp>
 
-        }
+static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
+    auto registry = felide::FileTypeRegistry::create();
 
-    private:
-        std::string m_cmd;
-    };
+    registry->addFileType("C Source File", {".c"});
+    registry->addFileType("C Header File", {".h"});
+    registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
+    registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
 
-    class Linker {
-    public:
+    return registry;
+}
+
+static std::unique_ptr<felide::Project> createProject() {
+    auto project = felide::Project::create("felide", "/Users/fapablaza/Desktop/devwarecl/felide");
+
+    project->createTarget<felide::ModuleTarget>()
+        ->setType(felide::ModuleTargetType::Library)
+        ->setName("felide.core")
+        ->setPath("src/felide.core");
         
-    };
-
-    class ToolSet {
-    public:
-
-    };
+    return project;
 }
 
 int main(int argc, char **argv) {
-    auto felideWs = felide::Workspace{"/Users/fapablaza/Desktop/devwarecl/felide/"};
-    auto sandboxProject = felideWs.addProject("src/sandbox/");
-    sandboxProject->addFile("sandbox.cpp");
-    sandboxProject->addFile("ProjectFile.cpp");
-    sandboxProject->addFile("ProjectFile.hpp");
-    sandboxProject->addFile("Project.cpp");
-    sandboxProject->addFile("Project.hpp");
-    sandboxProject->addFile("Workspace.cpp");
-    sandboxProject->addFile("Workspace.hpp");
-    
-    return 0;
+    try {
+        auto registry = createRegistry();
+        auto toolset = felide::ToolsetCpp::create(registry.get());
+
+        auto project = createProject();
+        auto task = project->createTask(felide::TargetAction::Build);
+
+        task->getData()->perform();
+
+        return 0;
+    } catch (const std::exception &exp) {
+        std::cout << exp.what() << std::endl;
+
+        return 1;
+    }
+
+    return 1001;
 }

@@ -10,6 +10,12 @@ option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"
 add_subdirectory("dep/fmt/")
 include_directories("dep/cxxopts/include")
 
+set (YAML_CPP_BUILD_TESTS OFF CACHE BOOL "Enable parse tools")
+set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")
+set (YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "Enable contrib stuff in library")
+add_subdirectory("dep/yaml-cpp")
+include_directories("dep/yaml-cpp/include")
+
 # Specify the use of the C++17 standard
 if (MSVC)
     add_definitions ("/std:c++latest")
@@ -19,7 +25,7 @@ endif (MSVC)
 
 # IDE Core
 include_directories ("src/felide.core")
-#add_subdirectory ("src/felide.core")
+add_subdirectory ("src/felide.core")
 
 # CLI Tools
 include_directories ("src/felide-cli")

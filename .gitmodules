@@ -7,3 +7,6 @@
 [submodule "dep/cxxopts"]
 	path = dep/cxxopts
 	url = https://github.com/jarro2783/cxxopts.git
+[submodule "dep/yaml-cpp"]
+	path = dep/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

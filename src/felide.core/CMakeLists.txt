@@ -12,9 +12,9 @@ set (sources
     "felide/FileTypeRegistry.cpp"
 	"felide/TreeNode.hpp"
     "felide/TreeNode.cpp"
-    "felide/FileUtil.cpp"
-	"felide/FileUtil.hpp"
 
+    "felide/util/FileUtil.cpp"
+	"felide/util/FileUtil.hpp"
     "felide/util/Strings.hpp"
     "felide/util/Strings.cpp"
 
@@ -57,12 +57,12 @@ set (sources
     "felide/toolsets/Toolset.hpp"
     "felide/toolsets/Toolset.cpp"
 
-    "felide/toolsets/cpp/CompilerCpp.hpp"
-    "felide/toolsets/cpp/CompilerCpp.cpp"
-	"felide/toolsets/cpp/LinkerCpp.hpp"
-    "felide/toolsets/cpp/LinkerCpp.cpp"
-	"felide/toolsets/cpp/ToolsetCpp.hpp"
-    "felide/toolsets/cpp/ToolsetCpp.cpp"
+    "felide/cpp/ModuleCompiler.hpp"
+    "felide/cpp/ModuleCompiler.cpp"
+	"felide/cpp/ModuleLinker.hpp"
+    "felide/cpp/ModuleLinker.cpp"
+	"felide/cpp/ModuleToolset.hpp"
+    "felide/cpp/ModuleToolset.cpp"
 )
 
 add_library (${target} 

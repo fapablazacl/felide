@@ -1,8 +1,7 @@
 /**
- *  @file fp.hpp
- *  @brief "Functional" programming utilities
+ *  @file Strings.hpp
+ *  @brief Utility functions for strings
  */
-
 
 #ifndef __felide_util_strings_hpp__
 #define __felide_util_strings_hpp__

@@ -1,5 +1,5 @@
 
-#include "CompilerCpp.hpp"
+#include "ModuleCompiler.hpp"
 
 #include <cassert>
 #include <memory>

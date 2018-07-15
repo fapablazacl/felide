@@ -1,7 +1,7 @@
 
-#include "ToolsetCpp.hpp"
-#include "CompilerCpp.hpp"
-#include "LinkerCpp.hpp"
+#include "ModuleToolset.hpp"
+#include "ModuleCompiler.hpp"
+#include "ModuleLinker.hpp"
 
 #include <cassert>
 #include <algorithm>
