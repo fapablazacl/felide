@@ -13,13 +13,13 @@ namespace felide {
     class Source;
     class Target;
 
-    class LinkerCpp : public Linker {
+    class ModuleLinker : public Linker {
     public:
-        explicit LinkerCpp(const std::string &toolName);
+        explicit ModuleLinker(const std::string &toolName);
 
-        explicit LinkerCpp(const std::string &toolName, const std::string &path);
+        explicit ModuleLinker(const std::string &toolName, const std::string &path);
 
-        virtual ~LinkerCpp();
+        virtual ~ModuleLinker();
 
         virtual bool isLinkable(const Target *target) const override;
 

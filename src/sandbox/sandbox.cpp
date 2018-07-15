@@ -40,7 +40,7 @@ static std::unique_ptr<felide::Project> createProject() {
 int main(int argc, char **argv) {
     try {
         auto registry = createRegistry();
-        auto toolset = felide::ToolsetCpp::create(registry.get());
+        auto toolset = felide::ModuleToolset::create(registry.get());
 
         auto project = createProject();
         auto task = project->createTask(felide::TargetAction::Build);

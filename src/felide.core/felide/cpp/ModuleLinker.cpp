@@ -12,18 +12,18 @@
 #include <fmt/format.h>
 
 namespace felide {
-    LinkerCpp::LinkerCpp(const std::string &toolName) {
+    ModuleLinker::ModuleLinker(const std::string &toolName) {
         m_toolName = toolName;
     }
 
-    LinkerCpp::LinkerCpp(const std::string &toolName, const std::string &path) {
+    ModuleLinker::ModuleLinker(const std::string &toolName, const std::string &path) {
         m_toolName = toolName;
         m_path = path;
     }
 
-    LinkerCpp::~LinkerCpp() {}
+    ModuleLinker::~ModuleLinker() {}
 
-    bool LinkerCpp::isLinkable(const Target *target) const {
+    bool ModuleLinker::isLinkable(const Target *target) const {
         if (target) {
             return true;
         } else {
@@ -31,15 +31,15 @@ namespace felide {
         }
     }
 
-    std::string LinkerCpp::getToolName() const {
+    std::string ModuleLinker::getToolName() const {
         return m_toolName;
     }
 
-    std::string LinkerCpp::getPath() const {
+    std::string ModuleLinker::getPath() const {
         return m_path;
     }
 
-    std::unique_ptr<TreeNode<Task>> LinkerCpp::createTask(const Target *target, const std::vector<std::string> &objectFiles) {
+    std::unique_ptr<TreeNode<Task>> ModuleLinker::createTask(const Target *target, const std::vector<std::string> &objectFiles) {
         assert(target);
 
         if (objectFiles.size() == 0) {

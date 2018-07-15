@@ -17,9 +17,9 @@
 #include <felide/pom/TargetAction.hpp>
 
 namespace felide {
-    class ToolsetCppImpl : public ToolsetCpp {
+    class ModuleToolsetImpl : public ModuleToolset {
     public:
-        explicit ToolsetCppImpl(FileTypeRegistry *registry) {
+        explicit ModuleToolsetImpl(FileTypeRegistry *registry) {
             assert(registry);
 
             m_c_sourceFile = registry->addFileType("C Source File", {".c"});
@@ -27,11 +27,11 @@ namespace felide {
             m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
             m_cpp_headerFile = registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
 
-            m_compilers.emplace_back(new CompilerCpp(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
-            m_linkers.emplace_back(new LinkerCpp("link"));
+            m_compilers.emplace_back(new ModuleCompiler(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
+            m_linkers.emplace_back(new ModuleLinker("link"));
         }
     
-        virtual ~ToolsetCppImpl() {}
+        virtual ~ModuleToolsetImpl() {}
 
         virtual bool checkAction(const TargetAction action, const Source *source) const override {
             assert(source);
@@ -103,7 +103,7 @@ namespace felide {
         const FileType *m_cpp_headerFile = nullptr;
     };
 
-    std::unique_ptr<ToolsetCpp> ToolsetCpp::create(FileTypeRegistry *registry) {
-        return std::make_unique<ToolsetCppImpl>(registry);
+    std::unique_ptr<ModuleToolset> ModuleToolset::create(FileTypeRegistry *registry) {
+        return std::make_unique<ModuleToolsetImpl>(registry);
     }
 }

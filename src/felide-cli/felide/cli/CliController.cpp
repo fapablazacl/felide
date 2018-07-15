@@ -12,7 +12,7 @@
 #include <felide/pom/ProjectParserYaml.hpp>
 #include <felide/tasks/Task.hpp>
 #include <felide/tasks/TaskNodeVisitor.hpp>
-#include <felide/toolsets/cpp/ToolsetCpp.hpp>
+#include <felide/toolsets/cpp/ModuleToolset.hpp>
 
 namespace fs = std::experimental::filesystem;
 
@@ -21,7 +21,7 @@ namespace felide {
     public:
         explicit CliControllerImpl() {
             m_registry = FileTypeRegistry::create();
-            m_toolset = ToolsetCpp::create(m_registry.get());
+            m_toolset = ModuleToolset::create(m_registry.get());
 
             if (m_path == "") {
                 m_path = fs::current_path() / "project.borc";
@@ -77,7 +77,7 @@ namespace felide {
     private:
         fs::path m_path;
         std::unique_ptr<FileTypeRegistry> m_registry;
-        std::unique_ptr<ToolsetCpp> m_toolset;
+        std::unique_ptr<ModuleToolset> m_toolset;
     };
 
     std::unique_ptr<CliController> CliController::create() {

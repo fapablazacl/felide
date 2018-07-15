@@ -15,9 +15,9 @@ namespace felide {
 
     class FileType;
 
-    class ToolsetCpp : public Toolset {
+    class ModuleToolset : public Toolset {
     public:
-        static std::unique_ptr<ToolsetCpp> create(FileTypeRegistry *registry);
+        static std::unique_ptr<ModuleToolset> create(FileTypeRegistry *registry);
     };
 }
 

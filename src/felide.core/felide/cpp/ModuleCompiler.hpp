@@ -8,33 +8,16 @@
 #include <vector>
 
 namespace felide {
-    struct CompilerConfigCpp {
-        //! The symbol used for compiler switches
-        std::string switchSymbol;
-
-        //! The name of the executable command
-        std::string command;
-
-        //! Installation path
-        std::string path;
-
-        //! System include paths
-        std::vector<std::string> includePaths; 
-
-        //! System library paths
-        std::vector<std::string> libraryPaths;
-    };
-
     /**
      * @brief Default compiler implementation
      */
-    class CompilerCpp : public Compiler {
+    class ModuleCompiler : public Compiler {
     public:
-        explicit CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types);
+        explicit ModuleCompiler(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types);
 
-        explicit CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path);
+        explicit ModuleCompiler(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path);
 
-        virtual ~CompilerCpp();
+        virtual ~ModuleCompiler();
 
         virtual bool isCompilable(const Source *source) const override;
 
@@ -43,6 +26,8 @@ namespace felide {
         virtual std::string getPath() const override;
         
         virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source) override;
+
+        virtual std::string computeOutputSourceName(const Source *source) const override;
 
     private:
         std::string m_toolName;
