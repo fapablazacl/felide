@@ -19,11 +19,11 @@ endif (MSVC)
 
 # IDE Core
 include_directories ("src/felide.core")
-add_subdirectory ("src/felide.core")
+#add_subdirectory ("src/felide.core")
 
 # CLI Tools
 include_directories ("src/felide-cli")
-add_subdirectory ("src/felide-cli")
+#add_subdirectory ("src/felide-cli")
 
 # Windows API
 if (FELIDE_UI_WINDOWS)
