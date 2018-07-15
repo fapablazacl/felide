@@ -1,0 +1,26 @@
+format 215
+
+classinstancecanvas 128003 classinstance_ref 128003 // project
+  xyz 26 4 2005 life_line_z 2000
+end
+classinstancecanvas 128131 classinstance_ref 128131 // target
+  xyz 287 4 2005 life_line_z 2000
+end
+durationcanvas 128515 classinstance_ref 128003 // project:Project
+  xyzwh 73 82 2010 11 97
+end
+durationcanvas 128643 classinstance_ref 128131 // target:Target
+  xyzwh 328 82 2010 11 44
+end
+msg 128771 synchronous
+  from durationcanvas_ref 128515
+  to durationcanvas_ref 128643
+  yz 82 2015 msg operation_ref 128259 // "collectItems() : ItemArray"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 93 66
+msg 128899 return
+  from durationcanvas_ref 128643
+  to durationcanvas_ref 128515
+  yz 112 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+end

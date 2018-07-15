@@ -1,0 +1,11 @@
+format 214
+
+componentcanvas 128002 component_ref 128002 // componente1
+  
+  xyzwh 105 81 2000 167 53
+end
+componentcanvas 128130 component_ref 128130 // componente2
+   draw_component_as_icon yes
+  xyzwh 410 151 2000 115 45
+end
+end

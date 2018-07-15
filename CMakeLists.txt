@@ -39,3 +39,5 @@ endif ()
 if (FELIDE_UI_QT5)
     add_subdirectory ("src/felide.ui.qt5")
 endif ()
+
+add_subdirectory("src/sandbox")

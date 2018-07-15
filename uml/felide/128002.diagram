@@ -1,0 +1,153 @@
+format 215
+
+classcanvas 128515 class_ref 128131 // ItemSource
+  classdiagramsettings member_max_width 0 end
+  xyz 496 78 2000
+end
+classcanvas 129538 class_ref 128770 // Project
+  classdiagramsettings member_max_width 0 end
+  xyz 130 31 2000
+end
+note 129539 "This design only manages the dependecy between targets.
+
+Missing features:
+  - Filter items before performing actions (if required)
+  - Doesn't perform any action on the project structure.
+  - The targets just a have a toolchain attached, but it can't be associated with a programming language, framework or technology stack.
+"
+  xyzwh 506 378 2000 557 149
+classcanvas 129666 class_ref 128898 // Target
+  classdiagramsettings member_max_width 0 end
+  xyz 86 205 2000
+end
+classcanvas 129794 class_ref 129026 // Item
+  classdiagramsettings member_max_width 0 end
+  xyz 492 233 2000
+end
+classcanvas 129795 class_ref 141699 // Language
+  classdiagramsettings member_max_width 0 end
+  xyz 108 515 2000
+end
+classcanvas 129923 class_ref 141827 // FileType
+  classdiagramsettings member_max_width 0 end
+  xyz 85 672 2000
+end
+classcanvas 130051 class_ref 141955 // Context
+  classdiagramsettings member_max_width 0 end
+  xyz 501 561 2000
+end
+note 130435 "For a given Action in the Project:
+
+1. for each Target in Project:
+  1.1 let toolchain = target"
+  xyzwh 181 1195 2000 627 127
+classcanvas 130563 class_ref 155523 // Action
+  classdiagramsettings member_max_width 0 end
+  xyz 542 756 2000
+end
+classcanvas 130691 class_ref 155651 // FileTypeRegistry
+  classdiagramsettings member_max_width 0 end
+  xyz 78 844 2000
+end
+classcanvas 130947 class_ref 128259 // FileItemSource
+  classdiagramsettings member_max_width 0 end
+  xyz 808 30 2000
+end
+classcanvas 131074 class_ref 129410 // Compiler
+  classdiagramsettings member_max_width 0 end
+  xyz 1821 730 2000
+end
+classcanvas 131075 class_ref 128387 // PathItemSource
+  classdiagramsettings member_max_width 0 end
+  xyz 810 126 2000
+end
+classcanvas 131202 class_ref 129538 // Linker
+  classdiagramsettings member_max_width 0 end
+  xyzwh 1822 474 2000 355 57
+end
+classcanvas 131459 class_ref 155779 // Task
+  classdiagramsettings member_max_width 0 end
+  xyz 1389 592 2000
+end
+classcanvas 131587 class_ref 155907 // TaskNode
+  classdiagramsettings member_max_width 0 end
+  xyz 1294 746 2000
+end
+classcanvas 132739 class_ref 156291 // TaskTree
+  classdiagramsettings member_max_width 0 end
+  xyz 1008 785 2000
+end
+classcanvas 134018 class_ref 136962 // Toolchain
+  classdiagramsettings member_max_width 0 end
+  xyz 1615 595 2000
+end
+note 134274 "When an Action is received:
+  1. Determine the affected Targets
+  2. For each Target in the current Project 
+    2.1 Determine the appropiate Toolchain, given the current Context (the context is given by the Action).
+    2.2 Nothing, until the MVP is specified completly.
+
+"
+  xyzwh 85 1031 2000 729 127
+classcanvas 134531 class_ref 156547 // IActionable
+  classdiagramsettings member_max_width 0 end
+  xyz 521 903 2000
+end
+relationcanvas 128131 relation_ref 128003 // <composition>
+  from ref 134018 z 2001 to ref 131202
+  no_role_a no_role_b
+  multiplicity_a_pos 1921 533 3000 no_multiplicity_b
+end
+relationcanvas 128259 relation_ref 128131 // <composition>
+  from ref 134018 z 2001 to ref 131074
+  no_role_a no_role_b
+  multiplicity_a_pos 1919 741 3000 no_multiplicity_b
+end
+relationcanvas 129283 relation_ref 134915 // <dependency>
+  from ref 129666 z 2001 to ref 128515
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130306 relation_ref 128642 // <composition>
+  from ref 129538 z 2001 to ref 129666
+  no_role_a no_role_b
+  multiplicity_a_pos 221 182 3000 no_multiplicity_b
+end
+relationcanvas 130690 relation_ref 128898 // <composition>
+  from ref 129666 z 2001 to ref 129794
+  no_role_a no_role_b
+  multiplicity_a_pos 475 307 3000 no_multiplicity_b
+end
+relationcanvas 130819 relation_ref 141443 // <composition>
+  from ref 130691 z 2001 to ref 129923
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131203 relation_ref 128387 // <generalisation>
+  from ref 131075 z 2001 to ref 128515
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131331 relation_ref 128259 // <generalisation>
+  from ref 130947 z 2001 to ref 128515
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 133635 relation_ref 142339 // <composition>
+  from ref 132739 z 2001 to ref 131587
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 133891 relation_ref 142467 // <composition>
+  from ref 131587 z 2001 to ref 131459
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 134147 relation_ref 142595 // <composition>
+  from ref 131587 z 2001 to point 1264 746
+  line 134275 z 2001 to point 1264 776
+  line 134403 z 2001 to ref 131587
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end
