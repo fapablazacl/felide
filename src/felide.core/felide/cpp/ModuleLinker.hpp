@@ -19,9 +19,11 @@ namespace felide {
         std::string outputExtension;
     };
 
+    class ModuleToolset;
+
     class ModuleLinker : public Linker {
     public:
-        explicit ModuleLinker(const LinkerDescription &description);
+        explicit ModuleLinker(const ModuleToolset *toolset, const LinkerDescription &description);
 
         virtual ~ModuleLinker();
 
@@ -34,6 +36,7 @@ namespace felide {
         virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles) override;
 
     private:
+        const ModuleToolset *m_toolset;
         LinkerDescription m_description;
         std::string m_toolName;
         std::string m_path;

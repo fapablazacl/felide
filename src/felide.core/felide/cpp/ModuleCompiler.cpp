@@ -1,5 +1,6 @@
 
 #include "ModuleCompiler.hpp"
+#include "ModuleToolset.hpp"
 
 #include <cassert>
 #include <memory>
@@ -19,7 +20,8 @@ namespace felide {
     const std::string FELIDE_INPUT_FILE = "${InputFile}";
     const std::string FELIDE_OUTPUT_FILE = "${OutputFile}";
 
-    ModuleCompiler::ModuleCompiler(const CompilerDescription &description) {
+    ModuleCompiler::ModuleCompiler(const ModuleToolset *toolset, const CompilerDescription &description) {
+        m_toolset = toolset;
         m_description = description;
 
         m_supportedFileTypes = FileTypeRegistry::create();
@@ -56,6 +58,7 @@ namespace felide {
     }
 
     std::string ModuleCompiler::computeOutputSourceName(const Source *source) const {
+        const fs::path buildPath = m_toolset->getBuildPath();
         const fs::path sourceFile = source->getFilePath();
         const fs::path targetFile = sourceFile.parent_path() / fs::path(source->getFileTitle() + m_description.outputExtension);
 

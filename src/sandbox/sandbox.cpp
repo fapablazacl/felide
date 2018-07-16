@@ -32,8 +32,13 @@ static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
 }
 */
 
+#define XSTR(a) STR(a)
+#define STR(a) #a
+
 static std::unique_ptr<felide::Project> createProject(felide::Toolset *toolset) {
-    auto project = felide::Project::create("felide", "/Users/fapablaza/Desktop/devwarecl/felide");
+    const std::string rootPath = XSTR(PROJECT_SOURCE_DIR);
+
+    auto project = felide::Project::create("felide", rootPath);
 
     project->createTarget<felide::ModuleTarget>()
         ->setType(felide::ModuleTargetType::Library)
@@ -47,6 +52,7 @@ static std::unique_ptr<felide::Project> createProject(felide::Toolset *toolset) 
 int main(int argc, char **argv) {
     try {
         auto toolset = felide::ModuleToolset::create (
+            ".felide/build/gcc",
             {
                 {
                     "gcc -g -O0 -c ${InputFile} -o ${OutputFile}",

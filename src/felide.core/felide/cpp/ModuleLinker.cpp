@@ -1,5 +1,6 @@
 
 #include "ModuleLinker.hpp"
+#include "ModuleToolset.hpp"
 
 #include <felide/TreeNode.hpp>
 #include <felide/util/Strings.hpp>
@@ -12,7 +13,8 @@
 #include <fmt/format.h>
 
 namespace felide {
-    ModuleLinker::ModuleLinker(const LinkerDescription &description) {
+    ModuleLinker::ModuleLinker(const ModuleToolset *toolset, const LinkerDescription &description) {
+        m_toolset = toolset;
         m_description = description;
     }
 

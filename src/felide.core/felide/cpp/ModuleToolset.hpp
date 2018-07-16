@@ -15,6 +15,7 @@ namespace felide {
     class ModuleToolset : public Toolset {
     public:
         static std::unique_ptr<ModuleToolset> create (
+            const std::string &buildPath,
             const std::vector<CompilerDescription> &compilerDescriptions, 
             const std::vector<LinkerDescription> &linkerDescriptions
         );

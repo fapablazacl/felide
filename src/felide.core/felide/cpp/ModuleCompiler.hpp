@@ -15,12 +15,15 @@ namespace felide {
         std::string outputExtension;
     };
 
+
+    class ModuleToolset;
+
     /**
      * @brief Default compiler implementation
      */
     class ModuleCompiler : public Compiler {
     public:
-        explicit ModuleCompiler(const CompilerDescription &description);
+        explicit ModuleCompiler(const ModuleToolset *toolset, const CompilerDescription &description);
 
         virtual ~ModuleCompiler();
 
@@ -35,6 +38,7 @@ namespace felide {
         virtual std::string computeOutputSourceName(const Source *source) const override;
 
     private:
+        const ModuleToolset *m_toolset = nullptr;
         CompilerDescription m_description;
         std::unique_ptr<FileTypeRegistry> m_supportedFileTypes;
     };

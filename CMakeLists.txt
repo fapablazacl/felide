@@ -3,6 +3,8 @@ cmake_minimum_required (VERSION 3.5)
 
 project (felide)
 
+add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
+
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)

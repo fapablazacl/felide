@@ -19,13 +19,15 @@
 namespace felide {
     class ModuleToolsetImpl : public ModuleToolset {
     public:
-        explicit ModuleToolsetImpl (const std::vector<CompilerDescription> &compilerDescriptions, const std::vector<LinkerDescription> &linkerDescriptions) {    
+        explicit ModuleToolsetImpl (const std::string &buildPath, const std::vector<CompilerDescription> &compilerDescriptions, const std::vector<LinkerDescription> &linkerDescriptions) {
+            m_buildPath = buildPath;
+
             for (const auto &desc : compilerDescriptions) {
-                m_compilers.emplace_back(new ModuleCompiler(desc));
+                m_compilers.emplace_back(new ModuleCompiler(this, desc));
             }
 
             for (const auto &desc : linkerDescriptions) {
-                m_linkers.emplace_back(new ModuleLinker(desc));
+                m_linkers.emplace_back(new ModuleLinker(this, desc));
             }
         }
     
@@ -68,6 +70,10 @@ namespace felide {
             return linker->createTask(target, {"test"});
         }
 
+        virtual std::string getBuildPath() const override {
+            return m_buildPath;
+        }
+
     private:
         Compiler *findCompiler(const Source *source) const {
             assert(source);
@@ -92,14 +98,16 @@ namespace felide {
         }
 
     private:
+        std::string m_buildPath;
         std::vector<std::unique_ptr<Compiler>> m_compilers;
         std::vector<std::unique_ptr<Linker>> m_linkers;
     };
 
     std::unique_ptr<ModuleToolset> ModuleToolset::create (
+        const std::string &buildPath,
         const std::vector<CompilerDescription> &compilerDescriptions, 
         const std::vector<LinkerDescription> &linkerDescriptions) {
 
-        return std::make_unique<ModuleToolsetImpl>(compilerDescriptions, linkerDescriptions);
+        return std::make_unique<ModuleToolsetImpl>(buildPath, compilerDescriptions, linkerDescriptions);
     }
 }

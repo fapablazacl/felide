@@ -4,6 +4,7 @@
 
 #include <cstddef>
 
+#include <string>
 #include <vector>
 #include <memory>
 
@@ -25,6 +26,8 @@ namespace felide {
     class Toolset {
     public:
         virtual ~Toolset();
+
+        virtual std::string getBuildPath() const = 0;
 
         /**
          * @brief Checks that the specified action can be applied on the supplied source
