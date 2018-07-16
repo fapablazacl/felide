@@ -21,8 +21,6 @@ namespace felide {
     class ModuleCompiler : public Compiler {
     public:
         explicit ModuleCompiler(const CompilerDescription &description);
-        
-        // explicit ModuleCompiler(const FileTypeRegistry *supportedFileTypes, const std::string &commandTemplate, const std::string &outputExtension);
 
         virtual ~ModuleCompiler();
 

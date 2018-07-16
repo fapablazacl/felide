@@ -16,7 +16,6 @@
 namespace fs = std::experimental::filesystem;
 
 namespace felide {
-
     const std::string FELIDE_INPUT_FILE = "${InputFile}";
     const std::string FELIDE_OUTPUT_FILE = "${OutputFile}";
 

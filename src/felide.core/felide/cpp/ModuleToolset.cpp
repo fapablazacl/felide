@@ -19,26 +19,14 @@
 namespace felide {
     class ModuleToolsetImpl : public ModuleToolset {
     public:
-        explicit ModuleToolsetImpl (
-            const std::vector<CompilerDescription> &compilerDescriptions, 
-            const std::vector<LinkerDescription> &linkerDescriptions) {
-            /*
-            m_c_sourceFile = registry->addFileType("C Source File", {".c"});
-            m_c_headerFile = registry->addFileType("C Header File", {".h"});
-            m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
-            m_cpp_headerFile = registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
+        explicit ModuleToolsetImpl (const std::vector<CompilerDescription> &compilerDescriptions, const std::vector<LinkerDescription> &linkerDescriptions) {    
+            for (const auto &desc : compilerDescriptions) {
+                m_compilers.emplace_back(new ModuleCompiler(desc));
+            }
 
-            // m_compilers.emplace_back(new ModuleCompiler(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
-            // m_linkers.emplace_back(new ModuleLinker("link"));
-            */
-
-           for (const auto &desc : compilerDescriptions) {
-               m_compilers.emplace_back(new ModuleCompiler(desc));
-           }
-
-           for (const auto &desc : linkerDescriptions) {
-               m_linkers.emplace_back(new ModuleLinker(desc));
-           }
+            for (const auto &desc : linkerDescriptions) {
+                m_linkers.emplace_back(new ModuleLinker(desc));
+            }
         }
     
         virtual ~ModuleToolsetImpl() {}

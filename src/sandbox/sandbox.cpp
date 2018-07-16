@@ -43,16 +43,24 @@ static std::unique_ptr<felide::Project> createProject() {
 
 int main(int argc, char **argv) {
     try {
-        auto toolset = felide::ModuleToolset::create({
-            
-        }, {
-
-        });
+        auto toolset = felide::ModuleToolset::create (
+            {
+                {
+                    "gcc -g -O0 -c ${InputFile} -o ${OutputFile}",
+                    {".cpp", ".cxx", ".cc", ".c++"}, 
+                    ".obj"
+                }
+            }, 
+            {
+                {
+                    "gcc ${ObjectFiles} -o ${TargetName} -lstdc++",
+                    "", 
+                    ""
+                }
+            }
+        );
 
         auto project = createProject();
-        auto task = project->createTask(felide::TargetAction::Build);
-
-        task->getData()->perform();
 
         return 0;
     } catch (const std::exception &exp) {
