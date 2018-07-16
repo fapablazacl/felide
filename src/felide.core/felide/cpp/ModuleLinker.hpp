@@ -13,11 +13,15 @@ namespace felide {
     class Source;
     class Target;
 
+    struct LinkerDescription {
+        std::string linkTemplate;
+        std::string inputExtension;
+        std::string outputExtension;
+    };
+
     class ModuleLinker : public Linker {
     public:
-        explicit ModuleLinker(const std::string &toolName);
-
-        explicit ModuleLinker(const std::string &toolName, const std::string &path);
+        explicit ModuleLinker(const LinkerDescription &description);
 
         virtual ~ModuleLinker();
 
@@ -30,6 +34,7 @@ namespace felide {
         virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles) override;
 
     private:
+        LinkerDescription m_description;
         std::string m_toolName;
         std::string m_path;
     };

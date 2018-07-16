@@ -19,16 +19,26 @@
 namespace felide {
     class ModuleToolsetImpl : public ModuleToolset {
     public:
-        explicit ModuleToolsetImpl(FileTypeRegistry *registry) {
-            assert(registry);
-
+        explicit ModuleToolsetImpl (
+            const std::vector<CompilerDescription> &compilerDescriptions, 
+            const std::vector<LinkerDescription> &linkerDescriptions) {
+            /*
             m_c_sourceFile = registry->addFileType("C Source File", {".c"});
             m_c_headerFile = registry->addFileType("C Header File", {".h"});
             m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
             m_cpp_headerFile = registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
 
-            m_compilers.emplace_back(new ModuleCompiler(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
-            m_linkers.emplace_back(new ModuleLinker("link"));
+            // m_compilers.emplace_back(new ModuleCompiler(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
+            // m_linkers.emplace_back(new ModuleLinker("link"));
+            */
+
+           for (const auto &desc : compilerDescriptions) {
+               m_compilers.emplace_back(new ModuleCompiler(desc));
+           }
+
+           for (const auto &desc : linkerDescriptions) {
+               m_linkers.emplace_back(new ModuleLinker(desc));
+           }
         }
     
         virtual ~ModuleToolsetImpl() {}
@@ -96,14 +106,12 @@ namespace felide {
     private:
         std::vector<std::unique_ptr<Compiler>> m_compilers;
         std::vector<std::unique_ptr<Linker>> m_linkers;
-
-        const FileType *m_c_sourceFile = nullptr;
-        const FileType *m_c_headerFile = nullptr;
-        const FileType *m_cpp_sourceFile = nullptr;
-        const FileType *m_cpp_headerFile = nullptr;
     };
 
-    std::unique_ptr<ModuleToolset> ModuleToolset::create(FileTypeRegistry *registry) {
-        return std::make_unique<ModuleToolsetImpl>(registry);
+    std::unique_ptr<ModuleToolset> ModuleToolset::create (
+        const std::vector<CompilerDescription> &compilerDescriptions, 
+        const std::vector<LinkerDescription> &linkerDescriptions) {
+
+        return std::make_unique<ModuleToolsetImpl>(compilerDescriptions, linkerDescriptions);
     }
 }

@@ -12,31 +12,22 @@
 #include <fmt/format.h>
 
 namespace felide {
-    ModuleLinker::ModuleLinker(const std::string &toolName) {
-        m_toolName = toolName;
-    }
-
-    ModuleLinker::ModuleLinker(const std::string &toolName, const std::string &path) {
-        m_toolName = toolName;
-        m_path = path;
+    ModuleLinker::ModuleLinker(const LinkerDescription &description) {
+        m_description = description;
     }
 
     ModuleLinker::~ModuleLinker() {}
 
     bool ModuleLinker::isLinkable(const Target *target) const {
-        if (target) {
-            return true;
-        } else {
-            return false;
-        }
+        return target != nullptr;
     }
 
     std::string ModuleLinker::getToolName() const {
-        return m_toolName;
+        return "m_toolName";
     }
 
     std::string ModuleLinker::getPath() const {
-        return m_path;
+        return "m_path";
     }
 
     std::unique_ptr<TreeNode<Task>> ModuleLinker::createTask(const Target *target, const std::vector<std::string> &objectFiles) {
@@ -47,10 +38,12 @@ namespace felide {
         }
 
         const std::string joinedObjectFiles = join(objectFiles, " ");
-
-        const std::string cmdTemplate = "{0} {1} {2}";
         const std::string targetName = target->getName();
-        const std::string cmd = fmt::format(cmdTemplate, m_toolName, targetName, joinedObjectFiles);
+
+        std::string cmd = m_description.linkTemplate;
+
+        cmd = replace(cmd, "${ObjectFiles}", joinedObjectFiles);
+        cmd = replace(cmd, "${TargetName}", targetName);
 
         return TreeNode<Task>::create(std::make_unique<LogTask>(cmd));
     }

@@ -2,22 +2,22 @@
 #ifndef __borc_toolchainimpl_hpp__
 #define __borc_toolchainimpl_hpp__
 
-#include <felide/toolsets/Toolset.hpp>
-
 #include <cstddef>
 #include <vector>
+#include <string>
 #include <memory>
+#include <felide/toolsets/Toolset.hpp>
 
 namespace felide {
-    class Target;
-    class Source;
-    class FileTypeRegistry;
-
-    class FileType;
+    struct CompilerDescription;
+    struct LinkerDescription;
 
     class ModuleToolset : public Toolset {
     public:
-        static std::unique_ptr<ModuleToolset> create(FileTypeRegistry *registry);
+        static std::unique_ptr<ModuleToolset> create (
+            const std::vector<CompilerDescription> &compilerDescriptions, 
+            const std::vector<LinkerDescription> &linkerDescriptions
+        );
     };
 }
 

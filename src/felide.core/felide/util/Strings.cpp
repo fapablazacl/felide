@@ -19,4 +19,16 @@ namespace felide {
 
         return result;
     }
+
+    std::string replace(const std::string &in, const std::string &toReplace, const std::string &replaceWith) {
+        const auto pos = in.find(toReplace);
+
+        if (pos == std::string::npos) {
+            return in;
+        }
+
+        std::string result = in;
+
+        return result.replace(pos, toReplace.size(), replaceWith);
+    }
 }

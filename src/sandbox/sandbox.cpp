@@ -11,10 +11,13 @@
 #include <felide/pom/TargetAction.hpp>
 #include <felide/tasks/Task.hpp>
 
+#include <felide/cpp/ModuleCompiler.hpp>
+#include <felide/cpp/ModuleLinker.hpp>
 #include <felide/cpp/ModuleToolset.hpp>
 
 #include <felide/FileTypeRegistry.hpp>
 
+/*
 static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
     auto registry = felide::FileTypeRegistry::create();
 
@@ -25,6 +28,7 @@ static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
 
     return registry;
 }
+*/
 
 static std::unique_ptr<felide::Project> createProject() {
     auto project = felide::Project::create("felide", "/Users/fapablaza/Desktop/devwarecl/felide");
@@ -39,8 +43,11 @@ static std::unique_ptr<felide::Project> createProject() {
 
 int main(int argc, char **argv) {
     try {
-        auto registry = createRegistry();
-        auto toolset = felide::ModuleToolset::create(registry.get());
+        auto toolset = felide::ModuleToolset::create({
+            
+        }, {
+
+        });
 
         auto project = createProject();
         auto task = project->createTask(felide::TargetAction::Build);
