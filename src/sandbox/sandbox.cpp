@@ -30,14 +30,15 @@ static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
 }
 */
 
-static std::unique_ptr<felide::Project> createProject() {
+static std::unique_ptr<felide::Project> createProject(felide::Toolset *toolset) {
     auto project = felide::Project::create("felide", "/Users/fapablaza/Desktop/devwarecl/felide");
 
     project->createTarget<felide::ModuleTarget>()
         ->setType(felide::ModuleTargetType::Library)
         ->setName("felide.core")
-        ->setPath("src/felide.core");
-        
+        ->setPath("src/felide.core")
+        ->setToolset(toolset);
+
     return project;
 }
 
@@ -60,8 +61,11 @@ int main(int argc, char **argv) {
             }
         );
 
-        auto project = createProject();
+        auto project = createProject(toolset.get());
+        auto taskNode = project->createTask(felide::TargetAction::Build);
 
+        taskNode->getData()->perform();
+        
         return 0;
     } catch (const std::exception &exp) {
         std::cout << exp.what() << std::endl;
