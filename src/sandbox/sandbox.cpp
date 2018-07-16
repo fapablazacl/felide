@@ -9,7 +9,9 @@
 #include <felide/pom/ModuleTarget.hpp>
 #include <felide/pom/ModuleTargetType.hpp>
 #include <felide/pom/TargetAction.hpp>
+
 #include <felide/tasks/Task.hpp>
+#include <felide/tasks/TaskNodeVisitor.hpp>
 
 #include <felide/cpp/ModuleCompiler.hpp>
 #include <felide/cpp/ModuleLinker.hpp>
@@ -60,12 +62,22 @@ int main(int argc, char **argv) {
                 }
             }
         );
+        std::cout << "Configured a default Toolset" << std::endl;
 
         auto project = createProject(toolset.get());
-        auto taskNode = project->createTask(felide::TargetAction::Build);
+        std::cout << "Created a Project" << std::endl;
 
-        taskNode->getData()->perform();
-        
+        auto taskNode = project->createTask(felide::TargetAction::Build);
+        std::cout << "Created a Task" << std::endl;
+
+        auto visitor = felide::TaskNodeVisitor::create();
+
+        visitor->visit(taskNode.get(), [](felide::Task *task) {
+            if (task) {
+                task->perform();
+            } 
+        });
+
         return 0;
     } catch (const std::exception &exp) {
         std::cout << exp.what() << std::endl;
