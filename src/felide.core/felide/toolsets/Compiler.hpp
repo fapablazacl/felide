@@ -37,10 +37,9 @@ namespace felide {
          */
         virtual std::string getPath() const = 0;
 
-        /**
-         * @brief Computes the file title if the supplied source gets compiled
-         */
+        /*
         virtual std::string computeOutputSourceName(const Source *source) const = 0;
+        */
         
         /**
          * @brief Creates a task hierarchy wich will build the specified source file at a later stage.

@@ -51,9 +51,13 @@ namespace felide {
         assert(source);
 
         const fs::path sourceFile = source->getFilePath();
-        const fs::path targetFile = this->computeOutputSourceName(source);
-        const fs::path outputPath = this->computeOutputPath(source);
 
+        // const fs::path outputPath = this->computeOutputPath(source);
+        const fs::path outputPath = source->computeOutputDirectory(m_toolset->getBuildPath());
+
+        // const fs::path targetFile = this->computeOutputSourceName(source);
+        const fs::path targetFile = outputPath /  source->computeOutputFileName(m_description.outputExtension);
+        
         std::string command = m_description.compileTemplate;
         command = replace(command, FELIDE_INPUT_FILE, sourceFile.string());
         command = replace(command, FELIDE_OUTPUT_FILE, targetFile.string());
@@ -66,7 +70,6 @@ namespace felide {
             command = replace(command, key, option + " " + value);
         }
 
-        // TODO: Add a directory creation task
         auto taskNode = TreeNode<Task>::create();
         taskNode->createChild(std::make_unique<DirectoryTask>(outputPath.string()));
         taskNode->createChild(std::make_unique<CommandTask>(command));
@@ -74,9 +77,10 @@ namespace felide {
         return taskNode;
     }
 
+    /*
     std::string ModuleCompiler::computeOutputSourceName(const Source *source) const {
         const fs::path outputPath = this->computeOutputPath(source);
-        const fs::path outputFile = fs::path(source->getFileTitle() + m_description.outputExtension);
+        const fs::path outputFile = fs::path(source->getFileName() + m_description.outputExtension);
 
         const fs::path result = outputPath / outputFile;
 
@@ -93,4 +97,5 @@ namespace felide {
 
         return result;
     }
+    */
 }

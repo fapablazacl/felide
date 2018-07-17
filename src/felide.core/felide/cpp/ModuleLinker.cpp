@@ -10,6 +10,8 @@
 #include <felide/tasks/CommandTask.hpp>
 
 #include <experimental/filesystem>
+
+#include <iostream>
 #include <cassert>
 
 namespace felide {

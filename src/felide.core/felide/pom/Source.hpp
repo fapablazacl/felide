@@ -5,7 +5,6 @@
 #include <string>
 
 namespace felide {
-
     class Target;
     /**
      * @brief Source file abstraction.
@@ -40,6 +39,11 @@ namespace felide {
          * @brief Get the parent target
          */
         const Target* getTarget() const;
+
+        // TODO: Generalize to a extension - changing method
+        std::string computeOutputFileName(const std::string &extension) const;
+
+        std::string computeOutputDirectory(const std::string &relativePrefix) const;
 
     private:
         //! The parent target.

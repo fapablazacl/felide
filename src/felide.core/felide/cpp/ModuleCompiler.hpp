@@ -38,10 +38,12 @@ namespace felide {
         
         virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) override;
 
+    /*
         virtual std::string computeOutputSourceName(const Source *source) const override;
 
     private:
         std::string computeOutputPath(const Source *source) const;
+    */
 
     private:
         const ModuleToolset *m_toolset = nullptr;
