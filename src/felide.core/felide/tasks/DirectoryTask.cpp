@@ -13,7 +13,7 @@ namespace felide {
 
         fs::path path = m_directory;
 
-        fs::create_directory(path);
+        fs::create_directories(path);
 
         if (!fs::exists(m_directory)) {
             throw std::runtime_error("Couldn't create the specified directory");

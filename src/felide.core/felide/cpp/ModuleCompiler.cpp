@@ -11,6 +11,7 @@
 
 #include <felide/TreeNode.hpp>
 #include <felide/tasks/CommandTask.hpp>
+#include <felide/tasks/DirectoryTask.hpp>
 #include <felide/tasks/LogTask.hpp>
 #include <felide/pom/Source.hpp>
 #include <felide/pom/Target.hpp>
@@ -52,6 +53,7 @@ namespace felide {
 
         const fs::path sourceFile = source->getFilePath();
         const fs::path targetFile = this->computeOutputSourceName(source);
+        const fs::path outputPath = this->computeOutputPath(source);
 
         std::string command = m_description.compileTemplate;
         command = replace(command, FELIDE_INPUT_FILE, sourceFile.string());
@@ -65,18 +67,31 @@ namespace felide {
             command = replace(command, key, option + " " + value);
         }
 
-        return TreeNode<Task>::create(std::move(std::make_unique<CommandTask>(command)));
+        // TODO: Add a directory creation task
+        auto taskNode = TreeNode<Task>::create();
+        taskNode->createChild(std::make_unique<DirectoryTask>(outputPath.string()));
+        taskNode->createChild(std::make_unique<CommandTask>(command));
+
+        return taskNode;
     }
 
     std::string ModuleCompiler::computeOutputSourceName(const Source *source) const {
+        const fs::path outputPath = this->computeOutputPath(source);
         const fs::path outputFile = fs::path(source->getFileTitle() + m_description.outputExtension);
-        const fs::path sourcePath = source->getFilePath();
+
+        const fs::path result = outputPath / outputFile;
+
+        return result.string();
+    }
+
+    std::string ModuleCompiler::computeOutputPath(const Source *source) const {
+        const fs::path sourcePath = fs::path(source->getFilePath()).parent_path();
         const fs::path projectPath = source->getTarget()->getProject()->getPath();
         const fs::path sourceRelPath = replace(sourcePath.string(), projectPath.string(), "");
         const fs::path buildPath = m_toolset->getBuildPath();
 
-        const fs::path result = projectPath / buildPath / sourceRelPath / outputFile;
+        const fs::path result = projectPath / buildPath / sourceRelPath;
 
-        return result.string();
+        return result;
     }
 }

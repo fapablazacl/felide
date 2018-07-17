@@ -41,6 +41,9 @@ namespace felide {
         virtual std::string computeOutputSourceName(const Source *source) const override;
 
     private:
+        std::string computeOutputPath(const Source *source) const;
+
+    private:
         const ModuleToolset *m_toolset = nullptr;
         CompilerDescription m_description;
         std::unique_ptr<FileTypeRegistry> m_supportedFileTypes;

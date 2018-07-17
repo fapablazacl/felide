@@ -19,19 +19,6 @@
 
 #include <felide/FileTypeRegistry.hpp>
 
-/*
-static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
-    auto registry = felide::FileTypeRegistry::create();
-
-    registry->addFileType("C Source File", {".c"});
-    registry->addFileType("C Header File", {".h"});
-    registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
-    registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
-
-    return registry;
-}
-*/
-
 #define XSTR(a) STR(a)
 #define STR(a) #a
 
