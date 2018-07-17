@@ -7,12 +7,15 @@
 #include <felide/pom/Source.hpp>
 #include <felide/pom/Target.hpp>
 #include <felide/tasks/LogTask.hpp>
-#include <felide/tasks/Task.hpp>
+#include <felide/tasks/CommandTask.hpp>
 
 #include <experimental/filesystem>
 #include <fmt/format.h>
 
 namespace felide {
+    const std::string FELIDE_OBJECT_FILES = "${ObjectFiles}";
+    const std::string FELIDE_TARGET_NAME = "${TargetName}";
+    
     ModuleLinker::ModuleLinker(const ModuleToolset *toolset, const LinkerDescription &description) {
         m_toolset = toolset;
         m_description = description;
@@ -44,9 +47,9 @@ namespace felide {
 
         std::string cmd = m_description.linkTemplate;
 
-        cmd = replace(cmd, "${ObjectFiles}", joinedObjectFiles);
-        cmd = replace(cmd, "${TargetName}", targetName);
+        cmd = replace(cmd, FELIDE_OBJECT_FILES, joinedObjectFiles);
+        cmd = replace(cmd, FELIDE_TARGET_NAME, targetName);
 
-        return TreeNode<Task>::create(std::make_unique<LogTask>(cmd));
+        return TreeNode<Task>::create(std::make_unique<CommandTask>(cmd));
     }
 }

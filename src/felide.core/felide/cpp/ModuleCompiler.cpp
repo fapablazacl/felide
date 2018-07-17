@@ -10,7 +10,7 @@
 #include <felide/util/Strings.hpp>
 
 #include <felide/TreeNode.hpp>
-#include <felide/tasks/Task.hpp>
+#include <felide/tasks/CommandTask.hpp>
 #include <felide/tasks/LogTask.hpp>
 #include <felide/pom/Source.hpp>
 #include <felide/pom/Target.hpp>
@@ -56,7 +56,7 @@ namespace felide {
         command = replace(command, FELIDE_INPUT_FILE, sourceFile.string());
         command = replace(command, FELIDE_OUTPUT_FILE, targetFile.string());
 
-        return TreeNode<Task>::create(std::move(std::make_unique<LogTask>(command)));
+        return TreeNode<Task>::create(std::move(std::make_unique<CommandTask>(command)));
     }
 
     std::string ModuleCompiler::computeOutputSourceName(const Source *source) const {
