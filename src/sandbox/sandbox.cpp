@@ -53,13 +53,22 @@ static std::unique_ptr<felide::Project> createProject(felide::Toolset *toolset) 
 
 int main(int argc, char **argv) {
     try {
+        const std::string rootPath = XSTR(PROJECT_SOURCE_DIR);
+
+        const felide::CompilerActionContext context = {
+            {"${IncludeDirectory}", rootPath + "/src/felide.core"}
+        };
+
         auto toolset = felide::ModuleToolset::create (
             ".felide/build/gcc",
             {
                 felide::CompilerDescription {
-                    "gcc -g -O0 -c ${InputFile} -o ${OutputFile}",
+                    "gcc -g -O0 -c ${InputFile} -o ${OutputFile} ${IncludeDirectory}",
                     {".cpp", ".cxx", ".cc", ".c++"}, 
-                    ".obj"
+                    ".obj",
+                    {
+                        {"${IncludeDirectory}", "-I"}
+                    }
                 }
             }, {
                 felide::LinkerDescription {
@@ -74,13 +83,14 @@ int main(int argc, char **argv) {
         auto project = createProject(toolset.get());
         std::cout << "Created a Project" << std::endl;
 
-        auto taskNode = project->createTask(felide::TargetAction::Build);
+        auto taskNode = project->createTask(felide::TargetAction::Build, context);
         std::cout << "Created a Task" << std::endl;
 
         auto visitor = felide::TaskNodeVisitor::create();
 
         visitor->visit(taskNode.get(), [](felide::Task *task) {
             if (task) {
+                std::cout << task->toString() << std::endl;
                 task->perform();
             } 
         });

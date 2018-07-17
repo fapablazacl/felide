@@ -43,7 +43,7 @@ namespace felide {
             return this->findCompiler(source);
         }
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source, const CompilerActionContext &context) override {
             assert(source);
 
             if (!this->checkAction(action, source)) {
@@ -52,7 +52,7 @@ namespace felide {
 
             Compiler *compiler = this->findCompiler(source);
 
-            return compiler->createTask(source);
+            return compiler->createTask(source, context);
         }
 
         virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target) override {

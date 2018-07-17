@@ -75,9 +75,9 @@ namespace felide {
             return this;
         }
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const CompilerActionContext &context) override {
             if (action == TargetAction::Build) {
-                return this->createBuildTask();
+                return this->createBuildTask(context);
             } else {
                 throw std::runtime_error("Unsupported Action");
             }
@@ -88,12 +88,12 @@ namespace felide {
         }
 
     private:
-        std::unique_ptr<TreeNode<Task>> createBuildTask()  {
+        std::unique_ptr<TreeNode<Task>> createBuildTask(const CompilerActionContext &context)  {
             // TODO: Take into account dependency management
             auto taskNode = std::make_unique<TreeNode<Task>>();
 
             for (auto &target : m_targets) {
-                taskNode->insertChild(target->createTask(TargetAction::Build));
+                taskNode->insertChild(target->createTask(TargetAction::Build, context));
             }
 
             return taskNode;

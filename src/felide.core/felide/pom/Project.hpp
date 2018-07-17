@@ -6,6 +6,8 @@
 #include <vector>
 #include <memory>
 
+#include <felide/toolsets/CompilerActionContext.hpp>
+
 namespace felide {
     enum class TargetAction;
 
@@ -73,7 +75,7 @@ namespace felide {
         /**
          * @brief Generate the task tree in order to perform the requested action
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const CompilerActionContext &context) = 0;
         
     private:        
         /**

@@ -3,9 +3,12 @@
 #define __borc_compiler_hpp__
 
 #include <string>
+#include <map>
 #include <memory>
 
 #include <felide/FileTypeRegistry.hpp>
+
+#include "CompilerActionContext.hpp"
 
 namespace felide {
     template<typename T>
@@ -42,7 +45,7 @@ namespace felide {
         /**
          * @brief Creates a task hierarchy wich will build the specified source file at a later stage.
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) = 0;
     };
 }
 

@@ -7,14 +7,17 @@
 
 #include <set>
 #include <vector>
+#include <map>
 
 namespace felide {
     struct CompilerDescription {
         std::string compileTemplate;
         std::vector<std::string> inputExtensions;
         std::string outputExtension;
-    };
 
+        //! Map from VariableKey to specific compiler option
+        std::map<std::string, std::string> keyOptionMap;
+    };
 
     class ModuleToolset;
 
@@ -33,7 +36,7 @@ namespace felide {
 
         virtual std::string getPath() const override;
         
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source) override;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) override;
 
         virtual std::string computeOutputSourceName(const Source *source) const override;
 
