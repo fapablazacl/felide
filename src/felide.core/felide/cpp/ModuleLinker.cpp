@@ -10,7 +10,7 @@
 #include <felide/tasks/CommandTask.hpp>
 
 #include <experimental/filesystem>
-#include <fmt/format.h>
+#include <cassert>
 
 namespace felide {
     const std::string FELIDE_OBJECT_FILES = "${ObjectFiles}";

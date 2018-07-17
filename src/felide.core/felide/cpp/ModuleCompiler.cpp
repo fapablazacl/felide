@@ -6,7 +6,6 @@
 #include <memory>
 #include <experimental/filesystem>
 
-#include <fmt/format.h>
 #include <felide/util/Strings.hpp>
 
 #include <felide/TreeNode.hpp>
