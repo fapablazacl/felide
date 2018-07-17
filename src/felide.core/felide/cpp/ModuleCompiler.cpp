@@ -51,11 +51,7 @@ namespace felide {
         assert(source);
 
         const fs::path sourceFile = source->getFilePath();
-
-        // const fs::path outputPath = this->computeOutputPath(source);
         const fs::path outputPath = source->computeOutputDirectory(m_toolset->getBuildPath());
-
-        // const fs::path targetFile = this->computeOutputSourceName(source);
         const fs::path targetFile = outputPath /  source->computeOutputFileName(m_description.outputExtension);
         
         std::string command = m_description.compileTemplate;
@@ -76,26 +72,4 @@ namespace felide {
 
         return taskNode;
     }
-
-    /*
-    std::string ModuleCompiler::computeOutputSourceName(const Source *source) const {
-        const fs::path outputPath = this->computeOutputPath(source);
-        const fs::path outputFile = fs::path(source->getFileName() + m_description.outputExtension);
-
-        const fs::path result = outputPath / outputFile;
-
-        return result.string();
-    }
-
-    std::string ModuleCompiler::computeOutputPath(const Source *source) const {
-        const fs::path sourcePath = fs::path(source->getFilePath()).parent_path();
-        const fs::path projectPath = source->getTarget()->getProject()->getPath();
-        const fs::path sourceRelPath = replace(sourcePath.string(), projectPath.string(), "");
-        const fs::path buildPath = m_toolset->getBuildPath();
-
-        const fs::path result = projectPath / buildPath / sourceRelPath;
-
-        return result;
-    }
-    */
 }
