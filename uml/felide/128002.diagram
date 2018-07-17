@@ -1,4 +1,4 @@
-format 215
+format 218
 
 classcanvas 128515 class_ref 128131 // ItemSource
   classdiagramsettings member_max_width 0 end
@@ -15,7 +15,7 @@ Missing features:
   - Doesn't perform any action on the project structure.
   - The targets just a have a toolchain attached, but it can't be associated with a programming language, framework or technology stack.
 "
-  xyzwh 506 378 2000 557 149
+  xyzwh 457 364 2000 557 149
 classcanvas 129666 class_ref 128898 // Target
   classdiagramsettings member_max_width 0 end
   xyz 86 205 2000

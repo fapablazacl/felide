@@ -13,6 +13,8 @@
 #include <felide/tasks/Task.hpp>
 #include <felide/tasks/LogTask.hpp>
 #include <felide/pom/Source.hpp>
+#include <felide/pom/Target.hpp>
+#include <felide/pom/Project.hpp>
 
 namespace fs = std::experimental::filesystem;
 
@@ -58,10 +60,14 @@ namespace felide {
     }
 
     std::string ModuleCompiler::computeOutputSourceName(const Source *source) const {
+        const fs::path outputFile = fs::path(source->getFileTitle() + m_description.outputExtension);
+        const fs::path sourcePath = source->getFilePath();
+        const fs::path projectPath = source->getTarget()->getProject()->getPath();
+        const fs::path sourceRelPath = replace(sourcePath.string(), projectPath.string(), "");
         const fs::path buildPath = m_toolset->getBuildPath();
-        const fs::path sourceFile = source->getFilePath();
-        const fs::path targetFile = sourceFile.parent_path() / fs::path(source->getFileTitle() + m_description.outputExtension);
 
-        return targetFile.string();
+        const fs::path result = projectPath / buildPath / sourceRelPath / outputFile;
+
+        return result.string();
     }
 }

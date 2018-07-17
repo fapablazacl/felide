@@ -38,6 +38,8 @@ static std::unique_ptr<felide::FileTypeRegistry> createRegistry() {
 static std::unique_ptr<felide::Project> createProject(felide::Toolset *toolset) {
     const std::string rootPath = XSTR(PROJECT_SOURCE_DIR);
 
+    std::cout << "Building project at \"" << rootPath << "\" ..." << std::endl;
+
     auto project = felide::Project::create("felide", rootPath);
 
     project->createTarget<felide::ModuleTarget>()
@@ -54,14 +56,13 @@ int main(int argc, char **argv) {
         auto toolset = felide::ModuleToolset::create (
             ".felide/build/gcc",
             {
-                {
+                felide::CompilerDescription {
                     "gcc -g -O0 -c ${InputFile} -o ${OutputFile}",
                     {".cpp", ".cxx", ".cc", ".c++"}, 
                     ".obj"
                 }
-            }, 
-            {
-                {
+            }, {
+                felide::LinkerDescription {
                     "gcc ${ObjectFiles} -o ${TargetName} -lstdc++",
                     "", 
                     ""
