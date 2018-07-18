@@ -4,21 +4,13 @@
 
 #include <felide/toolsets/Compiler.hpp>
 #include <felide/FileTypeRegistry.hpp>
+#include <felide/toolsets/CompilerDescription.hpp>
 
 #include <set>
 #include <vector>
 #include <map>
 
 namespace felide {
-    struct CompilerDescription {
-        std::string compileTemplate;
-        std::vector<std::string> inputExtensions;
-        std::string outputExtension;
-
-        //! Map from VariableKey to specific compiler option
-        std::map<std::string, std::string> keyOptionMap;
-    };
-
     class ModuleToolset;
 
     /**
@@ -38,12 +30,9 @@ namespace felide {
         
         virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) override;
 
-    /*
-        virtual std::string computeOutputSourceName(const Source *source) const override;
-
-    private:
-        std::string computeOutputPath(const Source *source) const;
-    */
+        virtual CompilerDescription getDescription() const override {
+            return m_description;
+        }
 
     private:
         const ModuleToolset *m_toolset = nullptr;

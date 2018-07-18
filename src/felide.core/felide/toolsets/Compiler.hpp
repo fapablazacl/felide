@@ -18,6 +18,8 @@ namespace felide {
     class Source;
     class FileTypeRegistry;
 
+    struct CompilerDescription;
+
     class Compiler {
     public:
         virtual ~Compiler();
@@ -37,14 +39,12 @@ namespace felide {
          */
         virtual std::string getPath() const = 0;
 
-        /*
-        virtual std::string computeOutputSourceName(const Source *source) const = 0;
-        */
-        
         /**
          * @brief Creates a task hierarchy wich will build the specified source file at a later stage.
          */
         virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) = 0;
+
+        virtual CompilerDescription getDescription() const = 0;
     };
 }
 
