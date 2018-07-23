@@ -11,6 +11,7 @@ namespace felide {
         std::string compileTemplate;
         std::vector<std::string> inputExtensions;
         std::string outputExtension;
+        std::string prefix;
 
         //! Map from VariableKey to specific compiler option
         std::map<std::string, std::string> keyOptionMap;

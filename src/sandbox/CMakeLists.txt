@@ -2,12 +2,6 @@
 set (target "felide.sandbox")
 set (sources 
     "sandbox.cpp"
-    "ProjectFile.cpp"
-    "ProjectFile.hpp"
-    "Project.cpp"
-    "Project.hpp"
-    "Workspace.cpp"
-    "Workspace.hpp"
 )
 
 add_executable (${target} ${sources})

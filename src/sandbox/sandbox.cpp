@@ -50,9 +50,10 @@ int main(int argc, char **argv) {
             ".felide/build/gcc",
             {
                 felide::CompilerDescription {
-                    "gcc -g -O0 -c ${InputFile} -o ${OutputFile} ${IncludeDirectory}",
+                    "gcc -std=c++17 -g -O0 -c ${InputFile} -o ${OutputFile} ${IncludeDirectory}",
                     {".cpp", ".cxx", ".cc", ".c++"}, 
                     ".obj",
+                    "/usr/local/Cellar/gcc/8.1.0/bin/",
                     {
                         {"${IncludeDirectory}", "-I"}
                     }
