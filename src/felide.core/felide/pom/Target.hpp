@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include <felide/toolsets/CompilerActionContext.hpp>
+#include <felide/toolsets/ActionContext.hpp>
 
 namespace felide {
     template<typename T>
@@ -49,7 +49,7 @@ namespace felide {
          *  - The Type of Target 
          *  - The needed Toolsets 
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const CompilerActionContext &context) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ActionContext &context) = 0;
 
         /**
          * @brief Gets an array of the actions supported by this target

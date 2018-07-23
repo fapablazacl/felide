@@ -50,6 +50,8 @@ set (sources
     "felide/pom/ProjectParserYaml.hpp"
     "felide/pom/ProjectParserYaml.cpp"
 
+    "felide/toolsets/ActionContext.hpp"
+    "felide/toolsets/ActionContext.cpp"
     "felide/toolsets/Compiler.hpp"
     "felide/toolsets/Compiler.cpp"
     "felide/toolsets/Linker.hpp"

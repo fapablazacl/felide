@@ -3,6 +3,7 @@
 #define __borc_linkerimpl_hpp__
 
 #include <felide/toolsets/Linker.hpp>
+#include <felide/toolsets/ActionContext.hpp>
 
 #include <string>
 #include <memory>
@@ -33,7 +34,7 @@ namespace felide {
 
         virtual std::string getPath() const override;
         
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles) override;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles, const ActionContext &context) override;
 
     private:
         const ModuleToolset *m_toolset;

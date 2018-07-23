@@ -28,7 +28,7 @@ namespace felide {
 
         virtual std::string getPath() const override;
         
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) override;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const ActionContext &context) override;
 
         virtual CompilerDescription getDescription() const override {
             return m_description;

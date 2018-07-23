@@ -8,7 +8,7 @@
 
 #include <felide/FileTypeRegistry.hpp>
 
-#include "CompilerActionContext.hpp"
+#include "ActionContext.hpp"
 
 namespace felide {
     template<typename T>
@@ -42,7 +42,7 @@ namespace felide {
         /**
          * @brief Creates a task hierarchy wich will build the specified source file at a later stage.
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const CompilerActionContext &context) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source, const ActionContext &context) = 0;
 
         virtual CompilerDescription getDescription() const = 0;
     };

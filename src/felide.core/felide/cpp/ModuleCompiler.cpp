@@ -47,7 +47,7 @@ namespace felide {
         return "<Not Implemented>";
     }
 
-    std::unique_ptr<TreeNode<Task>> ModuleCompiler::createTask(const Source *source, const CompilerActionContext &context) {
+    std::unique_ptr<TreeNode<Task>> ModuleCompiler::createTask(const Source *source, const ActionContext &context) {
         assert(source);
 
         const fs::path sourceFile = source->getFilePath();

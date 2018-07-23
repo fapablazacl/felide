@@ -8,8 +8,6 @@ add_executable (${target} ${sources})
 
 target_link_libraries (${target}     
     felide.core
-    yaml-cpp
-    fmt
     stdc++fs
 )
 

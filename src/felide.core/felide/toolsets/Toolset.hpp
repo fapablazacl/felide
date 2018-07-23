@@ -9,7 +9,7 @@
 #include <memory>
 #include <map>
 
-#include "CompilerActionContext.hpp"
+#include "ActionContext.hpp"
 
 namespace felide {
     class Project;
@@ -40,12 +40,12 @@ namespace felide {
         /**
          * @brief Create the build task hierarchy needed to perform the specified action on the specified source
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source, const CompilerActionContext &context) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source, const ActionContext &context) = 0;
 
         /**
          * @brief Create the build task hierarchy needed to perform the specified action on the specified module target
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target, const ActionContext &context) = 0;
     };
 }
 

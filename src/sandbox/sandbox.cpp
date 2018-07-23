@@ -35,6 +35,12 @@ static std::unique_ptr<felide::Project> createProject(felide::Toolset *toolset) 
         ->setPath("src/felide.core")
         ->setToolset(toolset);
 
+    project->createTarget<felide::ModuleTarget>()
+        ->setType(felide::ModuleTargetType::Program)
+        ->setName("sandbox")
+        ->setPath("src/sandbox")
+        ->setToolset(toolset);
+
     return project;
 }
 
@@ -42,8 +48,9 @@ int main(int argc, char **argv) {
     try {
         const std::string rootPath = XSTR(PROJECT_SOURCE_DIR);
 
-        const felide::CompilerActionContext context = {
-            {"${IncludeDirectory}", rootPath + "/src/felide.core"}
+        const felide::ActionContext context = {
+            {"${IncludeDirectory}", rootPath + "/src/felide.core"},
+            {"${LinkLibraries}", "-lstdc++ -lstdc++fs"}
         };
 
         auto toolset = felide::ModuleToolset::create (
@@ -60,7 +67,7 @@ int main(int argc, char **argv) {
                 }
             }, {
                 felide::LinkerDescription {
-                    "gcc ${ObjectFiles} -o ${TargetName} -lstdc++",
+                    "gcc ${ObjectFiles} -o ${TargetName} ${LinkLibraries}",
                     "", 
                     ""
                 }
@@ -72,7 +79,7 @@ int main(int argc, char **argv) {
         std::cout << "Created a Project" << std::endl;
 
         auto taskNode = project->createTask(felide::TargetAction::Build, context);
-        std::cout << "Created a Task" << std::endl;
+        std::cout << "Created a Build Task" << std::endl;
 
         auto visitor = felide::TaskNodeVisitor::create();
 

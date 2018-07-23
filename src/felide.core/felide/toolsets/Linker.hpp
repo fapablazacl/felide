@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <felide/toolsets/ActionContext.hpp>
 
 namespace felide {
     template<typename T>
@@ -36,7 +37,7 @@ namespace felide {
         /**
          * @brief Creates a task wich will link the specified target at a later stage.
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles, const ActionContext &context) = 0;
     };
 }
 

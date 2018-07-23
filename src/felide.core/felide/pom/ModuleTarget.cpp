@@ -50,12 +50,12 @@ namespace felide {
             return m_name;
         }
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const CompilerActionContext &context) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ActionContext &context) override {
             if (!m_toolset) {
                 throw std::runtime_error("This project doesn't have a toolset");
             }
 
-            auto targetTaskNode = m_toolset->createTask(action, this);
+            auto targetTaskNode = m_toolset->createTask(action, this, context);
 
             std::vector<Source> sources = this->getSources();
             for (Source &source : sources) {

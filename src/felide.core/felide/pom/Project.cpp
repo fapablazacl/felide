@@ -75,7 +75,7 @@ namespace felide {
             return this;
         }
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const CompilerActionContext &context) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ActionContext &context) override {
             if (action == TargetAction::Build) {
                 return this->createBuildTask(context);
             } else {
@@ -88,7 +88,7 @@ namespace felide {
         }
 
     private:
-        std::unique_ptr<TreeNode<Task>> createBuildTask(const CompilerActionContext &context)  {
+        std::unique_ptr<TreeNode<Task>> createBuildTask(const ActionContext &context)  {
             // TODO: Take into account dependency management
             auto taskNode = std::make_unique<TreeNode<Task>>();
 

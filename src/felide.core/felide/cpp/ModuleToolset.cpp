@@ -46,7 +46,7 @@ namespace felide {
             return this->findCompiler(source);
         }
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source, const CompilerActionContext &context) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source, const ActionContext &context) override {
             assert(source);
 
             if (!this->checkAction(action, source)) {
@@ -58,7 +58,7 @@ namespace felide {
             return compiler->createTask(source, context);
         }
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target, const ActionContext &context) override {
             assert(target);
 
             if (action != TargetAction::Build) {
@@ -86,7 +86,7 @@ namespace felide {
                 objectFiles.push_back(targetFile.string());
             }
 
-            return linker->createTask(target, objectFiles);
+            return linker->createTask(target, objectFiles, context);
         }
 
         virtual std::string getBuildPath() const override {

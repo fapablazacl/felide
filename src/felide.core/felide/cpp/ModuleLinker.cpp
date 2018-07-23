@@ -10,7 +10,6 @@
 #include <felide/tasks/CommandTask.hpp>
 
 #include <experimental/filesystem>
-
 #include <iostream>
 #include <cassert>
 
@@ -37,7 +36,7 @@ namespace felide {
         return "m_path";
     }
 
-    std::unique_ptr<TreeNode<Task>> ModuleLinker::createTask(const Target *target, const std::vector<std::string> &objectFiles) {
+    std::unique_ptr<TreeNode<Task>> ModuleLinker::createTask(const Target *target, const std::vector<std::string> &objectFiles, const ActionContext &context) {
         assert(target);
 
         if (objectFiles.size() == 0) {
@@ -51,6 +50,7 @@ namespace felide {
 
         cmd = replace(cmd, FELIDE_OBJECT_FILES, joinedObjectFiles);
         cmd = replace(cmd, FELIDE_TARGET_NAME, targetName);
+        cmd = instanceTemplate(cmd, context);
 
         return TreeNode<Task>::create(std::make_unique<CommandTask>(cmd));
     }
