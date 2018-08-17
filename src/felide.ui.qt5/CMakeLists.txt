@@ -8,8 +8,8 @@ find_package(Qt5Widgets CONFIG REQUIRED)
 set (target "felide.ui.qt5")
 
 set (src_felide_ui_qt5
-    "felide/MainWindow.hpp"
-    "felide/MainWindow.cpp"
+    "felide/ui/qt5/MainWindow.hpp"
+    "felide/ui/qt5/MainWindow.cpp"
     "Main.cpp"
 )
 

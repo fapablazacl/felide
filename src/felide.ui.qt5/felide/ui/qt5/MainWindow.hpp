@@ -3,6 +3,10 @@
 #define __FELIDE_UI_QT5_MAINWINDOW_HPP__
 
 #include <QMainWindow>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+#include <map>
 
 namespace felide {
     class MainWindow : public QMainWindow {
@@ -11,6 +15,8 @@ namespace felide {
     public:
         MainWindow();
 
+    private:
+        void setupMenuBar();
     };
 }
 
