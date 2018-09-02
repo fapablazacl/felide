@@ -9,8 +9,13 @@
 
 namespace felide {
     struct FileDialogViewData {
+        struct FileFilter {
+            std::string description;
+            std::vector<std::string> wildcards;
+        };
+
         std::string title;
-        std::vector<std::string> filters;
+        std::vector<FileFilter> filters;
     };
 
     class EditorView {

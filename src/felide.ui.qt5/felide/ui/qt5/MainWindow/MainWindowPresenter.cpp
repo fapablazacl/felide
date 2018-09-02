@@ -28,7 +28,20 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileOpen() {
-        std::cout << "MainWindowPresenter::fileOpen()" << std::endl;
+        FileDialogViewData dialogData = {
+            "Open File",
+            {
+                {"All Files", {"*.*"}},
+                {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc"}},
+            }
+        };
+
+        auto fileNameOpt = view->openFileDialog(dialogData);
+        if (!fileNameOpt) {
+            return;
+        }
+
+        const std::string fileName = *fileNameOpt;
     }
 
     void MainWindowPresenter::fileSave() {

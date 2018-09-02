@@ -90,9 +90,41 @@ namespace felide {
     }
 }
 
+
+#include <QFileDialog>
+#include <felide/util/Strings.hpp>
+
 namespace felide {
     std::optional<std::string> MainWindow::openFileDialog(const FileDialogViewData &fileDialogData) {
-        return nullptr;
+        std::vector<std::string> filters;
+
+        for (auto &filter : fileDialogData.filters) {
+            std::string filterStr = filter.description;
+
+            filterStr += " (";
+            for (auto &wildcard : filter.wildcards) {
+                filterStr += wildcard + " ";
+            }
+
+            filterStr += ") ";
+
+            filters.push_back(filterStr);
+        }
+
+        const std::string filtersStr = felide::join(filters, ";;");
+
+        QString filename =  QFileDialog::getOpenFileName (
+          this,
+          fileDialogData.title.c_str(),
+          QDir::currentPath(),
+          filtersStr.c_str()
+        );
+
+        if (filename.isNull()) {
+            return {};
+        }
+
+        return filename.toStdString();
     }
 
     std::optional<std::string> MainWindow::saveFileDialog(const FileDialogViewData &fileDialogData) {

@@ -28,4 +28,5 @@ add_executable(${target} WIN32
 target_link_libraries (
     ${target} 
     Qt5::Widgets
+    felide.core
 )

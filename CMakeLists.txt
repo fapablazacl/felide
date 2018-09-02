@@ -33,7 +33,7 @@ add_subdirectory ("src/felide.core")
 include_directories ("src/felide-cli")
 #add_subdirectory ("src/felide-cli")
 
-# Windows API
+# Windows template library
 if (FELIDE_UI_WINDOWS)
     include_directories ("dep/wtl/Include")
     add_subdirectory ("src/felide.ui.wtl")
@@ -44,6 +44,7 @@ if (FELIDE_UI_GTK3)
     add_subdirectory ("src/felide.ui.gtk3")
 endif ()
 
+# QT5 Toolkit
 if (FELIDE_UI_QT5)
     add_subdirectory ("src/felide.ui.qt5")
 endif ()
