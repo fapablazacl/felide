@@ -27,6 +27,10 @@ namespace felide {
         */
     }
 
+    void MainWindowPresenter::fileOpen() {
+        std::cout << "MainWindowPresenter::fileOpen()" << std::endl;
+    }
+
     void MainWindowPresenter::fileSave() {
         std::cout << "MainWindowPresenter::fileSave()" << std::endl;
 

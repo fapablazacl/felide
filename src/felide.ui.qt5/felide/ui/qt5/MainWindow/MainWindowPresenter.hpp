@@ -17,6 +17,8 @@ namespace felide {
     public:
         void fileNew();        
 
+        void fileOpen();
+
         void fileSave();
 
         void fileSaveAs();

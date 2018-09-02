@@ -59,12 +59,12 @@ namespace felide {
         auto mainMenu = Menu::menuBar({
             Menu::menu("&File", {
                 Menu::action([this] () { presenter.fileNew(); }, "&New", "Ctrl+N"),
-                Menu::action([this] () { presenter.fileNew(); }, "&Open"),
-                Menu::action([this] () { presenter.fileNew(); }, "&Save"),
-                Menu::action([this] () { presenter.fileNew(); }, "Sa&ve As"),
-                Menu::action([this] () { presenter.fileNew(); }, "Save &All"),
-                Menu::action([this] () { presenter.fileNew(); }, "&Close"),
-                Menu::action([this] () { presenter.fileNew(); }, "&Exit")
+                Menu::action([this] () { presenter.fileOpen(); }, "&Open"),
+                Menu::action([this] () { presenter.fileSave(); }, "&Save"),
+                Menu::action([this] () { presenter.fileSaveAs(); }, "Sa&ve As"),
+                Menu::action([this] () { presenter.fileSaveAll(); }, "Save &All"),
+                Menu::action([this] () { presenter.fileClose(); }, "&Close"),
+                Menu::action([this] () { presenter.fileExit(); }, "&Exit")
             }),
             Menu::menu("&Edit", {
                 Menu::action([] () {}, "&Undo"),
