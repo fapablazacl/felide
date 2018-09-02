@@ -18,6 +18,10 @@ namespace felide {
         virtual ~EditorView() {}
 
         virtual void setTitle(const std::string &title) = 0;
+        virtual void setContent(const std::string &content) = 0;
+
+        virtual std::string getTitle() const = 0;
+        virtual std::string getContent() const = 0;
     };
 
     class MainWindowView {

@@ -1,7 +1,7 @@
 
 #include <QApplication>
 
-#include "felide/ui/qt5/MainWindow.hpp"
+#include "felide/ui/qt5/MainWindow/MainWindow.hpp"
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);

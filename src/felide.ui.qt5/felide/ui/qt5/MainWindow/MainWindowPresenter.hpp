@@ -8,9 +8,14 @@ namespace felide {
     class MainWindowView;
     class MainWindowPresenter {
     public:
-        explicit MainWindowPresenter(MainWindowView *view);
+        MainWindowPresenter();
 
-        void fileNew();
+        void attachView(MainWindowView *view);
+
+        void detachView();
+
+    public:
+        void fileNew();        
 
         void fileSave();
 
@@ -23,7 +28,7 @@ namespace felide {
         void fileExit();
 
     private:
-        MainWindowView *view;
+        MainWindowView *view = nullptr;
         MainWindowModel model;
     };
 } 
