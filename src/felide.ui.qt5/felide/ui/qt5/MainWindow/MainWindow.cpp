@@ -53,6 +53,9 @@ namespace felide {
         presenter.attachView(this);
 
         this->setupMenuBar();
+
+        m_tabbedEditorManager = new TabbedEditorManager(this);
+        this->setCentralWidget(m_tabbedEditorManager);
     }
 
     void MainWindow::setupMenuBar() {
@@ -131,19 +134,7 @@ namespace felide {
         return nullptr;
     }
 
-    EditorView* MainWindow::appendEditor() {
-        return nullptr;
-    }
-
-    void MainWindow::removeEditor(const std::string &fileKey) {
-
-    }
-
-    std::map<std::string, EditorView*> MainWindow::getEditor(const std::string &fileKey) {
-        return {};
-    }
-
-    EditorView* MainWindow::getCurrentEditor() {
+    EditorManagerView* MainWindow::getEditorManagerView() {
         return nullptr;
     }
 }

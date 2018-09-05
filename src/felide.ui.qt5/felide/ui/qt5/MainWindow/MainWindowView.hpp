@@ -50,6 +50,15 @@ namespace felide {
         virtual void paste() = 0;
     };
 
+    class EditorManagerView {
+    public:
+        virtual ~EditorManagerView() {}
+
+        virtual EditorView* appendEditor() = 0;
+
+        virtual EditorView* getCurrentEditor() = 0;
+    };
+
     class MainWindowView {
     public:
         virtual ~MainWindowView();
@@ -58,13 +67,7 @@ namespace felide {
 
         virtual std::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) = 0;
 
-        virtual EditorView* appendEditor() = 0;
-
-        virtual void removeEditor(const std::string &fileKey) = 0;
-
-        virtual std::map<std::string, EditorView*> getEditor(const std::string &fileKey) = 0;
-
-        virtual EditorView* getCurrentEditor() = 0;
+        virtual EditorManagerView* getEditorManagerView() = 0;
     };
 }
 

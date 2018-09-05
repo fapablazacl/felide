@@ -12,6 +12,8 @@
 #include "MainWindowView.hpp"
 #include "Menu.hpp"
 
+#include "../TabbedEditorManager/TabbedEditorManager.hpp"
+
 namespace felide {
     class MainWindow : public QMainWindow, public MainWindowView {
         Q_OBJECT;
@@ -24,13 +26,7 @@ namespace felide {
 
         virtual std::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) override;
 
-        virtual EditorView* appendEditor() override;
-
-        virtual void removeEditor(const std::string &fileKey) override;
-
-        virtual std::map<std::string, EditorView*> getEditor(const std::string &fileKey) override;
-
-        virtual EditorView* getCurrentEditor() override;
+        virtual EditorManagerView* getEditorManagerView() override;
 
     private:
         void setupMenuBar();
@@ -38,6 +34,8 @@ namespace felide {
     private:
         Menu mainMenu;
         MainWindowPresenter presenter;
+
+        TabbedEditorManager *m_tabbedEditorManager;
     };
 }
 
