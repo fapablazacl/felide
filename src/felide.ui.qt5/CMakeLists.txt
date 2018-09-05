@@ -18,6 +18,12 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/MainWindow/MainWindowView.cpp"
     "felide/ui/qt5/MainWindow/Menu.hpp"
     "felide/ui/qt5/MainWindow/Menu.cpp"
+
+    "felide/ui/qt5/TabbedEditorManager/Editor.hpp"
+    "felide/ui/qt5/TabbedEditorManager/Editor.cpp"
+    "felide/ui/qt5/TabbedEditorManager/TabbedEditorManager.hpp"
+    "felide/ui/qt5/TabbedEditorManager/TabbedEditorManager.cpp"
+
     "Main.cpp"
 )
 
@@ -28,5 +34,6 @@ add_executable(${target} WIN32
 target_link_libraries (
     ${target} 
     Qt5::Widgets
+    qscintilla2_qt5
     felide.core
 )

@@ -18,15 +18,36 @@ namespace felide {
         std::vector<FileFilter> filters;
     };
 
+    struct EditorConfig {
+        std::string fontName = "Inconsolata";
+        int fontSize = 10;
+        int tabWidth = 4;
+        bool caretLineVisible = true;
+    };
+
     class EditorView {
     public:
         virtual ~EditorView() {}
 
         virtual void setTitle(const std::string &title) = 0;
-        virtual void setContent(const std::string &content) = 0;
-
         virtual std::string getTitle() const = 0;
+
+        virtual void setContent(const std::string &content) = 0;
         virtual std::string getContent() const = 0;
+
+        virtual void setConfig(const EditorConfig &config) = 0;
+        virtual EditorConfig getConfig() const = 0;
+
+        virtual void clearAll() = 0;
+
+        virtual void clearUndoBuffer() = 0;
+
+        virtual void undo() = 0;
+        virtual void redo() = 0;
+
+        virtual void cut() = 0;
+        virtual void copy() = 0;
+        virtual void paste() = 0;
     };
 
     class MainWindowView {
