@@ -5,7 +5,8 @@
 #include <cassert>
 
 namespace felide {
-    Editor::Editor(QWidget *parent) : QWidget(parent) {
+    Editor::Editor(QTabWidget *parent) : QWidget(parent) {
+        m_parentTabWidget = parent;
         m_scintilla = new QsciScintilla(this);
         
         QGridLayout *layout = new QGridLayout(this);
@@ -16,12 +17,25 @@ namespace felide {
     Editor::~Editor() {}
 
     void Editor::setTitle(const std::string &title) {
-        // TODO: Agregar implementacion
+        bool tabFound = false;
+        int i;
+
+        for (i=0; i<m_parentTabWidget->count(); i++) {
+            if (m_parentTabWidget->widget(i) == this) {
+                tabFound = true;
+                break;
+            }
+        }
+
+        if (!tabFound) {
+            return;
+        }
+
+        m_parentTabWidget->setTabText(i, title.c_str());
     }
 
     std::string Editor::getTitle() const  {
-        // TODO: Agregar implementacion
-        return "";
+        return m_title;
     }
 
     void Editor::setContent(const std::string &content)  {

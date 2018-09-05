@@ -19,7 +19,7 @@ namespace felide {
     EditorView* TabbedEditorManager::appendEditor() {
         auto view = new Editor(m_tabWidget);
 
-        m_tabWidget->addTab(view, "test title");
+        m_tabWidget->addTab(view, "");
         m_tabWidget->setCurrentWidget(view);
 
         return view;

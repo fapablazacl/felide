@@ -124,14 +124,14 @@ namespace felide {
         const auto filters = mapFiltersToString(fileDialogData.filters);
 
         QString filename =  QFileDialog::getOpenFileName (
-          this,
-          fileDialogData.title.c_str(),
-          QDir::currentPath(),
-          filters.c_str()
+            this,
+            fileDialogData.title.c_str(),
+            QDir::currentPath(),
+            filters.c_str()
         );
 
         if (filename.isNull()) {
-            return {};
+            return std::nullopt;
         }
 
         return filename.toStdString();
@@ -140,15 +140,15 @@ namespace felide {
     std::optional<std::string> MainWindow::saveFileDialog(const FileDialogViewData &fileDialogData) {
         const auto filters = mapFiltersToString(fileDialogData.filters);
 
-        QString filename =  QFileDialog::getSaveFileName (
-          this,
-          fileDialogData.title.c_str(),
-          QDir::currentPath(),
-          filters.c_str()
+        QString filename = QFileDialog::getSaveFileName(
+            this,
+            fileDialogData.title.c_str(),
+            QDir::currentPath(),
+            filters.c_str()
         );
 
         if (filename.isNull()) {
-            return {};
+            return std::nullopt;
         }
 
         return filename.toStdString();

@@ -23,13 +23,9 @@ namespace felide {
         auto editorManager = m_view->getEditorManagerView();
         auto editor = editorManager->appendEditor();
 
-        /*
-        const int documentCount = model.increaseDocumentCount();
+        const int documentCount = m_model.increaseDocumentCount();
 
-        EditorView *editorView = view->appendEditor();
-
-        editorView->setTitle("Untitled " + std::to_string(documentCount));
-        */
+        editor->setTitle("Untitled " + std::to_string(documentCount));
     }
 
     void MainWindowPresenter::fileOpen() {

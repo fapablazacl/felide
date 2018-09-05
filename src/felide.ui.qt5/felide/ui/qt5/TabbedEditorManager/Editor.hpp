@@ -3,6 +3,7 @@
 #define __FELIDE_UI_QT5_EDITOR_HPP_
 
 #include <QWidget>
+#include <QTabWidget>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
@@ -14,7 +15,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit Editor(QWidget *parent);
+        explicit Editor(QTabWidget *parent);
         virtual ~Editor();
 
         // EditorView implementation
@@ -40,7 +41,9 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
+        QTabWidget *m_parentTabWidget = nullptr;
         QsciScintilla *m_scintilla = nullptr;
+        std::string m_title;
         EditorConfig m_config;
     };
 }
