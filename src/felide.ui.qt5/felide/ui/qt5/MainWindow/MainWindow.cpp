@@ -98,10 +98,11 @@ namespace felide {
 #include <felide/util/Strings.hpp>
 
 namespace felide {
-    std::optional<std::string> MainWindow::openFileDialog(const FileDialogViewData &fileDialogData) {
+
+    static std::string mapFiltersToString(const std::vector<FileDialogViewData::FileFilter> &dialogFilters) {
         std::vector<std::string> filters;
 
-        for (auto &filter : fileDialogData.filters) {
+        for (auto &filter : dialogFilters) {
             std::string filterStr = filter.description;
 
             filterStr += " (";
@@ -116,11 +117,17 @@ namespace felide {
 
         const std::string filtersStr = felide::join(filters, ";;");
 
+        return filtersStr;
+    }
+
+    std::optional<std::string> MainWindow::openFileDialog(const FileDialogViewData &fileDialogData) {
+        const auto filters = mapFiltersToString(fileDialogData.filters);
+
         QString filename =  QFileDialog::getOpenFileName (
           this,
           fileDialogData.title.c_str(),
           QDir::currentPath(),
-          filtersStr.c_str()
+          filters.c_str()
         );
 
         if (filename.isNull()) {
@@ -131,7 +138,20 @@ namespace felide {
     }
 
     std::optional<std::string> MainWindow::saveFileDialog(const FileDialogViewData &fileDialogData) {
-        return nullptr;
+        const auto filters = mapFiltersToString(fileDialogData.filters);
+
+        QString filename =  QFileDialog::getSaveFileName (
+          this,
+          fileDialogData.title.c_str(),
+          QDir::currentPath(),
+          filters.c_str()
+        );
+
+        if (filename.isNull()) {
+            return {};
+        }
+
+        return filename.toStdString();
     }
 
     EditorManagerView* MainWindow::getEditorManagerView() {

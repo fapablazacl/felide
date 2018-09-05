@@ -19,10 +19,10 @@ namespace felide {
     };
 
     struct EditorConfig {
-        std::string fontName = "Inconsolata";
-        int fontSize = 10;
-        int tabWidth = 4;
-        bool caretLineVisible = true;
+        std::string fontName;
+        int fontSize;
+        int tabWidth;
+        bool caretLineVisible;
 
         static EditorConfig Default() {
             return {
