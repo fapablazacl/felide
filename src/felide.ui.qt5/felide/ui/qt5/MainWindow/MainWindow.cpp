@@ -135,6 +135,6 @@ namespace felide {
     }
 
     EditorManagerView* MainWindow::getEditorManagerView() {
-        return nullptr;
+        return m_tabbedEditorManager;
     }
 }

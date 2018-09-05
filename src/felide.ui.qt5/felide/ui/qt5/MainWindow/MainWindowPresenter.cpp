@@ -2,21 +2,26 @@
 #include "MainWindowPresenter.hpp"
 #include "MainWindowView.hpp"
 
+#include <felide/util/FileUtil.hpp>
+
 #include <iostream>
 
 namespace felide {
     MainWindowPresenter::MainWindowPresenter() {}
 
     void MainWindowPresenter::attachView(MainWindowView *view) {
-        this->view = view;
+        m_view = view;
     }
 
     void MainWindowPresenter::detachView() {
-        view = nullptr;
+        m_view = nullptr;
     }
 
     void MainWindowPresenter::fileNew() {
         std::cout << "MainWindowPresenter::fileNew()" << std::endl;
+
+        auto editorManager = m_view->getEditorManagerView();
+        auto editor = editorManager->appendEditor();
 
         /*
         const int documentCount = model.increaseDocumentCount();
@@ -36,12 +41,20 @@ namespace felide {
             }
         };
 
-        auto fileNameOpt = view->openFileDialog(dialogData);
+        auto fileNameOpt = m_view->openFileDialog(dialogData);
         if (!fileNameOpt) {
             return;
         }
 
         const std::string fileName = *fileNameOpt;
+        const std::string content = FileUtil::load(fileName);
+
+        auto editorManager = m_view->getEditorManagerView();
+        auto editor = editorManager->appendEditor();
+
+        editor->setConfig(EditorConfig());
+        editor->setTitle(fileName);
+        editor->setContent(content);
     }
 
     void MainWindowPresenter::fileSave() {

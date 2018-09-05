@@ -30,8 +30,8 @@ namespace felide {
         void fileExit();
 
     private:
-        MainWindowView *view = nullptr;
-        MainWindowModel model;
+        MainWindowView *m_view = nullptr;
+        MainWindowModel m_model;
     };
 } 
 
