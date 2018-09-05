@@ -23,6 +23,12 @@ namespace felide {
         int fontSize = 10;
         int tabWidth = 4;
         bool caretLineVisible = true;
+
+        static EditorConfig Default() {
+            return {
+                "Inconsolata", 10, 4, true
+            };
+        }
     };
 
     class EditorView {

@@ -52,7 +52,7 @@ namespace felide {
         auto editorManager = m_view->getEditorManagerView();
         auto editor = editorManager->appendEditor();
 
-        editor->setConfig(EditorConfig());
+        editor->setConfig(EditorConfig::Default());
         editor->setTitle(fileName);
         editor->setContent(content);
     }
