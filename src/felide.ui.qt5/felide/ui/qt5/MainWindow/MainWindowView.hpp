@@ -3,7 +3,7 @@
 #define __FELIDE_UI_MAINWINDOWVIEW_HPP__
 
 #include <string>
-#include <optional>
+#include <boost/optional.hpp>
 #include <vector>
 #include <map>
 
@@ -69,9 +69,9 @@ namespace felide {
     public:
         virtual ~MainWindowView();
 
-        virtual std::optional<std::string> openFileDialog(const FileDialogViewData &fileDialogData) = 0;
+        virtual boost::optional<std::string> openFileDialog(const FileDialogViewData &fileDialogData) = 0;
 
-        virtual std::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) = 0;
+        virtual boost::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) = 0;
 
         virtual EditorManagerView* getEditorManagerView() = 0;
     };
