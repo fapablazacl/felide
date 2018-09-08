@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <iostream>
 #include <stdexcept>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 
 #include <felide/FileTypeRegistry.hpp>
 #include <felide/TreeNode.hpp>
@@ -17,7 +17,7 @@
 #include <felide/pom/Source.hpp>
 #include <felide/pom/TargetAction.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide {
     class ModuleToolsetImpl : public ModuleToolset {

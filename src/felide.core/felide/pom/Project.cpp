@@ -3,14 +3,14 @@
 
 #include <stdexcept>
 #include <cassert>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <felide/TreeNode.hpp>
 #include <felide/pom/TargetAction.hpp>
 #include <felide/pom/ModuleTarget.hpp>
 #include <felide/pom/Source.hpp>
 #include <felide/tasks/Task.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide {
     class ProjectImpl : public Project {

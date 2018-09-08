@@ -9,6 +9,12 @@ option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API" 
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
 
+# we will require Boost ...
+find_package(Boost REQUIRED COMPONENTS filesystem)
+include_directories(${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
+
+# format library
 add_subdirectory("dep/fmt/")
 include_directories("dep/cxxopts/include")
 
@@ -17,6 +23,7 @@ set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")
 set (YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "Enable contrib stuff in library")
 add_subdirectory("dep/yaml-cpp")
 include_directories("dep/yaml-cpp/include")
+
 
 # Specify the use of the C++17 standard
 if (MSVC)

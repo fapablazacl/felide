@@ -4,9 +4,9 @@
 #include <felide/pom/Target.hpp>
 #include <felide/pom/Project.hpp>
 #include <felide/util/Strings.hpp>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide {
     Source::Source(const std::string &filePath, const Target *target) {
@@ -17,7 +17,7 @@ namespace felide {
     Source::~Source() {}
 
     std::string Source::getExtension() const {
-        return fs::path(m_filePath).extension();
+        return fs::path(m_filePath).extension().string();
     }
 
     std::string Source::getFileTitle() const {
@@ -49,6 +49,6 @@ namespace felide {
 
         const fs::path result = projectPath / buildPath / sourceRelPath;
 
-        return result;
+        return result.string();
     }
 }

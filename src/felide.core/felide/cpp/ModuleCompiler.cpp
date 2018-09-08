@@ -4,7 +4,7 @@
 
 #include <cassert>
 #include <memory>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 
 #include <felide/util/Strings.hpp>
 
@@ -16,7 +16,7 @@
 #include <felide/pom/Target.hpp>
 #include <felide/pom/Project.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide {
     // TODO: Move these definitions to the compiler configuration structures
