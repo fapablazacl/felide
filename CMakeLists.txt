@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.5)
 
 project (felide)
 
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
@@ -23,7 +24,6 @@ set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")
 set (YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "Enable contrib stuff in library")
 add_subdirectory("dep/yaml-cpp")
 include_directories("dep/yaml-cpp/include")
-
 
 # Specify the use of the C++17 standard
 if (MSVC)

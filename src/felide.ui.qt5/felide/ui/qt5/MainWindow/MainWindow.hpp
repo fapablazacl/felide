@@ -1,5 +1,5 @@
 
-#ifndef __FELIDE_UI_QT5_MAINWINDOW_HPP_
+#ifndef __FELIDE_UI_QT5_MAINWINDOW_HPP__
 #define __FELIDE_UI_QT5_MAINWINDOW_HPP__
 
 #include <QMainWindow>

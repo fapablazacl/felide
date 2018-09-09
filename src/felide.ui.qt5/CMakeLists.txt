@@ -3,7 +3,11 @@ set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 
-find_package(Qt5Widgets CONFIG REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+find_library(QScintilla REQUIRED)
+
+include_directories(${QSCINTILLA_INCLUDE_DIR})
+link_directories(${QSCINTILLA_LIBRARY_DIR})
 
 set (target "felide.ui.qt5")
 
