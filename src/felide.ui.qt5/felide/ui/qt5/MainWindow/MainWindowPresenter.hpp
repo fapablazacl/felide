@@ -5,6 +5,7 @@
 #include "MainWindowModel.hpp"
 
 namespace felide {
+    class EditorView;
     class MainWindowView;
     class MainWindowPresenter {
     public:
@@ -28,6 +29,8 @@ namespace felide {
         void fileClose();
 
         void fileExit();
+
+        void editorContentModified(EditorView *editorView);
 
     private:
         MainWindowView *m_view = nullptr;

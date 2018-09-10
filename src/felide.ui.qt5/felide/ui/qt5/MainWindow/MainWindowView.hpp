@@ -69,6 +69,10 @@ namespace felide {
         virtual EditorView* appendEditor() = 0;
 
         virtual EditorView* getCurrentEditor() = 0;
+
+        virtual std::size_t getEditorCount() const = 0;
+
+        virtual EditorView* getEditor(const std::size_t index) = 0;
     };
 
     class MainWindowView {

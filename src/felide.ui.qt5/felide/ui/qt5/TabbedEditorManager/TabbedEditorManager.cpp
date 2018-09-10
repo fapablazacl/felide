@@ -34,4 +34,12 @@ namespace felide {
 
         return dynamic_cast<EditorView*>(widget);
     }
+
+    std::size_t TabbedEditorManager::getEditorCount() const {
+        return static_cast<std::size_t>(m_tabWidget->count());
+    }
+
+    EditorView* TabbedEditorManager::getEditor(const std::size_t index) {
+        return dynamic_cast<EditorView*>(m_tabWidget->widget(index));
+    }
 }

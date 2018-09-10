@@ -21,6 +21,10 @@ namespace felide {
 
         virtual EditorView* getCurrentEditor() override;
 
+        virtual std::size_t getEditorCount() const override;
+
+        virtual EditorView* getEditor(const std::size_t index) override;
+
     private:
         QTabWidget *m_tabWidget = nullptr;
     };

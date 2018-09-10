@@ -89,4 +89,8 @@ namespace felide {
     void MainWindowPresenter::fileExit() {
         std::cout << "MainWindowPresenter::fileExit()" << std::endl;
     }
+
+    void MainWindowPresenter::editorContentModified(EditorView *editorView) {
+        // TODO: Track the state between editor views and their corresponding models
+    }
 }
