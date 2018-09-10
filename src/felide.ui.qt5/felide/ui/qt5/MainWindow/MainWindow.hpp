@@ -1,5 +1,5 @@
 
-#ifndef __FELIDE_UI_QT5_MAINWINDOW_HPP_
+#ifndef __FELIDE_UI_QT5_MAINWINDOW_HPP__
 #define __FELIDE_UI_QT5_MAINWINDOW_HPP__
 
 #include <QMainWindow>
@@ -22,9 +22,9 @@ namespace felide {
         MainWindow();
 
     public:
-        virtual std::optional<std::string> openFileDialog(const FileDialogViewData &fileDialogData) override;
+        virtual boost::optional<std::string> openFileDialog(const FileDialogViewData &fileDialogData) override;
 
-        virtual std::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) override;
+        virtual boost::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) override;
 
         virtual EditorManagerView* getEditorManagerView() override;
 

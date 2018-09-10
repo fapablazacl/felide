@@ -120,7 +120,7 @@ namespace felide {
         return filtersStr;
     }
 
-    std::optional<std::string> MainWindow::openFileDialog(const FileDialogViewData &fileDialogData) {
+    boost::optional<std::string> MainWindow::openFileDialog(const FileDialogViewData &fileDialogData) {
         const auto filters = mapFiltersToString(fileDialogData.filters);
 
         QString filename =  QFileDialog::getOpenFileName (
@@ -137,7 +137,7 @@ namespace felide {
         return filename.toStdString();
     }
 
-    std::optional<std::string> MainWindow::saveFileDialog(const FileDialogViewData &fileDialogData) {
+    boost::optional<std::string> MainWindow::saveFileDialog(const FileDialogViewData &fileDialogData) {
         const auto filters = mapFiltersToString(fileDialogData.filters);
 
         QString filename = QFileDialog::getSaveFileName(

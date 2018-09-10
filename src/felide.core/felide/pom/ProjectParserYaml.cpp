@@ -4,7 +4,7 @@
 #include <cassert>
 #include <map>
 #include <iostream>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 #include <felide/Version.hpp>
 #include <yaml-cpp/yaml.h>
 
@@ -12,7 +12,7 @@
 #include "ModuleTargetType.hpp"
 #include "Project.hpp"
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide {
     static std::map<std::string, ModuleTargetType> s_types = {

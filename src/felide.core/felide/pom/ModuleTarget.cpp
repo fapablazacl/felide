@@ -2,7 +2,7 @@
 #include "ModuleTarget.hpp"
 
 #include <algorithm>
-#include <experimental/filesystem>
+#include <boost/filesystem.hpp>
 
 #include <felide/TreeNode.hpp>
 #include <felide/Language.hpp>
@@ -13,7 +13,7 @@
 #include <felide/toolsets/Toolset.hpp>
 #include <felide/tasks/Task.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide {
     enum class ModuleTargetSourceManagerStorage {

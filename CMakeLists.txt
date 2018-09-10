@@ -3,12 +3,19 @@ cmake_minimum_required (VERSION 3.5)
 
 project (felide)
 
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
 
+# we will require Boost ...
+find_package(Boost REQUIRED COMPONENTS filesystem)
+include_directories(${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
+
+# format library
 add_subdirectory("dep/fmt/")
 include_directories("dep/cxxopts/include")
 

@@ -74,6 +74,7 @@ add_library (${target}
 target_link_libraries (
     ${target} 
     fmt
+    ${Boost_LIBRARIES}
 )
 
 install(TARGETS ${target} DESTINATION "bin")
