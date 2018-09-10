@@ -99,7 +99,7 @@ namespace felide {
 
 namespace felide {
 
-    static std::string mapFiltersToString(const std::vector<FileDialogViewData::FileFilter> &dialogFilters) {
+    static std::string mapFiltersToString(const std::vector<DialogViewData::FileFilter> &dialogFilters) {
         std::vector<std::string> filters;
 
         for (auto &filter : dialogFilters) {
@@ -120,32 +120,30 @@ namespace felide {
         return filtersStr;
     }
 
-    boost::optional<std::string> MainWindow::openFileDialog(const FileDialogViewData &fileDialogData) {
-        const auto filters = mapFiltersToString(fileDialogData.filters);
+    boost::optional<std::string> MainWindow::showDialogModal(const DialogViewData &dialogViewData) {
+        const auto filters = mapFiltersToString(dialogViewData.filters);
 
-        QString filename =  QFileDialog::getOpenFileName (
-            this,
-            fileDialogData.title.c_str(),
-            QDir::currentPath(),
-            filters.c_str()
-        );
+        QString filename;
 
-        if (filename.isNull()) {
-            return {};
+        switch (dialogViewData.dialogType) {
+            case DialogType::OpenFile:
+                filename = QFileDialog::getOpenFileName (
+                    this,
+                    dialogViewData.title.c_str(),
+                    QDir::currentPath(),
+                    filters.c_str()
+                );
+                break;
+            
+            case DialogType::SaveFile:
+                filename = QFileDialog::getSaveFileName (
+                    this,
+                    dialogViewData.title.c_str(),
+                    QDir::currentPath(),
+                    filters.c_str()
+                );
+                break;
         }
-
-        return filename.toStdString();
-    }
-
-    boost::optional<std::string> MainWindow::saveFileDialog(const FileDialogViewData &fileDialogData) {
-        const auto filters = mapFiltersToString(fileDialogData.filters);
-
-        QString filename = QFileDialog::getSaveFileName(
-            this,
-            fileDialogData.title.c_str(),
-            QDir::currentPath(),
-            filters.c_str()
-        );
 
         if (filename.isNull()) {
             return {};

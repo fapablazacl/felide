@@ -2,6 +2,7 @@
 #include "MainWindowPresenter.hpp"
 #include "MainWindowView.hpp"
 
+#include <boost/filesystem.hpp>
 #include <felide/util/FileUtil.hpp>
 
 #include <iostream>
@@ -29,7 +30,10 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileOpen() {
-        FileDialogViewData dialogData = {
+        using boost::filesystem::path;
+
+        DialogViewData dialogData = {
+            DialogType::OpenFile,
             "Open File",
             {
                 {"All Files", {"*.*"}},
@@ -37,7 +41,7 @@ namespace felide {
             }
         };
 
-        auto fileNameOpt = m_view->openFileDialog(dialogData);
+        auto fileNameOpt = m_view->showDialogModal(dialogData);
         if (!fileNameOpt) {
             return;
         }
@@ -48,8 +52,10 @@ namespace felide {
         auto editorManager = m_view->getEditorManagerView();
         auto editor = editorManager->appendEditor();
 
+        const std::string fileTitle = path(fileName).filename().string();
+
         editor->setConfig(EditorConfig::Default());
-        editor->setTitle(fileName);
+        editor->setTitle(fileTitle);
         editor->setContent(content);
     }
 

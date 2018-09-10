@@ -8,12 +8,18 @@
 #include <map>
 
 namespace felide {
-    struct FileDialogViewData {
+    enum class DialogType {
+        OpenFile,
+        SaveFile
+    };
+
+    struct DialogViewData {
         struct FileFilter {
             std::string description;
             std::vector<std::string> wildcards;
         };
 
+        DialogType dialogType;
         std::string title;
         std::vector<FileFilter> filters;
     };
@@ -69,9 +75,7 @@ namespace felide {
     public:
         virtual ~MainWindowView();
 
-        virtual boost::optional<std::string> openFileDialog(const FileDialogViewData &fileDialogData) = 0;
-
-        virtual boost::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) = 0;
+        virtual boost::optional<std::string> showDialogModal(const DialogViewData &dialogViewData) = 0;
 
         virtual EditorManagerView* getEditorManagerView() = 0;
     };

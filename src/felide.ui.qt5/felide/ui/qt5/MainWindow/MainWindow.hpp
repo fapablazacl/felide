@@ -22,9 +22,7 @@ namespace felide {
         MainWindow();
 
     public:
-        virtual boost::optional<std::string> openFileDialog(const FileDialogViewData &fileDialogData) override;
-
-        virtual boost::optional<std::string> saveFileDialog(const FileDialogViewData &fileDialogData) override;
+        virtual boost::optional<std::string> showDialogModal(const DialogViewData &dialogViewData) override;
 
         virtual EditorManagerView* getEditorManagerView() override;
 
