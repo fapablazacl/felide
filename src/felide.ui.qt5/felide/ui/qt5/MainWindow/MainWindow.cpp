@@ -62,19 +62,19 @@ namespace felide {
         auto mainMenu = Menu::menuBar({
             Menu::menu("&File", {
                 Menu::action([this] () { presenter.fileNew(); }, "&New", "Ctrl+N"),
-                Menu::action([this] () { presenter.fileOpen(); }, "&Open"),
-                Menu::action([this] () { presenter.fileSave(); }, "&Save"),
+                Menu::action([this] () { presenter.fileOpen(); }, "&Open", "Ctrl+O"),
+                Menu::action([this] () { presenter.fileSave(); }, "&Save", "Ctrl+S"),
                 Menu::action([this] () { presenter.fileSaveAs(); }, "Sa&ve As"),
                 Menu::action([this] () { presenter.fileSaveAll(); }, "Save &All"),
                 Menu::action([this] () { presenter.fileClose(); }, "&Close"),
-                Menu::action([this] () { presenter.fileExit(); }, "&Exit")
+                Menu::action([this] () { presenter.fileExit(); }, "&Exit", "Alt+F4")
             }),
             Menu::menu("&Edit", {
-                Menu::action([] () {}, "&Undo"),
+                Menu::action([] () {}, "&Undo", "Ctrl+Z"),
                 Menu::action([] () {}, "&Redo"),
-                Menu::action([] () {}, "&Cut"),
-                Menu::action([] () {}, "C&opy"),
-                Menu::action([] () {}, "&Paste")
+                Menu::action([] () {}, "&Cut", "Ctrl+X"),
+                Menu::action([] () {}, "C&opy", "Ctrl+C"),
+                Menu::action([] () {}, "&Paste", "Ctrl+V")
             }),
             Menu::menu("&View", {
                 Menu::action([] () {}, "&Output"), 
@@ -131,7 +131,7 @@ namespace felide {
         );
 
         if (filename.isNull()) {
-            return std::nullopt;
+            return {};
         }
 
         return filename.toStdString();
@@ -148,7 +148,7 @@ namespace felide {
         );
 
         if (filename.isNull()) {
-            return std::nullopt;
+            return {};
         }
 
         return filename.toStdString();
