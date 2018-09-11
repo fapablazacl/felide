@@ -12,6 +12,8 @@ link_directories(${QSCINTILLA_LIBRARY_DIR})
 set (target "felide.ui.qt5")
 
 set (src_felide_ui_qt5
+    "felide/ui/qt5/MainWindow/EditorModel.hpp"
+    "felide/ui/qt5/MainWindow/EditorModel.cpp"
     "felide/ui/qt5/MainWindow/MainWindow.hpp"
     "felide/ui/qt5/MainWindow/MainWindow.cpp"
     "felide/ui/qt5/MainWindow/MainWindowModel.hpp"

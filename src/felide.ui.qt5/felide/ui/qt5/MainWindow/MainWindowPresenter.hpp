@@ -16,7 +16,7 @@ namespace felide {
         void detachView();
 
     public:
-        void fileNew();        
+        void fileNew();
 
         void fileOpen();
 
