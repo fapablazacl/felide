@@ -4,18 +4,29 @@
 namespace felide {
     int EditorModel::count = 0;
 
-    EditorModel::EditorModel() : id(++count) {}
+    EditorModel::EditorModel(int tag) {
+        tag = tag;
+        id = ++count;
+    }
 
     EditorModel::EditorModel(const std::string &filePath) {
+        id = ++count;
+
         this->setFilePath(filePath);
     }
 
     EditorModel::EditorModel(const std::string &filePath, const std::string &content) {
+        id = ++count;
+
         this->setFilePath(filePath);
         this->setContent(content);
     }
 
     EditorModel::~EditorModel() {}
+
+    int EditorModel::getTag() const {
+        return tag;
+    }
 
     int EditorModel::getId() const {
         return id;

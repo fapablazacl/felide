@@ -8,7 +8,25 @@
 #include <iostream>
 
 namespace felide {
+    static std::string mapEditorTitle(const EditorModel *model) {
+        std::string title;
+
+        if (model->hasFilePath()) {
+            using boost::filesystem::path;
+
+            title = path(model->getFilePath()).filename().string();
+        } else {
+            title = "Untitled" + std::to_string(model->getTag());
+        }
+
+        title = model->getModifiedFlag() ? "[*]" : "" + title;
+
+        return title;
+    }
+
     MainWindowPresenter::MainWindowPresenter() {}
+
+    MainWindowPresenter::~MainWindowPresenter() {}
 
     void MainWindowPresenter::attachView(MainWindowView *view) {
         m_view = view;
@@ -19,14 +37,14 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileNew() {
-        std::cout << "MainWindowPresenter::fileNew()" << std::endl;
+        int tag = m_model.increaseDocumentCount();
 
         auto editorManager = m_view->getEditorManagerView();
-        auto editor = editorManager->appendEditor();
+        auto editorView = editorManager->appendEditor();
+        auto editorModel = this->createEditorModel(editorView, tag);
 
-        const int documentCount = m_model.increaseDocumentCount();
-
-        editor->setTitle("Untitled " + std::to_string(documentCount));
+        editorView->setConfig(EditorConfig::Default());
+        editorView->setTitle(mapEditorTitle(editorModel));
     }
 
     void MainWindowPresenter::fileOpen() {
@@ -50,13 +68,12 @@ namespace felide {
         const std::string content = FileUtil::load(fileName);
 
         auto editorManager = m_view->getEditorManagerView();
-        auto editor = editorManager->appendEditor();
+        auto editorView = editorManager->appendEditor();
+        auto editorModel = this->createEditorModel(editorView, fileName);
 
-        const std::string fileTitle = path(fileName).filename().string();
-
-        editor->setConfig(EditorConfig::Default());
-        editor->setTitle(fileTitle);
-        editor->setContent(content);
+        editorView->setConfig(EditorConfig::Default());
+        editorView->setTitle(mapEditorTitle(editorModel));
+        editorView->setContent(content);
     }
 
     void MainWindowPresenter::fileSave() {
@@ -91,6 +108,25 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorContentModified(EditorView *editorView) {
-        // TODO: Track the state between editor views and their corresponding models
+        auto editorModel = editorViewModels[editorView].get();
+
+        editorModel->modify();
+        editorView->setTitle(mapEditorTitle(editorModel));
+    }
+
+    EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const int tag) {
+        auto editorModel = new EditorModel(tag);
+
+        editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
+
+        return editorModel;
+    }
+
+    EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const std::string &fileName) {
+        auto editorModel = new EditorModel(fileName);
+
+        editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
+
+        return editorModel;
     }
 }

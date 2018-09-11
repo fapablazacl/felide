@@ -7,13 +7,15 @@
 namespace felide {
     class EditorModel {
     public:
-        explicit EditorModel();
+        explicit EditorModel(int tag);
 
         explicit EditorModel(const std::string &filePath);
 
         explicit EditorModel(const std::string &filePath, const std::string &content);
 
         ~EditorModel();
+
+        int getTag() const;
 
         int getId() const;
 
@@ -34,6 +36,7 @@ namespace felide {
         std::string getContent() const;
 
     private:
+        int tag = 0;
         int id = 0;
         bool modified = false;
         std::string filePath;
