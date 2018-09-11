@@ -32,7 +32,7 @@ namespace felide {
 
         static EditorConfig Default() {
             return {
-                "Inconsolata", 10, 4, true
+                "monospace", 10, 4, true
             };
         }
     };

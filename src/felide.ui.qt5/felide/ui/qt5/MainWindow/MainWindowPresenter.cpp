@@ -16,7 +16,7 @@ namespace felide {
 
             title = path(model->getFilePath()).filename().string();
         } else {
-            title = "Untitled" + std::to_string(model->getTag());
+            title = "Untitled " + std::to_string(model->getTag());
         }
 
         title = model->getModifiedFlag() ? "[*]" : "" + title;
@@ -108,6 +108,8 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorContentModified(EditorView *editorView) {
+        std::cout << "*** MODIFIED ****" << std::endl;
+
         auto editorModel = editorViewModels[editorView].get();
 
         editorModel->modify();
