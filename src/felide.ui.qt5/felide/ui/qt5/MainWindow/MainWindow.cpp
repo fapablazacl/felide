@@ -55,6 +55,12 @@ namespace felide {
         this->setupMenuBar();
 
         m_tabbedEditorManager = new TabbedEditorManager(this);
+
+        connect(m_tabbedEditorManager, &TabbedEditorManager::editorContentChanged, [&](EditorView *view) {
+            assert(view);
+            presenter.editorContentModified(view);
+        });
+
         this->setCentralWidget(m_tabbedEditorManager);
     }
 

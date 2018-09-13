@@ -15,6 +15,9 @@ namespace felide {
 
         virtual ~TabbedEditorManager();
 
+    signals:
+        void editorContentChanged(EditorView *viewChanged);
+
     public:
         // EditorManagerView implementation
         virtual EditorView* appendEditor() override;

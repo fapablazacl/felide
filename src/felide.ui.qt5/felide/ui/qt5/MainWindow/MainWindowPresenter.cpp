@@ -6,6 +6,7 @@
 #include <felide/util/FileUtil.hpp>
 
 #include <iostream>
+#include <cassert>
 
 namespace felide {
     static std::string mapEditorTitle(const EditorModel *model) {
@@ -100,7 +101,6 @@ namespace felide {
 
     void MainWindowPresenter::fileClose() {
         std::cout << "MainWindowPresenter::fileClose()" << std::endl;
-
     }
 
     void MainWindowPresenter::fileExit() {
@@ -108,15 +108,19 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorContentModified(EditorView *editorView) {
-        std::cout << "*** MODIFIED ****" << std::endl;
+        std::cout << "MainWindowPresenter::editorContentModified " << editorView << std::endl;
 
         auto editorModel = editorViewModels[editorView].get();
+
+        assert(editorModel);
 
         editorModel->modify();
         editorView->setTitle(mapEditorTitle(editorModel));
     }
 
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const int tag) {
+        std::cout << "MainWindowPresenter::createEditorModel " << view << std::endl;
+
         auto editorModel = new EditorModel(tag);
 
         editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
@@ -125,6 +129,8 @@ namespace felide {
     }
 
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const std::string &fileName) {
+        std::cout << "MainWindowPresenter::createEditorModel " << view << std::endl;
+
         auto editorModel = new EditorModel(fileName);
 
         editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);

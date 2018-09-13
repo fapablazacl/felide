@@ -18,7 +18,14 @@ namespace felide {
         explicit Editor(QTabWidget *parent);
         virtual ~Editor();
 
-        // EditorView implementation
+    private:
+        void setupScintilla();
+
+        void setupLayout();
+
+    signals:
+        void contentChanged();
+
     public:
         virtual void setTitle(const std::string &title) override;
         virtual std::string getTitle() const override;

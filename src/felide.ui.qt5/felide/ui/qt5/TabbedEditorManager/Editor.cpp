@@ -3,18 +3,30 @@
 
 #include <QLayout>
 #include <cassert>
+#include <iostream>
 
 namespace felide {
     Editor::Editor(QTabWidget *parent) : QWidget(parent) {
         m_parentTabWidget = parent;
         m_scintilla = new QsciScintilla(this);
-        
+
+        this->setupScintilla();
+        this->setupLayout();
+    }
+
+    Editor::~Editor() {}
+
+    void Editor::setupScintilla() {
+        connect(m_scintilla, &QsciScintilla::textChanged, [this]() {
+            contentChanged();
+        });
+    }
+
+    void Editor::setupLayout() {
         QGridLayout *layout = new QGridLayout(this);
         layout->addWidget(m_scintilla);
         this->setLayout(layout);
     }
-
-    Editor::~Editor() {}
 
     void Editor::setTitle(const std::string &title) {
         bool tabFound = false;
