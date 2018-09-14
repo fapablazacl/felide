@@ -7,6 +7,7 @@
 #include "../MainWindow/MainWindowView.hpp"
 
 namespace felide {
+    class Editor;
     class TabbedEditorManager : public QWidget, public EditorManagerView {
         Q_OBJECT
 
@@ -16,7 +17,7 @@ namespace felide {
         virtual ~TabbedEditorManager();
 
     signals:
-        void editorContentChanged(EditorView *viewChanged);
+        void editorContentChanged(Editor *editor);
 
     public:
         // EditorManagerView implementation

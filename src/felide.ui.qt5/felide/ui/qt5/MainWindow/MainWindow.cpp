@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <functional>
+#include "../TabbedEditorManager/Editor.hpp"
 #include "MainWindowPresenter.hpp"
 
 namespace felide {
@@ -56,9 +57,9 @@ namespace felide {
 
         m_tabbedEditorManager = new TabbedEditorManager(this);
 
-        connect(m_tabbedEditorManager, &TabbedEditorManager::editorContentChanged, [&](EditorView *view) {
-            assert(view);
-            presenter.editorContentModified(view);
+        connect(m_tabbedEditorManager, &TabbedEditorManager::editorContentChanged, [&](Editor *editor) {
+            assert(editor);
+            presenter.editorContentModified(editor);
         });
 
         this->setCentralWidget(m_tabbedEditorManager);

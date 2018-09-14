@@ -17,16 +17,16 @@ namespace felide {
     TabbedEditorManager::~TabbedEditorManager() {}
 
     EditorView* TabbedEditorManager::appendEditor() {
-        auto view = new Editor(m_tabWidget);
+        auto editor = new Editor(m_tabWidget);
 
-        connect(view, &Editor::contentChanged, [&]() {
-            editorContentChanged(view);
+        connect(editor, &Editor::contentChanged, [=]() {
+            editorContentChanged(editor);
         });
 
-        m_tabWidget->addTab(view, "");
-        m_tabWidget->setCurrentWidget(view);
+        m_tabWidget->addTab(editor, "");
+        m_tabWidget->setCurrentWidget(editor);
 
-        return view;
+        return editor;
     }
 
     EditorView* TabbedEditorManager::getCurrentEditor() {
