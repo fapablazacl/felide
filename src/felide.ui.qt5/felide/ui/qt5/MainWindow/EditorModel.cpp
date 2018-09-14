@@ -5,13 +5,13 @@ namespace felide {
     int EditorModel::count = 0;
 
     EditorModel::EditorModel(int tag) {
-        tag = tag;
+        this->tag = tag;
         id = ++count;
     }
 
     EditorModel::EditorModel(const std::string &filePath) {
         id = ++count;
-
+        
         this->setFilePath(filePath);
     }
 

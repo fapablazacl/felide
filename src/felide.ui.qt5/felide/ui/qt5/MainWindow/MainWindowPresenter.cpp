@@ -20,7 +20,7 @@ namespace felide {
             title = "Untitled " + std::to_string(model->getTag());
         }
 
-        title = model->getModifiedFlag() ? "[*]" : "" + title;
+        title = (model->getModifiedFlag() ? "[*]" : "") + title;
 
         return title;
     }
@@ -79,24 +79,14 @@ namespace felide {
 
     void MainWindowPresenter::fileSave() {
         std::cout << "MainWindowPresenter::fileSave()" << std::endl;
-
-        /*
-        EditorView *editor = view->getCurrentEditor();
-
-        if (!editor) {
-            return;
-        }
-        */
     }
 
     void MainWindowPresenter::fileSaveAs() {
         std::cout << "MainWindowPresenter::fileSaveAs()" << std::endl;
-
     }
 
     void MainWindowPresenter::fileSaveAll() {
         std::cout << "MainWindowPresenter::fileSaveAll()" << std::endl;
-
     }
 
     void MainWindowPresenter::fileClose() {
@@ -108,8 +98,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorContentModified(EditorView *editorView) {
-        std::cout << "MainWindowPresenter::editorContentModified " << editorView << std::endl;
-
         auto editorModel = editorViewModels[editorView].get();
 
         assert(editorModel);
@@ -132,7 +120,7 @@ namespace felide {
         std::cout << "MainWindowPresenter::createEditorModel " << view << std::endl;
 
         auto editorModel = new EditorModel(fileName);
-
+        
         editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
 
         return editorModel;
