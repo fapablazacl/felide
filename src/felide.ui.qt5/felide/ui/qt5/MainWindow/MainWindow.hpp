@@ -28,12 +28,13 @@ namespace felide {
 
     private:
         void setupMenuBar();
+        void setupEditorManager();
 
     private:
         Menu mainMenu;
         MainWindowPresenter presenter;
 
-        TabbedEditorManager *m_tabbedEditorManager;
+        TabbedEditorManager *m_tabbedEditorManager = nullptr;
     };
 }
 

@@ -42,6 +42,7 @@ namespace felide {
     void MainWindowPresenter::fileNew() {
         int tag = m_model.increaseDocumentCount();
 
+        assert(m_editorManager);
         auto editorView = m_editorManager->appendEditor();
         auto editorModel = this->createEditorModel(editorView, tag);
 

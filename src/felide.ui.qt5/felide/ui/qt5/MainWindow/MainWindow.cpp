@@ -51,18 +51,10 @@ namespace felide {
     }
 
     MainWindow::MainWindow() {
-        presenter.attachView(this);
-
         this->setupMenuBar();
+        this->setupEditorManager();
 
-        m_tabbedEditorManager = new TabbedEditorManager(this);
-
-        connect(m_tabbedEditorManager, &TabbedEditorManager::editorContentChanged, [&](Editor *editor) {
-            assert(editor);
-            presenter.editorContentModified(editor);
-        });
-
-        this->setCentralWidget(m_tabbedEditorManager);
+        presenter.attachView(this);
     }
 
     void MainWindow::setupMenuBar() {
@@ -97,6 +89,17 @@ namespace felide {
         });
 
         this->setMenuBar(createMenuBar(this, mainMenu));
+    }
+
+    void MainWindow::setupEditorManager() {
+        m_tabbedEditorManager = new TabbedEditorManager(this);
+
+        connect(m_tabbedEditorManager, &TabbedEditorManager::editorContentChanged, [&](Editor *editor) {
+            assert(editor);
+            presenter.editorContentModified(editor);
+        });
+
+        this->setCentralWidget(m_tabbedEditorManager);
     }
 }
 
