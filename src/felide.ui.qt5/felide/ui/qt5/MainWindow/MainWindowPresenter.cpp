@@ -19,7 +19,7 @@ namespace felide {
         } else {
             title = "Untitled " + std::to_string(model->getTag());
         }
-
+        
         title = (model->getModifiedFlag() ? "[*]" : "") + title;
 
         return title;
@@ -48,18 +48,20 @@ namespace felide {
         editorView->setTitle(mapEditorTitle(editorModel));
     }
 
+    static const std::vector<DialogViewData::FileFilter> filters = {
+        {"All Files", {"*.*"}},
+        {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc"}},
+    };
+    
     void MainWindowPresenter::fileOpen() {
         using boost::filesystem::path;
-
+        
         DialogViewData dialogData = {
             DialogType::OpenFile,
             "Open File",
-            {
-                {"All Files", {"*.*"}},
-                {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc"}},
-            }
+            filters
         };
-
+        
         auto fileNameOpt = m_view->showDialogModal(dialogData);
         if (!fileNameOpt) {
             return;
@@ -71,6 +73,9 @@ namespace felide {
         auto editorManager = m_view->getEditorManagerView();
         auto editorView = editorManager->appendEditor();
         auto editorModel = this->createEditorModel(editorView, fileName);
+        
+        editorModel->setContent(content);
+        editorModel->setModifiedFlag(false);
 
         editorView->setConfig(EditorConfig::Default());
         editorView->setTitle(mapEditorTitle(editorModel));
@@ -78,11 +83,45 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileSave() {
-        std::cout << "MainWindowPresenter::fileSave()" << std::endl;
+        
     }
 
     void MainWindowPresenter::fileSaveAs() {
-        std::cout << "MainWindowPresenter::fileSaveAs()" << std::endl;
+        using boost::filesystem::path;
+        
+        auto editorManager = m_view->getEditorManagerView();
+        auto editorView = editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+        
+        auto editorModel = editorViewModels[editorView].get();
+        assert(editorModel);
+        
+        DialogViewData dialogData = {
+            DialogType::SaveFile,
+            "Save File",
+            filters
+        };
+        
+        auto fileNameOpt = m_view->showDialogModal(dialogData);
+        if (!fileNameOpt) {
+            return;
+        }
+        
+        const std::string fileName = *fileNameOpt;
+        const std::string content = editorView->getContent();
+
+        FileUtil::save(fileName, content);
+        
+        editorModel->setFilePath(fileName);
+        editorModel->setContent(content);
+        editorModel->setModifiedFlag(false);
+        
+        editorView->setConfig(EditorConfig::Default());
+        editorView->setTitle(mapEditorTitle(editorModel));
+        editorView->setContent(content);
     }
 
     void MainWindowPresenter::fileSaveAll() {
