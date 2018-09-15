@@ -12,6 +12,7 @@ namespace felide {
     class EditorModel;
     class EditorView;
     class MainWindowView;
+    class EditorManagerView;
     class MainWindowPresenter {
     public:
         MainWindowPresenter();
@@ -40,12 +41,20 @@ namespace felide {
         void editorContentModified(EditorView *editorView);
 
     private:
+        void handleSaveAs(EditorView *editorView);
+        
+        void saveFile(EditorView *editorView, EditorModel *editorModel);
+
         EditorModel* createEditorModel(const EditorView *view, const int tag);
 
         EditorModel* createEditorModel(const EditorView *view, const std::string &fileName);
 
+        EditorModel* getEditorModel(const EditorView *view);
+
     private:
         MainWindowView *m_view = nullptr;
+        EditorManagerView *m_editorManager = nullptr;
+
         MainWindowModel m_model;
 
         std::map<const EditorView*, std::unique_ptr<EditorModel>> editorViewModels;

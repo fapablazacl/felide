@@ -8,6 +8,7 @@ namespace felide {
     TabbedEditorManager::TabbedEditorManager(QWidget *parent) : QWidget(parent) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
+        m_tabWidget->setDocumentMode(true);
 
         QGridLayout *layout = new QGridLayout(this);
         layout->addWidget(m_tabWidget);
