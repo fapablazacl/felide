@@ -12,29 +12,29 @@ link_directories(${QSCINTILLA_LIBRARY_DIR})
 set (target "felide.ui.qt5")
 
 set (src_felide_ui_qt5
-    "felide/ui/qt5/MainWindow/EditorModel.hpp"
-    "felide/ui/qt5/MainWindow/EditorModel.cpp"
-    "felide/ui/qt5/MainWindow/MainWindow.hpp"
-    "felide/ui/qt5/MainWindow/MainWindow.cpp"
-    "felide/ui/qt5/MainWindow/MainWindowModel.hpp"
-    "felide/ui/qt5/MainWindow/MainWindowModel.cpp"
-    "felide/ui/qt5/MainWindow/MainWindowPresenter.hpp"
-    "felide/ui/qt5/MainWindow/MainWindowPresenter.cpp"
-    "felide/ui/qt5/MainWindow/MainWindowView.hpp"
-    "felide/ui/qt5/MainWindow/MainWindowView.cpp"
-    "felide/ui/qt5/MainWindow/Menu.hpp"
-    "felide/ui/qt5/MainWindow/Menu.cpp"
-
-    "felide/ui/qt5/EditorManager/Editor.hpp"
-    "felide/ui/qt5/EditorManager/Editor.cpp"
-    "felide/ui/qt5/EditorManager/EditorView.hpp"
-    "felide/ui/qt5/EditorManager/EditorView.cpp"
-    "felide/ui/qt5/EditorManager/EditorManagerView.hpp"
-    "felide/ui/qt5/EditorManager/EditorManagerView.cpp"
-    "felide/ui/qt5/EditorManager/EditorManager.hpp"
-    "felide/ui/qt5/EditorManager/EditorManager.cpp"
-
     "Main.cpp"
+
+    "felide/ui/EditorModel.hpp"
+    "felide/ui/EditorModel.cpp"
+    "felide/ui/MainWindowModel.hpp"
+    "felide/ui/MainWindowModel.cpp"
+    "felide/ui/MainWindowPresenter.hpp"
+    "felide/ui/MainWindowPresenter.cpp"
+    "felide/ui/MainWindowView.hpp"
+    "felide/ui/MainWindowView.cpp"
+    "felide/ui/Menu.hpp"
+    "felide/ui/Menu.cpp"
+    "felide/ui/EditorView.hpp"
+    "felide/ui/EditorView.cpp"
+    "felide/ui/EditorManagerView.hpp"
+    "felide/ui/EditorManagerView.cpp"
+
+    "felide/ui/qt5/Editor.hpp"
+    "felide/ui/qt5/Editor.cpp"
+    "felide/ui/qt5/MainWindow.hpp"
+    "felide/ui/qt5/MainWindow.cpp"
+    "felide/ui/qt5/EditorManager.hpp"
+    "felide/ui/qt5/EditorManager.cpp"
 )
 
 add_executable(${target} WIN32

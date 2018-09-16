@@ -2,8 +2,8 @@
 #include "MainWindowPresenter.hpp"
 #include "MainWindowView.hpp"
 
-#include "../EditorManager/EditorView.hpp"
-#include "../EditorManager/EditorManagerView.hpp"
+#include "EditorView.hpp"
+#include "EditorManagerView.hpp"
 
 #include <boost/filesystem.hpp>
 #include <felide/util/FileUtil.hpp>

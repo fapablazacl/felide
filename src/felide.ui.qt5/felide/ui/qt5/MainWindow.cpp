@@ -4,8 +4,9 @@
 #include <vector>
 #include <functional>
 #include <QMessageBox>
-#include "../EditorManager/Editor.hpp"
-#include "MainWindowPresenter.hpp"
+
+#include "Editor.hpp"
+#include "../MainWindowPresenter.hpp"
 
 namespace felide {
     static void setupMenu(QMenu *parentMenuPtr, const Menu &menu) {

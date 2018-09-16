@@ -8,11 +8,10 @@
 #include <QAction>
 #include <map>
 
-#include "MainWindowPresenter.hpp"
-#include "MainWindowView.hpp"
-#include "Menu.hpp"
-
-#include "../EditorManager/EditorManager.hpp"
+#include "../MainWindowPresenter.hpp"
+#include "../MainWindowView.hpp"
+#include "../Menu.hpp"
+#include "EditorManager.hpp"
 
 namespace felide {
     class MainWindow : public QMainWindow, public MainWindowView {
