@@ -25,14 +25,14 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/MainWindow/Menu.hpp"
     "felide/ui/qt5/MainWindow/Menu.cpp"
 
-    "felide/ui/qt5/TabbedEditorManager/Editor.hpp"
-    "felide/ui/qt5/TabbedEditorManager/Editor.cpp"
-    "felide/ui/qt5/TabbedEditorManager/EditorView.hpp"
-    "felide/ui/qt5/TabbedEditorManager/EditorView.cpp"
-    "felide/ui/qt5/TabbedEditorManager/EditorManagerView.hpp"
-    "felide/ui/qt5/TabbedEditorManager/EditorManagerView.cpp"
-    "felide/ui/qt5/TabbedEditorManager/TabbedEditorManager.hpp"
-    "felide/ui/qt5/TabbedEditorManager/TabbedEditorManager.cpp"
+    "felide/ui/qt5/EditorManager/Editor.hpp"
+    "felide/ui/qt5/EditorManager/Editor.cpp"
+    "felide/ui/qt5/EditorManager/EditorView.hpp"
+    "felide/ui/qt5/EditorManager/EditorView.cpp"
+    "felide/ui/qt5/EditorManager/EditorManagerView.hpp"
+    "felide/ui/qt5/EditorManager/EditorManagerView.cpp"
+    "felide/ui/qt5/EditorManager/EditorManager.hpp"
+    "felide/ui/qt5/EditorManager/EditorManager.cpp"
 
     "Main.cpp"
 )

@@ -4,10 +4,10 @@
 #include <cassert>
 #include <iostream>
 #include <QLayout>
-#include "TabbedEditorManager.hpp"
+#include "EditorManager.hpp"
 
 namespace felide {
-    Editor::Editor(QWidget *parent, TabbedEditorManager *editorManager) : QWidget(parent) {
+    Editor::Editor(QWidget *parent, EditorManager *editorManager) : QWidget(parent) {
         m_editorManager = editorManager;
         m_scintilla = new QsciScintilla(this);
 

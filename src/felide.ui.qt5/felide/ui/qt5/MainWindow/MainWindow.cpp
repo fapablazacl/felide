@@ -4,7 +4,7 @@
 #include <vector>
 #include <functional>
 #include <QMessageBox>
-#include "../TabbedEditorManager/Editor.hpp"
+#include "../EditorManager/Editor.hpp"
 #include "MainWindowPresenter.hpp"
 
 namespace felide {
@@ -93,14 +93,14 @@ namespace felide {
     }
 
     void MainWindow::setupEditorManager() {
-        m_tabbedEditorManager = new TabbedEditorManager(this);
+        m_tabbedEditorManager = new EditorManager(this);
 
-        connect(m_tabbedEditorManager, &TabbedEditorManager::editorContentChanged, [&](Editor *editor) {
+        connect(m_tabbedEditorManager, &EditorManager::editorContentChanged, [&](Editor *editor) {
             assert(editor);
             presenter.editorContentModified(editor);
         });
         
-        connect(m_tabbedEditorManager, &TabbedEditorManager::editorCloseRequested, [&](Editor *editor) {
+        connect(m_tabbedEditorManager, &EditorManager::editorCloseRequested, [&](Editor *editor) {
             assert(editor);
             presenter.editorCloseRequested(editor);
         });
@@ -176,9 +176,8 @@ namespace felide {
             case QMessageBox::Yes: return true;
             case QMessageBox::No: return false;
             case QMessageBox::Cancel: return {};
+            default: return {};
         }
-        
-        return {};
     }
 
     EditorManagerView* MainWindow::getEditorManagerView() {

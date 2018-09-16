@@ -12,7 +12,7 @@
 #include "MainWindowView.hpp"
 #include "Menu.hpp"
 
-#include "../TabbedEditorManager/TabbedEditorManager.hpp"
+#include "../EditorManager/EditorManager.hpp"
 
 namespace felide {
     class MainWindow : public QMainWindow, public MainWindowView {
@@ -36,7 +36,7 @@ namespace felide {
         Menu mainMenu;
         MainWindowPresenter presenter;
 
-        TabbedEditorManager *m_tabbedEditorManager = nullptr;
+        EditorManager *m_tabbedEditorManager = nullptr;
     };
 }
 
