@@ -11,11 +11,12 @@
 #include "../MainWindow/MainWindowView.hpp"
 
 namespace felide {
+    class TabbedEditorManager;
     class Editor : public QWidget, public EditorView {
         Q_OBJECT
 
     public:
-        explicit Editor(QTabWidget *parent);
+        explicit Editor(QWidget *parent, TabbedEditorManager *editorManager);
         virtual ~Editor();
 
     private:
@@ -48,7 +49,7 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
-        QTabWidget *m_parentTabWidget = nullptr;
+        TabbedEditorManager *m_editorManager = nullptr;
         QsciScintilla *m_scintilla = nullptr;
         std::string m_title;
         EditorConfig m_config;

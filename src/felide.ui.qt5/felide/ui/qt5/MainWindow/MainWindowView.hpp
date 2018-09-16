@@ -73,6 +73,8 @@ namespace felide {
         virtual std::size_t getEditorCount() const = 0;
 
         virtual EditorView* getEditor(const std::size_t index) = 0;
+        
+        virtual void closeEditor(EditorView *editorView) = 0;
     };
 
     class MainWindowView {
@@ -80,6 +82,8 @@ namespace felide {
         virtual ~MainWindowView();
 
         virtual boost::optional<std::string> showDialogModal(const DialogViewData &dialogViewData) = 0;
+        
+        virtual boost::optional<bool> showAskModal(const std::string &title, const std::string &message) = 0;
 
         virtual EditorManagerView* getEditorManagerView() = 0;
     };

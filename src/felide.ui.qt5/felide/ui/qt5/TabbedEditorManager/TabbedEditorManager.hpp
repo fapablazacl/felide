@@ -15,12 +15,18 @@ namespace felide {
         explicit TabbedEditorManager(QWidget *parent);
 
         virtual ~TabbedEditorManager();
-
+        
+    public:
+        boost::optional<int> getEditorIndex(const Editor *editor);
+        
+        void changeEditorTitle(Editor *editor, const std::string &title);
+        
     signals:
         void editorContentChanged(Editor *editor);
+        
+        void editorCloseRequested(Editor *editor);
 
     public:
-        // EditorManagerView implementation
         virtual EditorView* appendEditor() override;
 
         virtual EditorView* getCurrentEditor() override;
@@ -28,6 +34,8 @@ namespace felide {
         virtual std::size_t getEditorCount() const override;
 
         virtual EditorView* getEditor(const std::size_t index) override;
+        
+        virtual void closeEditor(EditorView *editorView) override;
 
     private:
         QTabWidget *m_tabWidget = nullptr;

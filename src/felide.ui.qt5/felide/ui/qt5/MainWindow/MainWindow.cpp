@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <functional>
+#include <QMessageBox>
 #include "../TabbedEditorManager/Editor.hpp"
 #include "MainWindowPresenter.hpp"
 
@@ -98,6 +99,11 @@ namespace felide {
             assert(editor);
             presenter.editorContentModified(editor);
         });
+        
+        connect(m_tabbedEditorManager, &TabbedEditorManager::editorCloseRequested, [&](Editor *editor) {
+            assert(editor);
+            presenter.editorCloseRequested(editor);
+        });
 
         this->setCentralWidget(m_tabbedEditorManager);
     }
@@ -160,6 +166,19 @@ namespace felide {
         }
 
         return filename.toStdString();
+    }
+    
+    boost::optional<bool> MainWindow::showAskModal(const std::string &title, const std::string &message) {
+        const auto buttons = QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel;
+        const auto result = QMessageBox::question(this, title.c_str(), message.c_str(), buttons);
+        
+        switch (result) {
+            case QMessageBox::Yes: return true;
+            case QMessageBox::No: return false;
+            case QMessageBox::Cancel: return {};
+        }
+        
+        return {};
     }
 
     EditorManagerView* MainWindow::getEditorManagerView() {

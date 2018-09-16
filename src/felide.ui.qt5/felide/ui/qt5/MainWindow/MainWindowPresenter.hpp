@@ -21,7 +21,7 @@ namespace felide {
 
         void detachView();
 
-        ~MainWindowPresenter();
+        virtual ~MainWindowPresenter();
 
     public:
         void fileNew();
@@ -39,7 +39,13 @@ namespace felide {
         void fileExit();
 
         void editorContentModified(EditorView *editorView);
-
+        
+        void editorCloseRequested(EditorView *editorView);
+        
+        void editorSave(EditorView *editorView);
+        
+        void editorSaveAs(EditorView *editorView);
+        
     private:
         void handleSaveAs(EditorView *editorView);
         
@@ -50,6 +56,8 @@ namespace felide {
         EditorModel* createEditorModel(const EditorView *view, const std::string &fileName);
 
         EditorModel* getEditorModel(const EditorView *view);
+        
+        EditorView* getEditorView(const EditorModel *model);
 
     private:
         MainWindowView *m_view = nullptr;
@@ -57,7 +65,7 @@ namespace felide {
 
         MainWindowModel m_model;
 
-        std::map<const EditorView*, std::unique_ptr<EditorModel>> editorViewModels;
+        std::map<const EditorView*, std::unique_ptr<EditorModel>> m_editorViewModels;
     };
 } 
 

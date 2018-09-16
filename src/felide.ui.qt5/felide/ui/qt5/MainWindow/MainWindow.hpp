@@ -23,6 +23,8 @@ namespace felide {
 
     public:
         virtual boost::optional<std::string> showDialogModal(const DialogViewData &dialogViewData) override;
+        
+        virtual boost::optional<bool> showAskModal(const std::string &title, const std::string &message) override;
 
         virtual EditorManagerView* getEditorManagerView() override;
 

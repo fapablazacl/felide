@@ -1,13 +1,14 @@
 
 #include "Editor.hpp"
 
-#include <QLayout>
 #include <cassert>
 #include <iostream>
+#include <QLayout>
+#include "TabbedEditorManager.hpp"
 
 namespace felide {
-    Editor::Editor(QTabWidget *parent) : QWidget(parent) {
-        m_parentTabWidget = parent;
+    Editor::Editor(QWidget *parent, TabbedEditorManager *editorManager) : QWidget(parent) {
+        m_editorManager = editorManager;
         m_scintilla = new QsciScintilla(this);
 
         this->setupScintilla();
@@ -29,21 +30,7 @@ namespace felide {
     }
 
     void Editor::setTitle(const std::string &title) {
-        bool tabFound = false;
-        int i;
-
-        for (i=0; i<m_parentTabWidget->count(); i++) {
-            if (m_parentTabWidget->widget(i) == this) {
-                tabFound = true;
-                break;
-            }
-        }
-
-        if (!tabFound) {
-            return;
-        }
-
-        m_parentTabWidget->setTabText(i, title.c_str());
+        m_editorManager->changeEditorTitle(this, title);
     }
 
     std::string Editor::getTitle() const  {

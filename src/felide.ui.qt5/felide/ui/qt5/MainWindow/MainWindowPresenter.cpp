@@ -131,11 +131,45 @@ namespace felide {
         editorModel->modify();
         editorView->setTitle(mapEditorTitle(editorModel));
     }
+    
+    void MainWindowPresenter::editorCloseRequested(EditorView *editorView) {
+        bool closeEditor = false;
+        
+        auto model = this->getEditorModel(editorView);
+        
+        if (model->getModifiedFlag()) {
+            boost::optional<bool> saveChangesOptional = m_view->showAskModal("felide", "Save Changes?");
+            
+            if (!saveChangesOptional) {
+                return;
+            }
+            
+            const bool saveChanges = *saveChangesOptional;
+            
+            if (saveChanges) {
+                this->editorSave(editorView);
+            }
+            
+            closeEditor = true;
+        }
+        
+        if (closeEditor) {
+            m_editorManager->closeEditor(editorView);
+        }
+    }
+    
+    void MainWindowPresenter::editorSave(EditorView *editorView) {
+        
+    }
+    
+    void MainWindowPresenter::editorSaveAs(EditorView *editorView) {
+        
+    }
 
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const int tag) {
         auto editorModel = new EditorModel(tag);
 
-        editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
+        m_editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
 
         return editorModel;
     }
@@ -143,7 +177,7 @@ namespace felide {
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const std::string &fileName) {
         auto editorModel = new EditorModel(fileName);
         
-        editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
+        m_editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
 
         return editorModel;
     }
@@ -172,24 +206,40 @@ namespace felide {
     }
 
     EditorModel* MainWindowPresenter::getEditorModel(const EditorView *view) {
-        auto editorModel = editorViewModels[view].get();
+        auto editorModel = m_editorViewModels[view].get();
 
         assert(editorModel);
 
         return editorModel;
     }
+    
+    EditorView* MainWindowPresenter::getEditorView(const EditorModel *model) {
+        assert(model);
+        EditorView* view = nullptr;
+        
+        for (auto &pair : m_editorViewModels) {
+            if (pair.second.get() == model) {
+                // TODO: Refactor in order to prevent remove the constness of the keys
+                view = const_cast<EditorView*>(pair.first);
+                break;
+            }
+        }
+        
+        return view;
+    }
 
     void MainWindowPresenter::saveFile(EditorView *editorView, EditorModel *editorModel) {
+        editorModel->setContent(editorView->getContent());
+        
         const std::string fileName = editorModel->getFilePath();
         const std::string content = editorModel->getContent();
 
         FileUtil::save(fileName, content);
         
         editorModel->setFilePath(fileName);
-        editorModel->setContent(content);
         
         editorModel->setModifiedFlag(false);
-        editorView->setContent(content);
         editorView->setTitle(mapEditorTitle(editorModel));
     }
 }
+
