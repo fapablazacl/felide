@@ -27,6 +27,10 @@ set (src_felide_ui_qt5
 
     "felide/ui/qt5/TabbedEditorManager/Editor.hpp"
     "felide/ui/qt5/TabbedEditorManager/Editor.cpp"
+    "felide/ui/qt5/TabbedEditorManager/EditorView.hpp"
+    "felide/ui/qt5/TabbedEditorManager/EditorView.cpp"
+    "felide/ui/qt5/TabbedEditorManager/EditorManagerView.hpp"
+    "felide/ui/qt5/TabbedEditorManager/EditorManagerView.cpp"
     "felide/ui/qt5/TabbedEditorManager/TabbedEditorManager.hpp"
     "felide/ui/qt5/TabbedEditorManager/TabbedEditorManager.cpp"
 

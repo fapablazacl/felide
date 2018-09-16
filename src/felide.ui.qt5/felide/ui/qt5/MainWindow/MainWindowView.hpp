@@ -24,59 +24,7 @@ namespace felide {
         std::vector<FileFilter> filters;
     };
 
-    struct EditorConfig {
-        std::string fontName;
-        int fontSize;
-        int tabWidth;
-        bool caretLineVisible;
-
-        static EditorConfig Default() {
-            return {
-                "monospace", 10, 4, true
-            };
-        }
-    };
-
-    class EditorView {
-    public:
-        virtual ~EditorView() {}
-
-        virtual void setTitle(const std::string &title) = 0;
-        virtual std::string getTitle() const = 0;
-
-        virtual void setContent(const std::string &content) = 0;
-        virtual std::string getContent() const = 0;
-
-        virtual void setConfig(const EditorConfig &config) = 0;
-        virtual EditorConfig getConfig() const = 0;
-
-        virtual void clearAll() = 0;
-
-        virtual void clearUndoBuffer() = 0;
-
-        virtual void undo() = 0;
-        virtual void redo() = 0;
-
-        virtual void cut() = 0;
-        virtual void copy() = 0;
-        virtual void paste() = 0;
-    };
-
-    class EditorManagerView {
-    public:
-        virtual ~EditorManagerView() {}
-
-        virtual EditorView* appendEditor() = 0;
-
-        virtual EditorView* getCurrentEditor() = 0;
-
-        virtual std::size_t getEditorCount() const = 0;
-
-        virtual EditorView* getEditor(const std::size_t index) = 0;
-        
-        virtual void closeEditor(EditorView *editorView) = 0;
-    };
-
+    class EditorManagerView;
     class MainWindowView {
     public:
         virtual ~MainWindowView();

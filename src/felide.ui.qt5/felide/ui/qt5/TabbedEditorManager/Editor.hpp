@@ -8,7 +8,7 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include "../MainWindow/MainWindowView.hpp"
+#include "EditorView.hpp"
 
 namespace felide {
     class TabbedEditorManager;

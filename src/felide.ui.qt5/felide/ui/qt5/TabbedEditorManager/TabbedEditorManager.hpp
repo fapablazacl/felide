@@ -4,10 +4,12 @@
 
 #include <QWidget>
 #include <QTabWidget>
-#include "../MainWindow/MainWindowView.hpp"
+#include <boost/optional.hpp>
+#include "EditorManagerView.hpp"
 
 namespace felide {
     class Editor;
+    class EditorView;
     class TabbedEditorManager : public QWidget, public EditorManagerView {
         Q_OBJECT
 
