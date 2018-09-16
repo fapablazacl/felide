@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 #include <QMessageBox>
+#include <QDesktopWidget>
 
 #include "Editor.hpp"
 #include "../MainWindowPresenter.hpp"
@@ -56,6 +57,13 @@ namespace felide {
         this->setupMenuBar();
         this->setupEditorManager();
 
+        QDesktopWidget desktopWidget;
+        
+        const QRect screenSize = desktopWidget.availableGeometry(desktopWidget.primaryScreen());
+        
+        this->setMinimumSize(screenSize.size() * 0.4);
+        this->resize(screenSize.size() * 0.7);
+        
         presenter.attachView(this);
     }
 
@@ -94,19 +102,19 @@ namespace felide {
     }
 
     void MainWindow::setupEditorManager() {
-        m_tabbedEditorManager = new EditorManager(this);
+        m_editorManager = new EditorManager(this);
 
-        connect(m_tabbedEditorManager, &EditorManager::editorContentChanged, [&](Editor *editor) {
+        connect(m_editorManager, &EditorManager::editorContentChanged, [&](Editor *editor) {
             assert(editor);
             presenter.editorContentModified(editor);
         });
         
-        connect(m_tabbedEditorManager, &EditorManager::editorCloseRequested, [&](Editor *editor) {
+        connect(m_editorManager, &EditorManager::editorCloseRequested, [&](Editor *editor) {
             assert(editor);
             presenter.editorCloseRequested(editor);
         });
 
-        this->setCentralWidget(m_tabbedEditorManager);
+        this->setCentralWidget(m_editorManager);
     }
 }
 
@@ -115,7 +123,6 @@ namespace felide {
 #include <felide/util/Strings.hpp>
 
 namespace felide {
-
     static std::string mapFiltersToString(const std::vector<DialogViewData::FileFilter> &dialogFilters) {
         std::vector<std::string> filters;
 
@@ -182,6 +189,6 @@ namespace felide {
     }
 
     EditorManagerView* MainWindow::getEditorManagerView() {
-        return m_tabbedEditorManager;
+        return m_editorManager;
     }
 }

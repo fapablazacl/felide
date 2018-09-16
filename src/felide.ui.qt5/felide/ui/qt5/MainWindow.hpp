@@ -35,7 +35,7 @@ namespace felide {
         Menu mainMenu;
         MainWindowPresenter presenter;
 
-        EditorManager *m_tabbedEditorManager = nullptr;
+        EditorManager *m_editorManager = nullptr;
     };
 }
 
