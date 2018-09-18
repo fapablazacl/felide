@@ -12,6 +12,7 @@
 #include "../MainWindowView.hpp"
 #include "../Menu.hpp"
 #include "EditorManager.hpp"
+#include "DialogManager.hpp"
 
 namespace felide {
     class MainWindow : public QMainWindow, public MainWindowView {

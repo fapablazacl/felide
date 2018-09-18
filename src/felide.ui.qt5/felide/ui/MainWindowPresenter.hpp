@@ -13,6 +13,7 @@ namespace felide {
     class EditorView;
     class MainWindowView;
     class EditorManagerView;
+    class DialogManagerView;
     class MainWindowPresenter {
     public:
         MainWindowPresenter();
@@ -62,6 +63,7 @@ namespace felide {
     private:
         MainWindowView *m_view = nullptr;
         EditorManagerView *m_editorManager = nullptr;
+        DialogManagerView *m_dialogManager = nullptr;
 
         MainWindowModel m_model;
 

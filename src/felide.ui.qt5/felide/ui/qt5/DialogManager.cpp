@@ -19,11 +19,11 @@ namespace felide {
 
         switch (buttons) {
             case DialogButton::Ok: 
-                qbuttons = QMessageBox::Ok: 
+                qbuttons = QMessageBox::Ok;
                 break;
 
             case DialogButton::OkCancel: 
-                qbuttons = QMessageBox::Ok | QMessageBox::Cancel: 
+                qbuttons = QMessageBox::Ok | QMessageBox::Cancel;
                 break;
 
             case DialogButton::YesNoCancel: 
@@ -69,7 +69,7 @@ namespace felide {
         }
     }
 
-    static std::string mapFiltersToString(const std::vector<DialogViewData::FileFilter> &dialogFilters) {
+    static std::string mapFiltersToString(const std::vector<FileFilter> &dialogFilters) {
         std::vector<std::string> filters;
 
         for (auto &filter : dialogFilters) {
@@ -91,26 +91,26 @@ namespace felide {
     }
 
     boost::optional<std::string> DialogManager::showFileDialog(const std::string &title, const FileDialogType dialogType, const std::vector<FileFilter> &filters) const {
-        const auto filters = mapFiltersToString(dialogViewData.filters);
+        const auto qfilters = mapFiltersToString(filters);
 
         QString filename;
 
-        switch (dialogViewData.dialogType) {
-            case DialogType::OpenFile:
+        switch (dialogType) {
+            case FileDialogType::OpenFile:
                 filename = QFileDialog::getOpenFileName (
-                    this,
-                    dialogViewData.title.c_str(),
+                    m_parent,
+                    title.c_str(),
                     QDir::currentPath(),
-                    filters.c_str()
+                    qfilters.c_str()
                 );
                 break;
             
-            case DialogType::SaveFile:
+            case FileDialogType::SaveFile:
                 filename = QFileDialog::getSaveFileName (
-                    this,
-                    dialogViewData.title.c_str(),
+                    m_parent,
+                    title.c_str(),
                     QDir::currentPath(),
-                    filters.c_str()
+                    qfilters.c_str()
                 );
                 break;
         }

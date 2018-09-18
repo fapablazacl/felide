@@ -37,8 +37,8 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/MainWindow.cpp"
     "felide/ui/qt5/EditorManager.hpp"
     "felide/ui/qt5/EditorManager.cpp"
-    "felide/ui/DialogManager.hpp"
-    "felide/ui/DialogManager.cpp"
+    "felide/ui/qt5/DialogManager.hpp"
+    "felide/ui/qt5/DialogManager.cpp"
     "felide/ui/qt5/ProjectBrowser.hpp"
     "felide/ui/qt5/ProjectBrowser.cpp"
 )
