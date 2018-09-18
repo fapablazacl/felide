@@ -15,6 +15,8 @@ namespace felide {
         virtual DialogManagerView* getDialogManagerView() = 0;
         
         virtual FolderBrowserView* getFolderBrowserView() = 0;
+        
+        virtual void close() = 0;
     };
 }
 

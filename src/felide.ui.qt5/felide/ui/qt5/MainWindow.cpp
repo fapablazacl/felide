@@ -5,6 +5,7 @@
 #include <functional>
 #include <QMessageBox>
 #include <QDesktopWidget>
+#include <iostream>
 
 #include "Editor.hpp"
 #include "DialogManager.hpp"
@@ -83,7 +84,7 @@ namespace felide {
                 Menu::action([this] () { presenter.fileSaveAsTriggered(); }, "Sa&ve As ..."),
                 Menu::action([this] () { presenter.fileSaveAllTriggered(); }, "Save &All"),
                 Menu::action([this] () { presenter.fileCloseTriggered(); }, "&Close"),
-                Menu::action([this] () { presenter.fileExitTriggered(); }, "&Exit", "Alt+F4")
+                Menu::action([this] () { presenter.fileExitTriggered(); }, "&Exit")
             }),
             Menu::menu("&Edit", {
                 Menu::action([] () {}, "&Undo", "Ctrl+Z"),
@@ -136,6 +137,14 @@ namespace felide {
         
         this->addDockWidget(Qt::LeftDockWidgetArea, m_folderBrowserDock);
     }
+    
+    void MainWindow::closeEvent(QCloseEvent *evt) {
+        if (presenter.closeRequested()) {
+            evt->accept();
+        } else {
+            evt->ignore();
+        }
+    }
 }
 
 namespace felide {
@@ -149,5 +158,9 @@ namespace felide {
     
     FolderBrowserView* MainWindow::getFolderBrowserView() {
         return m_folderBrowser;
+    }
+    
+    void MainWindow::close() {
+        QMainWindow::close();
     }
 }

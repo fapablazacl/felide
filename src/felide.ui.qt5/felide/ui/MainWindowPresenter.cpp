@@ -68,7 +68,7 @@ namespace felide {
     void MainWindowPresenter::fileOpenTriggered() {
         using boost::filesystem::path;
         
-        const boost::optional<std::string> filePathOptional = m_dialogManager->showFileDialog(
+        const auto filePathOptional = m_dialogManager->showFileDialog(
            "Open File",
            FileDialogType::OpenFile,
            filters
@@ -140,7 +140,7 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileExitTriggered() {
-        std::cout << "MainWindowPresenter::fileExit()" << std::endl;
+        m_view->close();
     }
 
     void MainWindowPresenter::editorContentModified(EditorView *editorView) {
@@ -176,6 +176,12 @@ namespace felide {
         if (closeEditor) {
             m_editorManager->closeEditor(editorView);
         }
+    }
+    
+    bool MainWindowPresenter::closeRequested() {
+        DialogButton button = m_dialogManager->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
+        
+        return button == DialogButton::Yes;
     }
     
     void MainWindowPresenter::editorSave(EditorView *editorView, EditorModel *editorModel) {

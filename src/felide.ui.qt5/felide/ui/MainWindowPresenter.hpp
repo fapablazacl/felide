@@ -45,6 +45,8 @@ namespace felide {
         
         void editorCloseRequested(EditorView *editorView);
         
+        bool closeRequested();
+        
     private:
         void editorSave(EditorView *editorView, EditorModel *editorModel);
         

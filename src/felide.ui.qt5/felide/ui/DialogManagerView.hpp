@@ -21,6 +21,7 @@ namespace felide {
         No = 8,
         OkCancel = Ok | Cancel,
         YesNoCancel = Yes | No | Cancel,
+        YesNo = Yes | No
     };
 
     inline DialogButton operator| (const DialogButton f1, const DialogButton f2) {

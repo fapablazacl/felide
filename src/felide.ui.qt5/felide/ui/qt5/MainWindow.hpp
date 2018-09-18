@@ -29,12 +29,17 @@ namespace felide {
         virtual DialogManagerView* getDialogManagerView() override;
         
         virtual FolderBrowserView* getFolderBrowserView() override;
+        
+        virtual void close() override;
 
     private:
         void setupMenuBar();
         void setupEditorManager();
         void setupDockUI();
 
+    private:
+        virtual void closeEvent(QCloseEvent *evt) override;
+        
     private:
         Menu mainMenu;
         MainWindowPresenter presenter;

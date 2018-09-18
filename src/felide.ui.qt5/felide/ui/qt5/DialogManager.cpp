@@ -25,6 +25,10 @@ namespace felide {
             case DialogButton::OkCancel: 
                 qbuttons = QMessageBox::Ok | QMessageBox::Cancel;
                 break;
+                
+            case DialogButton::YesNo:
+                qbuttons = QMessageBox::Yes |  QMessageBox::No;
+                break;
 
             case DialogButton::YesNoCancel: 
                 qbuttons = QMessageBox::Yes |  QMessageBox::No | QMessageBox::Cancel;
