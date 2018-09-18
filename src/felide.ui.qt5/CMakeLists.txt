@@ -28,6 +28,8 @@ set (src_felide_ui_qt5
     "felide/ui/EditorView.cpp"
     "felide/ui/EditorManagerView.hpp"
     "felide/ui/EditorManagerView.cpp"
+    "felide/ui/DialogManagerView.hpp"
+    "felide/ui/DialogManagerView.cpp"
 
     "felide/ui/qt5/Editor.hpp"
     "felide/ui/qt5/Editor.cpp"
@@ -35,6 +37,8 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/MainWindow.cpp"
     "felide/ui/qt5/EditorManager.hpp"
     "felide/ui/qt5/EditorManager.cpp"
+    "felide/ui/DialogManager.hpp"
+    "felide/ui/DialogManager.cpp"
     "felide/ui/qt5/ProjectBrowser.hpp"
     "felide/ui/qt5/ProjectBrowser.cpp"
 )

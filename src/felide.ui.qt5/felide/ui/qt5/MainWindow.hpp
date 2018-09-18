@@ -21,11 +21,9 @@ namespace felide {
         MainWindow();
 
     public:
-        virtual boost::optional<std::string> showDialogModal(const DialogViewData &dialogViewData) override;
-        
-        virtual boost::optional<bool> showAskModal(const std::string &title, const std::string &message) override;
-
         virtual EditorManagerView* getEditorManagerView() override;
+
+        virtual DialogManagerView* getDialogManagerView() override;
 
     private:
         void setupMenuBar();
@@ -36,6 +34,8 @@ namespace felide {
         MainWindowPresenter presenter;
 
         EditorManager *m_editorManager = nullptr;
+
+        std::unique_ptr<DialogManager> m_dialogManager = nullptr;
     };
 }
 
