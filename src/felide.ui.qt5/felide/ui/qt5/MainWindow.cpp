@@ -126,7 +126,7 @@ namespace felide {
     }
     
     void MainWindow::setupDockUI() {
-        const auto areas = QFlags<Qt::DockWidgetArea>(Qt::LeftDockWidgetArea) | QFlags<Qt::DockWidgetArea>(Qt::RightDockWidgetArea);
+        const auto areas = QFlags<Qt::DockWidgetArea>(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
         
         // setup folder browser dock widget
         m_folderBrowserDock = new QDockWidget("Folder Browser", this);
