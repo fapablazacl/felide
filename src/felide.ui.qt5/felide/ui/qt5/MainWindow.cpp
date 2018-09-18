@@ -8,6 +8,7 @@
 
 #include "Editor.hpp"
 #include "DialogManager.hpp"
+#include "FolderBrowser.hpp"
 #include "../MainWindowPresenter.hpp"
 
 namespace felide {
@@ -57,6 +58,7 @@ namespace felide {
     MainWindow::MainWindow() {
         this->setupMenuBar();
         this->setupEditorManager();
+        this->setupDockUI();
 
         m_dialogManager = std::make_unique<DialogManager>(this);
 
@@ -118,6 +120,19 @@ namespace felide {
         });
 
         this->setCentralWidget(m_editorManager);
+    }
+    
+    void MainWindow::setupDockUI() {
+        const auto areas = QFlags<Qt::DockWidgetArea>(Qt::LeftDockWidgetArea) | QFlags<Qt::DockWidgetArea>(Qt::RightDockWidgetArea);
+        
+        // setup folder browser dock widget
+        m_folderBrowserDock = new QDockWidget("Folder Browser", this);
+        
+        m_folderBrowser = new FolderBrowser(m_folderBrowserDock);
+        m_folderBrowserDock->setAllowedAreas(areas);
+        m_folderBrowserDock->setWidget(m_folderBrowser);
+        
+        this->addDockWidget(Qt::LeftDockWidgetArea, m_folderBrowserDock);
     }
 }
 

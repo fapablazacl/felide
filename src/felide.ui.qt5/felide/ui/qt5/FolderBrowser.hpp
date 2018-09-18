@@ -1,19 +1,24 @@
 
-#ifndef __FELIDE_UI_QT5_PROJECT_BROWSER_HPP__
-#define __FELIDE_UI_QT5_PROJECT_BROWSER_HPP__
+#ifndef __FELIDE_UI_QT5_FOLDERBROWSER_HPP__
+#define __FELIDE_UI_QT5_FOLDERBROWSER_HPP__
 
 #include <QWidget>
 #include <QTreeView>
 #include <QFileSystemModel>
 
+#include "../FolderBrowserView.hpp"
+
 namespace felide {
-    class ProjectBrowser : public QWidget {
+    class FolderBrowser : public QWidget, public FolderBrowserView {
         Q_OBJECT
 
     public:
-        ProjectBrowser(QWidget *parent);
+        void displayFolder(const std::string &folder) override;
 
-        ~ProjectBrowser();
+    public:
+        FolderBrowser(QWidget *parent);
+
+        ~FolderBrowser();
 
         void setProjectFolder(const QString &projectFolder);
 

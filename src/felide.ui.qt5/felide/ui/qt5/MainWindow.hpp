@@ -3,6 +3,7 @@
 #define __FELIDE_UI_QT5_MAINWINDOW_HPP__
 
 #include <QMainWindow>
+#include <QDockWidget>
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
@@ -15,6 +16,7 @@
 #include "DialogManager.hpp"
 
 namespace felide {
+    class FolderBrowser;
     class MainWindow : public QMainWindow, public MainWindowView {
         Q_OBJECT;
 
@@ -29,6 +31,7 @@ namespace felide {
     private:
         void setupMenuBar();
         void setupEditorManager();
+        void setupDockUI();
 
     private:
         Menu mainMenu;
@@ -37,6 +40,10 @@ namespace felide {
         EditorManager *m_editorManager = nullptr;
 
         std::unique_ptr<DialogManager> m_dialogManager = nullptr;
+        
+    private:
+        FolderBrowser *m_folderBrowser;
+        QDockWidget *m_folderBrowserDock;
     };
 }
 
