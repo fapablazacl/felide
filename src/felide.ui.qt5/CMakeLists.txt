@@ -12,27 +12,6 @@ link_directories(${QSCINTILLA_LIBRARY_DIR})
 set (target "felide.ui.qt5")
 
 set (src_felide_ui_qt5
-    "Main.cpp"
-
-    "felide/ui/EditorModel.hpp"
-    "felide/ui/EditorModel.cpp"
-    "felide/ui/MainWindowModel.hpp"
-    "felide/ui/MainWindowModel.cpp"
-    "felide/ui/MainWindowPresenter.hpp"
-    "felide/ui/MainWindowPresenter.cpp"
-    "felide/ui/MainWindowView.hpp"
-    "felide/ui/MainWindowView.cpp"
-    "felide/ui/Menu.hpp"
-    "felide/ui/Menu.cpp"
-    "felide/ui/EditorView.hpp"
-    "felide/ui/EditorView.cpp"
-    "felide/ui/EditorManagerView.hpp"
-    "felide/ui/EditorManagerView.cpp"
-    "felide/ui/DialogManagerView.hpp"
-    "felide/ui/DialogManagerView.cpp"
-    "felide/ui/FolderBrowserView.hpp"
-    "felide/ui/FolderBrowserView.cpp"
-
     "felide/ui/qt5/Editor.hpp"
     "felide/ui/qt5/Editor.cpp"
     "felide/ui/qt5/MainWindow.hpp"
@@ -45,7 +24,7 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/FolderBrowser.cpp"
 )
 
-add_executable(${target} WIN32
+add_library(${target} SHARED
     ${src_felide_ui_qt5}
 )
 

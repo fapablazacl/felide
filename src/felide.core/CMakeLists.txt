@@ -67,7 +67,7 @@ set (sources
     "felide/cpp/ModuleToolset.cpp"
 )
 
-add_library (${target} 
+add_library (${target} SHARED
 	${sources}
 )
 

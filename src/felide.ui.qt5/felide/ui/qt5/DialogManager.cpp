@@ -1,7 +1,6 @@
 
 #include "DialogManager.hpp"
 
-#include <felide/util/Strings.hpp>
 #include <QMessageBox>
 #include <QFileDialog>
 
