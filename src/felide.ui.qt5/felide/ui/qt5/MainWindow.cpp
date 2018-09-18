@@ -73,13 +73,13 @@ namespace felide {
     void MainWindow::setupMenuBar() {
         auto mainMenu = Menu::menuBar({
             Menu::menu("&File", {
-                Menu::action([this] () { presenter.fileNew(); }, "&New", "Ctrl+N"),
-                Menu::action([this] () { presenter.fileOpen(); }, "&Open", "Ctrl+O"),
-                Menu::action([this] () { presenter.fileSave(); }, "&Save", "Ctrl+S"),
-                Menu::action([this] () { presenter.fileSaveAs(); }, "Sa&ve As"),
-                Menu::action([this] () { presenter.fileSaveAll(); }, "Save &All"),
-                Menu::action([this] () { presenter.fileClose(); }, "&Close"),
-                Menu::action([this] () { presenter.fileExit(); }, "&Exit", "Alt+F4")
+                Menu::action([this] () { presenter.fileNewTriggered(); }, "&New", "Ctrl+N"),
+                Menu::action([this] () { presenter.fileOpenTriggered(); }, "&Open", "Ctrl+O"),
+                Menu::action([this] () { presenter.fileSaveTriggered(); }, "&Save", "Ctrl+S"),
+                Menu::action([this] () { presenter.fileSaveAsTriggered(); }, "Sa&ve As"),
+                Menu::action([this] () { presenter.fileSaveAllTriggered(); }, "Save &All"),
+                Menu::action([this] () { presenter.fileCloseTriggered(); }, "&Close"),
+                Menu::action([this] () { presenter.fileExitTriggered(); }, "&Exit", "Alt+F4")
             }),
             Menu::menu("&Edit", {
                 Menu::action([] () {}, "&Undo", "Ctrl+Z"),
