@@ -28,6 +28,8 @@ namespace felide {
         void fileNewTriggered();
 
         void fileOpenTriggered();
+        
+        void fileOpenFolderTriggered();
 
         void fileSaveTriggered();
 

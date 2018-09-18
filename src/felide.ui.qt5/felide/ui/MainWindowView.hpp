@@ -5,6 +5,7 @@
 namespace felide {
     class EditorManagerView;
     class DialogManagerView;
+    class FolderBrowserView;
     class MainWindowView {
     public:
         virtual ~MainWindowView();
@@ -12,6 +13,8 @@ namespace felide {
         virtual EditorManagerView* getEditorManagerView() = 0;
 
         virtual DialogManagerView* getDialogManagerView() = 0;
+        
+        virtual FolderBrowserView* getFolderBrowserView() = 0;
     };
 }
 

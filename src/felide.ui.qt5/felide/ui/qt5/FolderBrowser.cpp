@@ -46,6 +46,6 @@ namespace felide {
     }
 
     void FolderBrowser::displayFolder(const std::string &folder) {
-        // TODO: Add implementation
+        this->setProjectFolder(folder.c_str());
     }
 }

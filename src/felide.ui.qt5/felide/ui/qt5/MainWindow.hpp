@@ -27,6 +27,8 @@ namespace felide {
         virtual EditorManagerView* getEditorManagerView() override;
 
         virtual DialogManagerView* getDialogManagerView() override;
+        
+        virtual FolderBrowserView* getFolderBrowserView() override;
 
     private:
         void setupMenuBar();

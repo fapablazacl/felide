@@ -121,4 +121,23 @@ namespace felide {
 
         return filename.toStdString();
     }
+    
+    boost::optional<std::string> DialogManager::showFolderDialog(const std::string &title) {
+        QFileDialog dialog;
+        
+        dialog.setWindowTitle(title.c_str());
+        dialog.setFileMode(QFileDialog::Directory);
+        dialog.setOption(QFileDialog::ShowDirsOnly);
+        
+        if (dialog.exec()) {
+            const QStringList folders = dialog.selectedFiles();
+            
+            assert(folders.size() == 1);
+            const QString folder = folders[0];
+            
+            return folder.toStdString();
+        } else {
+            return {};
+        }
+    }
 }

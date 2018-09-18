@@ -73,12 +73,14 @@ namespace felide {
     }
 
     void MainWindow::setupMenuBar() {
+        // TODO: Move menuBar definition to another file
         auto mainMenu = Menu::menuBar({
             Menu::menu("&File", {
                 Menu::action([this] () { presenter.fileNewTriggered(); }, "&New", "Ctrl+N"),
-                Menu::action([this] () { presenter.fileOpenTriggered(); }, "&Open", "Ctrl+O"),
+                Menu::action([this] () { presenter.fileOpenTriggered(); }, "&Open ...", "Ctrl+O"),
+                Menu::action([this] () { presenter.fileOpenFolderTriggered(); }, "Open &Folder ..."),
                 Menu::action([this] () { presenter.fileSaveTriggered(); }, "&Save", "Ctrl+S"),
-                Menu::action([this] () { presenter.fileSaveAsTriggered(); }, "Sa&ve As"),
+                Menu::action([this] () { presenter.fileSaveAsTriggered(); }, "Sa&ve As ..."),
                 Menu::action([this] () { presenter.fileSaveAllTriggered(); }, "Save &All"),
                 Menu::action([this] () { presenter.fileCloseTriggered(); }, "&Close"),
                 Menu::action([this] () { presenter.fileExitTriggered(); }, "&Exit", "Alt+F4")
@@ -143,5 +145,9 @@ namespace felide {
 
     DialogManagerView* MainWindow::getDialogManagerView() {
         return m_dialogManager.get();
+    }
+    
+    FolderBrowserView* MainWindow::getFolderBrowserView() {
+        return m_folderBrowser;
     }
 }

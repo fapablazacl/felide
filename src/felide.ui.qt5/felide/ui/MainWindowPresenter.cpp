@@ -5,6 +5,7 @@
 #include "EditorView.hpp"
 #include "EditorManagerView.hpp"
 #include "DialogManagerView.hpp"
+#include "FolderBrowserView.hpp"
 
 #include <boost/filesystem.hpp>
 #include <felide/util/FileUtil.hpp>
@@ -88,6 +89,16 @@ namespace felide {
         editorModel->setModifiedFlag(false);
         editorModel->setContent(content);
         editorView->setTitle(mapEditorTitle(editorModel));
+    }
+    
+    void MainWindowPresenter::fileOpenFolderTriggered() {
+        auto folderOptional = m_dialogManager->showFolderDialog("This is a tedst");
+        
+        if (!folderOptional) {
+            return;
+        }
+        
+        m_view->getFolderBrowserView()->displayFolder(*folderOptional);
     }
 
     void MainWindowPresenter::fileSaveTriggered() {
