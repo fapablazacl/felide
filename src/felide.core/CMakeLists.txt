@@ -49,8 +49,8 @@ set (sources
     "felide/pom/ProjectParser.cpp"
     "felide/pom/ProjectParserMock.hpp"
     "felide/pom/ProjectParserMock.cpp"
-    "felide/pom/ProjectParserYaml.hpp"
-    "felide/pom/ProjectParserYaml.cpp"
+    #"felide/pom/ProjectParserYaml.hpp"
+    #"felide/pom/ProjectParserYaml.cpp"
 
     "felide/toolsets/ActionContext.hpp"
     "felide/toolsets/ActionContext.cpp"
@@ -99,10 +99,14 @@ add_library (${target} SHARED
 	${sources}
 )
 
+if (UNIX)
+    set (DL_LIBRARY dl)
+endif ()
+
 target_link_libraries (
     ${target} 
     fmt
-    yaml-cpp
+    ${DL_LIBRARY}
     ${Boost_LIBRARIES}
 )
 
