@@ -9,7 +9,7 @@ int main(int argc, char **argv) {
 
     auto pluginManager = core.getPluginManager();
     pluginManager->loadPlugin("felide.ui.qt5");
-    
+
     return 0;
 }
 

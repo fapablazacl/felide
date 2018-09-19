@@ -12,7 +12,7 @@ namespace felide {
     class PluginProxy : public Plugin {
     public:
         explicit PluginProxy(const std::string &libraryPath) {
-            m_library = boost::dll::shared_library(libraryPath);
+            m_library = boost::dll::shared_library(libraryPath, boost::dll::load_mode::append_decorations);
 
             auto pluginCreate = m_library.get<Plugin*()>("felide_plugin_create");
             m_plugin = pluginCreate();
