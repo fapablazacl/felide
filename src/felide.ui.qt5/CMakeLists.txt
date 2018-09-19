@@ -36,3 +36,5 @@ target_link_libraries (
     qscintilla2_qt5
     felide.core
 )
+
+install(TARGETS ${target} DESTINATION "bin")
