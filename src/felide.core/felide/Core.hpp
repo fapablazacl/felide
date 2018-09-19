@@ -4,7 +4,7 @@
 
 namespace felide {
     class PluginManager;
-    class UIManager;
+    class ViewFactory;
 
     class Core {
     public:
@@ -13,11 +13,13 @@ namespace felide {
 
         PluginManager* getPluginManager();
 
-        UIManager* getUIManager();
+        ViewFactory* getViewFactory();
+
+        void setViewFactory(ViewFactory* factory);
 
     private:
         PluginManager *m_pluginManager = nullptr;
-        UIManager *m_UIManager = nullptr;
+        ViewFactory *m_viewFactory = nullptr;
     };
 } 
 

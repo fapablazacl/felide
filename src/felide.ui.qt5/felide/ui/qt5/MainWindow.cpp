@@ -10,7 +10,7 @@
 #include "Editor.hpp"
 #include "DialogManager.hpp"
 #include "FolderBrowser.hpp"
-#include "../MainWindowPresenter.hpp"
+#include <felide/ui/MainWindowPresenter.hpp>
 
 namespace felide {
     static void setupMenu(QMenu *parentMenuPtr, const Menu &menu) {

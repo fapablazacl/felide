@@ -9,15 +9,15 @@ namespace felide {
     PluginQt::~PluginQt() {}
 
     void PluginQt::start(Core *core) {
-
+        core->setViewFactory(&m_viewFactory);
     }
 
     void PluginQt::stop(Core *core) {
-
+        core->setViewFactory(nullptr);
     }
 
     PluginInformation PluginQt::getInformation() const {
-        return {"", "", {0, 0, 0, 0}};
+        return {"felide.ui.qt5", "Qt5 User Interface Plugin", Version{0, 0, 1}};
     }
 }
 

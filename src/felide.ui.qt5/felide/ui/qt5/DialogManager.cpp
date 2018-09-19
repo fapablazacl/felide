@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
-
+#include <boost/algorithm/string/join.hpp>
 
 namespace felide {
     DialogManager::DialogManager(QWidget *parent) {
@@ -88,7 +88,7 @@ namespace felide {
             filters.push_back(filterStr);
         }
 
-        const std::string filtersStr = felide::join(filters, ";;");
+        const std::string filtersStr = boost::algorithm::join(filters, ";;");
 
         return filtersStr;
     }

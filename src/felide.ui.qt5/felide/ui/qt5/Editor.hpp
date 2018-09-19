@@ -8,7 +8,7 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include "../EditorView.hpp"
+#include <felide/ui/EditorView.hpp>
 
 namespace felide {
     class EditorManager;

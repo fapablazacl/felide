@@ -9,9 +9,9 @@
 #include <QAction>
 #include <map>
 
-#include "../MainWindowPresenter.hpp"
-#include "../MainWindowView.hpp"
-#include "../Menu.hpp"
+#include <felide/ui/MainWindowPresenter.hpp>
+#include <felide/ui/MainWindowView.hpp>
+#include <felide/ui/Menu.hpp>
 #include "EditorManager.hpp"
 #include "DialogManager.hpp"
 

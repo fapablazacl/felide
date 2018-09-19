@@ -86,6 +86,13 @@ set (sources
     "felide/ui/DialogManagerView.cpp"
     "felide/ui/FolderBrowserView.hpp"
     "felide/ui/FolderBrowserView.cpp"
+    "felide/ui/ViewFactory.hpp"
+    "felide/ui/ViewFactory.cpp"
+
+    "felide/system/Plugin.hpp"
+    "felide/system/Plugin.cpp"
+    "felide/system/PluginManager.hpp"
+    "felide/system/PluginManager.cpp"
 )
 
 add_library (${target} SHARED
@@ -95,6 +102,7 @@ add_library (${target} SHARED
 target_link_libraries (
     ${target} 
     fmt
+    yaml-cpp
     ${Boost_LIBRARIES}
 )
 
