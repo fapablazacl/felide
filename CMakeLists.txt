@@ -19,11 +19,18 @@ link_directories(${Boost_LIBRARY_DIRS})
 add_subdirectory("dep/fmt/")
 include_directories("dep/cxxopts/include")
 
-set (YAML_CPP_BUILD_TESTS OFF CACHE BOOL "Enable parse tools")
-set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")
-set (YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "Enable contrib stuff in library")
-add_subdirectory("dep/yaml-cpp")
-include_directories("dep/yaml-cpp/include")
+if (UNIX)
+    # TODO: Link with install prefix
+    set(CMAKE_INSTALL_RPATH "/usr/local/lib")
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+endif ()
+
+# YAML library
+# set (YAML_CPP_BUILD_TESTS OFF CACHE BOOL "Enable parse tools")
+# set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")
+# set (YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "Enable contrib stuff in library")
+# add_subdirectory("dep/yaml-cpp")
+# include_directories("dep/yaml-cpp/include")
 
 # Specify the use of the C++17 standard
 if (MSVC)

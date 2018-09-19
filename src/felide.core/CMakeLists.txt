@@ -110,4 +110,4 @@ target_link_libraries (
     ${Boost_LIBRARIES}
 )
 
-install(TARGETS ${target} DESTINATION "bin")
+install(TARGETS ${target} DESTINATION "lib")

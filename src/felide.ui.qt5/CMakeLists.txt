@@ -37,4 +37,4 @@ target_link_libraries (
     felide.core
 )
 
-install(TARGETS ${target} DESTINATION "bin")
+install(TARGETS ${target} DESTINATION "lib")
