@@ -3,6 +3,8 @@
 #define __FELIDE_SYSTEM_PLUGINMANAGER_HPP__
 
 #include <string>
+#include <vector>
+#include <memory>
 
 namespace felide {
     class Plugin;
@@ -18,7 +20,8 @@ namespace felide {
 
     private:
         Core *m_core = nullptr;
+        std::vector<std::unique_ptr<Plugin>> m_plugins;
     };
-} 
+}
 
 #endif
