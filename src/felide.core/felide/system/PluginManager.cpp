@@ -54,6 +54,8 @@ namespace felide {
 
             m_plugins.emplace_back(plugin);
 
+            plugin->start(m_core);
+
             std::cout << "Load OK " << name << std::endl;
         } catch (const std::exception &exp) {
             std::cout << "Load failed:" << std::endl << exp.what() << std::endl;

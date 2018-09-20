@@ -1,5 +1,7 @@
 
+#include <cassert>
 #include <felide/Core.hpp>
+#include <felide/ui/ViewFactory.hpp>
 #include <felide/system/PluginManager.hpp>
 
 #include <iostream>
@@ -9,6 +11,11 @@ int main(int argc, char **argv) {
 
     auto pluginManager = core.getPluginManager();
     pluginManager->loadPlugin("felide.ui.qt5");
+
+    auto viewFactory = core.getViewFactory();
+    assert(viewFactory);
+
+    auto mainWindow = viewFactory->createMainWindow();
 
     return 0;
 }
