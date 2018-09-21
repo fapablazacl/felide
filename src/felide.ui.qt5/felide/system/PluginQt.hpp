@@ -6,6 +6,7 @@
 #include <felide/ui/ViewFactory.hpp>
 
 #include "../ui/qt5/MainWindow.hpp"
+#include "../ui/qt5/MainLoopImpl.hpp"
 
 namespace felide {
     class PluginQt : public Plugin {
@@ -21,7 +22,7 @@ namespace felide {
         virtual PluginInformation getInformation() const override;
 
     private:
-        ViewFactoryImpl<MainWindow> m_viewFactory;
+        ViewFactoryImpl<MainWindow, MainLoopImpl> m_viewFactory;
     };
 }
 
