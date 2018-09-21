@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <boost/dll.hpp>
+#include <boost/filesystem/path.hpp>
 #include "Plugin.hpp"
 
 namespace felide {
@@ -11,7 +12,7 @@ namespace felide {
 
     class PluginProxy : public Plugin {
     public:
-        explicit PluginProxy(const std::string &libraryPath) {
+        explicit PluginProxy(const boost::filesystem::path &libraryPath) {
             m_library = boost::dll::shared_library(libraryPath, boost::dll::load_mode::append_decorations);
 
             auto pluginCreate = m_library.get<Plugin*()>("felide_plugin_create");
@@ -46,11 +47,11 @@ namespace felide {
     
     void PluginManager::loadPlugin(const std::string &name) {
         // TODO: Export this to a configuration file
-        const std::string pluginFolder = "/usr/local/lib/";
+        const boost::filesystem::path pluginFolder = "/usr/local/lib";
 
         try {
             std::cout << "Loading " << name << std::endl;
-            auto plugin = new PluginProxy(pluginFolder + name);
+            auto plugin = new PluginProxy(pluginFolder / name);
 
             m_plugins.emplace_back(plugin);
 

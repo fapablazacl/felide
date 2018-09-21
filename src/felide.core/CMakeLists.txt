@@ -88,6 +88,8 @@ set (sources
     "felide/ui/FolderBrowserView.cpp"
     "felide/ui/ViewFactory.hpp"
     "felide/ui/ViewFactory.cpp"
+    "felide/ui/MainLoop.hpp"
+    "felide/ui/MainLoop.cpp"
 
     "felide/system/Plugin.hpp"
     "felide/system/Plugin.cpp"

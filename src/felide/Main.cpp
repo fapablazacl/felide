@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     felide::Core core;
 
     auto pluginManager = core.getPluginManager();
-    pluginManager->loadPlugin("felide.ui.qt5");
+    pluginManager->loadPlugin("libfelide.ui.qt5.so");
 
     auto viewFactory = core.getViewFactory();
     assert(viewFactory);
