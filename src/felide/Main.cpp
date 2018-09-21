@@ -18,8 +18,14 @@ int main(int argc, char **argv) {
     assert(viewFactory);
 
     auto mainLoop = viewFactory->createMainLoop(argc, argv);
+    assert(mainLoop);
 
     auto mainWindow = viewFactory->createMainWindow();
+    assert(mainWindow);
+
+    /*
+    mainWindow->show();
+    */
 
     return mainLoop->run();
 }
