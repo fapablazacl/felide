@@ -14,11 +14,16 @@ namespace felide {
 
         // instance file system model
         m_fileSystemModel = new QFileSystemModel(this);
-        m_fileSystemModel->setFilter(QDir::NoDotAndDotDot | QDir::AllEntries);
+        m_fileSystemModel->setFilter(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
 
         // bind view and model together
         m_treeView->setModel(m_fileSystemModel);
         m_treeView->setVisible(false);
+        m_treeView->setHeaderHidden(true);
+
+        for (int i=1; i<m_fileSystemModel->columnCount(); ++i) {
+            m_treeView->hideColumn(i);
+        }
 
         // connect signal handlers
         QObject::connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
