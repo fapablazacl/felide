@@ -6,7 +6,6 @@
 
 namespace felide {
     FolderBrowser::FolderBrowser(QWidget *parent) : QWidget(parent) {
-
         m_treeView = new QTreeView(this);
 
         this->setLayout(new QVBoxLayout(this));
