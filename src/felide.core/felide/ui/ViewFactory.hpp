@@ -17,6 +17,8 @@ namespace felide {
         virtual std::unique_ptr<MainWindowView> createMainWindow() = 0;
 
         virtual std::unique_ptr<MainLoop> createMainLoop(int argc, char **argv) = 0;
+
+        virtual int runApp(int argc, char **argv) = 0;
     };
 
     template<typename MainWindowImpl, typename MainLoopImpl>

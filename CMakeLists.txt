@@ -39,6 +39,10 @@ else ()
     set (CMAKE_CXX_STANDARD 17)
 endif (MSVC)
 
+if (UNIX)
+    add_definitions ("-fPIC")
+endif ()
+
 # IDE Core
 include_directories ("src/felide.core")
 add_subdirectory ("src/felide.core")

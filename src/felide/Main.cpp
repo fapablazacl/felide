@@ -17,15 +17,17 @@ int main(int argc, char **argv) {
     auto viewFactory = core.getViewFactory();
     assert(viewFactory);
 
+    return viewFactory->runApp(argc, argv);
+
+/*
     auto mainLoop = viewFactory->createMainLoop(argc, argv);
     assert(mainLoop);
 
     auto mainWindow = viewFactory->createMainWindow();
     assert(mainWindow);
 
-    /*
-    mainWindow->show();
-    */
+    // mainWindow->show();
 
     return mainLoop->run();
+    */
 }
