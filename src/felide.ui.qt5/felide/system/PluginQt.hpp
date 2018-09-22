@@ -3,9 +3,7 @@
 #define __FELIDE_SYSTEM_PLUGINQT_HPP__
 
 #include <felide/system/Plugin.hpp>
-#include <felide/ui/ViewFactory.hpp>
-
-#include "../ui/qt5/MainWindow.hpp"
+#include "../ui/qt5/ViewFactoryQt.hpp"
 
 namespace felide {
     class PluginQt : public Plugin {
@@ -21,7 +19,7 @@ namespace felide {
         virtual PluginInformation getInformation() const override;
 
     private:
-        ViewFactoryImpl<MainWindow> m_viewFactory;
+        ViewFactoryQt m_viewFactory;
     };
 }
 

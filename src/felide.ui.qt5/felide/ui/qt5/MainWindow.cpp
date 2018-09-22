@@ -163,4 +163,8 @@ namespace felide {
     void MainWindow::close() {
         QMainWindow::close();
     }
+
+    void MainWindow::show() {
+        QMainWindow::show();
+    }
 }

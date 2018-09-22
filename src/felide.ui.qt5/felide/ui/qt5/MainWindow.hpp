@@ -32,6 +32,8 @@ namespace felide {
         
         virtual void close() override;
 
+        virtual void show() override;
+
     private:
         void setupMenuBar();
         void setupEditorManager();

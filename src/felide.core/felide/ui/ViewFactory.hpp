@@ -2,22 +2,36 @@
 #ifndef __FELIDE_UI_UIMANAGER_HPP__
 #define __FELIDE_UI_UIMANAGER_HPP__
 
+#include <memory>
+#include <felide/ui/MainWindowView.hpp>
+#include <felide/ui/MainLoop.hpp>
+
 namespace felide {
     class MainWindowView;
+    class MainLoop;
 
     class ViewFactory {
     public:
         virtual ~ViewFactory();
-        virtual MainWindowView* createMainWindow() = 0;
+
+        virtual std::unique_ptr<MainWindowView> createMainWindow() = 0;
+
+        virtual std::unique_ptr<MainLoop> createMainLoop(int argc, char **argv) = 0;
+
+        virtual int runApp(int argc, char **argv) = 0;
     };
 
-    template<typename MainWindowImpl>
+    template<typename MainWindowImpl, typename MainLoopImpl>
     class ViewFactoryImpl : public ViewFactory {
     public:
         virtual ~ViewFactoryImpl() {}
 
-        virtual MainWindowImpl* createMainWindow() override {
-            return new MainWindowImpl();
+        virtual std::unique_ptr<MainWindowView> createMainWindow() override {
+            return std::make_unique<MainWindowImpl>();
+        }
+
+        virtual std::unique_ptr<MainLoop> createMainLoop(int argc, char **argv) override {
+            return std::make_unique<MainLoopImpl>(argc, argv);
         }
     };
 }

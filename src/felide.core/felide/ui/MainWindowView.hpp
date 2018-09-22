@@ -17,6 +17,8 @@ namespace felide {
         virtual FolderBrowserView* getFolderBrowserView() = 0;
         
         virtual void close() = 0;
+
+        virtual void show() = 0;
     };
 }
 

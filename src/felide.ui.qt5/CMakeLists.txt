@@ -12,6 +12,8 @@ link_directories(${QSCINTILLA_LIBRARY_DIR})
 set (target "felide.ui.qt5")
 
 set (src_felide_ui_qt5
+    "felide/ui/qt5/MainLoopImpl.hpp"
+    "felide/ui/qt5/MainLoopImpl.cpp"
     "felide/ui/qt5/Editor.hpp"
     "felide/ui/qt5/Editor.cpp"
     "felide/ui/qt5/MainWindow.hpp"
@@ -22,6 +24,9 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/DialogManager.cpp"
     "felide/ui/qt5/FolderBrowser.hpp"
     "felide/ui/qt5/FolderBrowser.cpp"
+    "felide/ui/qt5/ViewFactoryQt.hpp"
+    "felide/ui/qt5/ViewFactoryQt.cpp"
+    
     "felide/system/PluginQt.hpp"
     "felide/system/PluginQt.cpp"
 )
