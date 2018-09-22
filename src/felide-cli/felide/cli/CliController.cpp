@@ -12,7 +12,7 @@
 #include <felide/pom/ProjectParserYaml.hpp>
 #include <felide/tasks/Task.hpp>
 #include <felide/tasks/TaskNodeVisitor.hpp>
-#include <felide/toolsets/cpp/ModuleToolset.hpp>
+#include <felide/cpp/ModuleToolset.hpp>
 
 namespace fs = std::experimental::filesystem;
 

@@ -1,15 +1,15 @@
 
-set (target Felide.UI.WTL)
+set (target felide.ui.wtl)
 
 set (src
     "Main.cpp"
 )
 
 set (felide_ui_wtl_src
-    "felide/UI/WTL/CEditor.hpp"
-    "felide/UI/WTL/CEditor.cpp"
-    "felide/UI/WTL/CMainFrame.hpp"
-    "felide/UI/WTL/CMainFrame.cpp"
+    "felide/ui/wtl/CEditor.hpp"
+    "felide/ui/wtl/CEditor.cpp"
+    "felide/ui/wtl/CMainFrame.hpp"
+    "felide/ui/wtl/CMainFrame.cpp"
 )
 
 source_group ("\\" FILES ${src})
