@@ -212,27 +212,26 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorShow(const std::string &filePath) {
-        // TODO: Refactor into a internal search function
-        for (const auto &pair : m_editorViewModels) {
-            const auto &editorView = pair.first;
+        auto viewModelIt = std::find_if(m_editorViewModels.begin(), m_editorViewModels.end(), [filePath](const auto &pair) {
             const auto &editorModel = pair.second;
-            if (editorModel->hasFilePath() && editorModel->getFilePath() == filePath) {
-                m_editorManager->showEditor(const_cast<EditorView*>(editorView));
-                return;
-            }
+
+            return editorModel->hasFilePath() && editorModel->getFilePath() == filePath;
+        });
+
+        if (viewModelIt != m_editorViewModels.end()) {
+            m_editorManager->showEditor(const_cast<EditorView*>(viewModelIt->first));
+        } else {
+            const std::string content = FileUtil::load(filePath);
+
+            auto editorView = m_editorManager->appendEditor();
+            auto editorModel = this->createEditorModel(editorView, filePath);
+            
+            editorView->setConfig(EditorConfig::Default());
+            editorView->setContent(content);
+            editorModel->setModifiedFlag(false);
+            editorModel->setContent(content);
+            editorView->setTitle(mapEditorTitle(editorModel));
         }
-
-
-        const std::string content = FileUtil::load(filePath);
-
-        auto editorView = m_editorManager->appendEditor();
-        auto editorModel = this->createEditorModel(editorView, filePath);
-        
-        editorView->setConfig(EditorConfig::Default());
-        editorView->setContent(content);
-        editorModel->setModifiedFlag(false);
-        editorModel->setContent(content);
-        editorView->setTitle(mapEditorTitle(editorModel));
     }
 
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const int tag) {
