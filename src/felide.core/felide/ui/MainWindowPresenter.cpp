@@ -79,16 +79,8 @@ namespace felide {
         }
 
         const std::string filePath = *filePathOptional;
-        const std::string content = FileUtil::load(filePath);
 
-        auto editorView = m_editorManager->appendEditor();
-        auto editorModel = this->createEditorModel(editorView, filePath);
-        
-        editorView->setConfig(EditorConfig::Default());
-        editorView->setContent(content);
-        editorModel->setModifiedFlag(false);
-        editorModel->setContent(content);
-        editorView->setTitle(mapEditorTitle(editorModel));
+        this->editorShow(filePath);
     }
     
     void MainWindowPresenter::fileOpenFolderTriggered() {
@@ -217,6 +209,19 @@ namespace felide {
         editorModel->setContent(content);
         
         this->editorSave(editorView, editorModel);
+    }
+
+    void MainWindowPresenter::editorShow(const std::string &filePath) {
+        const std::string content = FileUtil::load(filePath);
+
+        auto editorView = m_editorManager->appendEditor();
+        auto editorModel = this->createEditorModel(editorView, filePath);
+        
+        editorView->setConfig(EditorConfig::Default());
+        editorView->setContent(content);
+        editorModel->setModifiedFlag(false);
+        editorModel->setContent(content);
+        editorView->setTitle(mapEditorTitle(editorModel));
     }
 
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const int tag) {

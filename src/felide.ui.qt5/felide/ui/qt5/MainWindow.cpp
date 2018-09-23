@@ -60,6 +60,7 @@ namespace felide {
         this->setupMenuBar();
         this->setupEditorManager();
         this->setupDockUI();
+        this->setupFolderBrowser();
 
         m_dialogManager = std::make_unique<DialogManager>(this);
 
@@ -144,6 +145,12 @@ namespace felide {
         } else {
             evt->ignore();
         }
+    }
+
+    void MainWindow::setupFolderBrowser() {
+        connect(m_folderBrowser, &FolderBrowser::projectItemOpenRequest, [&](const QString &filePath) {
+            presenter.editorShow(filePath.toStdString());
+        });
     }
 }
 

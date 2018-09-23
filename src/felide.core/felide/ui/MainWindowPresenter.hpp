@@ -45,6 +45,8 @@ namespace felide {
         
         void editorCloseRequested(EditorView *editorView);
         
+        void editorShow(const std::string &fileName);
+
         bool closeRequested();
         
     private:

@@ -39,6 +39,8 @@ namespace felide {
         void setupEditorManager();
         void setupDockUI();
 
+        void setupFolderBrowser();
+
     private:
         virtual void closeEvent(QCloseEvent *evt) override;
         
