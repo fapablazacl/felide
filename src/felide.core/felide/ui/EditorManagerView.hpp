@@ -19,6 +19,8 @@ namespace felide {
         virtual EditorView* getEditor(const std::size_t index) = 0;
         
         virtual void closeEditor(EditorView *editorView) = 0;
+
+        virtual void showEditor(EditorView *editorView) = 0;
     };
 } 
 

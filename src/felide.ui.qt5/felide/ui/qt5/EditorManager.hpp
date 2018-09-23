@@ -39,6 +39,8 @@ namespace felide {
         
         virtual void closeEditor(EditorView *editorView) override;
 
+        virtual void showEditor(EditorView *editorView) override;
+
     private:
         QTabWidget *m_tabWidget = nullptr;
     };

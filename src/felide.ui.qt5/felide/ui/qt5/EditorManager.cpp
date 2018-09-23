@@ -92,4 +92,20 @@ namespace felide {
         
         m_tabWidget->removeTab(*index);
     }
+
+    void EditorManager::showEditor(EditorView *editorView) {
+        const auto editor = dynamic_cast<Editor*>(editorView);
+
+        if (!editor) {
+            return;
+        }
+        
+        const auto index = this->getEditorIndex(editor);
+        
+        if (!index) {
+            return;
+        }
+
+        m_tabWidget->setCurrentIndex(*index);
+    }
 }

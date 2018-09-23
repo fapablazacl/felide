@@ -212,6 +212,17 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorShow(const std::string &filePath) {
+        // TODO: Refactor into a internal search function
+        for (const auto &pair : m_editorViewModels) {
+            const auto &editorView = pair.first;
+            const auto &editorModel = pair.second;
+            if (editorModel->hasFilePath() && editorModel->getFilePath() == filePath) {
+                m_editorManager->showEditor(const_cast<EditorView*>(editorView));
+                return;
+            }
+        }
+
+
         const std::string content = FileUtil::load(filePath);
 
         auto editorView = m_editorManager->appendEditor();
