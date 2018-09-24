@@ -35,7 +35,7 @@ namespace felide {
         m_editorManager->changeEditorTitle(this, title);
     }
 
-    std::string Editor::getTitle() const  {
+    std::string Editor::getTitle() const {
         return m_title;
     }
 
@@ -55,6 +55,10 @@ namespace felide {
         m_scintilla->setFont(font);
         m_scintilla->setCaretLineVisible(config.caretLineVisible);
         m_scintilla->setTabWidth(config.tabWidth);
+
+        if (config.showLineNumbers) {
+            m_scintilla->setMarginType(1, QsciScintilla::NumberMargin);
+        }
 
         m_config = config;
     }

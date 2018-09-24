@@ -4,7 +4,7 @@
 namespace felide {
     EditorConfig EditorConfig::Default() {
         return {
-            "monospace", 10, 4, true
+            "Inconsolata", 12, 4, true, true
         };
     }
 

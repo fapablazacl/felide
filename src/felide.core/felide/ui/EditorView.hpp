@@ -10,6 +10,7 @@ namespace felide {
         int fontSize;
         int tabWidth;
         bool caretLineVisible;
+        bool showLineNumbers;
 
         static EditorConfig Default();
     };
