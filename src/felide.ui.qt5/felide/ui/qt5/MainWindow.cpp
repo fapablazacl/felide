@@ -79,17 +79,22 @@ namespace felide {
         auto mainMenu = Menu::menuBar({
             Menu::menu("&File", {
                 Menu::action([this] () { presenter.fileNewTriggered(); }, "&New", "Ctrl+N"),
+                Menu::separator(),
                 Menu::action([this] () { presenter.fileOpenTriggered(); }, "&Open ...", "Ctrl+O"),
                 Menu::action([this] () { presenter.fileOpenFolderTriggered(); }, "Open &Folder ..."),
+                Menu::separator(),
                 Menu::action([this] () { presenter.fileSaveTriggered(); }, "&Save", "Ctrl+S"),
                 Menu::action([this] () { presenter.fileSaveAsTriggered(); }, "Sa&ve As ..."),
                 Menu::action([this] () { presenter.fileSaveAllTriggered(); }, "Save &All"),
+                Menu::separator(),
                 Menu::action([this] () { presenter.fileCloseTriggered(); }, "&Close"),
+                Menu::separator(),
                 Menu::action([this] () { presenter.fileExitTriggered(); }, "&Exit")
             }),
             Menu::menu("&Edit", {
                 Menu::action([] () {}, "&Undo", "Ctrl+Z"),
-                Menu::action([] () {}, "&Redo"),
+                Menu::action([] () {}, "&Redo", "Ctrl+Shift+Z"),
+                Menu::separator(),
                 Menu::action([] () {}, "&Cut", "Ctrl+X"),
                 Menu::action([] () {}, "C&opy", "Ctrl+C"),
                 Menu::action([] () {}, "&Paste", "Ctrl+V")

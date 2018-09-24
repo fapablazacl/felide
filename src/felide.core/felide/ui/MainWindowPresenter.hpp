@@ -41,6 +41,16 @@ namespace felide {
 
         void fileExitTriggered();
 
+        void editUndo();
+
+        void editRedo();
+
+        void editCut();
+
+        void editCopy();
+
+        void editPaste();
+
         void editorContentModified(EditorView *editorView);
         
         void editorCloseRequested(EditorView *editorView);

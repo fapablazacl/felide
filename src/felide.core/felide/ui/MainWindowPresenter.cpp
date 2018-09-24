@@ -112,8 +112,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileSaveAsTriggered() {
-        using boost::filesystem::path;
-        
         auto editorView = m_editorManager->getCurrentEditor();
         
         if (!editorView) {
@@ -121,6 +119,66 @@ namespace felide {
         }
 
         this->editorSaveAs(editorView);
+    }
+
+    void MainWindowPresenter::editUndo() {
+        std::cout << "MainWindowPresenter::editUndo()" << std::endl;
+
+        auto editorView = m_editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+
+        editorView->undo();
+    }
+
+    void MainWindowPresenter::editRedo() {
+        std::cout << "MainWindowPresenter::editRedo()" << std::endl;
+
+        auto editorView = m_editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+
+        editorView->redo();
+    }
+
+    void MainWindowPresenter::editCut() {
+        std::cout << "MainWindowPresenter::editCut()" << std::endl;
+
+        auto editorView = m_editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+
+        editorView->cut();
+    }
+
+    void MainWindowPresenter::editCopy() {
+        std::cout << "MainWindowPresenter::editCopy()" << std::endl;
+
+        auto editorView = m_editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+
+        editorView->copy();
+    }
+
+    void MainWindowPresenter::editPaste() {
+        std::cout << "MainWindowPresenter::editPaste()" << std::endl;
+
+        auto editorView = m_editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+
+        editorView->paste();
     }
 
     void MainWindowPresenter::fileSaveAllTriggered() {
