@@ -11,6 +11,7 @@ namespace felide {
         m_editorManager = editorManager;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
+        m_scintilla->setMarginWidth(1, QString("1000"));
 
         this->setupScintilla();
         this->setupLayout();
