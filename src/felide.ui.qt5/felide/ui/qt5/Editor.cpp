@@ -13,6 +13,8 @@ namespace felide {
 
         this->setupScintilla();
         this->setupLayout();
+
+        m_scintilla->setFocus();
     }
 
     Editor::~Editor() {}
