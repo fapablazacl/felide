@@ -22,7 +22,7 @@ namespace felide {
         return menu;
     }
 
-    Menu Menu::action(const std::function<void()> &callback, const std::string &text, const std::string &shortcut) {
+    Menu Menu::action(const std::function<void()> &callback, const std::string &text, const Shortcut &shortcut) {
         Menu menu;
 
         menu.callback = callback;
