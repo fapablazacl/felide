@@ -10,6 +10,7 @@ namespace felide {
     Editor::Editor(QWidget *parent, EditorManager *editorManager) : QWidget(parent) {
         m_editorManager = editorManager;
         m_scintilla = new QsciScintilla(this);
+        m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
 
         this->setupScintilla();
         this->setupLayout();
