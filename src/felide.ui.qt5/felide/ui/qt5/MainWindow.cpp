@@ -147,7 +147,7 @@ namespace felide {
                 Menu::action([this] () { presenter.fileNewTriggered(); }, "&New", {Modifier::Ctrl, Key::N}),
                 Menu::separator(),
                 Menu::action([this] () { presenter.fileOpenTriggered(); }, "&Open ...", {Modifier::Ctrl, Key::O}),
-                Menu::action([this] () { presenter.fileOpenFolderTriggered(); }, "Open &Folder ..."),
+                Menu::action([this] () { presenter.fileOpenFolderTriggered(); }, "Open &Folder ...", {Modifier::CtrlShift, Key::O}),
                 Menu::separator(),
                 Menu::action([this] () { presenter.fileSaveTriggered(); }, "&Save", {Modifier::Ctrl, Key::S}),
                 Menu::action([this] () { presenter.fileSaveAsTriggered(); }, "Sa&ve As ..."),
