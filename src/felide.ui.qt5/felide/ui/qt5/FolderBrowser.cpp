@@ -38,12 +38,15 @@ namespace felide {
 
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
             QMenu contextMenu("Context Menu", this);
-            QAction action("Rename", this);
+            QAction renameAction("Rename", this);
 
-            contextMenu.addAction(&action);
+            contextMenu.addAction(&renameAction);
 
-            this->connect(&action, &QAction::triggered, [this]() {
-                
+            this->connect(&renameAction, &QAction::triggered, [this]() {
+                const QModelIndex index = m_treeView->currentIndex();
+                const QString path = m_fileSystemModel->fileInfo(index).absoluteFilePath();
+
+                std::cout << path.toStdString() << std::endl;
             });
 
             contextMenu.exec(this->mapToGlobal(pos));
