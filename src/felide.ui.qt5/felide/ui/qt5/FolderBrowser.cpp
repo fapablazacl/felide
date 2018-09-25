@@ -3,6 +3,10 @@
 
 #include <QVBoxLayout>
 #include <QBoxLayout>
+#include <QAction>
+#include <QMenu>
+#include <QMessageBox>
+#include <iostream>
 
 namespace felide {
     FolderBrowser::FolderBrowser(QWidget *parent) : QWidget(parent) {
@@ -19,16 +23,30 @@ namespace felide {
         m_treeView->setModel(m_fileSystemModel);
         m_treeView->setVisible(false);
         m_treeView->setHeaderHidden(true);
+        m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
 
         for (int i=1; i<m_fileSystemModel->columnCount(); ++i) {
             m_treeView->hideColumn(i);
         }
 
         // connect signal handlers
-        QObject::connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
+        connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
             QString path = this->m_fileSystemModel->fileInfo(index).absoluteFilePath();
 
             this->projectItemOpenRequest(path);
+        });
+
+        connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
+            QMenu contextMenu("Context Menu", this);
+            QAction action("Rename", this);
+
+            contextMenu.addAction(&action);
+
+            this->connect(&action, &QAction::triggered, [this]() {
+                
+            });
+
+            contextMenu.exec(this->mapToGlobal(pos));
         });
     }
 
