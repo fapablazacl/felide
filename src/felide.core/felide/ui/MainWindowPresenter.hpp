@@ -5,24 +5,25 @@
 #include "MainWindowModel.hpp"
 #include "EditorModel.hpp"
 
+#include <felide/Predef.hpp>
+
 #include <map>
 #include <memory>
 
 namespace felide {
-    class EditorModel;
-    class EditorView;
-    class MainWindowView;
-    class EditorManagerView;
-    class DialogManagerView;
-    class MainWindowPresenter {
+    class FELIDE_API EditorModel;
+    class FELIDE_API EditorView;
+    class FELIDE_API MainWindowView;
+
+    class FELIDE_API MainWindowPresenter {
     public:
         MainWindowPresenter();
+
+        virtual ~MainWindowPresenter();
 
         void attachView(MainWindowView *view);
 
         void detachView();
-
-        virtual ~MainWindowPresenter();
 
     public:
         void fileNewTriggered();
@@ -73,13 +74,8 @@ namespace felide {
         EditorView* getEditorView(const EditorModel *model);
 
     private:
-        MainWindowView *m_view = nullptr;
-        EditorManagerView *m_editorManager = nullptr;
-        DialogManagerView *m_dialogManager = nullptr;
-
-        MainWindowModel m_model;
-
-        std::map<const EditorView*, std::unique_ptr<EditorModel>> m_editorViewModels;
+        struct Private;
+        Private *m_impl = nullptr;
     };
 }
 

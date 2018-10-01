@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <boost/optional.hpp>
+#include <felide/Predef.hpp>
 
 namespace felide {
     enum class DialogIcon {
@@ -38,7 +39,7 @@ namespace felide {
         SaveFile
     };
 
-    class DialogManagerView {
+    class FELIDE_API DialogManagerView {
     public:
         virtual ~DialogManagerView();
         virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const = 0;

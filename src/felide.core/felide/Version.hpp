@@ -1,8 +1,9 @@
 
-#ifndef __borc_version_hpp__
-#define __borc_version_hpp__
+#ifndef __FELIDE_VERSION_HPP__
+#define __FELIDE_VERSION_HPP__
 
 #include <string>
+#include <felide/Predef.hpp>
 
 namespace felide {
 
@@ -13,7 +14,7 @@ namespace felide {
         Greater = 1
     };
 
-    class Version {
+    class FELIDE_API Version {
     public:
         explicit Version() {}
 

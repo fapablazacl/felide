@@ -2,8 +2,10 @@
 #ifndef __FELIDE_UI_MAINWINDOWMODEL_HPP__
 #define __FELIDE_UI_MAINWINDOWMODEL_HPP__
 
+#include <felide/Predef.hpp>
+
 namespace felide {
-    class MainWindowModel {
+    class FELIDE_API MainWindowModel {
     public:
         int getCreatedDocumentCount() const;
 

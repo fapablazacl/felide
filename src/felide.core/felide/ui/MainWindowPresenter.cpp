@@ -30,30 +30,43 @@ namespace felide {
         return title;
     }
 
-    MainWindowPresenter::MainWindowPresenter() {}
+    struct MainWindowPresenter::Private {
+        MainWindowView *view = nullptr;
+        EditorManagerView *editorManager = nullptr;
+        DialogManagerView *dialogManager = nullptr;
+        MainWindowModel model;
 
-    MainWindowPresenter::~MainWindowPresenter() {}
+        std::map<const EditorView*, std::unique_ptr<EditorModel>> editorViewModels;
+    };
+
+    MainWindowPresenter::MainWindowPresenter() {
+        m_impl = new MainWindowPresenter::Private();
+    }
+
+    MainWindowPresenter::~MainWindowPresenter() {
+        delete m_impl;
+    }
 
     void MainWindowPresenter::attachView(MainWindowView *view) {
         assert(view);
         
-        m_view = view;
-        m_editorManager = view->getEditorManagerView();
-        m_dialogManager = view->getDialogManagerView();
+        m_impl->view = view;
+        m_impl->editorManager = view->getEditorManagerView();
+        m_impl->dialogManager = view->getDialogManagerView();
         
-        assert(m_editorManager);
-        assert(m_dialogManager);
+        assert(m_impl->editorManager);
+        assert(m_impl->dialogManager);
     }
 
     void MainWindowPresenter::detachView() {
-        m_view = nullptr;
+        m_impl->view = nullptr;
     }
 
     void MainWindowPresenter::fileNewTriggered() {
-        int tag = m_model.increaseDocumentCount();
+        int tag = m_impl->model.increaseDocumentCount();
 
-        assert(m_editorManager);
-        auto editorView = m_editorManager->appendEditor();
+        assert(m_impl->editorManager);
+        auto editorView = m_impl->editorManager->appendEditor();
         auto editorModel = this->createEditorModel(editorView, tag);
 
         editorView->setConfig(EditorConfig::Default());
@@ -68,7 +81,7 @@ namespace felide {
     void MainWindowPresenter::fileOpenTriggered() {
         using boost::filesystem::path;
         
-        const auto filePathOptional = m_dialogManager->showFileDialog(
+        const auto filePathOptional = m_impl->dialogManager->showFileDialog(
            "Open File",
            FileDialogType::OpenFile,
            filters
@@ -84,19 +97,19 @@ namespace felide {
     }
     
     void MainWindowPresenter::fileOpenFolderTriggered() {
-        auto folderOptional = m_dialogManager->showFolderDialog("This is a tedst");
+        auto folderOptional = m_impl->dialogManager->showFolderDialog("This is a tedst");
         
         if (!folderOptional) {
             return;
         }
         
-        m_view->getFolderBrowserView()->displayFolder(*folderOptional);
+        m_impl->view->getFolderBrowserView()->displayFolder(*folderOptional);
     }
 
     void MainWindowPresenter::fileSaveTriggered() {
         using boost::filesystem::path;
         
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -112,7 +125,7 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileSaveAsTriggered() {
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -124,7 +137,7 @@ namespace felide {
     void MainWindowPresenter::editUndo() {
         std::cout << "MainWindowPresenter::editUndo()" << std::endl;
 
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -136,7 +149,7 @@ namespace felide {
     void MainWindowPresenter::editRedo() {
         std::cout << "MainWindowPresenter::editRedo()" << std::endl;
 
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -148,7 +161,7 @@ namespace felide {
     void MainWindowPresenter::editCut() {
         std::cout << "MainWindowPresenter::editCut()" << std::endl;
 
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -160,7 +173,7 @@ namespace felide {
     void MainWindowPresenter::editCopy() {
         std::cout << "MainWindowPresenter::editCopy()" << std::endl;
 
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -172,7 +185,7 @@ namespace felide {
     void MainWindowPresenter::editPaste() {
         std::cout << "MainWindowPresenter::editPaste()" << std::endl;
 
-        auto editorView = m_editorManager->getCurrentEditor();
+        auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
             return;
@@ -190,7 +203,7 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileExitTriggered() {
-        m_view->close();
+        m_impl->view->close();
     }
 
     void MainWindowPresenter::editorContentModified(EditorView *editorView) {
@@ -206,7 +219,7 @@ namespace felide {
         auto model = this->getEditorModel(editorView);
         
         if (model->getModifiedFlag()) {
-            DialogButton button = m_dialogManager->showMessageDialog("felide", "Save Changes?", DialogIcon::Question, DialogButton::YesNoCancel);
+            DialogButton button = m_impl->dialogManager->showMessageDialog("felide", "Save Changes?", DialogIcon::Question, DialogButton::YesNoCancel);
             
             switch (button) {
                 case DialogButton::Yes:
@@ -224,12 +237,12 @@ namespace felide {
         }
         
         if (closeEditor) {
-            m_editorManager->closeEditor(editorView);
+            m_impl->editorManager->closeEditor(editorView);
         }
     }
     
     bool MainWindowPresenter::closeRequested() {
-        DialogButton button = m_dialogManager->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
+        DialogButton button = m_impl->dialogManager->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
         
         return button == DialogButton::Yes;
     }
@@ -250,7 +263,7 @@ namespace felide {
     void MainWindowPresenter::editorSaveAs(EditorView *editorView) {
         auto editorModel = this->getEditorModel(editorView);
         
-        const boost::optional<std::string> filePathOptional = m_dialogManager->showFileDialog(
+        const boost::optional<std::string> filePathOptional = m_impl->dialogManager->showFileDialog(
             "Save File",
             FileDialogType::SaveFile,
             filters
@@ -270,18 +283,20 @@ namespace felide {
     }
 
     void MainWindowPresenter::editorShow(const std::string &filePath) {
-        auto viewModelIt = std::find_if(m_editorViewModels.begin(), m_editorViewModels.end(), [filePath](const auto &pair) {
+        auto &viewModels = m_impl->editorViewModels;
+
+        auto viewModelIt = std::find_if(viewModels.begin(), viewModels.end(), [filePath](const auto &pair) {
             const auto &editorModel = pair.second;
 
             return editorModel->hasFilePath() && editorModel->getFilePath() == filePath;
         });
 
-        if (viewModelIt != m_editorViewModels.end()) {
-            m_editorManager->showEditor(const_cast<EditorView*>(viewModelIt->first));
+        if (viewModelIt != viewModels.end()) {
+            m_impl->editorManager->showEditor(const_cast<EditorView*>(viewModelIt->first));
         } else {
             const std::string content = FileUtil::load(filePath);
 
-            auto editorView = m_editorManager->appendEditor();
+            auto editorView = m_impl->editorManager->appendEditor();
             auto editorModel = this->createEditorModel(editorView, filePath);
             
             editorView->setConfig(EditorConfig::Default());
@@ -295,7 +310,7 @@ namespace felide {
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const int tag) {
         auto editorModel = new EditorModel(tag);
 
-        m_editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
+        m_impl->editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
 
         return editorModel;
     }
@@ -303,13 +318,13 @@ namespace felide {
     EditorModel* MainWindowPresenter::createEditorModel(const EditorView *view, const std::string &fileName) {
         auto editorModel = new EditorModel(fileName);
         
-        m_editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
+        m_impl->editorViewModels[view] = std::unique_ptr<EditorModel>(editorModel);
 
         return editorModel;
     }
 
     EditorModel* MainWindowPresenter::getEditorModel(const EditorView *view) {
-        auto editorModel = m_editorViewModels[view].get();
+        auto editorModel = m_impl->editorViewModels[view].get();
 
         assert(editorModel);
 
@@ -320,7 +335,7 @@ namespace felide {
         assert(model);
         EditorView* view = nullptr;
         
-        for (auto &pair : m_editorViewModels) {
+        for (auto &pair : m_impl->editorViewModels) {
             if (pair.second.get() == model) {
                 // TODO: Refactor in order to prevent remove the constness of the keys
                 view = const_cast<EditorView*>(pair.first);

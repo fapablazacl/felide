@@ -74,7 +74,7 @@ namespace felide {
     }
 
     EditorView* EditorManager::getEditor(const std::size_t index) {
-        return dynamic_cast<EditorView*>(m_tabWidget->widget(index));
+        return dynamic_cast<EditorView*>(m_tabWidget->widget(static_cast<int>(index)));
     }
     
     void EditorManager::closeEditor(EditorView *editorView) {

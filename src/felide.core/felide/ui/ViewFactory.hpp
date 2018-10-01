@@ -3,6 +3,7 @@
 #define __FELIDE_UI_UIMANAGER_HPP__
 
 #include <memory>
+#include <felide/Predef.hpp>
 #include <felide/ui/MainWindowView.hpp>
 #include <felide/ui/MainLoop.hpp>
 
@@ -10,7 +11,7 @@ namespace felide {
     class MainWindowView;
     class MainLoop;
 
-    class ViewFactory {
+    class FELIDE_API ViewFactory {
     public:
         virtual ~ViewFactory();
 

@@ -2,11 +2,13 @@
 #ifndef __FELIDE_CORE_HPP__
 #define __FELIDE_CORE_HPP__
 
-namespace felide {
-    class PluginManager;
-    class ViewFactory;
+#include "Predef.hpp"
 
-    class Core {
+namespace felide {
+    class FELIDE_API PluginManager;
+    class FELIDE_API ViewFactory;
+
+    class FELIDE_API Core {
     public:
         Core();
         ~Core();

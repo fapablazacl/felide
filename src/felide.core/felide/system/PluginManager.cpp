@@ -39,11 +39,19 @@ namespace felide {
         boost::dll::shared_library m_library;
     };
 
+    struct PluginManager::Private {
+        Core *core = nullptr;
+        std::vector<std::unique_ptr<Plugin>> plugins;
+    };
+
     PluginManager::PluginManager(Core *core) {
-        m_core = core;
+        m_impl = new PluginManager::Private();
+        m_impl->core = core;
     }
 
-    PluginManager::~PluginManager() {}
+    PluginManager::~PluginManager() {
+        delete m_impl;
+    }
     
     void PluginManager::loadPlugin(const std::string &name) {
         // TODO: Export this to a configuration file
@@ -53,9 +61,9 @@ namespace felide {
             std::cout << "Loading " << name << std::endl;
             auto plugin = new PluginProxy(pluginFolder / name);
 
-            m_plugins.emplace_back(plugin);
+            m_impl->plugins.emplace_back(plugin);
 
-            plugin->start(m_core);
+            plugin->start(m_impl->core);
 
             std::cout << "Load OK " << name << std::endl;
         } catch (const std::exception &exp) {

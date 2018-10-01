@@ -2,11 +2,13 @@
 #ifndef __FELIDE_UI_MAINWINDOWVIEW_HPP__
 #define __FELIDE_UI_MAINWINDOWVIEW_HPP__
 
+#include <felide/Predef.hpp>
+
 namespace felide {
-    class EditorManagerView;
-    class DialogManagerView;
-    class FolderBrowserView;
-    class MainWindowView {
+    class FELIDE_API EditorManagerView;
+    class FELIDE_API DialogManagerView;
+    class FELIDE_API FolderBrowserView;
+    class FELIDE_API MainWindowView {
     public:
         virtual ~MainWindowView();
 

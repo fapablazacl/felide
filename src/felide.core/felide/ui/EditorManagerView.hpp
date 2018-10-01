@@ -3,10 +3,11 @@
 #define __FELIDE_UI_EDITORMANAGERVIEW_HPP__
 
 #include <cstddef>
+#include <felide/Predef.hpp>
 
 namespace felide {
-    class EditorView;
-    class EditorManagerView {
+    class FELIDE_API EditorView;
+    class FELIDE_API EditorManagerView {
     public:
         virtual ~EditorManagerView();
 

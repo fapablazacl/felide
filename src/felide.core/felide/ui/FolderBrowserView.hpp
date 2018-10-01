@@ -3,9 +3,10 @@
 #define __FELIDE_UI_FOLDEREXPLORERVIEW_HPP_
 
 #include <string>
+#include <felide/Predef.hpp>
 
 namespace felide {
-    class FolderBrowserView {
+    class FELIDE_API FolderBrowserView {
     public:
         virtual ~FolderBrowserView();
 

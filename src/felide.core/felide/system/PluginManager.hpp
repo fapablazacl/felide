@@ -5,12 +5,13 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <felide/Predef.hpp>
 
 namespace felide {
-    class Plugin;
-    class Core;
+    class FELIDE_API Plugin;
+    class FELIDE_API Core;
 
-    class PluginManager {
+    class FELIDE_API PluginManager {
     public:
         explicit PluginManager(Core *core);
 
@@ -19,8 +20,8 @@ namespace felide {
         void loadPlugin(const std::string &name);
 
     private:
-        Core *m_core = nullptr;
-        std::vector<std::unique_ptr<Plugin>> m_plugins;
+        struct Private;
+        Private *m_impl = nullptr;
     };
 }
 

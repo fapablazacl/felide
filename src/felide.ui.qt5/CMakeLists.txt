@@ -1,3 +1,4 @@
+set (target "felide.ui.qt5")
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_AUTOMOC ON)
@@ -6,10 +7,11 @@ set (CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 find_library(QScintilla REQUIRED)
 
-include_directories(${QSCINTILLA_INCLUDE_DIR})
-link_directories(${QSCINTILLA_LIBRARY_DIR})
+#include_directories(${QSCINTILLA_INCLUDE_DIR})
+#link_drectories(${QSCINTILLA_LIBRARY_DIR})
 
-set (target "felide.ui.qt5")
+include_directories("${Qt5_DIR}/../../../include")
+link_directories("${Qt5_DIR}/../../")
 
 set (src_felide_ui_qt5
     "felide/ui/qt5/MainLoopImpl.hpp"
@@ -34,6 +36,8 @@ set (src_felide_ui_qt5
 add_library(${target} SHARED
     ${src_felide_ui_qt5}
 )
+
+target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
 target_link_libraries (
     ${target} 

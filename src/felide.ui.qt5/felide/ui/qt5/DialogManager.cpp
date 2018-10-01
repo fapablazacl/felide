@@ -68,7 +68,7 @@ namespace felide {
             case QMessageBox::Cancel: return DialogButton::Cancel;
             case QMessageBox::Yes: return DialogButton::Yes;
             case QMessageBox::No: return DialogButton::No;
-            default: assert(false);
+            default: return DialogButton::YesNoCancel;
         }
     }
 

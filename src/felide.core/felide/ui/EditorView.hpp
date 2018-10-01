@@ -3,6 +3,7 @@
 #define __FELIDE_UI_EDITORVIEW_HPP_
 
 #include <string>
+#include <felide/Predef.hpp>
 
 namespace felide {
     struct EditorConfig {
@@ -15,7 +16,7 @@ namespace felide {
         static EditorConfig Default();
     };
 
-    class EditorView {
+    class FELIDE_API EditorView {
     public:
         virtual ~EditorView();
 

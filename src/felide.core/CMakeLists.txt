@@ -1,45 +1,52 @@
 
 set (target "felide.core")
 
-set (sources
+set (sources_felide
+    "felide/Predef.hpp"
     "felide/Core.hpp"
     "felide/Core.cpp"
     "felide/Version.hpp"
     "felide/Version.cpp"
-	"felide/Language.hpp"
-	"felide/Language.cpp"
-	"felide/FileType.hpp"
+    "felide/Language.hpp"
+    "felide/Language.cpp"
+    "felide/FileType.hpp"
     "felide/FileType.cpp"
-	"felide/FileTypeRegistry.hpp"
+    "felide/FileTypeRegistry.hpp"
     "felide/FileTypeRegistry.cpp"
-	"felide/TreeNode.hpp"
+    "felide/TreeNode.hpp"
     "felide/TreeNode.cpp"
+) 
 
+set (sources_felide_util
     "felide/util/FileUtil.cpp"
-	"felide/util/FileUtil.hpp"
+    "felide/util/FileUtil.hpp"
     "felide/util/Strings.hpp"
     "felide/util/Strings.cpp"
+) 
 
+set (sources_felide_tasks
     "felide/tasks/Task.hpp"
     "felide/tasks/Task.cpp"
     "felide/tasks/DirectoryTask.hpp"
     "felide/tasks/DirectoryTask.cpp"
-	"felide/tasks/TaskNodeVisitor.hpp"
+    "felide/tasks/TaskNodeVisitor.hpp"
     "felide/tasks/TaskNodeVisitor.cpp"
-	"felide/tasks/TaskNodeVisitorSerial.hpp"
+    "felide/tasks/TaskNodeVisitorSerial.hpp"
     "felide/tasks/TaskNodeVisitorSerial.cpp"
     "felide/tasks/LogTask.hpp"
     "felide/tasks/LogTask.cpp"
     "felide/tasks/CommandTask.hpp"
     "felide/tasks/CommandTask.cpp"
+) 
 
-	"felide/pom/TargetAction.hpp"
+set (sources_felide_pom
+    "felide/pom/TargetAction.hpp"
     "felide/pom/TargetAction.cpp"
-	"felide/pom/Target.hpp"
+    "felide/pom/Target.hpp"
     "felide/pom/Target.cpp"
-	"felide/pom/ModuleTarget.hpp"
+    "felide/pom/ModuleTarget.hpp"
     "felide/pom/ModuleTarget.cpp"
-	"felide/pom/ModuleTargetType.hpp"
+    "felide/pom/ModuleTargetType.hpp"
     "felide/pom/ModuleTargetType.cpp"
     "felide/pom/Project.hpp"
     "felide/pom/Project.cpp"
@@ -51,7 +58,9 @@ set (sources
     "felide/pom/ProjectParserMock.cpp"
     #"felide/pom/ProjectParserYaml.hpp"
     #"felide/pom/ProjectParserYaml.cpp"
+) 
 
+set (sources_felide_toolsets
     "felide/toolsets/ActionContext.hpp"
     "felide/toolsets/ActionContext.cpp"
     "felide/toolsets/Compiler.hpp"
@@ -60,14 +69,18 @@ set (sources
     "felide/toolsets/Linker.cpp"
     "felide/toolsets/Toolset.hpp"
     "felide/toolsets/Toolset.cpp"
+) 
 
+set (sources_felide_cpp
     "felide/cpp/ModuleCompiler.hpp"
     "felide/cpp/ModuleCompiler.cpp"
-	"felide/cpp/ModuleLinker.hpp"
+    "felide/cpp/ModuleLinker.hpp"
     "felide/cpp/ModuleLinker.cpp"
-	"felide/cpp/ModuleToolset.hpp"
+    "felide/cpp/ModuleToolset.hpp"
     "felide/cpp/ModuleToolset.cpp"
+) 
 
+set (sources_felide_ui
     "felide/ui/EditorModel.hpp"
     "felide/ui/EditorModel.cpp"
     "felide/ui/MainWindowModel.hpp"
@@ -90,16 +103,36 @@ set (sources
     "felide/ui/ViewFactory.cpp"
     "felide/ui/MainLoop.hpp"
     "felide/ui/MainLoop.cpp"
+) 
 
+set (sources_felide_system
     "felide/system/Plugin.hpp"
     "felide/system/Plugin.cpp"
     "felide/system/PluginManager.hpp"
     "felide/system/PluginManager.cpp"
 )
 
+source_group ("felide"              FILES ${sources_felide})
+source_group ("felide\\util"        FILES ${sources_felide_util})
+source_group ("felide\\pom"         FILES ${sources_felide_pom})
+source_group ("felide\\toolsets"    FILES ${sources_felide_toolsets})
+source_group ("felide\\tasks"       FILES ${sources_felide_tasks})
+source_group ("felide\\cpp"         FILES ${sources_felide_cpp})
+source_group ("felide\\ui"          FILES ${sources_felide_ui})
+source_group ("felide\\system"      FILES ${sources_felide_system})
+
 add_library (${target} SHARED
-	${sources}
+    ${sources_felide}
+    ${sources_felide_util}
+    ${sources_felide_pom}
+    ${sources_felide_toolsets}
+    ${sources_felide_tasks}
+    ${sources_felide_cpp}
+    ${sources_felide_ui}
+    ${sources_felide_system}
 )
+
+target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")
 
 if (UNIX)
     set (DL_LIBRARY dl)

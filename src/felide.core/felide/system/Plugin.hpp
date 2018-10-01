@@ -12,8 +12,8 @@ namespace felide {
         Version version;
     };
 
-    class Core;
-    class Plugin {
+    class FELIDE_API Core;
+    class FELIDE_API Plugin {
     public:
         virtual ~Plugin();
 
