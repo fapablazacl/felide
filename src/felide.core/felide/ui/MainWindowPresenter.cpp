@@ -135,8 +135,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::editUndo() {
-        std::cout << "MainWindowPresenter::editUndo()" << std::endl;
-
         auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
@@ -147,8 +145,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::editRedo() {
-        std::cout << "MainWindowPresenter::editRedo()" << std::endl;
-
         auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
@@ -159,8 +155,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::editCut() {
-        std::cout << "MainWindowPresenter::editCut()" << std::endl;
-
         auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
@@ -171,8 +165,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::editCopy() {
-        std::cout << "MainWindowPresenter::editCopy()" << std::endl;
-
         auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
@@ -183,8 +175,6 @@ namespace felide {
     }
 
     void MainWindowPresenter::editPaste() {
-        std::cout << "MainWindowPresenter::editPaste()" << std::endl;
-
         auto editorView = m_impl->editorManager->getCurrentEditor();
         
         if (!editorView) {
@@ -199,7 +189,13 @@ namespace felide {
     }
 
     void MainWindowPresenter::fileCloseTriggered() {
-        std::cout << "MainWindowPresenter::fileClose()" << std::endl;
+        auto editorView = m_impl->editorManager->getCurrentEditor();
+        
+        if (!editorView) {
+            return;
+        }
+
+        m_impl->editorManager->closeEditor(editorView);
     }
 
     void MainWindowPresenter::fileExitTriggered() {
