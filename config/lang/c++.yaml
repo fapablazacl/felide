@@ -1,0 +1,35 @@
+#
+# Definition for the construction of C++ projects
+#
+
+id: c++
+dialects: ["98", "03", "11", "14", "17"]
+
+- fileType:
+  id: "sources"
+  name: "Source Files"
+  pattern:
+    - extensions: ["*.cpp", "*.c", "*.cxx", "*.c++", "*.cc"]
+
+- fileType:
+  id: "headers"
+  name: "Header Files"
+  pattern:
+    - extensions: ["*.hpp", "*.h", "*.hxx", "*.h++", "*.hh"]
+
+- fileType:
+  id: "assembly"
+  name: "Assembly Files"
+  pattern:
+    - extensions: ["*.asm", "*.s"]
+
+- fileType:
+  id: "object"
+  name: "Object Files"
+  pattern:
+    - extension: "*.obj"
+
+- pipe:
+  require: "compiler"
+  input: sources
+  output: 
