@@ -3,14 +3,14 @@
 #define __FELIDE_SYSTEM_PLUGINQT_HPP__
 
 #include <felide/system/Plugin.hpp>
-#include "../ui/qt5/ViewFactoryQt.hpp"
+#include "../ui/qt5/UIToolkitQt.hpp"
 
 namespace felide {
-    class PluginQt : public Plugin {
+    class UIToolkitQtPlugin : public Plugin {
     public:
-        PluginQt();
+        UIToolkitQtPlugin();
 
-        virtual ~PluginQt();
+        virtual ~UIToolkitQtPlugin();
 
         virtual void start(Core *core) override;
 
@@ -19,7 +19,7 @@ namespace felide {
         virtual PluginInformation getInformation() const override;
 
     private:
-        ViewFactoryQt m_viewFactory;
+        UIToolkitQt m_toolkit;
     };
 }
 

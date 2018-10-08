@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_UIMANAGER_HPP__
-#define __FELIDE_UI_UIMANAGER_HPP__
+#ifndef __FELIDE_UI_UITOOLKIT_HPP__
+#define __FELIDE_UI_UITOOLKIT_HPP__
 
 #include <memory>
 #include <felide/Predef.hpp>
@@ -11,9 +11,9 @@ namespace felide {
     class MainWindowView;
     class MainLoop;
 
-    class FELIDE_API ViewFactory {
+    class FELIDE_API UIToolkit {
     public:
-        virtual ~ViewFactory();
+        virtual ~UIToolkit();
 
         virtual std::unique_ptr<MainWindowView> createMainWindow() = 0;
 
@@ -23,9 +23,9 @@ namespace felide {
     };
 
     template<typename MainWindowImpl, typename MainLoopImpl>
-    class ViewFactoryImpl : public ViewFactory {
+    class UIToolkitImpl : public UIToolkit {
     public:
-        virtual ~ViewFactoryImpl() {}
+        virtual ~UIToolkitImpl() {}
 
         virtual std::unique_ptr<MainWindowView> createMainWindow() override {
             return std::make_unique<MainWindowImpl>();

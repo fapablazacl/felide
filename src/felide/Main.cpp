@@ -1,7 +1,7 @@
 
 #include <cassert>
 #include <felide/Core.hpp>
-#include <felide/ui/ViewFactory.hpp>
+#include <felide/ui/UIToolkit.hpp>
 #include <felide/ui/MainWindowView.hpp>
 #include <felide/ui/MainLoop.hpp>
 #include <felide/system/PluginManager.hpp>
@@ -14,10 +14,10 @@ int main(int argc, char **argv) {
     auto pluginManager = core.getPluginManager();
     pluginManager->loadPlugin("libfelide.ui.qt5.so");
 
-    auto viewFactory = core.getViewFactory();
-    assert(viewFactory);
+    auto toolkit = core.getToolkit();
+    assert(toolkit);
 
-    return viewFactory->runApp(argc, argv);
+    return toolkit->runApp(argc, argv);
 
 /*
     auto mainLoop = viewFactory->createMainLoop(argc, argv);

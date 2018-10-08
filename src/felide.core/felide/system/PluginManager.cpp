@@ -9,17 +9,24 @@
 
 namespace felide {
     typedef felide::Plugin* (*PluginCreateProc)();
+    typedef void (*PluginDestroyProc)(Plugin *plugin);
 
     class PluginProxy : public Plugin {
     public:
         explicit PluginProxy(const boost::filesystem::path &libraryPath) {
             m_library = boost::dll::shared_library(libraryPath, boost::dll::load_mode::append_decorations);
 
-            auto pluginCreate = m_library.get<Plugin*()>("felide_plugin_create");
-            m_plugin = pluginCreate();
+            m_pluginCreate = m_library.get<Plugin*()>("felide_plugin_create");
+            m_pluginDestroy = m_library.get<void (Plugin*)>("felide_plugin_destroy");
+
+            m_plugin = m_pluginCreate();
         }
 
-        virtual ~PluginProxy() {}
+        virtual ~PluginProxy() {
+            if (m_pluginDestroy && m_plugin) {
+                m_pluginDestroy(m_plugin);
+            }
+        }
 
         virtual void start(Core *core) override {
             return m_plugin->start(core);
@@ -34,7 +41,8 @@ namespace felide {
         }
 
     private:
-        PluginCreateProc m_pluginCreateProc = nullptr;
+        PluginCreateProc m_pluginCreate = nullptr;
+        PluginDestroyProc m_pluginDestroy = nullptr;
         Plugin *m_plugin = nullptr;
         boost::dll::shared_library m_library;
     };

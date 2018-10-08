@@ -1,8 +1,8 @@
 
-#include "ViewFactoryQt.hpp"
+#include "UIToolkitQt.hpp"
 
 namespace felide {
-    int ViewFactoryQt::runApp(int argc, char **argv) {
+    int UIToolkitQt::runApp(int argc, char **argv) {
         QApplication app(argc, argv);
 
         MainWindow mainWindow;

@@ -26,11 +26,11 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/DialogManager.cpp"
     "felide/ui/qt5/FolderBrowser.hpp"
     "felide/ui/qt5/FolderBrowser.cpp"
-    "felide/ui/qt5/ViewFactoryQt.hpp"
-    "felide/ui/qt5/ViewFactoryQt.cpp"
+    "felide/ui/qt5/UIToolkitQt.hpp"
+    "felide/ui/qt5/UIToolkitQt.cpp"
     
-    "felide/system/PluginQt.hpp"
-    "felide/system/PluginQt.cpp"
+    "felide/system/UIToolkitQtPlugin.hpp"
+    "felide/system/UIToolkitQtPlugin.cpp"
 )
 
 add_library(${target} SHARED

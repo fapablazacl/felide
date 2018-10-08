@@ -19,15 +19,15 @@ namespace felide {
         return m_pluginManager;
     }
 
-    ViewFactory* Core::getViewFactory() {
-        return m_viewFactory;
+    UIToolkit* Core::getToolkit() {
+        return m_toolkit;
     }
 
-    void Core::setViewFactory(ViewFactory* factory) {
-        if (m_viewFactory) {
-            std::cout << "felide::Core::setViewFactory: Already setted view factory!!" << std::endl;
+    void Core::setToolkit(UIToolkit* toolkit) {
+        if (m_toolkit) {
+            std::cout << "felide::Core::setToolkit: Already setted view factory!!" << std::endl;
         }
 
-        m_viewFactory = factory;
+        m_toolkit = toolkit;
     }
 }

@@ -6,7 +6,7 @@
 
 namespace felide {
     class FELIDE_API PluginManager;
-    class FELIDE_API ViewFactory;
+    class FELIDE_API UIToolkit;
 
     class FELIDE_API Core {
     public:
@@ -15,13 +15,13 @@ namespace felide {
 
         PluginManager* getPluginManager();
 
-        ViewFactory* getViewFactory();
+        UIToolkit* getToolkit();
 
-        void setViewFactory(ViewFactory* factory);
+        void setToolkit(UIToolkit* toolkit);
 
     private:
         PluginManager *m_pluginManager = nullptr;
-        ViewFactory *m_viewFactory = nullptr;
+        UIToolkit *m_toolkit = nullptr;
     };
 } 
 
