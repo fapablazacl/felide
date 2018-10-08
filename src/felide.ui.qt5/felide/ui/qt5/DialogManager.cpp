@@ -93,16 +93,16 @@ namespace felide {
         return filtersStr;
     }
 
-    boost::optional<std::string> DialogManager::showFileDialog(const std::string &title, const FileDialogType dialogType, const std::vector<FileFilter> &filters) const {
-        const auto qfilters = mapFiltersToString(filters);
+    boost::optional<std::string> DialogManager::showFileDialog(const FileDialogData& data) const {
+        const auto qfilters = mapFiltersToString(data.filters);
 
         QString filename;
 
-        switch (dialogType) {
+        switch (data.type) {
             case FileDialogType::OpenFile:
                 filename = QFileDialog::getOpenFileName (
                     m_parent,
-                    title.c_str(),
+                    data.title.c_str(),
                     QDir::currentPath(),
                     qfilters.c_str()
                 );
@@ -111,7 +111,7 @@ namespace felide {
             case FileDialogType::SaveFile:
                 filename = QFileDialog::getSaveFileName (
                     m_parent,
-                    title.c_str(),
+                    data.title.c_str(),
                     QDir::currentPath(),
                     qfilters.c_str()
                 );

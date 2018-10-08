@@ -81,11 +81,12 @@ namespace felide {
     void MainWindowPresenter::fileOpenTriggered() {
         using boost::filesystem::path;
         
-        const auto filePathOptional = m_impl->dialogManager->showFileDialog(
+        const auto filePathOptional = m_impl->dialogManager->showFileDialog({
            "Open File",
            FileDialogType::OpenFile,
-           filters
-        );
+           filters,
+           ""
+        });
 
         if (!filePathOptional) {
             return;
@@ -262,11 +263,12 @@ namespace felide {
     void MainWindowPresenter::editorSaveAs(EditorView *editorView) {
         auto editorModel = this->getEditorModel(editorView);
         
-        const boost::optional<std::string> filePathOptional = m_impl->dialogManager->showFileDialog(
+        const boost::optional<std::string> filePathOptional = m_impl->dialogManager->showFileDialog({
             "Save File",
             FileDialogType::SaveFile,
-            filters
-        );
+            filters,
+            ""
+        });
         
         if (!filePathOptional) {
             return;

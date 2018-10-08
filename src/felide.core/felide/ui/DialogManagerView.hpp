@@ -39,11 +39,18 @@ namespace felide {
         SaveFile
     };
 
+    struct FileDialogData {
+        std::string title;
+        FileDialogType type;
+        std::vector<FileFilter> filters;
+        std::string defaultPath;
+    };
+
     class FELIDE_API DialogManagerView {
     public:
         virtual ~DialogManagerView();
         virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const = 0;
-		virtual boost::optional<std::string> showFileDialog(const std::string &title, const FileDialogType dialogType, const std::vector<FileFilter> &filters) const = 0;
+		virtual boost::optional<std::string> showFileDialog(const FileDialogData& data) const = 0;
         virtual boost::optional<std::string> showFolderDialog(const std::string &title) = 0;
     };
 }
