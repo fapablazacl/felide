@@ -21,7 +21,7 @@ namespace felide {
         Q_OBJECT;
 
     public:
-        MainWindow();
+        explicit MainWindow(MainWindowPresenter *presenter);
 
     public:
         virtual EditorManagerView* getEditorManagerView() override;

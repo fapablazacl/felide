@@ -8,8 +8,15 @@ namespace felide {
     class FELIDE_API EditorManagerView;
     class FELIDE_API DialogManagerView;
     class FELIDE_API FolderBrowserView;
+
+    class FELIDE_API MainWindowPresenter;
+
+    struct Menu;
+
     class FELIDE_API MainWindowView {
     public:
+        explicit MainWindowView(MainWindowPresenter *presenter);
+
         virtual ~MainWindowView();
 
         virtual EditorManagerView* getEditorManagerView() = 0;
@@ -21,6 +28,10 @@ namespace felide {
         virtual void close() = 0;
 
         virtual void show() = 0;
+
+    protected:
+        MainWindowPresenter *m_presenter;
+        Menu *m_menu;
     };
 }
 

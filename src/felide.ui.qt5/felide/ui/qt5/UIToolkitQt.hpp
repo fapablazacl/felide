@@ -4,13 +4,10 @@
 
 #include <felide/ui/UIToolkit.hpp>
 
-#include "MainWindow.hpp"
-#include "MainLoopImpl.hpp"
-
 namespace felide {
-    class UIToolkitQt : public UIToolkitImpl<MainWindow, MainLoopImpl> {
+    class UIToolkitQt : public UIToolkit {
     public:
-        virtual int runApp(int argc, char **argv) override;
+        virtual int runApp(int argc, char **argv, MainWindowPresenter *presenter) override;
     };
 }
 

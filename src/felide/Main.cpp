@@ -2,13 +2,13 @@
 #include <cassert>
 #include <felide/Core.hpp>
 #include <felide/ui/UIToolkit.hpp>
-#include <felide/ui/MainWindowView.hpp>
-#include <felide/ui/MainLoop.hpp>
+#include <felide/ui/MainWindowPresenter.hpp>
 #include <felide/system/PluginManager.hpp>
 
 #include <iostream>
 
 int main(int argc, char **argv) {
+    felide::MainWindowPresenter presenter;
     felide::Core core;
 
     auto pluginManager = core.getPluginManager();
@@ -17,19 +17,7 @@ int main(int argc, char **argv) {
     auto toolkit = core.getToolkit();
     assert(toolkit);
 
-    return toolkit->runApp(argc, argv);
-
-/*
-    auto mainLoop = viewFactory->createMainLoop(argc, argv);
-    assert(mainLoop);
-
-    auto mainWindow = viewFactory->createMainWindow();
-    assert(mainWindow);
-
-    // mainWindow->show();
-
-    return mainLoop->run();
-    */
+    return toolkit->runApp(argc, argv, &presenter);
 }
 
 #if defined(_WINDOWS)
