@@ -1,5 +1,5 @@
 
-#include "EditorView.hpp"
+#include "Editor.hpp"
 
 namespace felide {
     EditorConfig EditorConfig::Default() {
@@ -8,5 +8,5 @@ namespace felide {
         };
     }
 
-    EditorView::~EditorView() {}
+    Editor::~Editor() {}
 }

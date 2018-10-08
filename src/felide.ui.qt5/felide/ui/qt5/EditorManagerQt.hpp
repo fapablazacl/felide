@@ -5,12 +5,12 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <boost/optional.hpp>
-#include <felide/ui/EditorManagerView.hpp>
+#include <felide/ui/EditorManager.hpp>
 
 namespace felide {
     class EditorQt;
-    class EditorView;
-    class EditorManagerQt : public QWidget, public EditorManagerView {
+    class Editor;
+    class EditorManagerQt : public QWidget, public EditorManager {
         Q_OBJECT
 
     public:
@@ -29,17 +29,17 @@ namespace felide {
         void editorCloseRequested(EditorQt *editor);
 
     public:
-        virtual EditorView* appendEditor() override;
+        virtual Editor* appendEditor() override;
 
-        virtual EditorView* getCurrentEditor() override;
+        virtual Editor* getCurrentEditor() override;
 
         virtual std::size_t getEditorCount() const override;
 
-        virtual EditorView* getEditor(const std::size_t index) override;
+        virtual Editor* getEditor(const std::size_t index) override;
         
-        virtual void closeEditor(EditorView *editorView) override;
+        virtual void closeEditor(Editor *editorView) override;
 
-        virtual void showEditor(EditorView *editorView) override;
+        virtual void showEditor(Editor *editorView) override;
 
     private:
         QTabWidget *m_tabWidget = nullptr;

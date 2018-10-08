@@ -46,9 +46,9 @@ namespace felide {
         std::string defaultPath;
     };
 
-    class FELIDE_API DialogManagerView {
+    class FELIDE_API DialogManager {
     public:
-        virtual ~DialogManagerView();
+        virtual ~DialogManager();
         virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const = 0;
 		virtual boost::optional<std::string> showFileDialog(const FileDialogData& data) const = 0;
         virtual boost::optional<std::string> showFolderDialog(const std::string &title) = 0;

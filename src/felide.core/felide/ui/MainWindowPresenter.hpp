@@ -2,18 +2,18 @@
 #ifndef __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 #define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 
+#include <felide/Predef.hpp>
+
 #include "MainWindowModel.hpp"
 #include "EditorModel.hpp"
-
-#include <felide/Predef.hpp>
 
 #include <map>
 #include <memory>
 
 namespace felide {
     class FELIDE_API EditorModel;
-    class FELIDE_API EditorView;
-    class FELIDE_API MainWindowView;
+    class FELIDE_API Editor;
+    class FELIDE_API MainWindow;
 
     class FELIDE_API MainWindowPresenter {
     public:
@@ -21,7 +21,7 @@ namespace felide {
 
         virtual ~MainWindowPresenter();
 
-        void attachView(MainWindowView *view);
+        void attachView(MainWindow *view);
 
         void detachView();
 
@@ -52,26 +52,26 @@ namespace felide {
 
         void editPaste();
 
-        void editorContentModified(EditorView *editorView);
+        void editorContentModified(Editor *view);
         
-        void editorCloseRequested(EditorView *editorView);
+        void editorCloseRequested(Editor *view);
         
         void editorShow(const std::string &fileName);
 
         bool closeRequested();
         
     private:
-        void editorSave(EditorView *editorView, EditorModel *editorModel);
+        void editorSave(Editor *view, EditorModel *editorModel);
         
-        void editorSaveAs(EditorView *editorView);
+        void editorSaveAs(Editor *view);
         
-        EditorModel* createEditorModel(const EditorView *view, const int tag);
+        EditorModel* createEditorModel(const Editor *view, const int tag);
 
-        EditorModel* createEditorModel(const EditorView *view, const std::string &fileName);
+        EditorModel* createEditorModel(const Editor *view, const std::string &fileName);
 
-        EditorModel* getEditorModel(const EditorView *view);
+        EditorModel* getEditorModel(const Editor *view);
         
-        EditorView* getEditorView(const EditorModel *model);
+        Editor* getEditor(const EditorModel *model);
 
     private:
         struct Private;

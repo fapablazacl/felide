@@ -10,25 +10,25 @@
 #include <map>
 
 #include <felide/ui/MainWindowPresenter.hpp>
-#include <felide/ui/MainWindowView.hpp>
+#include <felide/ui/MainWindow.hpp>
 #include <felide/ui/Menu.hpp>
 #include "EditorManagerQt.hpp"
 #include "DialogManagerQt.hpp"
 
 namespace felide {
     class FolderBrowserQt;
-    class MainWindowQt : public QMainWindow, public MainWindowView {
+    class MainWindowQt : public QMainWindow, public MainWindow {
         Q_OBJECT;
 
     public:
         explicit MainWindowQt(MainWindowPresenter *presenter);
 
     public:
-        virtual EditorManagerView* getEditorManagerView() override;
+        virtual EditorManager* getEditorManager() override;
 
-        virtual DialogManagerView* getDialogManagerView() override;
+        virtual DialogManager* getDialogManager() override;
         
-        virtual FolderBrowserView* getFolderBrowserView() override;
+        virtual FolderBrowser* getFolderBrowser() override;
         
         virtual void close() override;
 

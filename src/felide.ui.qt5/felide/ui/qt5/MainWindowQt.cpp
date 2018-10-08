@@ -122,7 +122,7 @@ namespace felide {
         return menuBarPtr;
     }
 
-    MainWindowQt::MainWindowQt(MainWindowPresenter *presenter) : MainWindowView(presenter) {
+    MainWindowQt::MainWindowQt(MainWindowPresenter *presenter) : MainWindow(presenter) {
         this->setupMenuBar();
         this->setupEditorManager();
         this->setupDockUI();
@@ -189,15 +189,15 @@ namespace felide {
 }
 
 namespace felide {
-    EditorManagerView* MainWindowQt::getEditorManagerView() {
+    EditorManager* MainWindowQt::getEditorManager() {
         return m_editorManager;
     }
 
-    DialogManagerView* MainWindowQt::getDialogManagerView() {
+    DialogManager* MainWindowQt::getDialogManager() {
         return m_dialogManager.get();
     }
     
-    FolderBrowserView* MainWindowQt::getFolderBrowserView() {
+    FolderBrowser* MainWindowQt::getFolderBrowser() {
         return m_folderBrowser;
     }
     

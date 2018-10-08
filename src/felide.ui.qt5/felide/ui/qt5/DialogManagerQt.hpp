@@ -2,11 +2,11 @@
 #ifndef __FELIDE_UI_DIALOGMANAGERVIEWIMPL_HPP__
 #define __FELIDE_UI_DIALOGMANAGERVIEWIMPL_HPP__
 
-#include <felide/ui/DialogManagerView.hpp>
+#include <felide/ui/DialogManager.hpp>
 #include <QWidget>
 
 namespace felide {
-    class DialogManagerQt : public DialogManagerView {
+    class DialogManagerQt : public DialogManager {
     public:
         explicit DialogManagerQt(QWidget *parent);
         virtual ~DialogManagerQt();

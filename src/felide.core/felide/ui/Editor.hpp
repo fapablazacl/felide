@@ -16,9 +16,9 @@ namespace felide {
         static EditorConfig Default();
     };
 
-    class FELIDE_API EditorView {
+    class FELIDE_API Editor {
     public:
-        virtual ~EditorView();
+        virtual ~Editor();
 
         virtual void setTitle(const std::string &title) = 0;
         virtual std::string getTitle() const = 0;

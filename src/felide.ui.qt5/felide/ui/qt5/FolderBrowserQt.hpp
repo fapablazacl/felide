@@ -6,10 +6,10 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 
-#include <felide/ui/FolderBrowserView.hpp>
+#include <felide/ui/FolderBrowser.hpp>
 
 namespace felide {
-    class FolderBrowserQt : public QWidget, public FolderBrowserView {
+    class FolderBrowserQt : public QWidget, public FolderBrowser {
         Q_OBJECT
 
     public:

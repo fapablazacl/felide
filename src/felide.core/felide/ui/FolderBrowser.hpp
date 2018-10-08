@@ -6,9 +6,9 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API FolderBrowserView {
+    class FELIDE_API FolderBrowser {
     public:
-        virtual ~FolderBrowserView();
+        virtual ~FolderBrowser();
 
         virtual void displayFolder(const std::string &folder) = 0;
     };

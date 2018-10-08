@@ -8,11 +8,11 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include <felide/ui/EditorView.hpp>
+#include <felide/ui/Editor.hpp>
 
 namespace felide {
     class EditorManagerQt;
-    class EditorQt : public QWidget, public EditorView {
+    class EditorQt : public QWidget, public Editor {
         Q_OBJECT
 
     public:

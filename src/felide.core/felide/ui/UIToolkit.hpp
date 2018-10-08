@@ -4,7 +4,6 @@
 
 #include <memory>
 #include <felide/Predef.hpp>
-#include <felide/ui/MainWindowView.hpp>
 
 namespace felide {
     class FELIDE_API MainWindowPresenter;
