@@ -9,15 +9,15 @@ namespace felide {
     class FELIDE_API DialogManager;
     class FELIDE_API FolderBrowser;
 
-    class FELIDE_API MainWindowPresenter;
+    class FELIDE_API IDEFramePresenter;
 
     struct Menu;
 
-    class FELIDE_API MainWindow {
+    class FELIDE_API IDEFrame {
     public:
-        explicit MainWindow(MainWindowPresenter *presenter);
+        explicit IDEFrame(IDEFramePresenter *presenter);
 
-        virtual ~MainWindow();
+        virtual ~IDEFrame();
 
         virtual EditorManager* getEditorManager() = 0;
 
@@ -30,7 +30,7 @@ namespace felide {
         virtual void show() = 0;
 
     protected:
-        MainWindowPresenter *m_presenter;
+        IDEFramePresenter *m_presenter;
         Menu *m_menu;
     };
 }

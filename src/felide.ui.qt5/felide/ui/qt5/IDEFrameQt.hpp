@@ -9,19 +9,19 @@
 #include <QAction>
 #include <map>
 
-#include <felide/ui/MainWindowPresenter.hpp>
-#include <felide/ui/MainWindow.hpp>
+#include <felide/ui/IDEFramePresenter.hpp>
+#include <felide/ui/IDEFrame.hpp>
 #include <felide/ui/Menu.hpp>
 #include "EditorManagerQt.hpp"
 #include "DialogManagerQt.hpp"
 
 namespace felide {
     class FolderBrowserQt;
-    class MainWindowQt : public QMainWindow, public MainWindow {
+    class IDEFrameQt : public QMainWindow, public IDEFrame {
         Q_OBJECT;
 
     public:
-        explicit MainWindowQt(MainWindowPresenter *presenter);
+        explicit IDEFrameQt(IDEFramePresenter *presenter);
 
     public:
         virtual EditorManager* getEditorManager() override;

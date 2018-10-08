@@ -5,7 +5,7 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API MainWindowModel {
+    class FELIDE_API IDEFrameModel {
     public:
         int getCreatedDocumentCount() const;
 

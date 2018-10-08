@@ -1,8 +1,10 @@
 
-#include "MainWindowPresenter.hpp"
-#include "MainWindow.hpp"
+#include "IDEFramePresenter.hpp"
+#include "IDEFrame.hpp"
+#include "IDEFrameModel.hpp"
 
 #include "Editor.hpp"
+#include "EditorModel.hpp"
 #include "EditorManager.hpp"
 #include "DialogManager.hpp"
 #include "FolderBrowser.hpp"
@@ -30,24 +32,25 @@ namespace felide {
         return title;
     }
 
-    struct MainWindowPresenter::Private {
-        MainWindow *view = nullptr;
+    struct IDEFramePresenter::Private {
+        IDEFrame *view = nullptr;
+        IDEFrameModel model;
+
         EditorManager *editorManager = nullptr;
         DialogManager *dialogManager = nullptr;
-        MainWindowModel model;
-
+        
         std::map<const Editor*, std::unique_ptr<EditorModel>> editorModels;
     };
 
-    MainWindowPresenter::MainWindowPresenter() {
-        m_impl = new MainWindowPresenter::Private();
+    IDEFramePresenter::IDEFramePresenter() {
+        m_impl = new IDEFramePresenter::Private();
     }
 
-    MainWindowPresenter::~MainWindowPresenter() {
+    IDEFramePresenter::~IDEFramePresenter() {
         delete m_impl;
     }
 
-    void MainWindowPresenter::attachView(MainWindow *view) {
+    void IDEFramePresenter::attachView(IDEFrame *view) {
         assert(view);
         
         m_impl->view = view;
@@ -58,11 +61,11 @@ namespace felide {
         assert(m_impl->dialogManager);
     }
 
-    void MainWindowPresenter::detachView() {
+    void IDEFramePresenter::detachView() {
         m_impl->view = nullptr;
     }
 
-    void MainWindowPresenter::fileNewTriggered() {
+    void IDEFramePresenter::fileNewTriggered() {
         int tag = m_impl->model.increaseDocumentCount();
 
         assert(m_impl->editorManager);
@@ -78,7 +81,7 @@ namespace felide {
         {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc", "*.h", "*.c"}},
     };
     
-    void MainWindowPresenter::fileOpenTriggered() {
+    void IDEFramePresenter::fileOpenTriggered() {
         using boost::filesystem::path;
         
         const auto filePathOptional = m_impl->dialogManager->showFileDialog({
@@ -97,7 +100,7 @@ namespace felide {
         this->editorShow(filePath);
     }
     
-    void MainWindowPresenter::fileOpenFolderTriggered() {
+    void IDEFramePresenter::fileOpenFolderTriggered() {
         auto folderOptional = m_impl->dialogManager->showFolderDialog("This is a tedst");
         
         if (!folderOptional) {
@@ -107,7 +110,7 @@ namespace felide {
         m_impl->view->getFolderBrowser()->displayFolder(*folderOptional);
     }
 
-    void MainWindowPresenter::fileSaveTriggered() {
+    void IDEFramePresenter::fileSaveTriggered() {
         using boost::filesystem::path;
         
         auto editor = m_impl->editorManager->getCurrentEditor();
@@ -125,7 +128,7 @@ namespace felide {
         }
     }
 
-    void MainWindowPresenter::fileSaveAsTriggered() {
+    void IDEFramePresenter::fileSaveAsTriggered() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -135,7 +138,7 @@ namespace felide {
         this->editorSaveAs(editor);
     }
 
-    void MainWindowPresenter::editUndo() {
+    void IDEFramePresenter::editUndo() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -145,7 +148,7 @@ namespace felide {
         editor->undo();
     }
 
-    void MainWindowPresenter::editRedo() {
+    void IDEFramePresenter::editRedo() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -155,7 +158,7 @@ namespace felide {
         editor->redo();
     }
 
-    void MainWindowPresenter::editCut() {
+    void IDEFramePresenter::editCut() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -165,7 +168,7 @@ namespace felide {
         editor->cut();
     }
 
-    void MainWindowPresenter::editCopy() {
+    void IDEFramePresenter::editCopy() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -175,7 +178,7 @@ namespace felide {
         editor->copy();
     }
 
-    void MainWindowPresenter::editPaste() {
+    void IDEFramePresenter::editPaste() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -185,11 +188,11 @@ namespace felide {
         editor->paste();
     }
 
-    void MainWindowPresenter::fileSaveAllTriggered() {
-        std::cout << "MainWindowPresenter::fileSaveAll()" << std::endl;
+    void IDEFramePresenter::fileSaveAllTriggered() {
+        std::cout << "IDEFramePresenter::fileSaveAll()" << std::endl;
     }
 
-    void MainWindowPresenter::fileCloseTriggered() {
+    void IDEFramePresenter::fileCloseTriggered() {
         auto editor = m_impl->editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -199,18 +202,18 @@ namespace felide {
         m_impl->editorManager->closeEditor(editor);
     }
 
-    void MainWindowPresenter::fileExitTriggered() {
+    void IDEFramePresenter::fileExitTriggered() {
         m_impl->view->close();
     }
 
-    void MainWindowPresenter::editorContentModified(Editor *editor) {
+    void IDEFramePresenter::editorContentModified(Editor *editor) {
         auto editorModel = this->getEditorModel(editor);
 
         editorModel->modify();
         editor->setTitle(mapEditorTitle(editorModel));
     }
     
-    void MainWindowPresenter::editorCloseRequested(Editor *editor) {
+    void IDEFramePresenter::editorCloseRequested(Editor *editor) {
         bool closeEditor = true;
         
         auto model = this->getEditorModel(editor);
@@ -238,7 +241,7 @@ namespace felide {
         }
     }
     
-    bool MainWindowPresenter::closeRequested() {
+    bool IDEFramePresenter::closeRequested() {
         assert(this);
         assert(m_impl);
         assert(m_impl->dialogManager);
@@ -247,7 +250,7 @@ namespace felide {
         return button == DialogButton::Yes;
     }
     
-    void MainWindowPresenter::editorSave(Editor *editor, EditorModel *editorModel) {
+    void IDEFramePresenter::editorSave(Editor *editor, EditorModel *editorModel) {
         editorModel->setContent(editor->getContent());
         
         const std::string fileName = editorModel->getFilePath();
@@ -260,7 +263,7 @@ namespace felide {
         editor->setTitle(mapEditorTitle(editorModel));
     }
     
-    void MainWindowPresenter::editorSaveAs(Editor *editor) {
+    void IDEFramePresenter::editorSaveAs(Editor *editor) {
         auto editorModel = this->getEditorModel(editor);
         
         const boost::optional<std::string> filePathOptional = m_impl->dialogManager->showFileDialog({
@@ -283,7 +286,7 @@ namespace felide {
         this->editorSave(editor, editorModel);
     }
 
-    void MainWindowPresenter::editorShow(const std::string &filePath) {
+    void IDEFramePresenter::editorShow(const std::string &filePath) {
         auto &viewModels = m_impl->editorModels;
 
         auto viewModelIt = std::find_if(viewModels.begin(), viewModels.end(), [filePath](const auto &pair) {
@@ -308,7 +311,7 @@ namespace felide {
         }
     }
 
-    EditorModel* MainWindowPresenter::createEditorModel(const Editor *view, const int tag) {
+    EditorModel* IDEFramePresenter::createEditorModel(const Editor *view, const int tag) {
         auto editorModel = new EditorModel(tag);
 
         m_impl->editorModels[view] = std::unique_ptr<EditorModel>(editorModel);
@@ -316,7 +319,7 @@ namespace felide {
         return editorModel;
     }
 
-    EditorModel* MainWindowPresenter::createEditorModel(const Editor *view, const std::string &fileName) {
+    EditorModel* IDEFramePresenter::createEditorModel(const Editor *view, const std::string &fileName) {
         auto editorModel = new EditorModel(fileName);
         
         m_impl->editorModels[view] = std::unique_ptr<EditorModel>(editorModel);
@@ -324,7 +327,7 @@ namespace felide {
         return editorModel;
     }
 
-    EditorModel* MainWindowPresenter::getEditorModel(const Editor *view) {
+    EditorModel* IDEFramePresenter::getEditorModel(const Editor *view) {
         auto editorModel = m_impl->editorModels[view].get();
 
         assert(editorModel);
@@ -332,7 +335,7 @@ namespace felide {
         return editorModel;
     }
     
-    Editor* MainWindowPresenter::getEditor(const EditorModel *model) {
+    Editor* IDEFramePresenter::getEditor(const EditorModel *model) {
         assert(model);
         Editor* view = nullptr;
         

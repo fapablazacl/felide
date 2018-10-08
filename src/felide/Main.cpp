@@ -2,13 +2,13 @@
 #include <cassert>
 #include <felide/Core.hpp>
 #include <felide/ui/UIToolkit.hpp>
-#include <felide/ui/MainWindowPresenter.hpp>
+#include <felide/ui/IDEFramePresenter.hpp>
 #include <felide/system/PluginManager.hpp>
 
 #include <iostream>
 
 int main(int argc, char **argv) {
-    felide::MainWindowPresenter presenter;
+    felide::IDEFramePresenter presenter;
     felide::Core core;
 
     auto pluginManager = core.getPluginManager();

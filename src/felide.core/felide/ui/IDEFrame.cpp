@@ -1,11 +1,11 @@
 
-#include "MainWindow.hpp"
+#include "IDEFrame.hpp"
 
-#include "MainWindowPresenter.hpp"
+#include "IDEFramePresenter.hpp"
 #include "Menu.hpp"
 
 namespace felide {
-    MainWindow::MainWindow(MainWindowPresenter *presenter) {
+    IDEFrame::IDEFrame(IDEFramePresenter *presenter) {
         m_presenter = presenter;
 
         m_menu = new Menu(Menu::menuBar({
@@ -48,7 +48,7 @@ namespace felide {
         }));
     }
 
-    MainWindow::~MainWindow() {
+    IDEFrame::~IDEFrame() {
         delete m_menu;
     }
 }

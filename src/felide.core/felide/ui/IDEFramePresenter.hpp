@@ -4,8 +4,7 @@
 
 #include <felide/Predef.hpp>
 
-#include "MainWindowModel.hpp"
-#include "EditorModel.hpp"
+#include "IDEFrameModel.hpp"
 
 #include <map>
 #include <memory>
@@ -13,15 +12,15 @@
 namespace felide {
     class FELIDE_API EditorModel;
     class FELIDE_API Editor;
-    class FELIDE_API MainWindow;
+    class FELIDE_API IDEFrame;
 
-    class FELIDE_API MainWindowPresenter {
+    class FELIDE_API IDEFramePresenter {
     public:
-        MainWindowPresenter();
+        IDEFramePresenter();
 
-        virtual ~MainWindowPresenter();
+        virtual ~IDEFramePresenter();
 
-        void attachView(MainWindow *view);
+        void attachView(IDEFrame *view);
 
         void detachView();
 

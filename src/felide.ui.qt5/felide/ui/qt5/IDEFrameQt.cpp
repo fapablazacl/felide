@@ -1,16 +1,16 @@
 
-#include "MainWindowQt.hpp"
+#include "IDEFrameQt.hpp"
 
 #include <vector>
 #include <functional>
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <iostream>
+#include <felide/ui/IDEFramePresenter.hpp>
 
 #include "EditorQt.hpp"
 #include "DialogManagerQt.hpp"
 #include "FolderBrowserQt.hpp"
-#include <felide/ui/MainWindowPresenter.hpp>
 
 namespace felide {
     static const std::map<Key, std::string> keyMap = {
@@ -122,7 +122,7 @@ namespace felide {
         return menuBarPtr;
     }
 
-    MainWindowQt::MainWindowQt(MainWindowPresenter *presenter) : MainWindow(presenter) {
+    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         this->setupMenuBar();
         this->setupEditorManager();
         this->setupDockUI();
@@ -140,11 +140,11 @@ namespace felide {
         m_presenter->attachView(this);
     }
 
-    void MainWindowQt::setupMenuBar() {
+    void IDEFrameQt::setupMenuBar() {
         this->setMenuBar(createMenuBar(this, *m_menu));
     }
 
-    void MainWindowQt::setupEditorManager() {
+    void IDEFrameQt::setupEditorManager() {
         m_editorManager = new EditorManagerQt(this);
 
         connect(m_editorManager, &EditorManagerQt::editorContentChanged, [&](EditorQt *editor) {
@@ -160,7 +160,7 @@ namespace felide {
         this->setCentralWidget(m_editorManager);
     }
     
-    void MainWindowQt::setupDockUI() {
+    void IDEFrameQt::setupDockUI() {
         const auto areas = QFlags<Qt::DockWidgetArea>(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
         
         // setup folder browser dock widget
@@ -173,7 +173,7 @@ namespace felide {
         this->addDockWidget(Qt::LeftDockWidgetArea, m_folderBrowserDock);
     }
     
-    void MainWindowQt::closeEvent(QCloseEvent *evt) {
+    void IDEFrameQt::closeEvent(QCloseEvent *evt) {
         if (m_presenter->closeRequested()) {
             evt->accept();
         } else {
@@ -181,7 +181,7 @@ namespace felide {
         }
     }
 
-    void MainWindowQt::setupFolderBrowser() {
+    void IDEFrameQt::setupFolderBrowser() {
         connect(m_folderBrowser, &FolderBrowserQt::projectItemOpenRequest, [&](const QString &filePath) {
             m_presenter->editorShow(filePath.toStdString());
         });
@@ -189,23 +189,23 @@ namespace felide {
 }
 
 namespace felide {
-    EditorManager* MainWindowQt::getEditorManager() {
+    EditorManager* IDEFrameQt::getEditorManager() {
         return m_editorManager;
     }
 
-    DialogManager* MainWindowQt::getDialogManager() {
+    DialogManager* IDEFrameQt::getDialogManager() {
         return m_dialogManager.get();
     }
     
-    FolderBrowser* MainWindowQt::getFolderBrowser() {
+    FolderBrowser* IDEFrameQt::getFolderBrowser() {
         return m_folderBrowser;
     }
     
-    void MainWindowQt::close() {
+    void IDEFrameQt::close() {
         QMainWindow::close();
     }
 
-    void MainWindowQt::show() {
+    void IDEFrameQt::show() {
         QMainWindow::show();
     }
 }
