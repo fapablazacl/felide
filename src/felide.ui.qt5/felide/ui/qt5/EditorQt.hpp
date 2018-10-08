@@ -12,12 +12,12 @@
 
 namespace felide {
     class EditorManager;
-    class Editor : public QWidget, public EditorView {
+    class EditorQt : public QWidget, public EditorView {
         Q_OBJECT
 
     public:
-        explicit Editor(QWidget *parent, EditorManager *editorManager);
-        virtual ~Editor();
+        explicit EditorQt(QWidget *parent, EditorManager *editorManager);
+        virtual ~EditorQt();
 
     private:
         void setupScintilla();

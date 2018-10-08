@@ -16,7 +16,7 @@
 #include "DialogManager.hpp"
 
 namespace felide {
-    class FolderBrowser;
+    class FolderBrowserQt;
     class MainWindow : public QMainWindow, public MainWindowView {
         Q_OBJECT;
 
@@ -50,7 +50,7 @@ namespace felide {
         std::unique_ptr<DialogManager> m_dialogManager = nullptr;
         
     private:
-        FolderBrowser *m_folderBrowser;
+        FolderBrowserQt *m_folderBrowser;
         QDockWidget *m_folderBrowserDock;
     };
 }

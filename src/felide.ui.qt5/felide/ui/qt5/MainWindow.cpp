@@ -7,9 +7,9 @@
 #include <QDesktopWidget>
 #include <iostream>
 
-#include "Editor.hpp"
+#include "EditorQt.hpp"
 #include "DialogManager.hpp"
-#include "FolderBrowser.hpp"
+#include "FolderBrowserQt.hpp"
 #include <felide/ui/MainWindowPresenter.hpp>
 
 namespace felide {
@@ -147,12 +147,12 @@ namespace felide {
     void MainWindow::setupEditorManager() {
         m_editorManager = new EditorManager(this);
 
-        connect(m_editorManager, &EditorManager::editorContentChanged, [&](Editor *editor) {
+        connect(m_editorManager, &EditorManager::editorContentChanged, [&](EditorQt *editor) {
             assert(editor);
             m_presenter->editorContentModified(editor);
         });
         
-        connect(m_editorManager, &EditorManager::editorCloseRequested, [&](Editor *editor) {
+        connect(m_editorManager, &EditorManager::editorCloseRequested, [&](EditorQt *editor) {
             assert(editor);
             m_presenter->editorCloseRequested(editor);
         });
@@ -166,7 +166,7 @@ namespace felide {
         // setup folder browser dock widget
         m_folderBrowserDock = new QDockWidget("Folder Browser", this);
         
-        m_folderBrowser = new FolderBrowser(m_folderBrowserDock);
+        m_folderBrowser = new FolderBrowserQt(m_folderBrowserDock);
         m_folderBrowserDock->setAllowedAreas(areas);
         m_folderBrowserDock->setWidget(m_folderBrowser);
         
@@ -182,7 +182,7 @@ namespace felide {
     }
 
     void MainWindow::setupFolderBrowser() {
-        connect(m_folderBrowser, &FolderBrowser::projectItemOpenRequest, [&](const QString &filePath) {
+        connect(m_folderBrowser, &FolderBrowserQt::projectItemOpenRequest, [&](const QString &filePath) {
             m_presenter->editorShow(filePath.toStdString());
         });
     }

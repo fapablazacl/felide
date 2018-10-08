@@ -8,7 +8,7 @@
 #include <felide/ui/EditorManagerView.hpp>
 
 namespace felide {
-    class Editor;
+    class EditorQt;
     class EditorView;
     class EditorManager : public QWidget, public EditorManagerView {
         Q_OBJECT
@@ -19,14 +19,14 @@ namespace felide {
         virtual ~EditorManager();
         
     public:
-        boost::optional<int> getEditorIndex(const Editor *editor);
+        boost::optional<int> getEditorIndex(const EditorQt *editor);
         
-        void changeEditorTitle(Editor *editor, const std::string &title);
+        void changeEditorTitle(EditorQt *editor, const std::string &title);
         
     signals:
-        void editorContentChanged(Editor *editor);
+        void editorContentChanged(EditorQt *editor);
         
-        void editorCloseRequested(Editor *editor);
+        void editorCloseRequested(EditorQt *editor);
 
     public:
         virtual EditorView* appendEditor() override;

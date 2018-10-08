@@ -2,7 +2,7 @@
 #include "EditorManager.hpp"
 
 #include <QGridLayout>
-#include "Editor.hpp"
+#include "EditorQt.hpp"
 
 namespace felide {
     EditorManager::EditorManager(QWidget *parent) : QWidget(parent) {
@@ -13,7 +13,7 @@ namespace felide {
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, [=] (int tabIndex) {
             QWidget *widget = m_tabWidget->widget(tabIndex);
             
-            auto editor = dynamic_cast<Editor*>(widget);
+            auto editor = dynamic_cast<EditorQt*>(widget);
             if (editor) {
                 editorCloseRequested(editor);
             }
@@ -26,7 +26,7 @@ namespace felide {
 
     EditorManager::~EditorManager() {}
     
-    boost::optional<int> EditorManager::getEditorIndex(const Editor *editor) {
+    boost::optional<int> EditorManager::getEditorIndex(const EditorQt *editor) {
         for (int i=0; i<m_tabWidget->count(); i++) {
             if (m_tabWidget->widget(i) == editor) {
                 return i;
@@ -36,7 +36,7 @@ namespace felide {
         return {};
     }
     
-    void EditorManager::changeEditorTitle(Editor *editor, const std::string &title) {
+    void EditorManager::changeEditorTitle(EditorQt *editor, const std::string &title) {
         auto index = this->getEditorIndex(editor);
         
         if (!index) {
@@ -47,9 +47,9 @@ namespace felide {
     }
 
     EditorView* EditorManager::appendEditor() {
-        auto editor = new Editor(m_tabWidget, this);
+        auto editor = new EditorQt(m_tabWidget, this);
 
-        connect(editor, &Editor::contentChanged, [=]() {
+        connect(editor, &EditorQt::contentChanged, [=]() {
             editorContentChanged(editor);
         });
         
@@ -78,7 +78,7 @@ namespace felide {
     }
     
     void EditorManager::closeEditor(EditorView *editorView) {
-        const auto editor = dynamic_cast<Editor*>(editorView);
+        const auto editor = dynamic_cast<EditorQt*>(editorView);
         
         if (!editor) {
             return;
@@ -94,7 +94,7 @@ namespace felide {
     }
 
     void EditorManager::showEditor(EditorView *editorView) {
-        const auto editor = dynamic_cast<Editor*>(editorView);
+        const auto editor = dynamic_cast<EditorQt*>(editorView);
 
         if (!editor) {
             return;

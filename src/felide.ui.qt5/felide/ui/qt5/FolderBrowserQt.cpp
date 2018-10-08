@@ -1,5 +1,5 @@
 
-#include "FolderBrowser.hpp"
+#include "FolderBrowserQt.hpp"
 
 #include <QVBoxLayout>
 #include <QBoxLayout>
@@ -9,7 +9,7 @@
 #include <iostream>
 
 namespace felide {
-    FolderBrowser::FolderBrowser(QWidget *parent) : QWidget(parent) {
+    FolderBrowserQt::FolderBrowserQt(QWidget *parent) : QWidget(parent) {
         m_treeView = new QTreeView(this);
 
         this->setLayout(new QVBoxLayout(this));
@@ -53,9 +53,9 @@ namespace felide {
         });
     }
 
-    FolderBrowser::~FolderBrowser() {}
+    FolderBrowserQt::~FolderBrowserQt() {}
 
-    void FolderBrowser::setProjectFolder(const QString &projectFolder) {
+    void FolderBrowserQt::setProjectFolder(const QString &projectFolder) {
         m_treeView->setVisible(true);
 
         m_projectFolder = projectFolder;
@@ -66,11 +66,11 @@ namespace felide {
         m_treeView->setRootIndex(index);
     }
 
-    QString FolderBrowser::projectFolder() const {
+    QString FolderBrowserQt::projectFolder() const {
         return m_projectFolder;
     }
 
-    void FolderBrowser::displayFolder(const std::string &folder) {
+    void FolderBrowserQt::displayFolder(const std::string &folder) {
         this->setProjectFolder(folder.c_str());
     }
 }

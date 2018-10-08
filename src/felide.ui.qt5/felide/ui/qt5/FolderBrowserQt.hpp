@@ -9,16 +9,16 @@
 #include <felide/ui/FolderBrowserView.hpp>
 
 namespace felide {
-    class FolderBrowser : public QWidget, public FolderBrowserView {
+    class FolderBrowserQt : public QWidget, public FolderBrowserView {
         Q_OBJECT
 
     public:
         void displayFolder(const std::string &folder) override;
 
     public:
-        FolderBrowser(QWidget *parent);
+        FolderBrowserQt(QWidget *parent);
 
-        ~FolderBrowser();
+        ~FolderBrowserQt();
 
         void setProjectFolder(const QString &projectFolder);
 

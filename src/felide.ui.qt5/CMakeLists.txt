@@ -11,16 +11,16 @@ include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
 
 set (src_felide_ui_qt5
-    "felide/ui/qt5/Editor.hpp"
-    "felide/ui/qt5/Editor.cpp"
+    "felide/ui/qt5/EditorQt.hpp"
+    "felide/ui/qt5/EditorQt.cpp"
     "felide/ui/qt5/MainWindow.hpp"
     "felide/ui/qt5/MainWindow.cpp"
     "felide/ui/qt5/EditorManager.hpp"
     "felide/ui/qt5/EditorManager.cpp"
     "felide/ui/qt5/DialogManager.hpp"
     "felide/ui/qt5/DialogManager.cpp"
-    "felide/ui/qt5/FolderBrowser.hpp"
-    "felide/ui/qt5/FolderBrowser.cpp"
+    "felide/ui/qt5/FolderBrowserQt.hpp"
+    "felide/ui/qt5/FolderBrowserQt.cpp"
     "felide/ui/qt5/UIToolkitQt.hpp"
     "felide/ui/qt5/UIToolkitQt.cpp"
     
