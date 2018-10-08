@@ -1,18 +1,18 @@
 
-#include "DialogManager.hpp"
+#include "DialogManagerQt.hpp"
 
 #include <QMessageBox>
 #include <QFileDialog>
 #include <boost/algorithm/string/join.hpp>
 
 namespace felide {
-    DialogManager::DialogManager(QWidget *parent) {
+    DialogManagerQt::DialogManagerQt(QWidget *parent) {
         m_parent = parent;
     }
 
-    DialogManager::~DialogManager() {}
+    DialogManagerQt::~DialogManagerQt() {}
 
-    DialogButton DialogManager::showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const {
+    DialogButton DialogManagerQt::showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const {
         // Buttons
         QMessageBox::StandardButtons qbuttons;
 
@@ -93,7 +93,7 @@ namespace felide {
         return filtersStr;
     }
 
-    boost::optional<std::string> DialogManager::showFileDialog(const FileDialogData& data) const {
+    boost::optional<std::string> DialogManagerQt::showFileDialog(const FileDialogData& data) const {
         const auto qfilters = mapFiltersToString(data.filters);
 
         QString filename;
@@ -125,7 +125,7 @@ namespace felide {
         return filename.toStdString();
     }
     
-    boost::optional<std::string> DialogManager::showFolderDialog(const std::string &title) {
+    boost::optional<std::string> DialogManagerQt::showFolderDialog(const std::string &title) {
         QFileDialog dialog;
         
         dialog.setWindowTitle(title.c_str());

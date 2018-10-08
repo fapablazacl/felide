@@ -6,11 +6,11 @@
 #include <QWidget>
 
 namespace felide {
-    class DialogManager : public DialogManagerView {
+    class DialogManagerQt : public DialogManagerView {
     public:
-        explicit DialogManager(QWidget *parent);
-
-        virtual ~DialogManager();
+        explicit DialogManagerQt(QWidget *parent);
+        virtual ~DialogManagerQt();
+        
         virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const override;
 		virtual boost::optional<std::string> showFileDialog(const FileDialogData& data) const override;
         virtual boost::optional<std::string> showFolderDialog(const std::string &title) override;

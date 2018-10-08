@@ -4,10 +4,10 @@
 #include <cassert>
 #include <iostream>
 #include <QLayout>
-#include "EditorManager.hpp"
+#include "EditorManagerQt.hpp"
 
 namespace felide {
-    EditorQt::EditorQt(QWidget *parent, EditorManager *editorManager) : QWidget(parent) {
+    EditorQt::EditorQt(QWidget *parent, EditorManagerQt *editorManager) : QWidget(parent) {
         m_editorManager = editorManager;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);

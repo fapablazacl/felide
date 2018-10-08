@@ -10,13 +10,13 @@
 namespace felide {
     class EditorQt;
     class EditorView;
-    class EditorManager : public QWidget, public EditorManagerView {
+    class EditorManagerQt : public QWidget, public EditorManagerView {
         Q_OBJECT
 
     public:
-        explicit EditorManager(QWidget *parent);
+        explicit EditorManagerQt(QWidget *parent);
 
-        virtual ~EditorManager();
+        virtual ~EditorManagerQt();
         
     public:
         boost::optional<int> getEditorIndex(const EditorQt *editor);

@@ -12,16 +12,16 @@
 #include <felide/ui/MainWindowPresenter.hpp>
 #include <felide/ui/MainWindowView.hpp>
 #include <felide/ui/Menu.hpp>
-#include "EditorManager.hpp"
-#include "DialogManager.hpp"
+#include "EditorManagerQt.hpp"
+#include "DialogManagerQt.hpp"
 
 namespace felide {
     class FolderBrowserQt;
-    class MainWindow : public QMainWindow, public MainWindowView {
+    class MainWindowQt : public QMainWindow, public MainWindowView {
         Q_OBJECT;
 
     public:
-        explicit MainWindow(MainWindowPresenter *presenter);
+        explicit MainWindowQt(MainWindowPresenter *presenter);
 
     public:
         virtual EditorManagerView* getEditorManagerView() override;
@@ -45,9 +45,8 @@ namespace felide {
         virtual void closeEvent(QCloseEvent *evt) override;
         
     private:
-        EditorManager *m_editorManager = nullptr;
-
-        std::unique_ptr<DialogManager> m_dialogManager = nullptr;
+        EditorManagerQt *m_editorManager = nullptr;
+        std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:
         FolderBrowserQt *m_folderBrowser;

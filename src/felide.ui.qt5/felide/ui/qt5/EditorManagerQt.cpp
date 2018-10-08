@@ -1,11 +1,11 @@
 
-#include "EditorManager.hpp"
+#include "EditorManagerQt.hpp"
 
 #include <QGridLayout>
 #include "EditorQt.hpp"
 
 namespace felide {
-    EditorManager::EditorManager(QWidget *parent) : QWidget(parent) {
+    EditorManagerQt::EditorManagerQt(QWidget *parent) : QWidget(parent) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);
@@ -24,9 +24,9 @@ namespace felide {
         this->setLayout(layout);
     }
 
-    EditorManager::~EditorManager() {}
+    EditorManagerQt::~EditorManagerQt() {}
     
-    boost::optional<int> EditorManager::getEditorIndex(const EditorQt *editor) {
+    boost::optional<int> EditorManagerQt::getEditorIndex(const EditorQt *editor) {
         for (int i=0; i<m_tabWidget->count(); i++) {
             if (m_tabWidget->widget(i) == editor) {
                 return i;
@@ -36,7 +36,7 @@ namespace felide {
         return {};
     }
     
-    void EditorManager::changeEditorTitle(EditorQt *editor, const std::string &title) {
+    void EditorManagerQt::changeEditorTitle(EditorQt *editor, const std::string &title) {
         auto index = this->getEditorIndex(editor);
         
         if (!index) {
@@ -46,7 +46,7 @@ namespace felide {
         m_tabWidget->setTabText(*index, title.c_str());
     }
 
-    EditorView* EditorManager::appendEditor() {
+    EditorView* EditorManagerQt::appendEditor() {
         auto editor = new EditorQt(m_tabWidget, this);
 
         connect(editor, &EditorQt::contentChanged, [=]() {
@@ -59,7 +59,7 @@ namespace felide {
         return editor;
     }
 
-    EditorView* EditorManager::getCurrentEditor() {
+    EditorView* EditorManagerQt::getCurrentEditor() {
         QWidget *widget = m_tabWidget->currentWidget();
 
         if (!widget) {
@@ -69,15 +69,15 @@ namespace felide {
         return dynamic_cast<EditorView*>(widget);
     }
 
-    std::size_t EditorManager::getEditorCount() const {
+    std::size_t EditorManagerQt::getEditorCount() const {
         return static_cast<std::size_t>(m_tabWidget->count());
     }
 
-    EditorView* EditorManager::getEditor(const std::size_t index) {
+    EditorView* EditorManagerQt::getEditor(const std::size_t index) {
         return dynamic_cast<EditorView*>(m_tabWidget->widget(static_cast<int>(index)));
     }
     
-    void EditorManager::closeEditor(EditorView *editorView) {
+    void EditorManagerQt::closeEditor(EditorView *editorView) {
         const auto editor = dynamic_cast<EditorQt*>(editorView);
         
         if (!editor) {
@@ -93,7 +93,7 @@ namespace felide {
         m_tabWidget->removeTab(*index);
     }
 
-    void EditorManager::showEditor(EditorView *editorView) {
+    void EditorManagerQt::showEditor(EditorView *editorView) {
         const auto editor = dynamic_cast<EditorQt*>(editorView);
 
         if (!editor) {

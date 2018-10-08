@@ -2,13 +2,13 @@
 #include "UIToolkitQt.hpp"
 
 #include <QApplication>
-#include "MainWindow.hpp"
+#include "MainWindowQt.hpp"
 
 namespace felide {
     int UIToolkitQt::runApp(int argc, char **argv, MainWindowPresenter *presenter) {
         QApplication app(argc, argv);
 
-        MainWindow mainWindow(presenter);
+        MainWindowQt mainWindow(presenter);
         mainWindow.show();
 
         return app.exec();

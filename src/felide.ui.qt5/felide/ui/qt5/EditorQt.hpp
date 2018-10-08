@@ -11,12 +11,12 @@
 #include <felide/ui/EditorView.hpp>
 
 namespace felide {
-    class EditorManager;
+    class EditorManagerQt;
     class EditorQt : public QWidget, public EditorView {
         Q_OBJECT
 
     public:
-        explicit EditorQt(QWidget *parent, EditorManager *editorManager);
+        explicit EditorQt(QWidget *parent, EditorManagerQt *editorManager);
         virtual ~EditorQt();
 
     private:
@@ -49,7 +49,7 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
-        EditorManager *m_editorManager = nullptr;
+        EditorManagerQt *m_editorManager = nullptr;
         QsciScintilla *m_scintilla = nullptr;
         std::string m_title;
         EditorConfig m_config;
