@@ -238,6 +238,9 @@ namespace felide {
     }
     
     bool MainWindowPresenter::closeRequested() {
+        assert(this);
+        assert(m_impl);
+        assert(m_impl->dialogManager);
         DialogButton button = m_impl->dialogManager->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
         
         return button == DialogButton::Yes;
