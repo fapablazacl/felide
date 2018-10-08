@@ -7,9 +7,6 @@ set (CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 find_library(QScintilla REQUIRED)
 
-#include_directories(${QSCINTILLA_INCLUDE_DIR})
-#link_drectories(${QSCINTILLA_LIBRARY_DIR})
-
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
 
