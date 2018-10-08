@@ -147,12 +147,12 @@ namespace felide {
 
         connect(m_editorManager, &EditorManager::editorContentChanged, [&](Editor *editor) {
             assert(editor);
-            presenter.editorContentModified(editor);
+            m_presenter->editorContentModified(editor);
         });
         
         connect(m_editorManager, &EditorManager::editorCloseRequested, [&](Editor *editor) {
             assert(editor);
-            presenter.editorCloseRequested(editor);
+            m_presenter->editorCloseRequested(editor);
         });
 
         this->setCentralWidget(m_editorManager);
@@ -172,7 +172,7 @@ namespace felide {
     }
     
     void MainWindow::closeEvent(QCloseEvent *evt) {
-        if (presenter.closeRequested()) {
+        if (m_presenter->closeRequested()) {
             evt->accept();
         } else {
             evt->ignore();
@@ -181,7 +181,7 @@ namespace felide {
 
     void MainWindow::setupFolderBrowser() {
         connect(m_folderBrowser, &FolderBrowser::projectItemOpenRequest, [&](const QString &filePath) {
-            presenter.editorShow(filePath.toStdString());
+            m_presenter->editorShow(filePath.toStdString());
         });
     }
 }

@@ -45,9 +45,6 @@ namespace felide {
         virtual void closeEvent(QCloseEvent *evt) override;
         
     private:
-        Menu mainMenu;
-        MainWindowPresenter presenter;
-
         EditorManager *m_editorManager = nullptr;
 
         std::unique_ptr<DialogManager> m_dialogManager = nullptr;
