@@ -6,11 +6,16 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
+    class FELIDE_API FolderBrowserPresenter;
     class FELIDE_API FolderBrowser {
     public:
+        explicit FolderBrowser(FolderBrowserPresenter *presenter);
         virtual ~FolderBrowser();
 
         virtual void displayFolder(const std::string &folder) = 0;
+    
+    protected:
+        FolderBrowserPresenter *m_presenter;
     };
 } 
 

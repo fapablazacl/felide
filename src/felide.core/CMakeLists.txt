@@ -99,6 +99,8 @@ set (sources_felide_ui
     "felide/ui/DialogManager.cpp"
     "felide/ui/FolderBrowser.hpp"
     "felide/ui/FolderBrowser.cpp"
+    "felide/ui/FolderBrowserPresenter.hpp"
+    "felide/ui/FolderBrowserPresenter.cpp"
     "felide/ui/UIToolkit.hpp"
     "felide/ui/UIToolkit.cpp"
 ) 
