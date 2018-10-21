@@ -28,14 +28,20 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/FolderBrowser.cpp"
     "felide/ui/qt5/UIToolkitQt.hpp"
     "felide/ui/qt5/UIToolkitQt.cpp"
-    
+)
+
+set (src_felide_system
     "felide/system/UIToolkitQtPlugin.hpp"
     "felide/system/UIToolkitQtPlugin.cpp"
 )
 
 add_library(${target} SHARED
     ${src_felide_ui_qt5}
+    ${src_felide_system}
 )
+
+source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
+source_group ("felide\\system"  FILES ${src_felide_system})
 
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
