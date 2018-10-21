@@ -14,7 +14,8 @@ namespace felide {
     class PluginProxy : public Plugin {
     public:
         explicit PluginProxy(const boost::filesystem::path &libraryPath) {
-            m_library = boost::dll::shared_library(libraryPath, boost::dll::load_mode::append_decorations);
+            const auto loadMode = boost::dll::load_mode::default_mode;
+            m_library = boost::dll::shared_library(libraryPath, loadMode);
 
             m_pluginCreate = m_library.get<Plugin*()>("felide_plugin_create");
             m_pluginDestroy = m_library.get<void (Plugin*)>("felide_plugin_destroy");
@@ -60,14 +61,24 @@ namespace felide {
     PluginManager::~PluginManager() {
         delete m_impl;
     }
+
+    std::string mapNameToNative(const std::string &name) {
+#if defined(_WINDOWS)
+        return name + ".dll";
+#else 
+        return name;
+#endif
+    }
     
     void PluginManager::loadPlugin(const std::string &name) {
         // TODO: Export this to a configuration file
-        const boost::filesystem::path pluginFolder = "/usr/local/lib";
+        // const boost::filesystem::path pluginFolder = "/usr/local/lib";
+        const boost::filesystem::path pluginFolder = "build/Debug/";
 
         try {
             std::cout << "Loading " << name << std::endl;
-            auto plugin = new PluginProxy(pluginFolder / name);
+            const auto mappedName = mapNameToNative(name);
+            auto plugin = new PluginProxy(pluginFolder / mappedName);
 
             m_impl->plugins.emplace_back(plugin);
 
@@ -75,7 +86,8 @@ namespace felide {
 
             std::cout << "Load OK " << name << std::endl;
         } catch (const std::exception &exp) {
-            std::cout << "Load failed:" << std::endl << exp.what() << std::endl;
+            const std::string msg = exp.what();
+            std::cout << "Load failed:" << std::endl << msg << std::endl;
         }
     }
 }
