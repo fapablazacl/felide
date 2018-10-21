@@ -1,17 +1,19 @@
 
 set (target "felide")
 
-set (src_felide
+set (srcs
     "Main.cpp"
 )
 
 add_executable(${target} WIN32
-    ${src_felide}
+    ${srcs}
 )
 
 target_link_libraries (
     ${target} 
     felide.core
 )
+
+source_group ("" FILES ${srcs})
 
 install(TARGETS ${target} DESTINATION "bin")
