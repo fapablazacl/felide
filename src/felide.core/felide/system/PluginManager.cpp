@@ -75,7 +75,7 @@ namespace felide {
 #if defined(_WINDOWS)
         return name + ".dll";
 #else 
-        return name;
+        return "lib" + name + ".so";
 #endif
     }
     
