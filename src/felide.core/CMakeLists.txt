@@ -22,6 +22,8 @@ set (sources_felide_util
     "felide/util/FileUtil.hpp"
     "felide/util/Strings.hpp"
     "felide/util/Strings.cpp"
+    "felide/util/OS.hpp"
+    "felide/util/OS.cpp"
 ) 
 
 set (sources_felide_tasks

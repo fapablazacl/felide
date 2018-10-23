@@ -6,6 +6,7 @@
 #include <iostream>
 #include <boost/dll.hpp>
 #include <boost/filesystem/path.hpp>
+#include <felide/util/OS.hpp>
 #include "Plugin.hpp"
 
 namespace felide {
@@ -72,11 +73,11 @@ namespace felide {
     }
 
     std::string mapNameToNative(const std::string &name) {
-#if defined(_WINDOWS)
-        return name + ".dll";
-#else 
-        return "lib" + name + ".so";
-#endif
+        switch (getCurrentOS()) {
+            case OS::Windows: return name + ".dll";
+            case OS::Linux : return "lib" + name + ".so";
+            default: return name;
+        }
     }
     
     void PluginManager::loadPlugin(const std::string &name) {
