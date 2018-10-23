@@ -7,7 +7,7 @@
 namespace felide {
     class UIToolkitQt : public UIToolkit {
     public:
-        virtual int runApp(int argc, char **argv, IDEFramePresenter *presenter) override;
+        virtual int runApp(int argc, char **argv) override;
     };
 }
 

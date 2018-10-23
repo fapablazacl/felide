@@ -7,9 +7,12 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <iostream>
+#include <felide/ui/FolderBrowserPresenter.hpp>
+
+#include "DialogManagerQt.hpp"
 
 namespace felide {
-    FolderBrowserQt::FolderBrowserQt(QWidget *parent) : QWidget(parent) {
+    FolderBrowserQt::FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager) : QWidget(parent), FolderBrowser(presenter) {
         m_treeView = new QTreeView(this);
 
         this->setLayout(new QVBoxLayout(this));
@@ -51,6 +54,8 @@ namespace felide {
 
             contextMenu.exec(this->mapToGlobal(pos));
         });
+
+        m_presenter->attachView(this, dialogManager);
     }
 
     FolderBrowserQt::~FolderBrowserQt() {}

@@ -2,13 +2,11 @@
 #include <cassert>
 #include <felide/Core.hpp>
 #include <felide/ui/UIToolkit.hpp>
-#include <felide/ui/IDEFramePresenter.hpp>
 #include <felide/system/PluginManager.hpp>
 
 #include <iostream>
 
 int main(int argc, char **argv) {
-    felide::IDEFramePresenter presenter;
     felide::Core core;
 
     auto pluginManager = core.getPluginManager();
@@ -18,7 +16,7 @@ int main(int argc, char **argv) {
     auto toolkit = core.getToolkit();
     assert(toolkit);
 
-    return toolkit->runApp(argc, argv, &presenter);
+    return toolkit->runApp(argc, argv);
 }
 
 #if defined(_WINDOWS)

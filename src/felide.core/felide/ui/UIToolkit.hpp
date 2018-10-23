@@ -11,7 +11,7 @@ namespace felide {
     public:
         virtual ~UIToolkit();
 
-        virtual int runApp(int argc, char **argv, IDEFramePresenter *presenter) = 0;
+        virtual int runApp(int argc, char **argv) = 0;
     };
 }
 

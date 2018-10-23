@@ -11,6 +11,7 @@
 
 #include <felide/ui/IDEFramePresenter.hpp>
 #include <felide/ui/IDEFrame.hpp>
+#include <felide/ui/FolderBrowserPresenter.hpp>
 #include <felide/ui/Menu.hpp>
 #include "EditorManagerQt.hpp"
 #include "DialogManagerQt.hpp"
@@ -49,6 +50,7 @@ namespace felide {
         std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:
+        FolderBrowserPresenter m_folderBrowserPresenter;
         FolderBrowserQt *m_folderBrowser;
         QDockWidget *m_folderBrowserDock;
     };

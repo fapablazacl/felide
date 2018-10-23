@@ -9,6 +9,10 @@
 #include <felide/ui/FolderBrowser.hpp>
 
 namespace felide {
+    class DialogManagerQt;
+    class FELIDE_API FolderBrowserPresenter;
+    class FELIDE_API DialogManager;
+
     class FolderBrowserQt : public QWidget, public FolderBrowser {
         Q_OBJECT
 
@@ -16,7 +20,7 @@ namespace felide {
         void displayFolder(const std::string &folder) override;
 
     public:
-        FolderBrowserQt(QWidget *parent);
+        FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager);
 
         ~FolderBrowserQt();
 

@@ -166,10 +166,10 @@ namespace felide {
         // setup folder browser dock widget
         m_folderBrowserDock = new QDockWidget("Folder Browser", this);
         
-        m_folderBrowser = new FolderBrowserQt(m_folderBrowserDock);
+        m_folderBrowser = new FolderBrowserQt(m_folderBrowserDock, &m_folderBrowserPresenter, m_dialogManager.get());
         m_folderBrowserDock->setAllowedAreas(areas);
         m_folderBrowserDock->setWidget(m_folderBrowser);
-        
+
         this->addDockWidget(Qt::LeftDockWidgetArea, m_folderBrowserDock);
     }
     
