@@ -2,12 +2,17 @@
 #ifndef __FELIDE_PREDEF_HPP__
 #define __FELIDE_PREDEF_HPP__
 
-#if defined(_WINDOWS)
-  #define FELIDE_API_EXPORT __declspec(dllexport)
-  #define FELIDE_API_IMPORT __declspec(dllimport)
+#if defined(FELIDE_STATIC_LINK)
+  #define FELIDE_API_EXPORT
+  #define FELIDE_API_IMPORT
 #else
-  #define FELIDE_API_EXPORT 
-  #define FELIDE_API_IMPORT 
+  #if defined(_WINDOWS)
+    #define FELIDE_API_EXPORT __declspec(dllexport)
+    #define FELIDE_API_IMPORT __declspec(dllimport)
+  #else
+    #define FELIDE_API_EXPORT
+    #define FELIDE_API_IMPORT
+  #endif
 #endif
 
 #if defined(FELIDE_BUILD)

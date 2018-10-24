@@ -4,52 +4,101 @@
 #include <cassert>
 #include <stdexcept>
 #include <iostream>
+#include <map>
 #include <boost/dll.hpp>
 #include <boost/filesystem/path.hpp>
 #include <felide/util/OS.hpp>
 #include "Plugin.hpp"
 
+#if defined(FELIDE_STATIC_LINK)
+std::map<std::string, felide::Plugin*> g_embeddedPlugins;
+
+namespace felide {
+    class StaticPluginProxy : public Plugin {
+    public:
+        explicit StaticPluginProxy(const boost::filesystem::path &, const std::string &pluginName) {
+            m_plugin = g_embeddedPlugins[pluginName];
+        }
+        
+        virtual ~StaticPluginProxy() {}
+        
+        virtual void start(Core *core) override {
+            return m_plugin->start(core);
+        }
+        
+        virtual void stop(Core *core) override {
+            return m_plugin->stop(core);
+        }
+        
+        virtual PluginInformation getInformation() const override {
+            return m_plugin->getInformation();
+        }
+        
+    private:
+        Plugin *m_plugin = nullptr;
+    };
+    
+    typedef StaticPluginProxy PluginProxy;
+}
+
+#else
 namespace felide {
     typedef felide::Plugin* (*PluginCreateProc)();
     typedef void (*PluginDestroyProc)(Plugin *plugin);
-
-    class PluginProxy : public Plugin {
+    
+    static std::string mapNameToNative(const std::string &name) {
+        switch (getCurrentOS()) {
+            case OS::Windows: return name + ".dll";
+            case OS::Linux: return "lib" + name + ".so";
+            case OS::Mac: return "lib" + name + ".dylib";
+            default: return name;
+        }
+    }
+    
+    class DynamicPluginProxy : public Plugin {
     public:
-        explicit PluginProxy(const boost::filesystem::path &libraryPath) {
+        explicit DynamicPluginProxy(const boost::filesystem::path &basePath, const std::string &pluginName) {
+            const auto mappedName = mapNameToNative(pluginName);
+            const auto libraryPath = basePath / mappedName;
             const auto loadMode = boost::dll::load_mode::default_mode;
-
+            
             m_library = boost::dll::shared_library(libraryPath, loadMode);
             m_pluginCreate = m_library.get<Plugin*()>("felide_plugin_create");
             m_pluginDestroy = m_library.get<void (Plugin*)>("felide_plugin_destroy");
-
+            
             m_plugin = m_pluginCreate();
         }
-
-        virtual ~PluginProxy() {
+        
+        virtual ~DynamicPluginProxy() {
             if (m_pluginDestroy && m_plugin) {
                 m_pluginDestroy(m_plugin);
             }
         }
-
+        
         virtual void start(Core *core) override {
             return m_plugin->start(core);
         }
-
+        
         virtual void stop(Core *core) override {
             return m_plugin->stop(core);
         }
-
+        
         virtual PluginInformation getInformation() const override {
             return m_plugin->getInformation();
         }
-
+        
     private:
         PluginCreateProc m_pluginCreate = nullptr;
         PluginDestroyProc m_pluginDestroy = nullptr;
         Plugin *m_plugin = nullptr;
         boost::dll::shared_library m_library;
     };
+    
+    typedef DynamicPluginProxy PluginProxy;
+}
+#endif
 
+namespace felide {
     struct PluginManager::Private {
         Core *core = nullptr;
         std::vector<std::unique_ptr<Plugin>> plugins;
@@ -72,16 +121,7 @@ namespace felide {
         delete m_impl;
     }
 
-    std::string mapNameToNative(const std::string &name) {
-        switch (getCurrentOS()) {
-            case OS::Windows: return name + ".dll";
-            case OS::Linux : return "lib" + name + ".so";
-            default: return name;
-        }
-    }
-    
     void PluginManager::loadPlugin(const std::string &name) {
-
         for (const std::string &searchPath : m_impl->searchPaths) {
             const boost::filesystem::path path = searchPath;
 
@@ -91,8 +131,7 @@ namespace felide {
 
             try {
                 std::cout << "Loading " << name << std::endl;
-                const auto mappedName = mapNameToNative(name);
-                auto plugin = new PluginProxy(path / mappedName);
+                auto plugin = new PluginProxy(path, name);
 
                 m_impl->plugins.emplace_back(plugin);
 

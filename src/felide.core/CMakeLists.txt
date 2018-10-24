@@ -123,7 +123,7 @@ source_group ("felide\\cpp"         FILES ${sources_felide_cpp})
 source_group ("felide\\ui"          FILES ${sources_felide_ui})
 source_group ("felide\\system"      FILES ${sources_felide_system})
 
-add_library (${target} SHARED
+set (sources
     ${sources_felide}
     ${sources_felide_util}
     ${sources_felide_pom}
@@ -133,6 +133,12 @@ add_library (${target} SHARED
     ${sources_felide_ui}
     ${sources_felide_system}
 )
+
+if (FELIDE_STATIC_LINK)
+    add_library (${target} SHARED ${sources})
+else ()
+    add_library (${target} ${sources})
+endif()
 
 target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")
 

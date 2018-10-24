@@ -3,15 +3,17 @@ cmake_minimum_required (VERSION 3.5)
 
 project (felide)
 
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
+option (FELIDE_STATIC_LINK  "Uses static linking for all external and internal dependencies (eases development)" OFF)
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
+
+if (FELIDE_STATIC_LINK)
+    add_definitions (-DFELIDE_STATIC_LINK)
+endif ()
 
 # we will require Boost ...
 find_package(Boost REQUIRED COMPONENTS filesystem)

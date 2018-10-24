@@ -21,6 +21,15 @@ namespace felide {
     }
 }
 
+#if defined(FELIDE_STATIC_LINK)
+extern std::map<std::string, Plugin*> g_embeddedPlugins;
+
+namespace {
+    static UIToolkitQtPlugin plugin;
+    const static auto _unused_ = g_embeddedPlugins["felide.ui.qt5"] = &plugin;
+}
+
+#else
 extern "C" felide::Plugin* felide_plugin_create() {
     return new felide::UIToolkitQtPlugin();
 }
@@ -28,3 +37,4 @@ extern "C" felide::Plugin* felide_plugin_create() {
 extern "C" void felide_plugin_destroy(felide::Plugin *plugin) {
     delete plugin;
 }
+#endif

@@ -30,15 +30,23 @@ set (src_felide_system
     "felide/system/UIToolkitQtPlugin.cpp"
 )
 
-
-add_library(${target} SHARED
+set (sources
     ${src_felide_ui_qt5}
     ${src_felide_system}
 )
 
+add_definitions(-DFELIDE_TARGET_NAME=${target})
+
+if (FELIDE_STATIC_LINK)
+    add_library (${target} ${sources})
+else ()
+    add_library (${target} SHARED ${sources})
+endif ()
+
 source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
 source_group ("felide\\system"  FILES ${src_felide_system})
 
+# TODO: Determine if wee need a static linking library for QScintilla
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
 target_link_libraries (
