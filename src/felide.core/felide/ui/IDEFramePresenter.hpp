@@ -58,7 +58,10 @@ namespace felide {
         void editorShow(const std::string &fileName);
 
         bool closeRequested();
-        
+
+    public:
+        void openFolder(const std::string &fullPath);
+
     private:
         void editorSave(Editor *view, EditorModel *editorModel);
         

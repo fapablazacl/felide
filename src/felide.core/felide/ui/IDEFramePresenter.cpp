@@ -107,7 +107,7 @@ namespace felide {
             return;
         }
         
-        m_impl->view->getFolderBrowser()->displayFolder(*folderOptional);
+        this->openFolder(*folderOptional);
     }
 
     void IDEFramePresenter::fileSaveTriggered() {
@@ -348,5 +348,9 @@ namespace felide {
         }
         
         return view;
+    }
+
+    void IDEFramePresenter::openFolder(const std::string &fullPath) {
+        m_impl->view->getFolderBrowser()->displayFolder(fullPath);
     }
 }
