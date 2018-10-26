@@ -3,6 +3,7 @@ set (target "felide")
 
 set (srcs
     "Main.cpp"
+    "WinMain.cpp"
 )
 
 add_executable(${target} WIN32

@@ -341,7 +341,7 @@ namespace felide {
         
         for (auto &pair : m_impl->editorModels) {
             if (pair.second.get() == model) {
-                // TODO: Refactor in order to prevent remove the constness of the keys
+                // TODO: Refactor in order to prevent removal of the constness
                 view = const_cast<Editor*>(pair.first);
                 break;
             }
