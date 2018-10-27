@@ -237,6 +237,7 @@ namespace felide {
         }
         
         if (closeEditor) {
+            m_impl->editorModels.erase(editor);
             m_impl->editorManager->closeEditor(editor);
         }
     }
