@@ -288,6 +288,10 @@ namespace felide {
     }
 
     void IDEFramePresenter::editorShow(const std::string &filePath) {
+		if (boost::filesystem::is_directory(filePath)) {
+			return;
+		}
+
         auto &viewModels = m_impl->editorModels;
 
         auto viewModelIt = std::find_if(viewModels.begin(), viewModels.end(), [filePath](const auto &pair) {
