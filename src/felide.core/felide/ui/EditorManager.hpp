@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <felide/Predef.hpp>
+#include <vector>
 
 namespace felide {
     class FELIDE_API Editor;
@@ -22,6 +23,8 @@ namespace felide {
         virtual void closeEditor(Editor *editor) = 0;
 
         virtual void showEditor(Editor *editor) = 0;
+
+        std::vector<Editor*> getEditors();
     };
 } 
 
