@@ -3,3 +3,4 @@ build-clang/*
 .vscode/*
 .felide
 .DS_Store
+.kdev4/
