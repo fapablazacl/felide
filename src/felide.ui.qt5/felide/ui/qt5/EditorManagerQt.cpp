@@ -28,6 +28,7 @@ namespace felide {
         m_tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(m_tabWidget, &QTabWidget::customContextMenuRequested, [this](const QPoint &pos) {
             bool found = false;
+            int index = 0;
 
             // determine the tab
             for (int i=0; i<m_tabWidget->count(); i++) {
@@ -35,19 +36,38 @@ namespace felide {
 
                 if (rect.contains(pos)) {
                     found = true;
+                    index = i;
                     break;
                 }
             }
 
             // trigger context menu on that tab
             if (found) {
+                Editor *editor = this->getEditor(index);
                 QMenu contextMenu("Context Menu", this);
-                QAction renameAction("Rename", this);
 
-                contextMenu.addAction(&renameAction);
+                QAction closeAction("Close", this);
+                contextMenu.addAction(&closeAction);
+                this->connect(&closeAction, &QAction::triggered, [this, editor]() {
+                    m_presenter->closeEditor(editor);
+                });
 
-                this->connect(&renameAction, &QAction::triggered, [this]() {
-                    std::cout << "Test!" << std::endl;
+                QAction closeAllButThisAction("Close all but this", this);
+                contextMenu.addAction(&closeAllButThisAction);
+                this->connect(&closeAllButThisAction, &QAction::triggered, [this, editor]() {
+                    m_presenter->closeOthers(editor);
+                });
+
+                QAction closeAllAction("Close all", this);
+                contextMenu.addAction(&closeAllAction);
+                this->connect(&closeAllAction, &QAction::triggered, [this]() {
+                    m_presenter->closeAll();
+                });
+
+                QAction closeToTheRightAction("Close to the right", this);
+                contextMenu.addAction(&closeToTheRightAction);
+                this->connect(&closeToTheRightAction, &QAction::triggered, [this, editor]() {
+                    m_presenter->closeToTheRight(editor);
                 });
 
                 contextMenu.exec(this->mapToGlobal(pos));
