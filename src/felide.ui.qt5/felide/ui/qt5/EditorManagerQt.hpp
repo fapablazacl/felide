@@ -14,7 +14,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit EditorManagerQt(QWidget *parent);
+        explicit EditorManagerQt(QWidget *parent, EditorManagerPresenter *presenter);
 
         virtual ~EditorManagerQt();
         

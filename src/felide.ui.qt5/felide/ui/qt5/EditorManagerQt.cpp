@@ -1,11 +1,17 @@
 
 #include "EditorManagerQt.hpp"
 
+#include <iostream>
 #include <QGridLayout>
+#include <QTabBar>
+#include <QAction>
+#include <QMenu>
+#include <felide/ui/EditorManagerPresenter.hpp>
+
 #include "EditorQt.hpp"
 
 namespace felide {
-    EditorManagerQt::EditorManagerQt(QWidget *parent) : QWidget(parent) {
+    EditorManagerQt::EditorManagerQt(QWidget *parent, EditorManagerPresenter *presenter) : QWidget(parent), EditorManager(presenter) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);
@@ -19,9 +25,40 @@ namespace felide {
             }
         });
 
+        m_tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(m_tabWidget, &QTabWidget::customContextMenuRequested, [this](const QPoint &pos) {
+            bool found = false;
+
+            // determine the tab
+            for (int i=0; i<m_tabWidget->count(); i++) {
+                const auto rect = m_tabWidget->tabBar()->tabRect(i);
+
+                if (rect.contains(pos)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // trigger context menu on that tab
+            if (found) {
+                QMenu contextMenu("Context Menu", this);
+                QAction renameAction("Rename", this);
+
+                contextMenu.addAction(&renameAction);
+
+                this->connect(&renameAction, &QAction::triggered, [this]() {
+                    std::cout << "Test!" << std::endl;
+                });
+
+                contextMenu.exec(this->mapToGlobal(pos));
+            }
+        });
+
         QGridLayout *layout = new QGridLayout(this);
         layout->addWidget(m_tabWidget);
         this->setLayout(layout);
+
+        m_presenter->attachView(this);
     }
 
     EditorManagerQt::~EditorManagerQt() {}

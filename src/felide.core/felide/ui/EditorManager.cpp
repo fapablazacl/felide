@@ -2,6 +2,10 @@
 #include "EditorManager.hpp"
 
 namespace felide {
+    EditorManager::EditorManager(EditorManagerPresenter *presenter) {
+        m_presenter = presenter;
+    }
+
     EditorManager::~EditorManager() {}
 
     std::vector<Editor*> EditorManager::getEditors() {

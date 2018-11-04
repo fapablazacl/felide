@@ -7,9 +7,12 @@
 #include <vector>
 
 namespace felide {
+    class FELIDE_API EditorManagerPresenter;
     class FELIDE_API Editor;
     class FELIDE_API EditorManager {
     public:
+        explicit EditorManager(EditorManagerPresenter *presenter);
+
         virtual ~EditorManager();
 
         virtual Editor* appendEditor() = 0;
@@ -25,6 +28,9 @@ namespace felide {
         virtual void showEditor(Editor *editor) = 0;
 
         std::vector<Editor*> getEditors();
+
+    protected:
+        EditorManagerPresenter *m_presenter = nullptr;
     };
 } 
 

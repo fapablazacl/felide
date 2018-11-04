@@ -20,10 +20,9 @@ namespace felide {
 
         void closeAll();
 
-
     private:
         EditorManager *m_view = nullptr;
     };
-} 
+}
 
 #endif

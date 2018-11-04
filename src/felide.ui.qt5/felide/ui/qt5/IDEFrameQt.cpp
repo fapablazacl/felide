@@ -145,7 +145,7 @@ namespace felide {
     }
 
     void IDEFrameQt::setupEditorManager() {
-        m_editorManager = new EditorManagerQt(this);
+        m_editorManager = new EditorManagerQt(this, &m_editorManagerPresenter);
 
         connect(m_editorManager, &EditorManagerQt::editorContentChanged, [&](EditorQt *editor) {
             assert(editor);
