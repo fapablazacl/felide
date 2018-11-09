@@ -12,9 +12,9 @@ namespace felide {
     }
 
     void EditorManagerPresenter::closeOthers(Editor *editor) {
-        for (int i=0; i<m_view->getEditorCount(); i++) {
-            Editor *current = m_view->getEditor(i);
-
+        auto editors = m_view->getEditors();
+        
+        for (auto current : editors) {
             if (current != editor) {
                 m_view->closeEditor(current);
             }
@@ -24,9 +24,9 @@ namespace felide {
     void EditorManagerPresenter::closeToTheRight(Editor *editor) {
         bool close = false;
 
-        for (int i=0; i<m_view->getEditorCount(); i++) {
-            Editor *current = m_view->getEditor(i);
+        auto editors = m_view->getEditors();
 
+        for (auto current : editors) {
             if (close == true) {
                 m_view->closeEditor(current);
             }
@@ -38,8 +38,10 @@ namespace felide {
     }
 
     void EditorManagerPresenter::closeAll() {
-        for (int i=0; i<m_view->getEditorCount(); i++) {
-            m_view->closeEditor(m_view->getEditor(i));
+        auto editors = m_view->getEditors();
+
+        for (auto editor : editors) {
+            m_view->closeEditor(editor);
         }
     }
 }
