@@ -22,10 +22,12 @@ namespace felide {
 }
 
 #if defined(FELIDE_STATIC_LINK)
-extern std::map<std::string, Plugin*> g_embeddedPlugins;
+#include <map>
+
+extern std::map<std::string, felide::Plugin*> g_embeddedPlugins;
 
 namespace {
-    static UIToolkitQtPlugin plugin;
+    static felide::UIToolkitQtPlugin plugin;
     const static auto _unused_ = g_embeddedPlugins["felide.ui.qt5"] = &plugin;
 }
 

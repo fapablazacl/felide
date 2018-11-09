@@ -5,6 +5,7 @@ extern int main(int argc, char **argv);
 
 #include <Windows.h>
 #include <cstdlib>
+#include <cwchar>
 
 int CALLBACK  WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     (void) hInstance;
