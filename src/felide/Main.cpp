@@ -7,13 +7,12 @@
 #include <iostream>
 
 int main(int argc, char **argv) {
-    felide::Core core;
-
-    auto pluginManager = core.getPluginManager();
+    auto core = std::make_unique<felide::Core>();
+    auto pluginManager = core->getPluginManager();
 
     pluginManager->loadPlugin("felide.ui.qt5");
 
-    auto toolkit = core.getToolkit();
+    auto toolkit = core->getToolkit();
 
     if (toolkit) {
         return toolkit->runApp(argc, argv);
