@@ -1,5 +1,5 @@
 #
-# Definition for the construction of C++ projects
+# Definitions for the construction of C++ projects
 #
 
 id: c++
@@ -28,8 +28,3 @@ dialects: ["98", "03", "11", "14", "17"]
   name: "Object Files"
   pattern:
     - extension: "*.obj"
-
-- pipe:
-  require: "compiler"
-  input: sources
-  output: 

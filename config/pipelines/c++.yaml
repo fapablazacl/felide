@@ -1,0 +1,23 @@
+#
+# Generic build pipeline for C++ targets
+#
+
+lang_id: "c++"
+
+- tool:
+  ""
+
+- pipe:
+  tool: "c++/compiler"
+  input: "c++/sources"
+  output: "c++/objects"
+
+- pipe:
+  tool: "asm/assembler"
+  input: "asm/sources"
+  output: "c++/objects"
+
+- pipe:
+  tool: "c++/linker"
+  input: "c++/objects"
+  output: "c++/target"
