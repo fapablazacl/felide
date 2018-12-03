@@ -1,4 +1,4 @@
-
+/*
 #include "UIToolkitQtPlugin.hpp"
 
 #include <felide/Core.hpp>
@@ -40,3 +40,4 @@ extern "C" void felide_plugin_destroy(felide::Plugin *plugin) {
     delete plugin;
 }
 #endif
+*/

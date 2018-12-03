@@ -1,4 +1,4 @@
-
+/*
 #ifndef __FELIDE_UI_QT5_VIEWFACTORYQT5_HPP__
 #define __FELIDE_UI_QT5_VIEWFACTORYQT5_HPP__
 
@@ -12,3 +12,4 @@ namespace felide {
 }
 
 #endif
+*/

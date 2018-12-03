@@ -150,7 +150,6 @@ endif ()
 
 target_link_libraries (
     ${target} 
-    fmt
     ${DL_LIBRARY}
     ${Boost_LIBRARIES}
 )

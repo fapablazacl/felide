@@ -20,10 +20,6 @@ find_package(Boost REQUIRED COMPONENTS filesystem)
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 
-# format library
-add_subdirectory("dep/fmt/")
-include_directories("dep/cxxopts/include")
-
 if (UNIX)
     # TODO: Link with install prefix
     set(CMAKE_INSTALL_RPATH "/usr/local/lib")
@@ -53,11 +49,11 @@ include_directories ("src/felide.core")
 add_subdirectory ("src/felide.core")
 
 # CLI Tools
-include_directories ("src/felide-cli")
+# include_directories ("src/felide-cli")
 # add_subdirectory ("src/felide-cli")
 
 # IDE GUI
-add_subdirectory ("src/felide")
+# add_subdirectory ("src/felide")
 
 # Windows template library
 if (FELIDE_UI_WINDOWS)

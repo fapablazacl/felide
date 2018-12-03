@@ -1,4 +1,4 @@
-
+/*
 #ifndef __FELIDE_SYSTEM_PLUGINQT_HPP__
 #define __FELIDE_SYSTEM_PLUGINQT_HPP__
 
@@ -24,3 +24,4 @@ namespace felide {
 }
 
 #endif
+*/

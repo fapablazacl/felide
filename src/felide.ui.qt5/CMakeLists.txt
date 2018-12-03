@@ -10,6 +10,8 @@ find_library(QScintilla REQUIRED)
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
 
+set (src_felide "felide/Main.cpp")
+
 set (src_felide_ui_qt5
     "felide/ui/qt5/EditorQt.hpp"
     "felide/ui/qt5/EditorQt.cpp"
@@ -25,26 +27,15 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/UIToolkitQt.cpp"
 )
 
-set (src_felide_system
-    "felide/system/UIToolkitQtPlugin.hpp"
-    "felide/system/UIToolkitQtPlugin.cpp"
-)
-
 set (sources
+    ${src_felide}
     ${src_felide_ui_qt5}
-    ${src_felide_system}
 )
 
-add_definitions(-DFELIDE_TARGET_NAME=${target})
-
-if (FELIDE_STATIC_LINK)
-    add_library (${target} ${sources})
-else ()
-    add_library (${target} SHARED ${sources})
-endif ()
+add_definitions (-DFELIDE_TARGET_NAME=${target})
+add_executable (${target} ${sources})
 
 source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
-source_group ("felide\\system"  FILES ${src_felide_system})
 
 # TODO: Determine if wee need a static linking library for QScintilla
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
@@ -56,4 +47,4 @@ target_link_libraries (
     felide.core
 )
 
-install(TARGETS ${target} DESTINATION "lib")
+install(TARGETS ${target} DESTINATION "bin")
