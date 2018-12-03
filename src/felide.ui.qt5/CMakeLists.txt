@@ -23,8 +23,6 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/DialogManagerQt.cpp"
     "felide/ui/qt5/FolderBrowserQt.hpp"
     "felide/ui/qt5/FolderBrowserQt.cpp"
-    "felide/ui/qt5/UIToolkitQt.hpp"
-    "felide/ui/qt5/UIToolkitQt.cpp"
 )
 
 set (sources
