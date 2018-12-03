@@ -4,3 +4,5 @@ build-clang/*
 .felide
 .DS_Store
 .kdev4/
+.build
+.borc
