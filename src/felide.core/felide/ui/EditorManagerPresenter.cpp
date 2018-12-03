@@ -3,6 +3,10 @@
 #include "EditorManager.hpp"
 
 namespace felide {
+    EditorManagerPresenter(EditorManagerModel *model) {
+        m_model = model;
+    }
+
     void EditorManagerPresenter::attachView(EditorManager *view) {
         m_view = view;
     }

@@ -28,9 +28,7 @@ namespace felide {
             return;
         }
 
-        auto folderPath = *folderPathOptional;
-
-        m_folderBrowser->displayFolder(folderPath);
+        m_folderBrowser->displayFolder(*folderPathOptional);
     }
 
     void FolderBrowserPresenter::createFile(const std::string &filePath) {
