@@ -48,7 +48,7 @@ endif ()
 include_directories ("src/felide.core")
 add_subdirectory ("src/felide.core")
 
-# CLI Tools
+# CLI Tool
 # include_directories ("src/felide-cli")
 # add_subdirectory ("src/felide-cli")
 

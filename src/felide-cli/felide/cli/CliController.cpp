@@ -21,7 +21,6 @@ namespace felide {
     public:
         explicit CliControllerImpl() {
             m_registry = FileTypeRegistry::create();
-            m_toolset = ModuleToolset::create(m_registry.get());
 
             if (m_path == "") {
                 m_path = fs::current_path() / "project.borc";
@@ -30,6 +29,10 @@ namespace felide {
             if (!fs::exists(m_path)) {
                 throw std::runtime_error("Error: supplied project file 'project.borc' doesn't exists");
             }
+
+            m_toolset = ModuleToolset::create(m_path, {
+                
+            });
         }
 
         virtual void list() override {
@@ -45,7 +48,6 @@ namespace felide {
         
         virtual void build() override {
             // 1. Parse the current directory and find a Borcfile.
-
             auto project = this->deserializeProject(); 
             auto taskTree = project->createTask(TargetAction::Build);
             auto taskVisitor = TaskNodeVisitor::create();
@@ -65,8 +67,8 @@ namespace felide {
         std::unique_ptr<Project> deserializeProject() {
             auto parser = ProjectParserYaml::create();
             auto project = parser->parse(m_path);
-
             auto targets = project->getTargets();
+
             for (Target* target : targets) {
                 target->setToolset(m_toolset.get());
             }

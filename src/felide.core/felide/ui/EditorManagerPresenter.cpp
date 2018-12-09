@@ -3,7 +3,7 @@
 #include "EditorManager.hpp"
 
 namespace felide {
-    EditorManagerPresenter(EditorManagerModel *model) {
+    EditorManagerPresenter::EditorManagerPresenter(EditorManagerModel *model) {
         m_model = model;
     }
 

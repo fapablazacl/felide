@@ -2,18 +2,20 @@
 #include "CliApplication.hpp"
 #include "CliController.hpp"
 
-#include <cxxopts.hpp>
+#include <boost/program_options.hpp>
+#include <iostream>
+
+namespace po = boost::program_options;
 
 namespace felide {
-    static const char AppTitle[] = "felide-cli";
-    static const char AppDescription[] = "Command Line Interface for managing build, testing and packaging";
+    static const char s_AppTitle[] = "felide-cli";
+    static const char s_AppDescription[] = "Command Line Interface for managing build, testing and packaging";
 
     class CliApplicationImpl : public CliApplication {
     public:
-        CliApplicationImpl(int argc, char **argv) : 
-            m_options(AppTitle, AppDescription),
-            m_argc(argc),
-            m_argv(argv){
+        explicit CliApplicationImpl(int argc, char **argv) : m_options("Allowed options:") {
+            m_argc = argc;
+            m_argv = argv;
 
             m_options.add_options()
                 ("b,build", "Build using the current Toolset")
@@ -27,17 +29,19 @@ namespace felide {
         virtual ~CliApplicationImpl() {}
 
         virtual void run() override {
-            auto parseResult = m_options.parse(m_argc, m_argv);
+            po::variables_map vm;
+            po::store(po::parse_command_line(m_argc, m_argv, m_options), vm);
+            po::notify(vm);
 
-            if (parseResult.count("build")) {
+            if (vm.count("build")) {
                 m_controller->build();
             } else {
-                std::cout << m_options.help() << std::endl;
+                std::cout << m_options << std::endl;
             }
         }
     
     private:
-        cxxopts::Options m_options;
+        po::options_description m_options;
         int m_argc = 0;
         char **m_argv = nullptr;
         std::unique_ptr<CliController> m_controller;
@@ -53,7 +57,7 @@ namespace felide {
 #include <iostream>
 #include <list>
 #include <stdexcept>
-#include <boost/program_options.hpp>
+
 #include <experimental/filesystem>
 
 #include "ConsoleApp.hpp"

@@ -1,6 +1,7 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 namespace felide::experimental {
     class Value {
