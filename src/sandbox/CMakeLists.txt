@@ -1,7 +1,8 @@
 
 set (target "felide.sandbox")
 set (sources 
-    "sandbox.cpp"
+    # "sandbox.cpp"
+    "iddde.cpp"
 )
 
 add_executable (${target} ${sources})
