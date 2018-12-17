@@ -15,14 +15,6 @@ namespace borc::model {
 
     class Module {
     public:
-        Module(Project *parent, const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files) {
-            this->parentProject = parent;
-            this->name = name;
-            this->type = type;
-            this->path = path;
-            this->files = files;
-        }
-
         Module(Project *parent, const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies) {
             this->parentProject = parent;
             this->name = name;
@@ -54,6 +46,22 @@ namespace borc::model {
 
     class Project {
     public:
+        Project(const std::string &name, const std::string &fullPath) {
+            this->name = name;
+            this->fullPath = fullPath;
+        }
+
+        Module* addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files) {
+            return this->addModule(name, type, path, files, {});
+        }
+        
+        Module* addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies) {
+            auto module = new Module(this, name, type, path, files, dependencies);
+
+            modules.emplace_back(module);
+
+            return module;
+        }
 
     private:
         //! The name of the project
@@ -90,14 +98,21 @@ namespace borc::model {
         //! List of linkers
         std::vector<Linker> linkers;
     };
-
-    class BuildService {
-    public:
-
-    };
 }
 
+#define XSTR(a) STR(a)
+#define STR(a) #a
+
 int main(int argc, char **argv) {
+    using namespace borc::model;
+
+    const std::string fullPath = XSTR(PROJECT_SOURCE_DIR);
+
+    Project borcProject{"borc", fullPath};
+
+    Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "borc.cli", {
+        "Main.cpp"
+    });
 
     return 0;
 }
