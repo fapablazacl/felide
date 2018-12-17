@@ -24,6 +24,30 @@ namespace borc::model {
             this->dependencies = dependencies;
         }
 
+        std::string getName() const {
+            return name;
+        }
+
+        std::string getPath() const {
+            return path;
+        }
+
+        std::vector<std::string> getFiles() const {
+            return files;
+        }
+
+        ModuleType getType() const {
+            return type;
+        }
+
+        const Project *getParentProject() const {
+            return parentProject;
+        }
+
+        std::vector<Module*> getDependencies() const {
+            return dependencies;
+        }
+
     private:
         //! parent project of the module
         Project *parentProject = nullptr;
@@ -61,6 +85,24 @@ namespace borc::model {
             modules.emplace_back(module);
 
             return module;
+        }
+
+        std::string getName() const {
+            return name;
+        }
+
+        std::string getFullPath() const {
+            return fullPath;
+        }
+
+        std::vector<const Module*> getModules() const {
+            std::vector<const Module*> modules;
+
+            for (const auto &module : this->modules) {
+                modules.push_back(module.get());
+            }
+
+            return modules;
         }
 
     private:
