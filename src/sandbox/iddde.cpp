@@ -8,7 +8,7 @@
 // Project Model for C/C++ projects
 namespace borc::model {
     enum class ModuleType {
-        Libary,
+        Library,
         Executable
     };
 
@@ -134,7 +134,9 @@ namespace borc::model {
                     std::cout << "    " << file  << "..." << std::endl;
                 }
 
-                std::cout << "Linking module " << moduleName << " ..." << std::endl;
+                const std::string moduleTypeStr = module->getType() == ModuleType::Executable ? "executable" : "library";
+
+                std::cout << "Linking " << moduleTypeStr << " module " << moduleName << " ..." << std::endl;
                 builtModules++;
             }
 
@@ -153,7 +155,7 @@ int main(int argc, char **argv) {
 
     Project borcProject{"borc", fullPath};
 
-    Module *borcCoreModule = borcProject.addModule("borc.core", ModuleType::Executable, "borc.core", {
+    Module *borcCoreModule = borcProject.addModule("borc.core", ModuleType::Library, "borc.core", {
         "BuildService.hpp", "BuildService.cpp",
         "Module.hpp", "Module.cpp",
         "Project.hpp", "Project.cpp"
