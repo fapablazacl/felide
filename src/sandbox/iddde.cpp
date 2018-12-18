@@ -117,11 +117,12 @@ namespace borc::model {
         std::vector<std::unique_ptr<Module>> modules;
     };
 
-
     class BuildService {
     public:
         void buildProject(const Project *project) {
             auto modules = project->getModules();
+
+            int builtModules = 0;
 
             for (const Module *module : modules) {
                 const std::string moduleName = module->getName();
@@ -134,8 +135,10 @@ namespace borc::model {
                 }
 
                 std::cout << "Linking module " << moduleName << " ..." << std::endl;
-                std::cout << "Built 1 module." << std::endl;
+                builtModules++;
             }
+
+            std::cout << "Built " << builtModules << " module(s)." << std::endl;
         }
     };
 }
@@ -150,9 +153,15 @@ int main(int argc, char **argv) {
 
     Project borcProject{"borc", fullPath};
 
+    Module *borcCoreModule = borcProject.addModule("borc.core", ModuleType::Executable, "borc.core", {
+        "BuildService.hpp", "BuildService.cpp",
+        "Module.hpp", "Module.cpp",
+        "Project.hpp", "Project.cpp"
+    });
+
     Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "borc.cli", {
         "Main.cpp"
-    });
+    }, {borcCoreModule});
 
     BuildService buildService;
 
