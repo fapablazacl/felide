@@ -3,6 +3,7 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <iostream>
 
 // Project Model for C/C++ projects
 namespace borc::model {
@@ -116,29 +117,26 @@ namespace borc::model {
         std::vector<std::unique_ptr<Module>> modules;
     };
 
-    class Compiler {
+
+    class BuildService {
     public:
-        
-    };
+        void buildProject(const Project *project) {
+            auto modules = project->getModules();
 
-    class Linker {
-    public:
-        
-    };
+            for (const Module *module : modules) {
+                const std::string moduleName = module->getName();
+                std::cout << "Building module " << moduleName << " ..." << std::endl;
 
-    class Toolchain {
-    public:
-        //! The name displayed to the user 
-        std::string name;
+                const auto files = module->getFiles();
 
-        //! Installation path
-        std::string path;
+                for (const std::string &file : files) {
+                    std::cout << "    " << file  << "..." << std::endl;
+                }
 
-        //! List of compilers
-        std::vector<Compiler> compilers;
-
-        //! List of linkers
-        std::vector<Linker> linkers;
+                std::cout << "Linking module " << moduleName << " ..." << std::endl;
+                std::cout << "Built 1 module." << std::endl;
+            }
+        }
     };
 }
 
@@ -155,6 +153,10 @@ int main(int argc, char **argv) {
     Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "borc.cli", {
         "Main.cpp"
     });
+
+    BuildService buildService;
+
+    buildService.buildProject(&borcProject);
 
     return 0;
 }
