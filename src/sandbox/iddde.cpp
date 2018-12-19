@@ -6,6 +6,7 @@
 #include <iostream>
 #include <filesystem>
 #include <regex>
+#include <algorithm>
 
 // Project Model for C/C++ projects
 namespace borc::model {
@@ -176,15 +177,13 @@ namespace borc::model {
                 const auto files = module->getFiles();
 
                 std::vector<std::string> objectFiles;
+                std::copy_if(files.begin(), files.end(), std::back_inserter(objectFiles), [&](const auto &file) {
+                    return this->isFileCompilable(file);
+                });
 
-                for (const std::string &file : files) {
-                    if (!this->isFileCompilable(file)) {
-                        continue;
-                    }
-
-                    const std::string objectFile = compiler.compile(project, module, file);
-                    objectFiles.push_back(objectFile);
-                }
+                std::transform(objectFiles.begin(), objectFiles.end(), objectFiles.begin(), [&](const auto &file) {
+                    return this->compiler.compile(project, module, file);
+                });
 
                 linker.link(project, module, objectFiles);
 
