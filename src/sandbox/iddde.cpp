@@ -117,7 +117,47 @@ namespace borc::model {
         std::vector<std::unique_ptr<Module>> modules;
     };
 
+    inline std::string toString(const ModuleType type) {
+        switch (type) {
+            case ModuleType::Executable: 
+                return "executable";
+
+            case ModuleType::Library:
+                return "library";
+
+            default:
+                return "<unknown ModuleType>";
+        }
+    }
+
+    class Compiler {
+    public:
+        std::string compile(const Project *project, const Module *module, const std::string &file) const {
+            std::cout << "    " << file  << "..." << std::endl;
+
+            return file + ".obj";
+        }
+    };
+
+    class Linker {
+    public:
+        std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
+            const std::string moduleTypeStr = toString(module->getType());
+            std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
+
+            if (module->getType() == ModuleType::Library) {
+                return "lib" + module->getName() + ".a";
+            } else {
+                return module->getName();
+            }
+        }
+    };
+
     class BuildService {
+    private:
+        Compiler compiler;
+        Linker linker;
+
     public:
         void buildProject(const Project *project) {
             auto modules = project->getModules();
@@ -125,18 +165,19 @@ namespace borc::model {
             int builtModules = 0;
 
             for (const Module *module : modules) {
-                const std::string moduleName = module->getName();
-                std::cout << "Building module " << moduleName << " ..." << std::endl;
+                std::cout << "Building module " << module->getName() << " ..." << std::endl;
 
                 const auto files = module->getFiles();
 
+                std::vector<std::string> objectFiles;
+
                 for (const std::string &file : files) {
-                    std::cout << "    " << file  << "..." << std::endl;
+                    const std::string objectFile = compiler.compile(project, module, file);
+                    objectFiles.push_back(objectFile);
                 }
 
-                const std::string moduleTypeStr = module->getType() == ModuleType::Executable ? "executable" : "library";
+                linker.link(project, module, objectFiles);
 
-                std::cout << "Linking " << moduleTypeStr << " module " << moduleName << " ..." << std::endl;
                 builtModules++;
             }
 
