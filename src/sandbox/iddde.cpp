@@ -4,6 +4,8 @@
 #include <map>
 #include <memory>
 #include <iostream>
+#include <filesystem>
+#include <regex>
 
 // Project Model for C/C++ projects
 namespace borc::model {
@@ -11,6 +13,19 @@ namespace borc::model {
         Library,
         Executable
     };
+
+    inline std::string toString(const ModuleType type) {
+        switch (type) {
+            case ModuleType::Executable: 
+                return "executable";
+
+            case ModuleType::Library:
+                return "library";
+
+            default:
+                return "<unknown ModuleType>";
+        }
+    }
 
     class Project;
 
@@ -117,24 +132,10 @@ namespace borc::model {
         std::vector<std::unique_ptr<Module>> modules;
     };
 
-    inline std::string toString(const ModuleType type) {
-        switch (type) {
-            case ModuleType::Executable: 
-                return "executable";
-
-            case ModuleType::Library:
-                return "library";
-
-            default:
-                return "<unknown ModuleType>";
-        }
-    }
-
     class Compiler {
     public:
         std::string compile(const Project *project, const Module *module, const std::string &file) const {
-            std::cout << "    " << file  << "..." << std::endl;
-
+            std::cout << "    " << file  << " ..." << std::endl;
             return file + ".obj";
         }
     };
@@ -158,6 +159,11 @@ namespace borc::model {
         Compiler compiler;
         Linker linker;
 
+        //! list of extension wildcards that will trigger a source file compilation 
+        const std::vector<std::string> compilerWildcards = {
+            "*.c", "*.cpp", "*.c++", "*.cc", "*.cxx", 
+        };
+
     public:
         void buildProject(const Project *project) {
             auto modules = project->getModules();
@@ -172,6 +178,10 @@ namespace borc::model {
                 std::vector<std::string> objectFiles;
 
                 for (const std::string &file : files) {
+                    if (!this->isFileCompilable(file)) {
+                        continue;
+                    }
+
                     const std::string objectFile = compiler.compile(project, module, file);
                     objectFiles.push_back(objectFile);
                 }
@@ -182,6 +192,16 @@ namespace borc::model {
             }
 
             std::cout << "Built " << builtModules << " module(s)." << std::endl;
+        }
+
+    private:
+        bool isFileCompilable(const std::string &file) const {
+            namespace fs = std::filesystem;
+            const std::string ext = "*" + fs::path(file).extension().string();
+
+            auto it = std::find(compilerWildcards.begin(), compilerWildcards.end(), ext);
+
+            return it != compilerWildcards.end();
         }
     };
 }
@@ -199,7 +219,9 @@ int main(int argc, char **argv) {
     Module *borcCoreModule = borcProject.addModule("borc.core", ModuleType::Library, "borc.core", {
         "BuildService.hpp", "BuildService.cpp",
         "Module.hpp", "Module.cpp",
-        "Project.hpp", "Project.cpp"
+        "Project.hpp", "Project.cpp",
+        "Compiler.hpp", "Compiler.cpp",
+        "Linker.hpp", "Linker.cpp"
     });
 
     Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "borc.cli", {

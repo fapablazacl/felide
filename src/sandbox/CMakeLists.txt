@@ -8,7 +8,7 @@ set (sources
 add_executable (${target} ${sources})
 
 target_link_libraries (${target}     
-    felide.core
+    felide.core stdc++fs
 )
 
 install(TARGETS ${target} DESTINATION "bin")
