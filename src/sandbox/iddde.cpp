@@ -8,7 +8,9 @@
 #include <regex>
 #include <algorithm>
 
-// Project Model for C/C++ projects
+namespace fs = std::filesystem;
+
+// Project Model for C/C++
 namespace borc::model {
     enum class ModuleType {
         Library,
@@ -136,8 +138,22 @@ namespace borc::model {
     class Compiler {
     public:
         std::string compile(const Project *project, const Module *module, const std::string &file) const {
+            const fs::path sourceFilePath = this->computeSourceFilePath(project, module, file);
+            const fs::path objectFilePath = this->computeObjectFilePath(project, module, file);
+
             std::cout << "    " << file  << " ..." << std::endl;
-            return file + ".obj";
+            std::cout << "    (cmd) gcc -O0 -g -c " << sourceFilePath.string() << " -o" << objectFilePath.string() << std::endl;
+
+            return objectFilePath;
+        }
+
+    private:
+        fs::path computeSourceFilePath(const Project *project, const Module *module, const std::string &file) const {
+            return fs::path(project->getFullPath()) / module->getPath() / file;
+        }
+
+        fs::path computeObjectFilePath(const Project *project, const Module *module, const std::string &file) const {
+            return fs::path(project->getFullPath()) / std::string(".borc") / module->getPath() / file + ".obj";
         }
     };
 
@@ -147,6 +163,18 @@ namespace borc::model {
             const std::string moduleTypeStr = toString(module->getType());
             std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
 
+
+            std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
+
+            const std::string moduleFile = this->computeModuleFileName(module);
+            const fs::path moduleOutputPath = fs::path(project->getFullPath()) / std::string(".borc") / module->getPath();
+            const fs::path moduleOutputFilePath = moduleOutputPath / moduleFile;
+
+            std::cout << "    (cmd) gcc " << sourceFilePath.string() << " -o" << objectFilePath.string() << std::endl;
+        }
+
+    private:
+        std::string computeModuleFileName(const Module *module) const {
             if (module->getType() == ModuleType::Library) {
                 return "lib" + module->getName() + ".a";
             } else {
@@ -195,7 +223,6 @@ namespace borc::model {
 
     private:
         bool isFileCompilable(const std::string &file) const {
-            namespace fs = std::filesystem;
             const std::string ext = "*" + fs::path(file).extension().string();
 
             auto it = std::find(compilerWildcards.begin(), compilerWildcards.end(), ext);
