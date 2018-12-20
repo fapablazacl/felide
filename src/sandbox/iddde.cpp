@@ -151,6 +151,8 @@ namespace borc::model {
 
             std::system(cmd.c_str());
 
+            std::cout << cmd << std::endl;
+
             return objectFilePath;
         }
 
@@ -187,11 +189,15 @@ namespace borc::model {
             const std::string objectFilesStr = join(objectFiles, " ");
             const std::string outputModuleFilePath = this->computeModuleOutputFilePath(project, module).string();
 
+            const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
+
             if (module->getType() == ModuleType::Library) {
-                const std::string cmd = commandPath + " -shared " + objectFilesStr + " -o" + outputModuleFilePath + " -lstdc++ -lstdc++fs";
+                const std::string cmd = commandPath + " -shared " + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
+                std::cout << cmd << std::endl;
                 std::system(cmd.c_str());
             } else {
-                const std::string cmd = commandPath + " " + objectFilesStr + " -o" + outputModuleFilePath + " -lstdc++ -lstdc++fs";
+                const std::string cmd = commandPath + " " + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
+                std::cout << cmd << std::endl;
                 std::system(cmd.c_str());
             }
 
@@ -199,8 +205,30 @@ namespace borc::model {
         }
 
     private:
+        std::string computeImportLibrariesOptions(const Project *project, const Module *module) const {
+            std::vector<std::string> options = {
+                "-lstdc++", "-lstdc++fs"
+            };
+
+            const auto dependencies = module->getDependencies();
+
+            for (const Module *dependency : dependencies) {
+                const std::string importLibrary = dependency->getName();
+                options.push_back("-l" + importLibrary);
+
+                const std::string importLibraryDir = this->computeModuleOutputPath(project, dependency);
+                options.push_back("-L" + importLibraryDir);
+            }
+
+            return join(options, " ");
+        }
+
+        fs::path computeModuleOutputPath(const Project *project, const Module *module) const {
+            return fs::path(project->getFullPath()) / fs::path(".borc") / fs::path(module->getPath());
+        }
+
         fs::path computeModuleOutputFilePath(const Project *project, const Module *module) const {
-            return fs::path(project->getFullPath()) / fs::path(".borc") / fs::path(module->getPath()) / fs::path(this->computeModuleFileName(module));
+            return this->computeModuleOutputPath(project, module) / fs::path(this->computeModuleFileName(module));
         }
 
         std::string computeModuleFileName(const Module *module) const {
