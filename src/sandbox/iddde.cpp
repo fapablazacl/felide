@@ -14,7 +14,7 @@ namespace fs = std::filesystem;
 
 // Project Model for C/C++
 namespace borc::model {
-    inline std::string join(const std::vector<std::string> &strings, const std::string &separator) {
+    std::string join(const std::vector<std::string> &strings, const std::string &separator) {
         std::string str;
 
         for (const std::string &string : strings) {
@@ -194,10 +194,20 @@ namespace borc::model {
 
             std::cout << "    " << file  << " ..." << std::endl;
 
-            const std::string cmd = commandPath + " -O0 -g -c " + sourceFilePath.string() + " -o" + objectFilePath.string();
+            Command command {
+                commandPath, {
+                    "-O0", 
+                    "-g", 
+                    "-c",
+                    sourceFilePath.string(),
+                    "-o" + objectFilePath.string(),
+                }
+            };
 
-            std::system(cmd.c_str());
+            command.execute();
 
+            // const std::string cmd = commandPath + " -O0 -g -c " + sourceFilePath.string() + " -o" + objectFilePath.string();
+            // std::system(cmd.c_str());
             // std::cout << cmd << std::endl;
 
             return objectFilePath;
