@@ -8,11 +8,23 @@
 #include <regex>
 #include <algorithm>
 #include <cstdlib>
+#include <stdexcept>
 
 namespace fs = std::filesystem;
 
 // Project Model for C/C++
 namespace borc::model {
+    inline std::string join(const std::vector<std::string> &strings, const std::string &separator) {
+        std::string str;
+
+        for (const std::string &string : strings) {
+            str += string;
+            str += separator;
+        }
+
+        return str;
+    }
+
     enum class ModuleType {
         Library,
         Executable
@@ -88,6 +100,15 @@ namespace borc::model {
         std::vector<Module*> dependencies;
     };
 
+    inline std::string computeModuleFileName(const Module *module) {
+        if (module->getType() == ModuleType::Library) {
+            // return "lib" + module->getName() + ".dylib";
+            return "lib" + module->getName() + ".so";
+        } else {
+            return module->getName();
+        }
+    }
+
     class Project {
     public:
         Project(const std::string &name, const std::string &fullPath) {
@@ -136,11 +157,37 @@ namespace borc::model {
         std::vector<std::unique_ptr<Module>> modules;
     };
 
+    class Command {
+    public:
+        explicit Command(const std::string &base) 
+            : _base(base) {}
+
+        explicit Command(const std::string &base, const std::vector<std::string> &options) 
+            : _base(base), _options(options) {}
+
+        void execute() {
+            const std::string systemCommand = _base + " " + join(_options, " ");
+            const int exitCode = std::system(systemCommand.c_str());
+
+            if (exitCode != 0) {                
+                throw std::runtime_error("The command returned an erroneous exit code: " + std::to_string(exitCode));
+            }
+        }
+
+    private:
+        const std::string _base;
+        const std::vector<std::string> _options;
+    };
+
     class Compiler {
     private:
-        const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
+        std::string commandPath;
 
     public:
+        explicit Compiler(const std::string &commandPath) {
+            this->commandPath = commandPath;
+        }
+
         std::string compile(const Project *project, const Module *module, const std::string &file) const {
             const fs::path sourceFilePath = this->computeSourceFilePath(project, module, file);
             const fs::path objectFilePath = this->computeObjectFilePath(project, module, file);
@@ -151,7 +198,7 @@ namespace borc::model {
 
             std::system(cmd.c_str());
 
-            std::cout << cmd << std::endl;
+            // std::cout << cmd << std::endl;
 
             return objectFilePath;
         }
@@ -166,22 +213,15 @@ namespace borc::model {
         }
     };
 
-    inline std::string join(const std::vector<std::string> &strings, const std::string &separator) {
-        std::string str;
-
-        for (const std::string &string : strings) {
-            str += string;
-            str += separator;
-        }
-
-        return str;
-    }
-
     class Linker {
     private:
-        const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
+        std::string commandPath;
 
     public:
+        explicit Linker(const std::string &commandPath) {
+            this->commandPath = commandPath;
+        }
+
         std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
             const std::string moduleTypeStr = toString(module->getType());
             std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
@@ -191,15 +231,11 @@ namespace borc::model {
 
             const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
 
-            if (module->getType() == ModuleType::Library) {
-                const std::string cmd = commandPath + " -shared " + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
-                std::cout << cmd << std::endl;
-                std::system(cmd.c_str());
-            } else {
-                const std::string cmd = commandPath + " " + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
-                std::cout << cmd << std::endl;
-                std::system(cmd.c_str());
-            }
+            std::string sharedOption = module->getType() == ModuleType::Library ? " -shared " : " ";
+            
+            const std::string cmd = commandPath + sharedOption + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
+            // std::cout << cmd << std::endl;
+            std::system(cmd.c_str());
 
             return outputModuleFilePath;
         }
@@ -228,15 +264,7 @@ namespace borc::model {
         }
 
         fs::path computeModuleOutputFilePath(const Project *project, const Module *module) const {
-            return this->computeModuleOutputPath(project, module) / fs::path(this->computeModuleFileName(module));
-        }
-
-        std::string computeModuleFileName(const Module *module) const {
-            if (module->getType() == ModuleType::Library) {
-                return "lib" + module->getName() + ".dylib";
-            } else {
-                return module->getName();
-            }
+            return this->computeModuleOutputPath(project, module) / fs::path(computeModuleFileName(module));
         }
     };
 
@@ -245,12 +273,15 @@ namespace borc::model {
         Compiler compiler;
         Linker linker;
 
-        //! list of extension wildcards that will trigger a source file compilation 
+        //! list of extension wildcards that will trigger a source file compilation with the current compiler
         const std::vector<std::string> compilerWildcards = {
             "*.c", "*.cpp", "*.c++", "*.cc", "*.cxx", 
         };
 
     public:
+        explicit BuildService(const std::string &commandPath) 
+            : compiler(commandPath), linker(commandPath) {}
+
         void buildProject(const Project *project) {
             auto modules = project->getModules();
 
@@ -316,7 +347,10 @@ int main(int argc, char **argv) {
         "Main.cpp"
     }, {borcCoreModule});
 
-    BuildService buildService;
+    // const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
+    const std::string commandPath = "gcc";
+
+    BuildService buildService(commandPath);
     buildService.buildProject(&borcProject);
 
     return 0;
