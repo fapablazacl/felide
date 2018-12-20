@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <regex>
 #include <algorithm>
+#include <cstdlib>
 
 namespace fs = std::filesystem;
 
@@ -136,47 +137,75 @@ namespace borc::model {
     };
 
     class Compiler {
+    private:
+        const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
+
     public:
         std::string compile(const Project *project, const Module *module, const std::string &file) const {
             const fs::path sourceFilePath = this->computeSourceFilePath(project, module, file);
             const fs::path objectFilePath = this->computeObjectFilePath(project, module, file);
 
             std::cout << "    " << file  << " ..." << std::endl;
-            std::cout << "    (cmd) gcc -O0 -g -c " << sourceFilePath.string() << " -o" << objectFilePath.string() << std::endl;
+
+            const std::string cmd = commandPath + " -O0 -g -c " + sourceFilePath.string() + " -o" + objectFilePath.string();
+
+            std::system(cmd.c_str());
 
             return objectFilePath;
         }
 
     private:
         fs::path computeSourceFilePath(const Project *project, const Module *module, const std::string &file) const {
-            return fs::path(project->getFullPath()) / module->getPath() / file;
+            return fs::path(project->getFullPath()) / fs::path(module->getPath()) / fs::path(file);
         }
 
         fs::path computeObjectFilePath(const Project *project, const Module *module, const std::string &file) const {
-            return fs::path(project->getFullPath()) / std::string(".borc") / module->getPath() / file + ".obj";
+            return fs::path(project->getFullPath()) / fs::path(".borc") / fs::path(module->getPath()) / fs::path(file +  ".obj");
         }
     };
 
+    inline std::string join(const std::vector<std::string> &strings, const std::string &separator) {
+        std::string str;
+
+        for (const std::string &string : strings) {
+            str += string;
+            str += separator;
+        }
+
+        return str;
+    }
+
     class Linker {
+    private:
+        const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
+
     public:
         std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
             const std::string moduleTypeStr = toString(module->getType());
             std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
 
+            const std::string objectFilesStr = join(objectFiles, " ");
+            const std::string outputModuleFilePath = this->computeModuleOutputFilePath(project, module).string();
 
-            std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
+            if (module->getType() == ModuleType::Library) {
+                const std::string cmd = commandPath + " -shared " + objectFilesStr + " -o" + outputModuleFilePath + " -lstdc++ -lstdc++fs";
+                std::system(cmd.c_str());
+            } else {
+                const std::string cmd = commandPath + " " + objectFilesStr + " -o" + outputModuleFilePath + " -lstdc++ -lstdc++fs";
+                std::system(cmd.c_str());
+            }
 
-            const std::string moduleFile = this->computeModuleFileName(module);
-            const fs::path moduleOutputPath = fs::path(project->getFullPath()) / std::string(".borc") / module->getPath();
-            const fs::path moduleOutputFilePath = moduleOutputPath / moduleFile;
-
-            std::cout << "    (cmd) gcc " << sourceFilePath.string() << " -o" << objectFilePath.string() << std::endl;
+            return outputModuleFilePath;
         }
 
     private:
+        fs::path computeModuleOutputFilePath(const Project *project, const Module *module) const {
+            return fs::path(project->getFullPath()) / fs::path(".borc") / fs::path(module->getPath()) / fs::path(this->computeModuleFileName(module));
+        }
+
         std::string computeModuleFileName(const Module *module) const {
             if (module->getType() == ModuleType::Library) {
-                return "lib" + module->getName() + ".a";
+                return "lib" + module->getName() + ".dylib";
             } else {
                 return module->getName();
             }
@@ -242,20 +271,24 @@ int main(int argc, char **argv) {
 
     Project borcProject{"borc", fullPath};
 
-    Module *borcCoreModule = borcProject.addModule("borc.core", ModuleType::Library, "borc.core", {
-        "BuildService.hpp", "BuildService.cpp",
-        "Module.hpp", "Module.cpp",
-        "Project.hpp", "Project.cpp",
-        "Compiler.hpp", "Compiler.cpp",
-        "Linker.hpp", "Linker.cpp"
+    Module *borcCoreModule = borcProject.addModule("borc.core", ModuleType::Library, "src/borc.core", {
+        "BuildService.hpp", 
+        "BuildService.cpp",
+        "Module.hpp", 
+        "Module.cpp",
+        "Project.hpp", 
+        "Project.cpp",
+        "Compiler.hpp", 
+        "Compiler.cpp",
+        "Linker.hpp", 
+        "Linker.cpp"
     });
 
-    Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "borc.cli", {
+    Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "src/borc.cli", {
         "Main.cpp"
     }, {borcCoreModule});
 
     BuildService buildService;
-
     buildService.buildProject(&borcProject);
 
     return 0;
