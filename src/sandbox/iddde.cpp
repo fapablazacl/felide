@@ -398,10 +398,14 @@ namespace borc::model {
 #define XSTR(a) STR(a)
 #define STR(a) #a
 
+std::string getFullPath() {
+    return XSTR(PROJECT_SOURCE_DIR);
+}
+
 int main(int argc, char **argv) {
     using namespace borc::model;
 
-    const std::string fullPath = XSTR(PROJECT_SOURCE_DIR);
+    const std::string fullPath = getFullPath();
 
     Project borcProject{"borc", fullPath};
 
@@ -422,16 +426,11 @@ int main(int argc, char **argv) {
         "Main.cpp"
     }, {borcCoreModule});
 
-    // const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
-    const std::string commandPath = "gcc";
+    // const std::string commandBase = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
+    const std::string commandBase = "gcc";
 
-    const Compiler compiler {
-        commandPath, {"-c", "-o", "-g", "-O0"}
-    };
-
-    const Linker linker {
-        commandPath, {"-shared", "-o", "-l", "-L"}
-    };
+    const Compiler compiler { commandBase, {"-c", "-o", "-g", "-O0"} };
+    const Linker linker { commandBase, {"-shared", "-o", "-l", "-L"} };
 
     BuildService buildService {&compiler, &linker};
     buildService.buildProject(&borcProject);
