@@ -188,13 +188,22 @@ namespace borc::model {
         std::vector<std::string> _options;
     };
 
+    struct CompilerSwitches {
+        std::string compile;
+        std::string objectFileOutput;
+        std::string includeDebug;
+        std::string zeroOptimization;
+    };
+
     class Compiler {
     private:
         std::string commandPath;
+        CompilerSwitches switches;
 
     public:
-        explicit Compiler(const std::string &commandPath) {
+        explicit Compiler(const std::string &commandPath, const CompilerSwitches &switches) {
             this->commandPath = commandPath;
+            this->switches = switches;
         }
 
         std::string compile(const Project *project, const Module *module, const std::string &file) const {
@@ -225,13 +234,22 @@ namespace borc::model {
         }
     };
 
+    struct LinkerSwitches {
+        std::string buildSharedLibrary;
+        std::string moduleOutput;
+        std::string importLibrary;
+        std::string importLibraryPath;
+    };
+
     class Linker {
     private:
         std::string commandPath;
+        LinkerSwitches switches;
 
     public:
-        explicit Linker(const std::string &commandPath) {
+        explicit Linker(const std::string &commandPath, const LinkerSwitches &switches) {
             this->commandPath = commandPath;
+            this->switches = switches;
         }
 
         std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
@@ -243,12 +261,14 @@ namespace borc::model {
             Command command { commandPath };
 
             if (module->getType() == ModuleType::Library) {
-                command.addOption("-shared");
+                command.addOption(switches.buildSharedLibrary);
+                // command.addOption("-shared");
             }
             
             command.addOptionRange(objectFiles.begin(), objectFiles.end());
             command.addOptionRange(librariesOptions.begin(), librariesOptions.end());
-            command.addOption("-o" + outputModuleFilePath);
+            command.addOption(switches.moduleOutput + outputModuleFilePath);
+            // command.addOption("-o" + outputModuleFilePath);
 
             return outputModuleFilePath;
         }
@@ -263,10 +283,13 @@ namespace borc::model {
 
             for (const Module *dependency : dependencies) {
                 const std::string importLibrary = dependency->getName();
-                options.push_back("-l" + importLibrary);
-
                 const std::string importLibraryDir = this->computeModuleOutputPath(project, dependency);
-                options.push_back("-L" + importLibraryDir);
+
+                // options.push_back("-l" + importLibrary);
+                // options.push_back("-L" + importLibraryDir);
+
+                options.push_back(switches.importLibrary + importLibrary);
+                options.push_back(switches.importLibraryPath + importLibraryDir);
             }
 
             return options;
@@ -283,8 +306,8 @@ namespace borc::model {
 
     class BuildService {
     private:
-        Compiler compiler;
-        Linker linker;
+        const Compiler *compiler;
+        const Linker *linker;
 
         //! list of extension wildcards that will trigger a source file compilation with the current compiler
         const std::vector<std::string> compilerWildcards = {
@@ -292,9 +315,11 @@ namespace borc::model {
         };
 
     public:
-        explicit BuildService(const std::string &commandPath) 
-            : compiler(commandPath), linker(commandPath) {}
-
+        explicit BuildService(const Compiler *compiler, const Linker *linker) {
+            this->compiler = compiler;
+            this->linker = linker;
+        }
+            
         void buildProject(const Project *project) {
             auto modules = project->getModules();
 
@@ -311,10 +336,10 @@ namespace borc::model {
                 });
 
                 std::transform(objectFiles.begin(), objectFiles.end(), objectFiles.begin(), [&](const auto &file) {
-                    return this->compiler.compile(project, module, file);
+                    return this->compiler->compile(project, module, file);
                 });
 
-                linker.link(project, module, objectFiles);
+                linker->link(project, module, objectFiles);
 
                 builtModules++;
             }
@@ -363,7 +388,15 @@ int main(int argc, char **argv) {
     // const std::string commandPath = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
     const std::string commandPath = "gcc";
 
-    BuildService buildService(commandPath);
+    const Compiler compiler {
+        commandPath, {"-c", "-o", "-g", "-O0"}
+    };
+
+    const Linker linker {
+        commandPath, {"-shared", "-o", "-l", "-L"}
+    };
+
+    BuildService buildService {&compiler, &linker};
     buildService.buildProject(&borcProject);
 
     return 0;
