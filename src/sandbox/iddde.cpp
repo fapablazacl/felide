@@ -212,10 +212,6 @@ namespace borc::model {
 
             command.execute();
 
-            // const std::string cmd = commandPath + " -O0 -g -c " + sourceFilePath.string() + " -o" + objectFilePath.string();
-            // std::system(cmd.c_str());
-            // std::cout << cmd << std::endl;
-
             return objectFilePath;
         }
 
@@ -253,11 +249,6 @@ namespace borc::model {
             command.addOptionRange(objectFiles.begin(), objectFiles.end());
             command.addOptionRange(librariesOptions.begin(), librariesOptions.end());
             command.addOption("-o" + outputModuleFilePath);
-
-            // std::string sharedOption = module->getType() == ModuleType::Library ? " -shared " : " ";
-            // const std::string cmd = commandPath + sharedOption + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
-            // std::cout << cmd << std::endl;
-            // std::system(cmd.c_str());
 
             return outputModuleFilePath;
         }
