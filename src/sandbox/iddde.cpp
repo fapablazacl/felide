@@ -146,6 +146,10 @@ namespace borc::model {
             return modules;
         }
 
+        fs::path computeModuleBuildPath() const {
+
+        }
+
     private:
         //! The name of the project
         std::string name;
@@ -214,8 +218,11 @@ namespace borc::model {
 
             Command command {
                 commandPath, {
-                    "-O0", "-g", "-c", sourceFilePath.string(),
-                    "-o" + objectFilePath.string(),
+                    switches.zeroOptimization, 
+                    switches.includeDebug, 
+                    switches.compile, 
+                    sourceFilePath.string(),
+                    switches.objectFileOutput + objectFilePath.string(),
                 }
             };
 
@@ -262,13 +269,11 @@ namespace borc::model {
 
             if (module->getType() == ModuleType::Library) {
                 command.addOption(switches.buildSharedLibrary);
-                // command.addOption("-shared");
             }
             
             command.addOptionRange(objectFiles.begin(), objectFiles.end());
             command.addOptionRange(librariesOptions.begin(), librariesOptions.end());
             command.addOption(switches.moduleOutput + outputModuleFilePath);
-            // command.addOption("-o" + outputModuleFilePath);
 
             return outputModuleFilePath;
         }
@@ -284,9 +289,6 @@ namespace borc::model {
             for (const Module *dependency : dependencies) {
                 const std::string importLibrary = dependency->getName();
                 const std::string importLibraryDir = this->computeModuleOutputPath(project, dependency);
-
-                // options.push_back("-l" + importLibrary);
-                // options.push_back("-L" + importLibraryDir);
 
                 options.push_back(switches.importLibrary + importLibrary);
                 options.push_back(switches.importLibraryPath + importLibraryDir);
@@ -355,6 +357,22 @@ namespace borc::model {
 
             return it != compilerWildcards.end();
         }
+    };
+
+    class RunService {
+    public:
+        explicit RunService(const Compiler *compiler, const Linker *linker) {
+            this->compiler = compiler;
+            this->linker = linker;
+        }
+    
+        void runModule(const Module *module) {
+
+        }
+
+    private:
+        const Compiler *compiler;
+        const Linker *linker;
     };
 }
 
