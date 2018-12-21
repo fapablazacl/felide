@@ -43,7 +43,33 @@ namespace borc::model {
         }
     }
 
-    class Project;
+    class Module;
+    class Project {
+    public:
+        Project(const std::string &name, const std::string &fullPath);
+
+        Module* addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files);
+        
+        Module* addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies);
+
+        std::string getName() const;
+
+        fs::path getFullPath() const;
+
+        std::vector<const Module*> getModules() const;
+
+        fs::path computeOutputPath() const;
+
+    private:
+        //! The name of the project
+        std::string name;
+
+        //! The full path to the project directory
+        std::string fullPath;
+
+        //! The list of software modules this project has
+        std::vector<std::unique_ptr<Module>> modules;
+    };
 
     class Module {
     public:
@@ -80,6 +106,25 @@ namespace borc::model {
             return dependencies;
         }
 
+        fs::path computeOutputPath() const {
+            return this->parentProject->computeOutputPath() / this->getPath();
+        }
+
+        fs::path computeFullPath() const {
+            return this->parentProject->getFullPath() / this->getPath();
+        }
+
+        fs::path computeOutputPathFile() const {
+            std::string moduleFileName = this->getName();
+
+            if (this->getType() == ModuleType::Library) {    
+                // moduleFileName = "lib" + module->getName() + ".dylib";
+                moduleFileName = "lib" + moduleFileName + ".so";
+            }
+
+            return this->computeOutputPath() / fs::path(moduleFileName);
+        }
+
     private:
         //! parent project of the module
         Project *parentProject = nullptr;
@@ -100,66 +145,44 @@ namespace borc::model {
         std::vector<Module*> dependencies;
     };
 
-    inline std::string computeModuleFileName(const Module *module) {
-        if (module->getType() == ModuleType::Library) {
-            // return "lib" + module->getName() + ".dylib";
-            return "lib" + module->getName() + ".so";
-        } else {
-            return module->getName();
-        }
+    Project::Project(const std::string &name, const std::string &fullPath) {
+        this->name = name;
+        this->fullPath = fullPath;
     }
 
-    class Project {
-    public:
-        Project(const std::string &name, const std::string &fullPath) {
-            this->name = name;
-            this->fullPath = fullPath;
+    Module* Project::addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files) {
+        return this->addModule(name, type, path, files, {});
+    }
+    
+    Module* Project::addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies) {
+        auto module = new Module(this, name, type, path, files, dependencies);
+
+        modules.emplace_back(module);
+
+        return module;
+    }
+
+    std::string Project::getName() const {
+        return name;
+    }
+
+    fs::path Project::getFullPath() const {
+        return fs::path(fullPath);
+    }
+
+    std::vector<const Module*> Project::getModules() const {
+        std::vector<const Module*> modules;
+
+        for (const auto &module : this->modules) {
+            modules.push_back(module.get());
         }
 
-        Module* addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files) {
-            return this->addModule(name, type, path, files, {});
-        }
-        
-        Module* addModule(const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies) {
-            auto module = new Module(this, name, type, path, files, dependencies);
+        return modules;
+    }
 
-            modules.emplace_back(module);
-
-            return module;
-        }
-
-        std::string getName() const {
-            return name;
-        }
-
-        std::string getFullPath() const {
-            return fullPath;
-        }
-
-        std::vector<const Module*> getModules() const {
-            std::vector<const Module*> modules;
-
-            for (const auto &module : this->modules) {
-                modules.push_back(module.get());
-            }
-
-            return modules;
-        }
-
-        fs::path computeModuleBuildPath() const {
-
-        }
-
-    private:
-        //! The name of the project
-        std::string name;
-
-        //! The full path to the project directory
-        std::string fullPath;
-
-        //! The list of software modules this project has
-        std::vector<std::unique_ptr<Module>> modules;
-    };
+    fs::path Project::computeOutputPath() const {
+        return fs::path(this->getFullPath()) / fs::path(".borc");
+    }
 
     class Command {
     public:
@@ -200,10 +223,6 @@ namespace borc::model {
     };
 
     class Compiler {
-    private:
-        std::string commandPath;
-        CompilerSwitches switches;
-
     public:
         explicit Compiler(const std::string &commandPath, const CompilerSwitches &switches) {
             this->commandPath = commandPath;
@@ -211,9 +230,9 @@ namespace borc::model {
         }
 
         std::string compile(const Project *project, const Module *module, const std::string &file) const {
-            const fs::path sourceFilePath = this->computeSourceFilePath(project, module, file);
-            const fs::path objectFilePath = this->computeObjectFilePath(project, module, file);
-
+            const fs::path sourceFilePath = module->computeFullPath() / fs::path(file);
+            const fs::path objectFilePath = module->computeOutputPath() / fs::path(file);
+            
             std::cout << "    " << file  << " ..." << std::endl;
 
             Command command {
@@ -232,13 +251,8 @@ namespace borc::model {
         }
 
     private:
-        fs::path computeSourceFilePath(const Project *project, const Module *module, const std::string &file) const {
-            return fs::path(project->getFullPath()) / fs::path(module->getPath()) / fs::path(file);
-        }
-
-        fs::path computeObjectFilePath(const Project *project, const Module *module, const std::string &file) const {
-            return fs::path(project->getFullPath()) / fs::path(".borc") / fs::path(module->getPath()) / fs::path(file +  ".obj");
-        }
+        std::string commandPath;
+        CompilerSwitches switches;
     };
 
     struct LinkerSwitches {
@@ -249,10 +263,6 @@ namespace borc::model {
     };
 
     class Linker {
-    private:
-        std::string commandPath;
-        LinkerSwitches switches;
-
     public:
         explicit Linker(const std::string &commandPath, const LinkerSwitches &switches) {
             this->commandPath = commandPath;
@@ -262,7 +272,7 @@ namespace borc::model {
         std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
             std::cout << "Linking " << toString(module->getType()) << " module " << module->getName() << " ..." << std::endl;
 
-            const std::string outputModuleFilePath = this->computeModuleOutputFilePath(project, module).string();
+            const std::string outputModuleFilePath = module->computeOutputPath().string();
             const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
 
             Command command { commandPath };
@@ -288,7 +298,7 @@ namespace borc::model {
 
             for (const Module *dependency : dependencies) {
                 const std::string importLibrary = dependency->getName();
-                const std::string importLibraryDir = this->computeModuleOutputPath(project, dependency);
+                const std::string importLibraryDir = dependency->computeOutputPath().string();
 
                 options.push_back(switches.importLibrary + importLibrary);
                 options.push_back(switches.importLibraryPath + importLibraryDir);
@@ -297,13 +307,9 @@ namespace borc::model {
             return options;
         }
 
-        fs::path computeModuleOutputPath(const Project *project, const Module *module) const {
-            return fs::path(project->getFullPath()) / fs::path(".borc") / fs::path(module->getPath());
-        }
-
-        fs::path computeModuleOutputFilePath(const Project *project, const Module *module) const {
-            return this->computeModuleOutputPath(project, module) / fs::path(computeModuleFileName(module));
-        }
+    private:
+        std::string commandPath;
+        LinkerSwitches switches;
     };
 
     class BuildService {
