@@ -373,7 +373,20 @@ namespace borc::model {
         }
     
         void runModule(const Module *module) {
+            // 
+            auto deps = module->getDependencies();
 
+            std::vector<std::string> paths;
+            std::transform(deps.begin(), deps.end(), std::back_inserter(paths), [](const Module *dep) {
+                return dep->computeOutputPath().string();
+            });
+
+            // TODO: Parametrize path separator
+            const std::string pathEnv = join(paths, ":");
+            const std::string moduleFilePath = module->computeOutputPathFile();
+
+            std::cout << "ENV = " << pathEnv;
+            std::cout << "EXEC " << moduleFilePath;
         }
 
     private:
