@@ -385,8 +385,8 @@ namespace borc::model {
             const std::string pathEnv = join(paths, ":");
             const std::string moduleFilePath = module->computeOutputPathFile();
 
-            std::cout << "ENV = " << pathEnv;
-            std::cout << "EXEC " << moduleFilePath;
+            std::cout << "ENV = " << pathEnv << std::endl;
+            std::cout << "EXEC " << moduleFilePath << std::endl;
         }
 
     private:
@@ -435,6 +435,9 @@ int main(int argc, char **argv) {
 
     BuildService buildService {&compiler, &linker};
     buildService.buildProject(&borcProject);
+
+    RunService runService {&compiler, &linker};
+    runService.runModule(borcCliModule);
 
     return 0;
 }
