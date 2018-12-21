@@ -174,9 +174,18 @@ namespace borc::model {
             }
         }
 
+        void addOption(const std::string &option) {
+            _options.push_back(option);
+        }
+
+        template<typename Iterator>
+        void addOptionRange(Iterator begin, Iterator end) {
+            _options.insert(_options.begin(), begin, end);
+        }
+
     private:
         const std::string _base;
-        const std::vector<std::string> _options;
+        std::vector<std::string> _options;
     };
 
     class Compiler {
@@ -196,10 +205,7 @@ namespace borc::model {
 
             Command command {
                 commandPath, {
-                    "-O0", 
-                    "-g", 
-                    "-c",
-                    sourceFilePath.string(),
+                    "-O0", "-g", "-c", sourceFilePath.string(),
                     "-o" + objectFilePath.string(),
                 }
             };
@@ -233,25 +239,31 @@ namespace borc::model {
         }
 
         std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
-            const std::string moduleTypeStr = toString(module->getType());
-            std::cout << "Linking " << moduleTypeStr << " module " << module->getName() << " ..." << std::endl;
+            std::cout << "Linking " << toString(module->getType()) << " module " << module->getName() << " ..." << std::endl;
 
-            const std::string objectFilesStr = join(objectFiles, " ");
             const std::string outputModuleFilePath = this->computeModuleOutputFilePath(project, module).string();
-
             const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
 
-            std::string sharedOption = module->getType() == ModuleType::Library ? " -shared " : " ";
+            Command command { commandPath };
+
+            if (module->getType() == ModuleType::Library) {
+                command.addOption("-shared");
+            }
             
-            const std::string cmd = commandPath + sharedOption + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
+            command.addOptionRange(objectFiles.begin(), objectFiles.end());
+            command.addOptionRange(librariesOptions.begin(), librariesOptions.end());
+            command.addOption("-o" + outputModuleFilePath);
+
+            // std::string sharedOption = module->getType() == ModuleType::Library ? " -shared " : " ";
+            // const std::string cmd = commandPath + sharedOption + objectFilesStr + " -o" + outputModuleFilePath + " " + librariesOptions;
             // std::cout << cmd << std::endl;
-            std::system(cmd.c_str());
+            // std::system(cmd.c_str());
 
             return outputModuleFilePath;
         }
 
     private:
-        std::string computeImportLibrariesOptions(const Project *project, const Module *module) const {
+        std::vector<std::string> computeImportLibrariesOptions(const Project *project, const Module *module) const {
             std::vector<std::string> options = {
                 "-lstdc++", "-lstdc++fs"
             };
@@ -266,7 +278,7 @@ namespace borc::model {
                 options.push_back("-L" + importLibraryDir);
             }
 
-            return join(options, " ");
+            return options;
         }
 
         fs::path computeModuleOutputPath(const Project *project, const Module *module) const {
