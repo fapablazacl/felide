@@ -17,7 +17,7 @@ namespace borc::model {
     std::string join(const std::vector<std::string> &strings, const std::string &separator) {
         std::string str;
 
-		for (int i=0; i<strings.size(); i++) {
+		for (std::size_t i=0; i<strings.size(); i++) {
 			str += strings[i];
 
 			if (i < strings.size() - 1) {
@@ -190,37 +190,65 @@ namespace borc::model {
 
     class Command {
     public:
-        explicit Command(const std::string &base) 
-            : _base(base) {}
+		virtual ~Command() {}
+        
+		virtual void execute() = 0;
 
-        explicit Command(const std::string &base, const std::vector<std::string> &options) 
-            : _base(base), _options(options) {}
-
-        void execute() {
-            const std::string systemCommand = _base + " " + join(_options, " ");
-
-			std::cout << systemCommand << std::endl;
-
-            const int exitCode = std::system(systemCommand.c_str());
-
-            if (exitCode != 0) {                
-                throw std::runtime_error("The command returned an erroneous exit code: " + std::to_string(exitCode));
-            }
-        }
-
-        void addOption(const std::string &option) {
-            _options.push_back(option);
-        }
+		virtual void addOption(const std::string &option) = 0;
 
         template<typename Iterator>
         void addOptionRange(Iterator begin, Iterator end) {
-            _options.insert(_options.begin(), begin, end);
-        }
+			Iterator it = begin;
 
-    private:
-        const std::string _base;
-        std::vector<std::string> _options;
+			while (it != end) {
+				this->addOption(*it);
+				it++;
+			}
+        }
     };
+
+	class SystemCommand : public Command {
+	public:
+		explicit SystemCommand(const std::string &base)
+			: _base(base) {}
+
+		explicit SystemCommand(const std::string &base, const std::vector<std::string> &options)
+			: _base(base), _options(options) {}
+
+		virtual void execute() override {
+			const std::string systemCommand = _base + " " + join(_options, " ");
+
+			std::cout << systemCommand << std::endl;
+
+			const int exitCode = std::system(systemCommand.c_str());
+
+			if (exitCode != 0) {
+				throw std::runtime_error("The command returned an erroneous exit code: " + std::to_string(exitCode));
+			}
+		}
+
+		virtual void addOption(const std::string &option) override {
+			_options.push_back(option);
+		}
+
+	private:
+		const std::string _base;
+		std::vector<std::string> _options;
+	};
+
+	class CommandFactory {
+	public:
+		Command* createCommand(const std::string &base, const std::vector<std::string> &options = {}) {
+			auto command = new SystemCommand(base, options);
+
+			_cachedCommands.emplace_back(command);
+
+			return command;
+		}
+
+	private:
+		std::vector<std::unique_ptr<Command>> _cachedCommands;
+	};
 
     struct CompilerSwitches {
         std::string compile;
@@ -231,7 +259,8 @@ namespace borc::model {
 
     class Compiler {
     public:
-        explicit Compiler(const std::string &commandPath, const CompilerSwitches &switches) {
+        explicit Compiler(CommandFactory *commandFactory, const std::string &commandPath, const CompilerSwitches &switches) {
+			this->commandFactory = commandFactory;
             this->commandPath = commandPath;
             this->switches = switches;
         }
@@ -242,7 +271,7 @@ namespace borc::model {
             
             std::cout << "    " << file  << " ..." << std::endl;
 
-            Command command {
+            Command *command = commandFactory->createCommand(
                 commandPath, {
                     switches.zeroOptimization, 
                     switches.includeDebug, 
@@ -250,14 +279,15 @@ namespace borc::model {
                     sourceFilePath.string(),
                     switches.objectFileOutput + objectFilePath.string(),
                 }
-            };
+            );
 
-            command.execute();
+            command->execute();
 
 			return objectFilePath.string();
         }
 
     private:
+		CommandFactory *commandFactory = nullptr;
         std::string commandPath;
         CompilerSwitches switches;
     };
@@ -271,7 +301,8 @@ namespace borc::model {
 
     class Linker {
     public:
-        explicit Linker(const std::string &commandPath, const LinkerSwitches &switches) {
+        explicit Linker(CommandFactory *commandFactory, const std::string &commandPath, const LinkerSwitches &switches) {
+			this->commandFactory = commandFactory;
             this->commandPath = commandPath;
             this->switches = switches;
         }
@@ -282,15 +313,15 @@ namespace borc::model {
             const std::string outputModuleFilePath = module->computeOutputPath().string();
             const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
 
-            Command command { commandPath };
+			Command *command = commandFactory->createCommand(commandPath);
 
             if (module->getType() == ModuleType::Library) {
-                command.addOption(switches.buildSharedLibrary);
+                command->addOption(switches.buildSharedLibrary);
             }
             
-            command.addOptionRange(objectFiles.begin(), objectFiles.end());
-            command.addOptionRange(librariesOptions.begin(), librariesOptions.end());
-            command.addOption(switches.moduleOutput + outputModuleFilePath);
+            command->addOptionRange(objectFiles.begin(), objectFiles.end());
+            command->addOptionRange(librariesOptions.begin(), librariesOptions.end());
+            command->addOption(switches.moduleOutput + outputModuleFilePath);
 
             return outputModuleFilePath;
         }
@@ -315,6 +346,7 @@ namespace borc::model {
         }
 
     private:
+		CommandFactory *commandFactory = nullptr;
         std::string commandPath;
         LinkerSwitches switches;
     };
@@ -443,8 +475,10 @@ int main(int argc, char **argv) {
 	const std::string commandCompiler = commandBasePath + "cl.exe";
 	const std::string commandLinker = commandBasePath + "link.exe";
 
-	const Compiler compiler { "\"" + commandCompiler + "\"", {"/c", "", "", "/O0"} };
-	const Linker linker { commandLinker, {"/DLL", "", "/IMPLIB:", "/LIBPATH:"} };
+	CommandFactory commandFactory;
+
+	const Compiler compiler { &commandFactory, "\"" + commandCompiler + "\"", {"/c", "", "", "/O0"} };
+	const Linker linker { &commandFactory, commandLinker, {"/DLL", "", "/IMPLIB:", "/LIBPATH:"} };
 
     BuildService buildService {&compiler, &linker};
     buildService.buildProject(&borcProject);
