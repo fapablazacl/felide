@@ -2,18 +2,17 @@
 #ifndef __BORC_MODEL_COMMANDFACTORY_HPP__
 #define __BORC_MODEL_COMMANDFACTORY_HPP__
 
-#include "SystemCommand.hpp"
+#include <string>
+#include <vector>
+#include <memory>
 
 namespace borc::model {
+	class Command;
 	class CommandFactory {
 	public:
-		Command* createCommand(const std::string &base, const std::vector<std::string> &options = {}) {
-			auto command = new SystemCommand(base, options);
+		~CommandFactory();
 
-			_cachedCommands.emplace_back(command);
-
-			return command;
-		}
+		Command* createCommand(const std::string &base, const std::vector<std::string> &options = {});
 
 	private:
 		std::vector<std::unique_ptr<Command>> _cachedCommands;

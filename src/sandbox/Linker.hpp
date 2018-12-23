@@ -1,8 +1,15 @@
 
-#ifndef __BORC_MODEL_BUILDLINKER_HPP__
-#define __BORC_MODEL_BUILDLINKER_HPP__
+#ifndef __BORC_MODEL_LINKER_HPP__
+#define __BORC_MODEL_LINKER_HPP__
+
+#include <string>
+#include <vector>
 
 namespace borc::model {
+	class CommandFactory;
+	class Project;
+	class Module;
+
 	struct LinkerSwitches {
 		std::string buildSharedLibrary;
 		std::string moduleOutput;
@@ -12,49 +19,12 @@ namespace borc::model {
 
 	class Linker {
 	public:
-		explicit Linker(CommandFactory *commandFactory, const std::string &commandPath, const LinkerSwitches &switches) {
-			this->commandFactory = commandFactory;
-			this->commandPath = commandPath;
-			this->switches = switches;
-		}
+		explicit Linker(CommandFactory *commandFactory, const std::string &commandPath, const LinkerSwitches &switches);
 
-		std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
-			std::cout << "Linking " << toString(module->getType()) << " module " << module->getName() << " ..." << std::endl;
-
-			const std::string outputModuleFilePath = module->computeOutputPath().string();
-			const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
-
-			Command *command = commandFactory->createCommand(commandPath);
-
-			if (module->getType() == ModuleType::Library) {
-				command->addOption(switches.buildSharedLibrary);
-			}
-
-			command->addOptionRange(objectFiles.begin(), objectFiles.end());
-			command->addOptionRange(librariesOptions.begin(), librariesOptions.end());
-			command->addOption(switches.moduleOutput + outputModuleFilePath);
-
-			return outputModuleFilePath;
-		}
+		std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const;
 
 	private:
-		std::vector<std::string> computeImportLibrariesOptions(const Project *project, const Module *module) const {
-			std::vector<std::string> options = {
-				"-lstdc++", "-lstdc++fs"
-			};
-
-			const auto dependencies = module->getDependencies();
-
-			for (const Module *dependency : dependencies) {
-				const std::string importLibrary = dependency->getName();
-				const std::string importLibraryDir = dependency->computeOutputPath().string();
-
-				options.push_back(switches.importLibrary + importLibrary);
-				options.push_back(switches.importLibraryPath + importLibraryDir);
-			}
-
-			return options;
-		}
+		std::vector<std::string> computeImportLibrariesOptions(const Project *project, const Module *module) const;
 
 	private:
 		CommandFactory *commandFactory = nullptr;

@@ -6,10 +6,9 @@
 #include <vector>
 #include <filesystem>
 
-// TODO: Trasladar cabecera en la implementacion del modulo
-#include "Project.hpp"
-
 namespace borc::model {
+	class Project;
+
 	enum class ModuleType {
 		Library,
 		Executable
@@ -31,58 +30,25 @@ namespace borc::model {
 	class Project;
 	class Module {
 	public:
-		Module(Project *parent, const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies) {
-			this->parentProject = parent;
-			this->name = name;
-			this->type = type;
-			this->path = path;
-			this->files = files;
-			this->dependencies = dependencies;
-		}
+		Module(Project *parent, const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies);
 
-		std::string getName() const {
-			return name;
-		}
+		std::string getName() const;
 
-		std::string getPath() const {
-			return path;
-		}
+		std::string getPath() const;
 
-		std::vector<std::string> getFiles() const {
-			return files;
-		}
+		std::vector<std::string> getFiles() const;
 
-		ModuleType getType() const {
-			return type;
-		}
+		ModuleType getType() const;
 
-		const Project *getParentProject() const {
-			return parentProject;
-		}
+		const Project *getParentProject() const;
 
-		std::vector<Module*> getDependencies() const {
-			return dependencies;
-		}
+		std::vector<Module*> getDependencies() const;
 
-		std::filesystem::path computeOutputPath() const {
-			return this->parentProject->computeOutputPath() / this->getPath();
-		}
+		std::filesystem::path computeOutputPath() const;
 
-		std::filesystem::path computeFullPath() const {
-			return this->parentProject->getFullPath() / this->getPath();
-		}
+		std::filesystem::path computeFullPath() const;
 
-		std::filesystem::path computeOutputPathFile() const {
-			std::string moduleFileName = this->getName();
-
-			if (this->getType() == ModuleType::Library) {
-				// moduleFileName = "lib" + module->getName() + ".dylib";
-				// moduleFileName = "lib" + moduleFileName + ".so";
-				moduleFileName = moduleFileName + ".dll";
-			}
-
-			return this->computeOutputPath() / std::filesystem::path(moduleFileName);
-		}
+		std::filesystem::path computeOutputPathFile() const;
 
 	private:
 		//! parent project of the module

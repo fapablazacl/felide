@@ -16,10 +16,12 @@
 #include "Compiler.hpp"
 #include "Linker.hpp"
 #include "BuildService.hpp"
+#include "Command.hpp"
+#include "CommandFactory.hpp"
 
 namespace fs = std::filesystem;
 
-// Project Model for C/C++
+//! Project Model for C/C++
 namespace borc::model {
     class RunService {
     public:
