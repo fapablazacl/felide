@@ -1,57 +1,15 @@
 
-#include <string>
-#include <vector>
-#include <map>
-#include <memory>
-#include <iostream>
-#include <filesystem>
-#include <regex>
-#include <algorithm>
-#include <cstdlib>
-#include <stdexcept>
-
 #include "Common.hpp"
 #include "Module.hpp"
 #include "Project.hpp"
 #include "Compiler.hpp"
 #include "Linker.hpp"
 #include "BuildService.hpp"
+#include "RunService.hpp"
 #include "Command.hpp"
 #include "CommandFactory.hpp"
 
 namespace fs = std::filesystem;
-
-//! Project Model for C/C++
-namespace borc::model {
-    class RunService {
-    public:
-        explicit RunService(const Compiler *compiler, const Linker *linker) {
-            this->compiler = compiler;
-            this->linker = linker;
-        }
-    
-        void runModule(const Module *module) {
-            // 
-            auto deps = module->getDependencies();
-
-            std::vector<std::string> paths;
-            std::transform(deps.begin(), deps.end(), std::back_inserter(paths), [](const Module *dep) {
-                return dep->computeOutputPath().string();
-            });
-
-            // TODO: Parametrize path separator
-            const std::string pathEnv = join(paths, ":");
-			const std::string moduleFilePath = module->computeOutputPathFile().string();
-
-            std::cout << "ENV = " << pathEnv << std::endl;
-            std::cout << "EXEC " << moduleFilePath << std::endl;
-        }
-
-    private:
-        const Compiler *compiler;
-        const Linker *linker;
-    };
-}
 
 #define XSTR(a) STR(a)
 #define STR(a) #a

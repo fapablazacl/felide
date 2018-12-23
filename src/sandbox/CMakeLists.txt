@@ -8,6 +8,8 @@ set (sources
 	"Common.hpp"
 	"BuildService.cpp" 
 	"BuildService.hpp" 
+	"RunService.cpp" 
+	"RunService.hpp" 
 	"Command.cpp" 
 	"Command.hpp" 
 	"CommandFactory.cpp" 
