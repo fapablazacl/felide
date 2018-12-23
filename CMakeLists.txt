@@ -16,9 +16,9 @@ if (FELIDE_STATIC_LINK)
 endif ()
 
 # we will require Boost ...
-find_package(Boost REQUIRED COMPONENTS filesystem)
-include_directories(${Boost_INCLUDE_DIRS})
-link_directories(${Boost_LIBRARY_DIRS})
+# find_package(Boost REQUIRED COMPONENTS filesystem)
+# include_directories(${Boost_INCLUDE_DIRS})
+# link_directories(${Boost_LIBRARY_DIRS})
 
 if (UNIX)
     # TODO: Link with install prefix
@@ -45,8 +45,8 @@ if (UNIX)
 endif ()
 
 # IDE Core
-include_directories ("src/felide.core")
-add_subdirectory ("src/felide.core")
+# include_directories ("src/felide.core")
+# add_subdirectory ("src/felide.core")
 
 # CLI Tool
 # include_directories ("src/felide-cli")

@@ -6,3 +6,4 @@ build-clang/*
 .kdev4/
 .build
 .borc
+/.vs

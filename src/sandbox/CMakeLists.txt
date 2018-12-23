@@ -7,8 +7,6 @@ set (sources
 
 add_executable (${target} ${sources})
 
-target_link_libraries (${target}     
-    stdc++fs
-)
+# target_link_libraries (${target} stdc++fs)
 
 install(TARGETS ${target} DESTINATION "bin")

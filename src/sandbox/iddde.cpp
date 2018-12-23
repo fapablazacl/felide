@@ -17,10 +17,13 @@ namespace borc::model {
     std::string join(const std::vector<std::string> &strings, const std::string &separator) {
         std::string str;
 
-        for (const std::string &string : strings) {
-            str += string;
-            str += separator;
-        }
+		for (int i=0; i<strings.size(); i++) {
+			str += strings[i];
+
+			if (i < strings.size() - 1) {
+				str += separator;
+			}
+		}
 
         return str;
     }
@@ -117,9 +120,10 @@ namespace borc::model {
         fs::path computeOutputPathFile() const {
             std::string moduleFileName = this->getName();
 
-            if (this->getType() == ModuleType::Library) {    
+            if (this->getType() == ModuleType::Library) {
                 // moduleFileName = "lib" + module->getName() + ".dylib";
-                moduleFileName = "lib" + moduleFileName + ".so";
+                // moduleFileName = "lib" + moduleFileName + ".so";
+				moduleFileName = moduleFileName + ".dll";
             }
 
             return this->computeOutputPath() / fs::path(moduleFileName);
@@ -194,6 +198,9 @@ namespace borc::model {
 
         void execute() {
             const std::string systemCommand = _base + " " + join(_options, " ");
+
+			std::cout << systemCommand << std::endl;
+
             const int exitCode = std::system(systemCommand.c_str());
 
             if (exitCode != 0) {                
@@ -247,7 +254,7 @@ namespace borc::model {
 
             command.execute();
 
-            return objectFilePath;
+			return objectFilePath.string();
         }
 
     private:
@@ -383,7 +390,7 @@ namespace borc::model {
 
             // TODO: Parametrize path separator
             const std::string pathEnv = join(paths, ":");
-            const std::string moduleFilePath = module->computeOutputPathFile();
+			const std::string moduleFilePath = module->computeOutputPathFile().string();
 
             std::cout << "ENV = " << pathEnv << std::endl;
             std::cout << "EXEC " << moduleFilePath << std::endl;
@@ -427,10 +434,17 @@ int main(int argc, char **argv) {
     }, {borcCoreModule});
 
     // const std::string commandBase = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
-    const std::string commandBase = "gcc";
+    // const std::string commandBase = "gcc";
 
-    const Compiler compiler { commandBase, {"-c", "-o", "-g", "-O0"} };
-    const Linker linker { commandBase, {"-shared", "-o", "-l", "-L"} };
+    // const Compiler compiler { commandBase, {"-c", "-o", "-g", "-O0"} };
+    // const Linker linker { commandBase, {"-shared", "-o", "-l", "-L"} };
+
+	const std::string commandBasePath = "C:\\Program Files(x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\bin\\Hostx64\\x64\\";
+	const std::string commandCompiler = commandBasePath + "cl.exe";
+	const std::string commandLinker = commandBasePath + "link.exe";
+
+	const Compiler compiler { "\"" + commandCompiler + "\"", {"/c", "", "", "/O0"} };
+	const Linker linker { commandLinker, {"/DLL", "", "/IMPLIB:", "/LIBPATH:"} };
 
     BuildService buildService {&compiler, &linker};
     buildService.buildProject(&borcProject);
