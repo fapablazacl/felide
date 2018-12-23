@@ -9,8 +9,6 @@
 #include "Command.hpp"
 #include "CommandFactory.hpp"
 
-namespace fs = std::filesystem;
-
 #define XSTR(a) STR(a)
 #define STR(a) #a
 
