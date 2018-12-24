@@ -46,13 +46,13 @@ int main(int argc, char **argv) {
     // const Compiler compiler { commandBase, {"-c", "-o", "-g", "-O0"} };
     // const Linker linker { commandBase, {"-shared", "-o", "-l", "-L"} };
 
-	const std::string commandBasePath = "C:\\Program Files(x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\bin\\Hostx64\\x64\\";
+	const std::string commandBasePath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\bin\\Hostx64\\x64\\";
 	const std::string commandCompiler = commandBasePath + "cl.exe";
 	const std::string commandLinker = commandBasePath + "link.exe";
 
 	CommandFactory commandFactory;
 
-	const Compiler compiler { &commandFactory, "\"" + commandCompiler + "\"", {"/c", "", "", "/O0"} };
+	const Compiler compiler { &commandFactory, commandCompiler, {"/c", "/Fo", "/DEBUG:FULL", ""} };
 	const Linker linker { &commandFactory, commandLinker, {"/DLL", "", "/IMPLIB:", "/LIBPATH:"} };
 
     BuildService buildService {&compiler, &linker};

@@ -14,6 +14,10 @@ set (sources
 	"Command.hpp" 
 	"CommandFactory.cpp" 
 	"CommandFactory.hpp" 
+	"SystemCommand.cpp" 
+	"SystemCommand.hpp" 
+	"ProcessCommand.cpp" 
+	"ProcessCommand.hpp" 
 	"Compiler.cpp" 
 	"Compiler.hpp" 
 	"Linker.cpp" 
@@ -22,8 +26,8 @@ set (sources
 	"Module.hpp" 
 	"Project.cpp" 
 	"Project.hpp" 
-	"SystemCommand.cpp" 
-	"SystemCommand.hpp" 
+	"win32/ProcessRedirector.cpp" 
+	"win32/ProcessRedirector.hpp" 
 )
 
 add_executable (${target} ${sources})

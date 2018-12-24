@@ -14,8 +14,8 @@ namespace borc::model {
 	}
 
 	std::string Compiler::compile(const Project *project, const Module *module, const std::string &file) const {
-		const std::filesystem::path sourceFilePath = module->computeFullPath() / std::filesystem::path(file);
-		const std::filesystem::path objectFilePath = module->computeOutputPath() / std::filesystem::path(file);
+		const std::filesystem::path sourceFilePath = std::filesystem::canonical(module->computeFullPath() / std::filesystem::path(file));
+		const std::filesystem::path objectFilePath = std::filesystem::canonical(module->computeOutputPath()) / std::filesystem::path(file + ".obj");
 
 		std::cout << "    " << file << " ..." << std::endl;
 
@@ -24,8 +24,8 @@ namespace borc::model {
 				switches.zeroOptimization,
 				switches.includeDebug,
 				switches.compile,
-				sourceFilePath.string(),
-				switches.objectFileOutput + objectFilePath.string(),
+				"\"" + sourceFilePath.string() + "\"",
+				switches.objectFileOutput + "\"" + objectFilePath.string() + "\"",
 			}
 		);
 
