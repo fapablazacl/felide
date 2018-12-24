@@ -13,12 +13,26 @@ namespace borc::model {
 		this->linker = linker;
 	}
 
+	static CompileOptions computeCompileOptions(const Module *module) {
+		std::vector<std::string> directories;
+
+		for (Module *module : module->getDependencies()) {
+			const std::string directory = module->computeFullPath().string();
+
+			directories.push_back(directory);
+		}
+
+		return { directories };
+	}
+
 	void BuildService::buildProject(const Project *project) {
 		auto modules = project->getModules();
 
 		int builtModules = 0;
 
 		for (const Module *module : modules) {
+			const CompileOptions compileOptions = computeCompileOptions(module);
+
 			std::cout << "Building module " << module->getName() << " ..." << std::endl;
 
 			const auto files = module->getFiles();
@@ -29,7 +43,7 @@ namespace borc::model {
 			});
 
 			std::transform(objectFiles.begin(), objectFiles.end(), objectFiles.begin(), [&](const auto &file) {
-				return this->compiler->compile(project, module, file);
+				return this->compiler->compile(project, module, file, compileOptions);
 			});
 
 			linker->link(project, module, objectFiles);

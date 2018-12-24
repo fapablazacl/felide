@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 
 	CommandFactory commandFactory;
 
-	const Compiler compiler { &commandFactory, commandCompiler, {"/c", "/Fo", "/DEBUG:FULL", ""} };
+	const Compiler compiler { &commandFactory, commandCompiler, {"/c", "/Fo", "/DEBUG:FULL", "/Od", "/I "} };
 	const Linker linker { &commandFactory, commandLinker, {"/DLL", "", "/IMPLIB:", "/LIBPATH:"} };
 
     BuildService buildService {&compiler, &linker};
