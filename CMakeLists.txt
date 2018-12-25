@@ -44,6 +44,11 @@ if (UNIX)
     add_definitions ("-fPIC")
 endif ()
 
+# BORC Core
+add_subdirectory("src/borc.core")
+include_directories("src/borc.core")
+add_subdirectory("src/borc.cli")
+
 # IDE Core
 # include_directories ("src/felide.core")
 # add_subdirectory ("src/felide.core")
