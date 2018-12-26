@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include "Predef.h"
 
 namespace borc::model {
 	class Project;

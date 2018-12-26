@@ -51,6 +51,9 @@ namespace borc::model {
 			// moduleFileName = "lib" + module->getName() + ".dylib";
 			// moduleFileName = "lib" + moduleFileName + ".so";
 			moduleFileName = moduleFileName + ".dll";
+		} else {
+			// TODO: Add check for OS-dependent names and suffixes
+			moduleFileName = moduleFileName + ".exe";
 		}
 
 		return this->computeOutputPath() / std::filesystem::path(moduleFileName);

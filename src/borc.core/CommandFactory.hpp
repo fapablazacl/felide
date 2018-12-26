@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "Predef.h"
 
 namespace borc::model {
 	class Command;

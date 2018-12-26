@@ -2,7 +2,8 @@
 #ifndef __BORC_MODEL_RUNSERVICE_HPP__
 #define __BORC_MODEL_RUNSERVICE_HPP__
 
-//! Project Model for C/C++
+#include "Predef.h"
+
 namespace borc::model {
 	class Compiler;
 	class Linker;

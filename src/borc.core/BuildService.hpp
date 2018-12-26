@@ -4,13 +4,14 @@
 
 #include <string>
 #include <vector>
+#include "Predef.h"
 
 namespace borc::model {
 	class Compiler;
 	class Linker;
 	class Project;
 
-	class BuildService {
+	class BORC_API BuildService {
 	private:
 		const Compiler *compiler;
 		const Linker *linker;

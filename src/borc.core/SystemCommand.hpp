@@ -2,9 +2,10 @@
 #ifndef __BORC_MODEL_SYSTEMCOMMAND_HPP__
 #define __BORC_MODEL_SYSTEMCOMMAND_HPP__
 
-#include "Command.hpp"
 #include <string>
 #include <vector>
+#include "Predef.h"
+#include "Command.hpp"
 
 namespace borc::model {
 	class SystemCommand : public Command {

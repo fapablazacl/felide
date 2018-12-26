@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
 	};
 
 	linkerConfiguration.importLibraries = {
-		"AdvAPI32.Lib"
+		"AdvAPI32"
 	};
 
 	const Linker linker { &commandFactory, commandLinker, linkerSwitches, linkerConfiguration };

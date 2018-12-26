@@ -1,7 +1,10 @@
 
 set (target "borc.core")
 
+add_definitions(-DBORC_BUILD)
+
 set (sources 
+	"Predef.h"
 	"Common.cpp" 
 	"Common.hpp"
 	"BuildService.cpp" 

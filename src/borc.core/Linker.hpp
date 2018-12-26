@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include "Predef.h"
 
 namespace borc::model {
 	class CommandFactory;

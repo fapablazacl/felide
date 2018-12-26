@@ -2,9 +2,10 @@
 #ifndef __BORC_MODEL_PROCESSCOMMAND_HPP__
 #define __BORC_MODEL_PROCESSCOMMAND_HPP__
 
-#include "Command.hpp"
 #include <string>
 #include <vector>
+#include "Command.hpp"
+#include "Predef.h"
 
 namespace borc::model {
 	class ProcessCommand : public Command {

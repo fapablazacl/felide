@@ -42,7 +42,7 @@ namespace borc::model {
 		std::vector<std::string> options;
 
 		for (const std::string &importLibrary : libraries) {
-			options.push_back(importLibrary);
+			options.push_back(importLibrary + ".lib");
 		}
 
 		return options;
