@@ -16,6 +16,86 @@ std::string getFullPath() {
     return XSTR(PROJECT_SOURCE_DIR);
 }
 
+namespace borc::model {
+	class RunService;
+	class BuildService;
+	class ServiceFactory {
+	public:
+		virtual ~ServiceFactory() {}
+
+		virtual BuildService createBuildService() = 0;
+
+		virtual BuildService createRunService() = 0;
+
+	private:
+		std::vector<std::unique_ptr<Compiler>> compilers;
+		std::vector<std::unique_ptr<Linker>> linkers;
+	};
+
+	class GNUServiceFactory : public ServiceFactory {
+
+	}
+
+	class MicrosoftServiceFactory : public ServiceFactory {
+	public:
+		MicrosoftServiceFactory(const std::string &basePath, const std::string &windowsKitPath) {
+			// const std::string basePath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\";
+			const std::string commandBasePath = basePath + "bin\\Hostx64\\x64\\";
+			const std::string commandCompiler = commandBasePath + "cl.exe";
+			const std::string commandLinker = commandBasePath + "link.exe";
+
+			const std::string standardIncludePath = basePath + "include";
+
+			// const std::string ucrtIncludePath = "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.17763.0\\ucrt";
+			const std::string ucrtIncludePath = windowsKitPath + "Include\\10.0.17763.0\\ucrt";
+			const std::string umIncludePath = windowsKitPath + "Include\\10.0.17763.0\\um";
+
+			const std::string sharedIncludePath = windowsKitPath + "Include\\10.0.17763.0\\shared";
+
+			CommandFactory commandFactory;
+
+			CompilerSwitches compilerSwitches;
+			compilerSwitches.compile = "/c";
+			compilerSwitches.objectFileOutput = "/Fo";
+			compilerSwitches.zeroOptimization = "/Od";
+			compilerSwitches.includePath = "/I";
+			compilerSwitches.includeDebug = "/DEBUG:FULL";
+
+			this->compiler = std::make_unique<Compiler> (
+				&commandFactory, 
+				commandCompiler, 
+				compilerSwitches,
+				{ 
+					{"/EHsc", "/std:c++17"}, 
+					{ 
+						"\"" + standardIncludePath + "\"", 
+						"\"" + ucrtIncludePath + "\"",
+						"\"" + umIncludePath + "\"",
+						"\"" + sharedIncludePath + "\""
+					}
+				}
+			);
+		}
+
+		virtual ~MicrosoftServiceFactory() {}
+
+		virtual BuildService createBuildService() {
+			return {compiler.get(), linker.get()};
+		}
+
+		virtual RunService createRunService() {
+			return {compiler.get(), linker.get()};
+		}
+
+
+	private:
+		std::unique_ptr<Compiler> compiler;
+		std::unique_ptr<Linker> linker;
+
+		CommandFactory commandFactory;
+	};
+} 
+
 int main(int argc, char **argv) {
     using namespace borc::model;
 
@@ -60,40 +140,7 @@ int main(int argc, char **argv) {
     // const Compiler compiler { commandBase, {"-c", "-o", "-g", "-O0"} };
     // const Linker linker { commandBase, {"-shared", "-o", "-l", "-L"} };
 
-	const std::string basePath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\";
-	const std::string commandBasePath = basePath + "bin\\Hostx64\\x64\\";
-	const std::string commandCompiler = commandBasePath + "cl.exe";
-	const std::string commandLinker = commandBasePath + "link.exe";
 
-	const std::string standardIncludePath = basePath + "include";
-
-	const std::string ucrtIncludePath = "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.17763.0\\ucrt";
-	const std::string umIncludePath = "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.17763.0\\um";
-	const std::string sharedIncludePath = "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.17763.0\\shared";
-
-	CommandFactory commandFactory;
-
-	CompilerSwitches compilerSwitches;
-	compilerSwitches.compile = "/c";
-	compilerSwitches.objectFileOutput = "/Fo";
-	compilerSwitches.zeroOptimization = "/Od";
-	compilerSwitches.includePath = "/I";
-	compilerSwitches.includeDebug = "/DEBUG:FULL";
-
-	const Compiler compiler {
-		&commandFactory, 
-		commandCompiler, 
-		compilerSwitches,
-		{ 
-			{"/EHsc", "/std:c++17"}, 
-			{ 
-				"\"" + standardIncludePath + "\"", 
-				"\"" + ucrtIncludePath + "\"",
-				"\"" + umIncludePath + "\"",
-				"\"" + sharedIncludePath + "\""
-			}
-		}
-	};
 
 	LinkerSwitches linkerSwitches;
 	linkerSwitches.buildSharedLibrary = "/DLL";
