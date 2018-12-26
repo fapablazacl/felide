@@ -17,6 +17,8 @@ namespace borc::model {
 		std::string includeDebug;
 		std::string zeroOptimization;
 		std::string includePath;
+
+		CompilerSwitches() {}
 	};
 
 	//! Compiler default configuration

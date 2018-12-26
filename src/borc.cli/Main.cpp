@@ -73,10 +73,17 @@ int main(int argc, char **argv) {
 
 	CommandFactory commandFactory;
 
+	CompilerSwitches compilerSwitches;
+	compilerSwitches.compile = "/c";
+	compilerSwitches.objectFileOutput = "/Fo";
+	compilerSwitches.zeroOptimization = "/Od";
+	compilerSwitches.includePath = "/I";
+	compilerSwitches.includeDebug = "/DEBUG:FULL";
+
 	const Compiler compiler {
 		&commandFactory, 
 		commandCompiler, 
-		{ "/c", "/Fo", "/DEBUG:FULL", "/Od", "/I "},
+		compilerSwitches,
 		{ 
 			{"/EHsc", "/std:c++17"}, 
 			{ 
@@ -87,7 +94,25 @@ int main(int argc, char **argv) {
 			}
 		}
 	};
-	const Linker linker { &commandFactory, commandLinker, {"/DLL", "", "/IMPLIB:", "/LIBPATH:"} };
+
+	LinkerSwitches linkerSwitches;
+	linkerSwitches.buildSharedLibrary = "/DLL";
+	linkerSwitches.moduleOutput = "/OUT:";
+	linkerSwitches.importLibrary = "/IMPLIB:";
+	linkerSwitches.importLibraryPath = "/LIBPATH:";
+
+	LinkerConfiguration linkerConfiguration;
+	linkerConfiguration.importLibraryPaths = {
+		"\"" + basePath + "lib\\x64" + "\"",
+		"\"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.17763.0\\um\\x64\"",
+		"\"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.17763.0\\ucrt\\x64\""
+	};
+
+	linkerConfiguration.importLibraries = {
+		"AdvAPI32.Lib"
+	};
+
+	const Linker linker { &commandFactory, commandLinker, linkerSwitches, linkerConfiguration };
 
     BuildService buildService {&compiler, &linker};
     buildService.buildProject(&borcProject);

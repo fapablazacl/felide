@@ -7,7 +7,7 @@
 namespace borc::model {
 	class Command {
 	public:
-		virtual ~Command() {}
+		virtual ~Command();
 
 		virtual void execute() = 0;
 
@@ -15,11 +15,8 @@ namespace borc::model {
 
 		template<typename Iterator>
 		void addOptionRange(Iterator begin, Iterator end) {
-			Iterator it = begin;
-
-			while (it != end) {
-				this->addOption(*it);
-				it++;
+			for (Iterator i=begin; i!=end; i++) {
+				this->addOption(*i);
 			}
 		}
 	};

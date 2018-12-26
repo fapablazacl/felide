@@ -15,25 +15,32 @@ namespace borc::model {
 		std::string moduleOutput;
 		std::string importLibrary;
 		std::string importLibraryPath;
+
+		LinkerSwitches() {}
 	};
 
 	struct LinkerConfiguration {
 		std::vector<std::string> importLibraries;
+		std::vector<std::string> importLibraryPaths;
+
+		LinkerConfiguration() {}
 	};
 
 	class Linker {
 	public:
-		explicit Linker(CommandFactory *commandFactory, const std::string &commandPath, const LinkerSwitches &switches);
+		explicit Linker(CommandFactory *commandFactory, const std::string &commandPath, const LinkerSwitches &switches, const LinkerConfiguration &configuration);
 
 		std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const;
 
 	private:
+		std::vector<std::string> computeImportLibraryPathOptions(const std::vector<std::string> &paths) const;
 		std::vector<std::string> computeImportLibrariesOptions(const Project *project, const Module *module) const;
 
 	private:
 		CommandFactory *commandFactory = nullptr;
 		std::string commandPath;
 		LinkerSwitches switches;
+		LinkerConfiguration configuration;
 	};
 }
 
