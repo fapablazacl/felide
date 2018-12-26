@@ -19,7 +19,9 @@ namespace borc::model {
 		std::cout << "Linking " << toString(module->getType()) << " module " << module->getName() << " ..." << std::endl;
 
 		const std::string outputModuleFilePath = module->computeOutputPathFile().string();
-		const auto librariesOptions = this->computeImportLibrariesOptions(project, module);
+
+		const auto librariesOptions = this->computeLibrariesOptions(this->collectLibraries(project, module));
+		const auto libraryPathsOptions = this->computeLibraryPathsOptions(this->collectLibraryPaths(project, module));
 
 		Command *command = commandFactory->createCommand(commandPath);
 
@@ -28,6 +30,7 @@ namespace borc::model {
 		}
 
 		command->addOptionRange(librariesOptions.begin(), librariesOptions.end());
+		command->addOptionRange(libraryPathsOptions.begin(), libraryPathsOptions.end());
 		command->addOption(switches.moduleOutput + outputModuleFilePath);
 		command->addOptionRange(std::begin(objectFiles), std::end(objectFiles));
 		command->execute();
@@ -35,7 +38,17 @@ namespace borc::model {
 		return outputModuleFilePath;
 	}
 
-	std::vector<std::string> Linker::computeImportLibraryPathOptions(const std::vector<std::string> &paths) const {
+	std::vector<std::string> Linker::computeLibrariesOptions(const std::vector<std::string> &libraries) const {
+		std::vector<std::string> options;
+
+		for (const std::string &importLibrary : libraries) {
+			options.push_back(importLibrary);
+		}
+
+		return options;
+	}
+
+	std::vector<std::string> Linker::computeLibraryPathsOptions(const std::vector<std::string> &paths) const {
 		std::vector<std::string> options;
 
 		for (const std::string &path : paths) {
@@ -46,23 +59,25 @@ namespace borc::model {
 		return options;
 	}
 
-	std::vector<std::string> Linker::computeImportLibrariesOptions(const Project *project, const Module *module) const {
-		std::vector<std::string> options = this->computeImportLibraryPathOptions(configuration.importLibraryPaths);
+	std::vector<std::string> Linker::collectLibraries(const Project *project, const Module *module) const {
+		std::vector<std::string> libraries = configuration.importLibraries;
 
-		for (const std::string &importLibrary : configuration.importLibraries) {
-			options.push_back(/*switches.importLibrary + */importLibrary);
+		for (const Module *dependency : module->getDependencies()) {
+			const std::string library = dependency->getName();
+			libraries.push_back(library);
 		}
 
-		const auto dependencies = module->getDependencies();
+		return libraries;
+	}
 
-		for (const Module *dependency : dependencies) {
-			const std::string importLibrary = dependency->getName();
-			const std::string importLibraryDir = dependency->computeOutputPath().string();
+	std::vector<std::string> Linker::collectLibraryPaths(const Project *project, const Module *module) const {
+		std::vector<std::string> paths = configuration.importLibraryPaths;
 
-			options.push_back(/*switches.importLibrary + */importLibrary);
-			options.push_back(switches.importLibraryPath + importLibraryDir);
+		for (const Module *dependency : module->getDependencies()) {
+			const std::string path = dependency->computeOutputPath().string();
+			paths.push_back(path);
 		}
 
-		return options;
+		return paths;
 	}
 }

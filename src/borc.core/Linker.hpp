@@ -33,8 +33,11 @@ namespace borc::model {
 		std::string link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const;
 
 	private:
-		std::vector<std::string> computeImportLibraryPathOptions(const std::vector<std::string> &paths) const;
-		std::vector<std::string> computeImportLibrariesOptions(const Project *project, const Module *module) const;
+		std::vector<std::string> collectLibraries(const Project *project, const Module *module) const;
+		std::vector<std::string> collectLibraryPaths(const Project *project, const Module *module) const;
+		
+		std::vector<std::string> computeLibrariesOptions(const std::vector<std::string> &libraries) const;
+		std::vector<std::string> computeLibraryPathsOptions(const std::vector<std::string> &libraryPaths) const;
 
 	private:
 		CommandFactory *commandFactory = nullptr;
