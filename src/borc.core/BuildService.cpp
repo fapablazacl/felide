@@ -2,6 +2,7 @@
 #include "BuildService.hpp"
 
 #include <filesystem>
+#include <algorithm>
 #include "Project.hpp"
 #include "Module.hpp"
 #include "Compiler.hpp"

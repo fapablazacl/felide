@@ -15,10 +15,12 @@ set (sources
 	"Command.hpp" 
 	"CommandFactory.cpp" 
 	"CommandFactory.hpp" 
+	# "ProcessCommand.cpp" 
+	# "ProcessCommand.hpp" 
+	# "win32/ProcessRedirector.cpp" 
+	# "win32/ProcessRedirector.hpp" 
 	"SystemCommand.cpp" 
 	"SystemCommand.hpp" 
-	"ProcessCommand.cpp" 
-	"ProcessCommand.hpp" 
 	"Compiler.cpp" 
 	"Compiler.hpp" 
 	"Linker.cpp" 
@@ -27,8 +29,6 @@ set (sources
 	"Module.hpp" 
 	"Project.cpp" 
 	"Project.hpp" 
-	"win32/ProcessRedirector.cpp" 
-	"win32/ProcessRedirector.hpp" 
 )
 
 add_library (${target} ${sources})

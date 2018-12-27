@@ -25,34 +25,97 @@ namespace borc::model {
 
 		virtual BuildService createBuildService() = 0;
 
-		virtual BuildService createRunService() = 0;
+		virtual RunService createRunService() = 0;
 
 	private:
 		std::vector<std::unique_ptr<Compiler>> compilers;
 		std::vector<std::unique_ptr<Linker>> linkers;
 	};
 
-	class GNUServiceFactory : public ServiceFactory {
-
-	}
-
-	class MicrosoftServiceFactory : public ServiceFactory {
+	class GCCServiceFactory : public ServiceFactory {
 	public:
-		MicrosoftServiceFactory(const std::string &basePath, const std::string &windowsKitPath) {
-			// const std::string basePath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\";
-			const std::string commandBasePath = basePath + "bin\\Hostx64\\x64\\";
-			const std::string commandCompiler = commandBasePath + "cl.exe";
-			const std::string commandLinker = commandBasePath + "link.exe";
+		explicit GCCServiceFactory(const std::string &commandBase) {
+			this->commandBase = commandBase;
 
-			const std::string standardIncludePath = basePath + "include";
+			this->compiler = this->createCompiler();
+			this->linker = this->createLinker();
+		}
+
+		virtual BuildService createBuildService() override {
+			return BuildService{ compiler.get(), linker.get() };
+		}
+
+		virtual RunService createRunService() override {
+			return RunService{ compiler.get(), linker.get() };
+		}
+	private:
+		std::unique_ptr<Compiler> createCompiler() {
+			CompilerSwitches switches;
+			switches.compile = "-c";
+			switches.includeDebug = "-g";
+			switches.zeroOptimization = "-O0";
+			switches.objectFileOutput = "-o";
+			switches.includePath = "-I";
+
+			CompilerConfiguration configuration;
+
+			return std::make_unique<Compiler> (&commandFactory, commandBase, switches, configuration);
+		}
+
+		std::unique_ptr<Linker> createLinker() {
+			LinkerSwitches switches;
+			switches.buildSharedLibrary = "-shared";
+			switches.moduleOutput = "-o";
+			switches.importLibrary = "-l";
+			switches.importLibraryPath = "-L";
+
+			LinkerConfiguration configuration;
+			configuration.importLibraries = {
+				"stdc++", "stdc++fs"
+			};
+
+			return std::make_unique<Linker> (&commandFactory, commandBase, switches, configuration);
+		}
+
+	private:
+		std::string commandBase;
+		std::unique_ptr<Compiler> compiler;
+		std::unique_ptr<Linker> linker;
+
+		CommandFactory commandFactory;
+	};
+
+	class VCServiceFactory : public ServiceFactory {
+	public:
+		VCServiceFactory(const std::string &installationPath, const std::string &windowsKitPath) {
+			// const std::string installationPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\";
+			const std::string commandBasePath = installationPath + "bin\\Hostx64\\x64\\";
+			const std::string compilerCommand = commandBasePath + "cl.exe";
+			const std::string linkerCommand = commandBasePath + "link.exe";
+
+			this->compiler = this->createCompiler(compilerCommand, installationPath, windowsKitPath);
+			this->linker = this->createLinker(linkerCommand, installationPath, windowsKitPath);
+		}
+
+		virtual ~VCServiceFactory() {}
+
+		virtual BuildService createBuildService() override {
+			return BuildService{ compiler.get(), linker.get() };
+		}
+
+		virtual RunService createRunService() override {
+			return RunService{ compiler.get(), linker.get() };
+		}
+
+	private:
+		std::unique_ptr<Compiler> createCompiler(const std::string &compilerCommand, const std::string &installationPath, const std::string &windowsKitPath) {
+			const std::string standardIncludePath = installationPath + "include";
 
 			// const std::string ucrtIncludePath = "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.17763.0\\ucrt";
 			const std::string ucrtIncludePath = windowsKitPath + "Include\\10.0.17763.0\\ucrt";
 			const std::string umIncludePath = windowsKitPath + "Include\\10.0.17763.0\\um";
 
 			const std::string sharedIncludePath = windowsKitPath + "Include\\10.0.17763.0\\shared";
-
-			CommandFactory commandFactory;
 
 			CompilerSwitches compilerSwitches;
 			compilerSwitches.compile = "/c";
@@ -61,11 +124,9 @@ namespace borc::model {
 			compilerSwitches.includePath = "/I";
 			compilerSwitches.includeDebug = "/DEBUG:FULL";
 
-			this->compiler = std::make_unique<Compiler> (
-				&commandFactory, 
-				commandCompiler, 
-				compilerSwitches,
-				{ 
+			return std::make_unique<Compiler> (
+				&commandFactory, compilerCommand, compilerSwitches,
+				CompilerConfiguration { 
 					{"/EHsc", "/std:c++17"}, 
 					{ 
 						"\"" + standardIncludePath + "\"", 
@@ -77,16 +138,31 @@ namespace borc::model {
 			);
 		}
 
-		virtual ~MicrosoftServiceFactory() {}
+		std::unique_ptr<Linker> createLinker(const std::string &linkerCommand, const std::string &installationPath, const std::string &windowsKitPath) {
+			LinkerSwitches linkerSwitches;
+			linkerSwitches.buildSharedLibrary = "/DLL";
+			linkerSwitches.moduleOutput = "/OUT:";
+			linkerSwitches.importLibrary = "/IMPLIB:";
+			linkerSwitches.importLibraryPath = "/LIBPATH:";
 
-		virtual BuildService createBuildService() {
-			return {compiler.get(), linker.get()};
+			LinkerConfiguration linkerConfiguration;
+			linkerConfiguration.importLibraryPaths = {
+				"\"" + installationPath + "lib\\x64" + "\"",
+				"\"" + windowsKitPath + "Lib\\10.0.17763.0\\um\\x64" + "\"",
+				"\"" + windowsKitPath + "Lib\\10.0.17763.0\\ucrt\\x64" + "\""
+				// "\"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.17763.0\\um\\x64\"",
+				// "\"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.17763.0\\ucrt\\x64\""
+			};
+
+			linkerConfiguration.importLibraries = { "AdvAPI32" };
+
+			return std::make_unique<Linker>(
+				&commandFactory, 
+				linkerCommand,
+				linkerSwitches, 
+				linkerConfiguration
+			);
 		}
-
-		virtual RunService createRunService() {
-			return {compiler.get(), linker.get()};
-		}
-
 
 	private:
 		std::unique_ptr<Compiler> compiler;
@@ -134,37 +210,13 @@ int main(int argc, char **argv) {
         "Main.cpp"
     }, {borcCoreModule});
 
-    // const std::string commandBase = "/usr/local/Cellar/gcc/8.2.0/bin/gcc-8";
-    // const std::string commandBase = "gcc";
+	// auto serviceFactory = GCCServiceFactory("/usr/local/Cellar/gcc/8.2.0/bin/gcc-8");
+	auto serviceFactory = GCCServiceFactory("gcc");
 
-    // const Compiler compiler { commandBase, {"-c", "-o", "-g", "-O0"} };
-    // const Linker linker { commandBase, {"-shared", "-o", "-l", "-L"} };
-
-
-
-	LinkerSwitches linkerSwitches;
-	linkerSwitches.buildSharedLibrary = "/DLL";
-	linkerSwitches.moduleOutput = "/OUT:";
-	linkerSwitches.importLibrary = "/IMPLIB:";
-	linkerSwitches.importLibraryPath = "/LIBPATH:";
-
-	LinkerConfiguration linkerConfiguration;
-	linkerConfiguration.importLibraryPaths = {
-		"\"" + basePath + "lib\\x64" + "\"",
-		"\"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.17763.0\\um\\x64\"",
-		"\"C:\\Program Files (x86)\\Windows Kits\\10\\Lib\\10.0.17763.0\\ucrt\\x64\""
-	};
-
-	linkerConfiguration.importLibraries = {
-		"AdvAPI32"
-	};
-
-	const Linker linker { &commandFactory, commandLinker, linkerSwitches, linkerConfiguration };
-
-    BuildService buildService {&compiler, &linker};
+    BuildService buildService = serviceFactory.createBuildService();
     buildService.buildProject(&borcProject);
 
-    RunService runService {&compiler, &linker};
+    RunService runService = serviceFactory.createRunService();
     runService.runModule(borcCliModule);
 
     return 0;
