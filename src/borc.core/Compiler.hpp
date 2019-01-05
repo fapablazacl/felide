@@ -10,6 +10,7 @@
 namespace borc::model {
 	class Project;
 	class Module;
+	class Command;
 	class CommandFactory;
 
 	struct CompilerSwitches {
@@ -32,6 +33,7 @@ namespace borc::model {
 		std::vector<std::string> includePaths;
 	};
 
+	class Source;
 	class Compiler {
 	public:
 		explicit Compiler(
@@ -41,7 +43,12 @@ namespace borc::model {
 			const CompilerConfiguration &configuration
 		);
 
+		[[deprecated]]
 		std::string compile(const Project *project, const Module *module, const std::string &file, const CompileOptions &options) const;
+
+		Command* createCompileCommand(const Source *source, const CompileOptions &options) const;
+
+		std::filesystem::path getObjectFilePath(const Source *source) const;
 
 	private:
 		CommandFactory *commandFactory = nullptr;

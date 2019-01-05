@@ -1,5 +1,6 @@
 
 #include "Common.hpp"
+#include "Source.hpp"
 #include "Module.hpp"
 #include "Project.hpp"
 #include "Compiler.hpp"
@@ -8,6 +9,9 @@
 #include "RunService.hpp"
 #include "Command.hpp"
 #include "CommandFactory.hpp"
+
+#include <vector>
+#include <map>
 
 #define XSTR(a) STR(a)
 #define STR(a) #a
@@ -26,6 +30,10 @@ namespace borc::model {
 		virtual BuildService createBuildService() = 0;
 
 		virtual RunService createRunService() = 0;
+
+		virtual const Compiler* getCompiler() const = 0;
+
+		virtual const Linker* getLinker() const = 0;
 
 	private:
 		std::vector<std::unique_ptr<Compiler>> compilers;
@@ -77,6 +85,14 @@ namespace borc::model {
 			return std::make_unique<Linker> (&commandFactory, commandBase, switches, configuration);
 		}
 
+		virtual const Compiler* getCompiler() const override {
+			return compiler.get();
+		}
+
+		virtual const Linker* getLinker() const override {
+			return linker.get();
+		}
+
 	private:
 		std::string commandBase;
 		std::unique_ptr<Compiler> compiler;
@@ -88,7 +104,6 @@ namespace borc::model {
 	class VCServiceFactory : public ServiceFactory {
 	public:
 		VCServiceFactory(const std::string &installationPath, const std::string &windowsKitPath) {
-			// const std::string installationPath = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\";
 			const std::string commandBasePath = installationPath + "bin\\Hostx64\\x64\\";
 			const std::string compilerCommand = commandBasePath + "cl.exe";
 			const std::string linkerCommand = commandBasePath + "link.exe";
@@ -107,11 +122,17 @@ namespace borc::model {
 			return RunService{ compiler.get(), linker.get() };
 		}
 
+		virtual const Compiler* getCompiler() const override {
+			return compiler.get();
+		}
+
+		virtual const Linker* getLinker() const override {
+			return linker.get();
+		}
+
 	private:
 		std::unique_ptr<Compiler> createCompiler(const std::string &compilerCommand, const std::string &installationPath, const std::string &windowsKitPath) {
 			const std::string standardIncludePath = installationPath + "include";
-
-			// const std::string ucrtIncludePath = "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.17763.0\\ucrt";
 			const std::string ucrtIncludePath = windowsKitPath + "Include\\10.0.17763.0\\ucrt";
 			const std::string umIncludePath = windowsKitPath + "Include\\10.0.17763.0\\um";
 
@@ -172,24 +193,93 @@ namespace borc::model {
 	};
 } 
 
-#include <map>
+#include <set>
 
-namespace borc::dag {
-	struct Node {
-		explicit Node(const std::string &filePath_)
-			: filePath(filePath_) {}
-
-		explicit Node(const std::string &filePath_, const std::vector<Node*> &dependencies) : filePath(filePath_) {
-			this->dependencies = dependencies;
+namespace borc::model {
+	struct SourceType {
+		SourceType(const std::initializer_list<std::string> &wildcards) {
+			this->wildcards = wildcards;
 		}
 
-		const std::string filePath;
+		std::set<std::string> wildcards;
+
+		bool match(const std::filesystem::path &filePath) const {
+			const std::string ext = "*" + filePath.extension().string();
+
+			auto it = std::find(wildcards.begin(), wildcards.end(), ext);
+
+			return it != wildcards.end();
+		}
+	};
+
+	class Toolchain {
+	public:
+		explicit Toolchain(const std::vector<std::pair<SourceType, const Compiler*>> &compilers, const Linker *linker) {
+			this->compilers = compilers;
+			this->linker = linker;
+		}
+
+		~Toolchain() {}
+
+		const Compiler* selectCompiler(const Source *source) const {
+			for (auto &pair : compilers) {
+				if (pair.first.match(source->getFilePath())) {
+					return pair.second;
+				}
+			}
+
+			return nullptr;
+		}
+
+		const Linker* selectLinker(const Module *module) const {
+			return linker;
+		}
+
+	private:
+		std::vector<std::pair<SourceType, const Compiler*>> compilers;
+		const Linker *linker = nullptr;
+	};
+}
+
+namespace borc::dag {
+	class Node {
+	public:
+		explicit Node(const std::string &filePath) {
+			this->filePath = filePath;
+		}
+
+		~Node() {}
+
+		void addDependency(Node *dependency) {
+			dependencies.push_back(dependency);
+		}
+
+		void removeDependency(Node *child) {
+			auto location = std::find_if(dependencies.begin(), dependencies.end(), [child](auto node) {
+				return node == child;
+			});
+
+			if (location != dependencies.end()) {
+				dependencies.erase(location);
+			}
+		}
+
+		std::vector<Node*> getDependencies() const {
+			return dependencies;
+		}
+
+		std::string getFilePath() const {
+			return filePath;
+		}
+
+	private:
+		std::string filePath;
 		std::vector<Node*> dependencies;
 	};
 
-	class NodeFactory {
+	class NodeRepository {
 	public:
-		~NodeFactory() {}
+		~NodeRepository() {}
 
 		Node* getNode(const std::string &filePath) const {
 			auto it = nodeMap.find(filePath);
@@ -212,31 +302,52 @@ namespace borc::dag {
 
 	class BuildGraphGenerator {
 	public:
-		explicit BuildGraphGenerator(NodeFactory *nodeFactory) {
-			this->nodeFactory = nodeFactory;
+		explicit BuildGraphGenerator(NodeRepository *nodeRepository, const borc::model::Toolchain *toolchain) {
+			this->nodeRepository = nodeRepository;
+			this->toolchain = toolchain;
 		}
 
 		Node* generateGraph(const borc::model::Module *module) const {
-			const std::string filePath = module->getOutputFilePath().string();
-			auto moduleNode = nodeFactory->getNode(filePath);
+			const std::string moduleFilePath = module->getOutputFilePath().string();
+			Node *moduleNode = nodeRepository->getNode(moduleFilePath);
 
-			for (const std::string &file : module->getFiles()) {
-				auto objectNode = nodeFactory->getNode(file);
-				moduleNode->dependencies.push_back(objectNode);
+			for (const borc::model::Source *source: module->getSources()) {
+				Node *objectNode = this->generateGraph(source);
+
+				if (!objectNode) {
+					continue;
+				}
+
+				moduleNode->addDependency(objectNode);
 			}
 
 			return moduleNode;
 		}
 
 	private:
-		Node* generateGraph(const borc::model::Module *module, const std::string &sourceFile) const {
-			// TODO: Compute a list from all local included files
+		Node* generateGraph(const borc::model::Source *source) const {
+			const auto compiler = this->toolchain->selectCompiler(source);
 
-			auto objectNode = nodeFactory->getNode(sourceFile + ".obj");
+			if (!compiler) {
+				return nullptr;
+			}
+
+			const auto objectFilePath = compiler->getObjectFilePath(source);
+			const auto objectNode = nodeRepository->getNode(objectFilePath.string());
+
+			const auto sourceFilePath = source->getFilePath();
+			const auto sourceNode = nodeRepository->getNode(sourceFilePath.string());
+
+			objectNode->addDependency(sourceNode);
+
+			// TODO: Compute header dependency information
+
+			return objectNode;
 		}
 
 	private:
-		NodeFactory *nodeFactory;
+		NodeRepository *nodeRepository = nullptr;
+		const borc::model::Toolchain *toolchain = nullptr;
 	};
 }
 
@@ -277,15 +388,33 @@ int main(int argc, char **argv) {
     Module *borcCliModule = borcProject.addModule("borc.cli", ModuleType::Executable, "src/borc.cli", {
         "Main.cpp"
     }, {borcCoreModule});
+	
+	SourceType cppSourceType {"*.cpp", "*.cxx", "*.c++", "*.cc"};
+
+	VCServiceFactory serviceFactory {
+		"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\",
+		"C:\\Program Files (x86)\\Windows Kits\\10\\"
+	};
+
+	Toolchain cppToolchain {
+		{{cppSourceType, serviceFactory.getCompiler()}},
+		serviceFactory.getLinker()
+	};
+
+	borc::dag::NodeRepository nodeRepository;
+	borc::dag::BuildGraphGenerator buildGraphGenerator{ &nodeRepository, &cppToolchain };
+
+	auto borcCliModuleNode = buildGraphGenerator.generateGraph(borcCliModule);
+	auto borcCoreModuleNode = buildGraphGenerator.generateGraph(borcCoreModule);
 
 	// auto serviceFactory = GCCServiceFactory("/usr/local/Cellar/gcc/8.2.0/bin/gcc-8");
-	auto serviceFactory = GCCServiceFactory("gcc");
+	// auto serviceFactory = GCCServiceFactory("gcc");
 
-    BuildService buildService = serviceFactory.createBuildService();
-    buildService.buildProject(&borcProject);
+    // BuildService buildService = serviceFactory.createBuildService();
+    // buildService.buildProject(&borcProject);
 
-    RunService runService = serviceFactory.createRunService();
-    runService.runModule(borcCliModule);
+    // RunService runService = serviceFactory.createRunService();
+    // runService.runModule(borcCliModule);
 
     return 0;
 }

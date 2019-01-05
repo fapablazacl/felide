@@ -29,15 +29,20 @@ namespace borc::model {
 	}
 
 	class Project;
+	class Source;
 	class Module {
 	public:
 		Module(Project *parent, const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies);
+
+		~Module();
 
 		std::string getName() const;
 
 		std::string getPartialPath() const;
 
 		std::vector<std::string> getFiles() const;
+
+		std::vector<Source*> getSources() const;
 
 		ModuleType getType() const;
 
@@ -69,6 +74,8 @@ namespace borc::model {
 
 		//! list of module libraries that this module depends on
 		std::vector<Module*> dependencies;
+
+		std::vector<std::unique_ptr<Source>> sources;
 	};
 }
 
