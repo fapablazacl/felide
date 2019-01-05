@@ -7,7 +7,7 @@ namespace borc::model {
 		this->parentProject = parent;
 		this->name = name;
 		this->type = type;
-		this->path = path;
+		this->partialPath = path;
 		this->files = files;
 		this->dependencies = dependencies;
 	}
@@ -16,8 +16,8 @@ namespace borc::model {
 		return name;
 	}
 
-	std::string Module::getPath() const {
-		return path;
+	std::string Module::getPartialPath() const {
+		return partialPath;
 	}
 
 	std::vector<std::string> Module::getFiles() const {
@@ -36,15 +36,15 @@ namespace borc::model {
 		return dependencies;
 	}
 
-	std::filesystem::path Module::computeOutputPath() const {
-		return this->parentProject->computeOutputPath() / this->getPath();
+	std::filesystem::path Module::getOutputPath() const {
+		return this->parentProject->computeOutputPath() / this->getPartialPath();
 	}
 
-	std::filesystem::path Module::computeFullPath() const {
-		return this->parentProject->getFullPath() / this->getPath();
+	std::filesystem::path Module::getPath() const {
+		return this->parentProject->getFullPath() / this->getPartialPath();
 	}
 
-	std::filesystem::path Module::computeOutputPathFile() const {
+	std::filesystem::path Module::getOutputFilePath() const {
 		std::string moduleFileName = this->getName();
 
 		if (this->getType() == ModuleType::Library) {
@@ -56,6 +56,6 @@ namespace borc::model {
 			moduleFileName = moduleFileName + ".exe";
 		}
 
-		return this->computeOutputPath() / std::filesystem::path(moduleFileName);
+		return this->getOutputPath() / std::filesystem::path(moduleFileName);
 	}
 }

@@ -35,7 +35,7 @@ namespace borc::model {
 
 		std::string getName() const;
 
-		std::string getPath() const;
+		std::string getPartialPath() const;
 
 		std::vector<std::string> getFiles() const;
 
@@ -45,11 +45,11 @@ namespace borc::model {
 
 		std::vector<Module*> getDependencies() const;
 
-		std::filesystem::path computeOutputPath() const;
+		std::filesystem::path getOutputPath() const;
 
-		std::filesystem::path computeFullPath() const;
+		std::filesystem::path getPath() const;
 
-		std::filesystem::path computeOutputPathFile() const;
+		std::filesystem::path getOutputFilePath() const;
 
 	private:
 		//! parent project of the module
@@ -62,7 +62,7 @@ namespace borc::model {
 		ModuleType type = ModuleType::Executable;
 
 		//! relative path to the parent project
-		std::string path;
+		std::string partialPath;
 
 		//! list of files that compose the module
 		std::vector<std::string> files;

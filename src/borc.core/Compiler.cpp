@@ -15,8 +15,8 @@ namespace borc::model {
 	}
 
 	std::string Compiler::compile(const Project *project, const Module *module, const std::string &file, const CompileOptions &options) const {
-		const std::filesystem::path sourceFilePath = std::filesystem::canonical(module->computeFullPath() / std::filesystem::path(file));
-		const std::filesystem::path objectFilePath = std::filesystem::canonical(module->computeOutputPath()) / std::filesystem::path(file + ".obj");
+		const std::filesystem::path sourceFilePath = std::filesystem::canonical(module->getPath() / std::filesystem::path(file));
+		const std::filesystem::path objectFilePath = std::filesystem::canonical(module->getOutputPath()) / std::filesystem::path(file + ".obj");
 
 		std::cout << "    " << file << " ..." << std::endl;
 

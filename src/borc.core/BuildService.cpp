@@ -18,7 +18,7 @@ namespace borc::model {
 		std::vector<std::string> directories;
 
 		for (Module *module : module->getDependencies()) {
-			const std::string directory = module->computeFullPath().string();
+			const std::string directory = module->getPath().string();
 
 			directories.push_back(directory);
 		}

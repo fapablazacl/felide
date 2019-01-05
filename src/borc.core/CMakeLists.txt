@@ -25,6 +25,9 @@ set (sources
 	"Compiler.hpp" 
 	"Linker.cpp" 
 	"Linker.hpp" 
+
+	"Source.cpp" 
+	"Source.hpp" 
 	"Module.cpp" 
 	"Module.hpp" 
 	"Project.cpp" 

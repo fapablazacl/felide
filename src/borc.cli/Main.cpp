@@ -172,6 +172,74 @@ namespace borc::model {
 	};
 } 
 
+#include <map>
+
+namespace borc::dag {
+	struct Node {
+		explicit Node(const std::string &filePath_)
+			: filePath(filePath_) {}
+
+		explicit Node(const std::string &filePath_, const std::vector<Node*> &dependencies) : filePath(filePath_) {
+			this->dependencies = dependencies;
+		}
+
+		const std::string filePath;
+		std::vector<Node*> dependencies;
+	};
+
+	class NodeFactory {
+	public:
+		~NodeFactory() {}
+
+		Node* getNode(const std::string &filePath) const {
+			auto it = nodeMap.find(filePath);
+
+			if (it != nodeMap.end()) {
+				return it->second.get();
+			} else {
+				auto nodePtr = std::make_unique<Node>(filePath);
+				auto node = nodePtr.get();
+
+				nodeMap[filePath] = std::move(nodePtr);
+
+				return node;
+			}
+		}
+
+	private:
+		mutable std::map<std::string, std::unique_ptr<Node>> nodeMap;
+	};
+
+	class BuildGraphGenerator {
+	public:
+		explicit BuildGraphGenerator(NodeFactory *nodeFactory) {
+			this->nodeFactory = nodeFactory;
+		}
+
+		Node* generateGraph(const borc::model::Module *module) const {
+			const std::string filePath = module->getOutputFilePath().string();
+			auto moduleNode = nodeFactory->getNode(filePath);
+
+			for (const std::string &file : module->getFiles()) {
+				auto objectNode = nodeFactory->getNode(file);
+				moduleNode->dependencies.push_back(objectNode);
+			}
+
+			return moduleNode;
+		}
+
+	private:
+		Node* generateGraph(const borc::model::Module *module, const std::string &sourceFile) const {
+			// TODO: Compute a list from all local included files
+
+			auto objectNode = nodeFactory->getNode(sourceFile + ".obj");
+		}
+
+	private:
+		NodeFactory *nodeFactory;
+	};
+}
+
 int main(int argc, char **argv) {
     using namespace borc::model;
 

@@ -21,12 +21,12 @@ namespace borc::model {
 
 		std::vector<std::string> paths;
 		std::transform(deps.begin(), deps.end(), std::back_inserter(paths), [](const Module *dep) {
-			return dep->computeOutputPath().string();
+			return dep->getOutputPath().string();
 		});
 
 		// TODO: Parametrize path separator
 		const std::string pathEnv = join(paths, ":");
-		const std::string moduleFilePath = module->computeOutputPathFile().string();
+		const std::string moduleFilePath = module->getOutputFilePath().string();
 
 		std::cout << "ENV = " << pathEnv << std::endl;
 		std::cout << "EXEC " << moduleFilePath << std::endl;

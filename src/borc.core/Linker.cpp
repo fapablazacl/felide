@@ -18,7 +18,7 @@ namespace borc::model {
 	std::string Linker::link(const Project *project, const Module *module, const std::vector<std::string> &objectFiles) const {
 		std::cout << "Linking " << toString(module->getType()) << " module " << module->getName() << " ..." << std::endl;
 
-		const std::string outputModuleFilePath = module->computeOutputPathFile().string();
+		const std::string outputModuleFilePath = module->getOutputFilePath().string();
 
 		const auto librariesOptions = this->computeLibrariesOptions(this->collectLibraries(project, module));
 		const auto libraryPathsOptions = this->computeLibraryPathsOptions(this->collectLibraryPaths(project, module));
@@ -74,7 +74,7 @@ namespace borc::model {
 		std::vector<std::string> paths = configuration.importLibraryPaths;
 
 		for (const Module *dependency : module->getDependencies()) {
-			const std::string path = dependency->computeOutputPath().string();
+			const std::string path = dependency->getOutputPath().string();
 			paths.push_back(path);
 		}
 
