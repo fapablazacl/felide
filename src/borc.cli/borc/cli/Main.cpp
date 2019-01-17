@@ -1,15 +1,16 @@
 
-#include "Common.hpp"
-#include "Source.hpp"
-#include "Module.hpp"
-#include "Project.hpp"
-#include "Compiler.hpp"
-#include "Linker.hpp"
-#include "BuildService.hpp"
-#include "RunService.hpp"
-#include "Command.hpp"
-#include "CommandFactory.hpp"
+#include <borc/core/Common.hpp>
+#include <borc/core/Source.hpp>
+#include <borc/core/Module.hpp>
+#include <borc/core/Project.hpp>
+#include <borc/core/Compiler.hpp>
+#include <borc/core/Linker.hpp>
+#include <borc/core/BuildService.hpp>
+#include <borc/core/RunService.hpp>
+#include <borc/core/Command.hpp>
+#include <borc/core/CommandFactory.hpp>
 
+#include <algorithm>
 #include <vector>
 #include <map>
 

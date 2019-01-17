@@ -1,12 +1,12 @@
 
 set (target "borc.cli")
-set (sources "Main.cpp")
+set (sources "borc/cli/Main.cpp")
 
 add_executable (${target} ${sources})
 
 target_link_libraries (${target} 
 	borc.core 
-	# stdc++fs
+	stdc++fs
 )
 
 install(TARGETS ${target} DESTINATION "bin")
