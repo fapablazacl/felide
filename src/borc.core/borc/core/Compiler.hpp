@@ -7,7 +7,7 @@
 #include <filesystem>
 #include "Predef.h"
 
-namespace borc::model {
+namespace borc {
 	class Project;
 	class Module;
 	class Command;

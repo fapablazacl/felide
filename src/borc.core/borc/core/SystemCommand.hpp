@@ -7,7 +7,7 @@
 #include "Predef.h"
 #include "Command.hpp"
 
-namespace borc::model {
+namespace borc {
 	class SystemCommand : public Command {
 	public:
 		explicit SystemCommand(const std::string &base);

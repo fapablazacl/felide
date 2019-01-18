@@ -2,7 +2,7 @@
 #include "ProcessRedirector.hpp"
 #include <sstream>
 
-namespace borc::model {
+namespace borc {
 	static bool isWinNT() {
 		OSVERSIONINFOW osv = { 0 };
 		osv.dwOSVersionInfoSize = sizeof(osv);

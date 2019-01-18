@@ -6,7 +6,7 @@
 #include <vector>
 #include "Predef.h"
 
-namespace borc::model {
+namespace borc {
 	class Compiler;
 	class Linker;
 	class Project;

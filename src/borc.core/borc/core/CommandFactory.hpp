@@ -7,7 +7,7 @@
 #include <memory>
 #include "Predef.h"
 
-namespace borc::model {
+namespace borc {
 	class Command;
 	class CommandFactory {
 	public:

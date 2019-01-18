@@ -8,7 +8,7 @@
 #include <memory>
 #include "Predef.h"
 
-namespace borc::model {
+namespace borc {
 
 	enum class ModuleType;
 	class Module;

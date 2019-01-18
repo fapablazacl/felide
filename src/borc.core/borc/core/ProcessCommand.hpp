@@ -7,7 +7,7 @@
 #include "Command.hpp"
 #include "Predef.h"
 
-namespace borc::model {
+namespace borc {
 	class ProcessCommand : public Command {
 	public:
 		explicit ProcessCommand(const std::string &base);

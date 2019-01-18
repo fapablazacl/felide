@@ -5,7 +5,7 @@
 #include <string>
 #include "Predef.h"
 
-namespace borc::model {
+namespace borc {
 	class Command {
 	public:
 		virtual ~Command();

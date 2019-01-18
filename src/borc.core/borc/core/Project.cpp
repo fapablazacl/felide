@@ -2,7 +2,7 @@
 #include "Project.hpp"
 #include "Module.hpp"
 
-namespace borc::model {
+namespace borc {
 	Project::Project(const std::string &name, const std::string &fullPath) {
 		this->name = name;
 		this->fullPath = fullPath;

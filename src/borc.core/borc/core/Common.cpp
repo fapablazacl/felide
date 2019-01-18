@@ -1,7 +1,7 @@
 
 #include "Common.hpp"
 
-namespace borc::model {
+namespace borc {
 	std::string join(const std::vector<std::string> &strings, const std::string &separator) {
 		std::string str;
 

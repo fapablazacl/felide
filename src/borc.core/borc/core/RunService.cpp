@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <iostream>
 
-namespace borc::model {
+namespace borc {
 	RunService::RunService(const Compiler *compiler, const Linker *linker) {
 		this->compiler = compiler;
 		this->linker = linker;

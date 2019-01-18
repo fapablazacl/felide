@@ -5,7 +5,7 @@
 #include <string>
 #include <Windows.h>
 
-namespace borc::model {
+namespace borc {
 	class ProcessRedirector {
 	public:
 		explicit ProcessRedirector(STARTUPINFO *si, PROCESS_INFORMATION *pi);

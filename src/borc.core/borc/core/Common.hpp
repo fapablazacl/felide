@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace borc::model {
+namespace borc {
 	std::string join(const std::vector<std::string> &strings, const std::string &separator);
 }
 

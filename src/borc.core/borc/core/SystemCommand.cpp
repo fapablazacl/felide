@@ -6,7 +6,7 @@
 
 #include "Common.hpp"
 
-namespace borc::model {
+namespace borc {
 	SystemCommand::SystemCommand(const std::string &base)
 		: _base(base) {}
 

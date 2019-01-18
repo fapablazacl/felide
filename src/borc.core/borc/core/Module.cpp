@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-namespace borc::model {
+namespace borc {
 	Module::Module(Project *parent, const std::string &name, ModuleType type, const std::string &path, const std::vector<std::string> &files, const std::vector<Module*> &dependencies) {
 		this->parentProject = parent;
 		this->name = name;

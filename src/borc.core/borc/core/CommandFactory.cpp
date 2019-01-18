@@ -4,7 +4,7 @@
 #include "SystemCommand.hpp"
 // #include "ProcessCommand.hpp"
 
-namespace borc::model {
+namespace borc {
 	CommandFactory::~CommandFactory() {}
 
 	Command* CommandFactory::createCommand(const std::string &base, const std::vector<std::string> &options) {

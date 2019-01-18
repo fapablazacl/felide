@@ -9,7 +9,7 @@
 #include "win32/ProcessRedirector.hpp"
 #include <Windows.h>
 
-namespace borc::model {
+namespace borc {
 	ProcessCommand::ProcessCommand(const std::string &base)
 		: _base(base) {}
 

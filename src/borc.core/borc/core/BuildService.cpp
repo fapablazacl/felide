@@ -8,7 +8,7 @@
 #include "Compiler.hpp"
 #include "Linker.hpp"
 
-namespace borc::model {
+namespace borc {
 	BuildService::BuildService(const Compiler *compiler, const Linker *linker) {
 		this->compiler = compiler;
 		this->linker = linker;

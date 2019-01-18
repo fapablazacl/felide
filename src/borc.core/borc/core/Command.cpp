@@ -1,6 +1,6 @@
 
 #include "Command.hpp"
 
-namespace borc::model {
+namespace borc {
 	Command::~Command() {}
 }

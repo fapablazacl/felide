@@ -8,7 +8,7 @@
 #include "Project.hpp"
 #include "Module.hpp"
 
-namespace borc::model {
+namespace borc {
 	Compiler::Compiler(CommandFactory *commandFactory, const std::string &commandPath, const CompilerSwitches &switches, const CompilerConfiguration &configuration) {
 		this->commandFactory = commandFactory;
 		this->commandPath = commandPath;

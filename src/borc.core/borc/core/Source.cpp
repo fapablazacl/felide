@@ -5,7 +5,7 @@
 #include <cassert>
 #include <filesystem>
 
-namespace borc::model {
+namespace borc {
 	Source::Source(const std::filesystem::path &partialFilePath, const Module *parentModule) {
 		this->parentModule = parentModule;
 		this->partialFilePath = partialFilePath;
