@@ -1,6 +1,10 @@
 
 include_directories(.)
 
+find_package(Boost REQUIRED COMPONENTS program_options)
+include_directories(${Boost_INCLUDE_DIRS})
+link_directories(${Boost_LIBRARY_DIRS})
+
 set (target "borc.cli")
 
 set (sources_borc "borc/Main.cpp")
@@ -39,8 +43,9 @@ add_executable (${target}
 )
 
 target_link_libraries (${target} 
-	borc.core 
+	borc.core
 	stdc++fs
+	${Boost_LIBRARIES}
 )
 
 install(TARGETS ${target} DESTINATION "bin")

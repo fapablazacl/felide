@@ -5,7 +5,7 @@
 #include <borc/core/Project.hpp>
 
 namespace borc {
-    std::unique_ptr<Project> ProjectFactory::createProject(const std::string &path) {
+    std::unique_ptr<Project> ProjectFactory::createProject(const std::string &path) const {
         auto borcProject = std::make_unique<Project>("borc", path);
 
         Module *borcCoreModule = borcProject->addModule("borc.core", ModuleType::Library, "src/borc.core", {

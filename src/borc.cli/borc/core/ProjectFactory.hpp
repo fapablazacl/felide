@@ -9,7 +9,7 @@ namespace borc {
     class Project;
     class ProjectFactory {
 	public:
-		std::unique_ptr<Project> createProject(const std::string &projectPath);
+		std::unique_ptr<Project> createProject(const std::string &projectPath) const;
 	};
 }
 

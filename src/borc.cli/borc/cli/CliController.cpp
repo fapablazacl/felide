@@ -1,6 +1,7 @@
 
 #include "CliController.hpp"
 
+#include <iostream>
 #include <borc/dag/NodeRepository.hpp>
 #include <borc/dag/BuildGraphGenerator.hpp>
 
@@ -13,6 +14,8 @@ namespace borc {
     CliController::~CliController() {}
 
     void CliController::build() {
+        std::cout << "CliController::build" << std::endl;
+
         NodeRepository nodeRepository;
         BuildGraphGenerator buildGraphGenerator {&nodeRepository, toolchain};
 
@@ -29,10 +32,10 @@ namespace borc {
     }
 
     void CliController::clean() {
-
+        std::cout << "CliController::clean" << std::endl;
     }
 
     void CliController::run() {
-
+        std::cout << "CliController::run" << std::endl;
     }
 }
