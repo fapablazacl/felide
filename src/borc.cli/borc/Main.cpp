@@ -1,5 +1,6 @@
 
 #include <string>
+#include <iostream>
 #include <boost/program_options.hpp>
 
 #include <borc/cli/CliController.hpp>
@@ -17,24 +18,42 @@ std::string getFullPath() {
 }
 
 int main(int argc, char **argv) {
+    namespace po = boost::program_options;
+
     using namespace borc;
 
-    const std::string fullPath = getFullPath();
-    const auto projectFactory = ProjectFactory{};
-    const auto project = projectFactory.createProject(fullPath);
+    po::options_description desc("Allowed options");
 
-    const auto toolchainFactory = ToolchainFactory::create();
-    const auto toolchain = toolchainFactory->createToolchain(ToolchainFamily::GCC);
-
-    CliController controller {project.get(), toolchain.get()};
-
-    boost::program_options::options_description options("Alowed options:");
-
-    options.add_options()
-        ("b,build", "Build using the current Toolset")
-        ("c,clean", "Cleans the local build directory")
-        ("h,help", "Shows this message")
+    desc.add_options()
+        ("build", "Build using the current Toolset")
+        ("clean", "Cleans the local build directory")
+        ("help", "Shows this message")
     ;
 
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm);
+
+    if (vm.count("help")) {
+        std::cout << desc << std::endl;
+
+        return 1;
+    } else if (vm.count("build")) {
+        const std::string fullPath = getFullPath();
+        const auto projectFactory = ProjectFactory{};
+        const auto project = projectFactory.createProject(fullPath);
+
+        const auto toolchainFactory = ToolchainFactory::create();
+        const auto toolchain = toolchainFactory->createToolchain(ToolchainFamily::GCC);
+
+        CliController controller {project.get(), toolchain.get()};
+
+        controller.build();
+
+        return 0;
+    }
+
+    std::cout << "No specified option. Try again with the --help option"  << std::endl;
+    
     return 0;
 }
