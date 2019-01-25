@@ -25,11 +25,11 @@ int main(int argc, char **argv) {
     po::options_description desc("Allowed options");
 
     desc.add_options()
-        ("build", "Build using the current Toolset")
+        ("build", po::value<std::string>(), "Build using the current Toolset")
         ("clean", "Cleans the local build directory")
         ("help", "Shows this message")
     ;
-
+    
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
@@ -48,7 +48,14 @@ int main(int argc, char **argv) {
 
         CliController controller {project.get(), toolchain.get()};
 
-        controller.build();
+        const std::string moduleName = vm["build"].as<std::string>();
+
+        if (moduleName == "") {
+            std::cout << "--build option must have a valid module Name" << std::endl;
+            return 1;
+        }
+
+        controller.build(moduleName);
 
         return 0;
     }

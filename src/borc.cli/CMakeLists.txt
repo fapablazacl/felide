@@ -38,13 +38,24 @@ set (sources_borc_dag
 	"borc/dag/NodeRepository.cpp"
 )
 
+source_group(\\borc FILES ${sources_borc})
+source_group(\\borc\\cli FILES ${sources_borc_cli})
+source_group(\\borc\\core FILES ${sources_borc_core})
+source_group(\\borc\\dag FILES ${sources_borc_dag})
+
 add_executable (${target} 
 	${sources_borc} ${sources_borc_cli} ${sources_borc_core} ${sources_borc_dag}
 )
 
+if (NOT MSVC)
+	set (stdcppfs "stdc++fs")
+else()
+	set (stdcppfs "")
+endif()
+
 target_link_libraries (${target} 
 	borc.core
-	stdc++fs
+	${stdcppfs}
 	${Boost_LIBRARIES}
 )
 

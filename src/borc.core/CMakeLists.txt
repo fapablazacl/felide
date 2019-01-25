@@ -34,6 +34,8 @@ set (sources
 	"borc/core/Project.hpp" 
 )
 
+source_group(\\borc\\core FILES ${sources})
+
 add_library (${target} ${sources})
 
 install(TARGETS ${target} DESTINATION "bin")
