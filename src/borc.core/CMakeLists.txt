@@ -3,6 +3,8 @@ set (target "borc.core")
 
 add_definitions(-DBORC_BUILD)
 
+set (source_borc "../../Package.borc.json" "Module.borc.json")
+
 set (sources 
 	"borc/core/Predef.h"
 	"borc/core/Common.cpp" 
@@ -35,8 +37,9 @@ set (sources
 	"borc/core/FileUtil.cpp" 
 )
 
+source_group(\\ FILES ${source_borc})
 source_group(\\borc\\core FILES ${sources})
 
-add_library (${target} ${sources})
+add_library (${target} ${sources} ${source_borc})
 
 install(TARGETS ${target} DESTINATION "bin")

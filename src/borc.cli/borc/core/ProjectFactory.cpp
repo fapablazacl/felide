@@ -3,6 +3,7 @@
 
 #include <optional>
 #include <iostream>
+#include <fstream>
 #include <nlohmann/json.hpp>
 #include <borc/core/FileUtil.hpp>
 #include <borc/core/Module.hpp>
@@ -28,18 +29,57 @@ namespace borc {
         };
     }
 
-    std::unique_ptr<Project> ProjectFactory::createProject(const std::string &filePath) const {
-        std::cout << filePath << std::endl;
+    borc::model::Package makePackageFromJson(const nlohmann::json &json) {
+        borc::model::Package package;
 
-        const std::string packageFileContent = FileUtil::load(filePath);
-        const nlohmann::json packageJson = nlohmann::json::parse(packageFileContent);
+        package.name = json["name"].get<std::string>();
+        package.description = json["description"].get<std::string>();
+        package.author = json["author"].get<std::string>();
+        package.license = json["license"].get<std::string>();
+        package.paths = json["paths"].get<std::vector<std::string>>();
 
-        borc::model::Package packageModel;
-        packageModel.name = packageJson["name"].get<std::string>();
-        packageModel.description = packageJson["description"].get<std::string>();
-        packageModel.author = packageJson["author"].get<std::string>();
-        packageModel.license = packageJson["license"].get<std::string>();
-        packageModel.paths = packageJson["paths"].get<std::vector<std::string>>();
+        return package;
+    }
+    
+    borc::model::Module makeModuleFromJson(const nlohmann::json &json) {
+        borc::model::Module module;
+
+        module.name = json["name"].get<std::string>();
+        module.type = json["type"].get<std::string>();
+        
+        if (json.find("sources") != json.end()) {
+            module.sources = json["sources"].get<std::vector<std::string>>();
+        }
+
+        if (json.find("imports") != json.end()) {
+            module.imports = json["imports"].get<std::vector<std::string>>();
+        }
+
+        return module;
+    }
+
+    nlohmann::json makeJsonFromFile(const std::filesystem::path &filePath) {
+        const std::string fileContent = FileUtil::load(filePath.string());
+        return nlohmann::json::parse(fileContent);
+    }
+
+    std::unique_ptr<Project> ProjectFactory::createProject(const std::string &file) const {
+        const auto filePath = std::filesystem::path(file);
+        const auto parentPath = std::filesystem::path(filePath).parent_path();
+        const nlohmann::json packageJson = makeJsonFromFile(filePath);
+
+        borc::model::Package packageModel = makePackageFromJson(packageJson);
+
+        std::vector<borc::model::Module> moduleModels;
+
+        for (const std::string &partialPath : packageModel.paths) {
+            const std::filesystem::path moduleFilePath = parentPath / partialPath / "Module.borc.json";
+            const nlohmann::json moduleJson = makeJsonFromFile(moduleFilePath);
+
+            const borc::model::Module module = makeModuleFromJson(moduleJson);
+
+            moduleModels.push_back(module);
+        }
 
         return std::unique_ptr<Project>();
     }

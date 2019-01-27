@@ -1,6 +1,7 @@
 
 #include <string>
 #include <iostream>
+#include <filesystem>
 #include <boost/program_options.hpp>
 
 #include <borc/cli/ProjectController.hpp>
@@ -11,7 +12,8 @@
 #include <borc/core/ToolchainFactory.hpp>
 
 std::string getFullPath() {
-    return "/home/fapablaza/Desktop/devwarecl/felide/Package.borc.json";
+    return (std::filesystem::current_path() / "Package.borc.json").string();
+    // return "/home/fapablaza/Desktop/devwarecl/felide/Package.borc.json";
 }
 
 int main(int argc, char **argv) {

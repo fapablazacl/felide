@@ -7,6 +7,8 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 set (target "borc.cli")
 
+set (source_borc "Module.borc.json")
+
 set (sources_borc "borc/Main.cpp")
 
 set (sources_borc_cli
@@ -38,13 +40,14 @@ set (sources_borc_dag
 	"borc/dag/NodeRepository.cpp"
 )
 
+source_group(\\ FILES ${source_borc})
 source_group(\\borc FILES ${sources_borc})
 source_group(\\borc\\cli FILES ${sources_borc_cli})
 source_group(\\borc\\core FILES ${sources_borc_core})
 source_group(\\borc\\dag FILES ${sources_borc_dag})
 
 add_executable (${target} 
-	${sources_borc} ${sources_borc_cli} ${sources_borc_core} ${sources_borc_dag}
+	${source_borc} ${sources_borc} ${sources_borc_cli} ${sources_borc_core} ${sources_borc_dag}
 )
 
 if (NOT MSVC)

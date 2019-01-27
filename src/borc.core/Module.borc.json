@@ -25,8 +25,5 @@
         "borc/core/Module.hpp",
         "borc/core/Project.cpp",
         "borc/core/Project.hpp" 
-    ],
-    "export": {
-        "includePaths": "./"
-    }
+    ]
 }
