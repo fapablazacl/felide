@@ -26,6 +26,9 @@ if (UNIX)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif ()
 
+# JSON Library
+include_directories("dep/nlohmann")
+
 # YAML library
 # set (YAML_CPP_BUILD_TESTS OFF CACHE BOOL "Enable parse tools")
 # set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")

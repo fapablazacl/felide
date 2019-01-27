@@ -1,44 +1,46 @@
 
 #include "ProjectFactory.hpp"
 
+#include <optional>
+#include <iostream>
+#include <nlohmann/json.hpp>
+#include <borc/core/FileUtil.hpp>
 #include <borc/core/Module.hpp>
 #include <borc/core/Project.hpp>
 
 namespace borc {
-    std::unique_ptr<Project> ProjectFactory::createProject(const std::string &path) const {
-        auto borcProject = std::make_unique<Project>("borc", path);
+    namespace model {
+        struct Package {
+            std::string name;
+            std::optional<std::string> description;
+            std::string version;
+            std::optional<std::string> author;
+            std::optional<std::string> license;
+            std::vector<std::string> paths;
+        };
 
-        Module *borcCoreModule = borcProject->addModule("borc.core", ModuleType::Library, "src/borc.core", {
-            "Common.cpp",
-            "Common.hpp",
-            "BuildService.cpp",
-            "BuildService.hpp",
-            "RunService.cpp",
-            "RunService.hpp",
-            "Command.cpp",
-            "Command.hpp",
-            "CommandFactory.cpp",
-            "CommandFactory.hpp",
-            "SystemCommand.cpp",
-            "SystemCommand.hpp",
-            "ProcessCommand.cpp",
-            "ProcessCommand.hpp",
-            "Compiler.cpp",
-            "Compiler.hpp",
-            "Linker.cpp",
-            "Linker.hpp",
-            "Module.cpp",
-            "Module.hpp",
-            "Project.cpp",
-            "Project.hpp",
-            "win32/ProcessRedirector.cpp",
-            "win32/ProcessRedirector.hpp"
-        });
+        struct Module {
+            std::string name;
+            std::string type;
+            std::optional<std::vector<std::string>> imports;
+            std::vector<std::string> sources;
+            std::optional<std::string> export_;
+        };
+    }
 
-        Module *borcCliModule = borcProject->addModule("borc.cli", ModuleType::Executable, "src/borc.cli", {
-            "Main.cpp"
-        }, {borcCoreModule});
+    std::unique_ptr<Project> ProjectFactory::createProject(const std::string &filePath) const {
+        std::cout << filePath << std::endl;
 
-        return borcProject;
+        const std::string packageFileContent = FileUtil::load(filePath);
+        const nlohmann::json packageJson = nlohmann::json::parse(packageFileContent);
+
+        borc::model::Package packageModel;
+        packageModel.name = packageJson["name"].get<std::string>();
+        packageModel.description = packageJson["description"].get<std::string>();
+        packageModel.author = packageJson["author"].get<std::string>();
+        packageModel.license = packageJson["license"].get<std::string>();
+        packageModel.paths = packageJson["paths"].get<std::vector<std::string>>();
+
+        return std::unique_ptr<Project>();
     }
 }

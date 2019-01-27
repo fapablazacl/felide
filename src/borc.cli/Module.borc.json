@@ -1,7 +1,7 @@
 {
     "name": "borc.cli",
     "type": "application",
-    "dependencies": [
+    "imports": [
         "boost.program_options",
         "borc.core",
         "std.filesystem"

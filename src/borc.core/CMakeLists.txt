@@ -25,13 +25,14 @@ set (sources
 	"borc/core/Compiler.hpp" 
 	"borc/core/Linker.cpp" 
 	"borc/core/Linker.hpp" 
-
 	"borc/core/Source.cpp" 
 	"borc/core/Source.hpp" 
 	"borc/core/Module.cpp" 
 	"borc/core/Module.hpp" 
 	"borc/core/Project.cpp" 
 	"borc/core/Project.hpp" 
+	"borc/core/FileUtil.hpp" 
+	"borc/core/FileUtil.cpp" 
 )
 
 source_group(\\borc\\core FILES ${sources})

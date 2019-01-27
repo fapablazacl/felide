@@ -10,11 +10,8 @@
 #include <borc/core/Toolchain.hpp>
 #include <borc/core/ToolchainFactory.hpp>
 
-#define XSTR(a) STR(a)
-#define STR(a) #a
-
 std::string getFullPath() {
-    return XSTR(PROJECT_SOURCE_DIR);
+    return "/home/fapablaza/Desktop/devwarecl/felide/Package.borc.json";
 }
 
 int main(int argc, char **argv) {
@@ -58,6 +55,8 @@ int main(int argc, char **argv) {
         controller.build(moduleName);
 
         return 0;
+    } else if (vm.count("run")) {
+
     }
 
     std::cout << "No specified option. Try again with the --help option"  << std::endl;
