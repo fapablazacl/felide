@@ -2,6 +2,7 @@
 #include "CliController.hpp"
 
 #include <iostream>
+#include <algorithm>
 #include <borc/core/Module.hpp>
 #include <borc/core/Project.hpp>
 #include <borc/dag/NodeRepository.hpp>
@@ -19,20 +20,19 @@ namespace borc {
         NodeRepository nodeRepository;
         BuildGraphGenerator buildGraphGenerator {&nodeRepository, toolchain};
 
-        const Module *module = nullptr;
+        auto modules = project->getModules();
 
-        for (auto *module_ : project->getModules()) {
-            if (module_->getName() == moduleName) {
-                module = module_;
-                break;
-            }
-        }
+        auto moduleIt = std::find_if(modules.begin(), modules.end(), [moduleName](auto module) {
+            return module->getName() == moduleName;
+        });
 
-        if (!module) {
+        if (moduleIt == modules.end()) {
             std::cout << "Module " << moduleName << " not found" << std::endl;
             return;
         }
-        
+
+        const Module *module = *moduleIt;
+
         // compute build generation graph
         auto moduleNode = buildGraphGenerator.generateGraph(module);
 
