@@ -1,6 +1,6 @@
 {
     "name": "borc.cli",
-    "type": "executable",
+    "type": "application",
     "dependencies": [
         "boost.program_options",
         "borc.core",

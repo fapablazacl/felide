@@ -1,0 +1,11 @@
+{
+    "name": "felide",
+    "description": "A lightweight IDE made with <3",
+    "version": "1.0.0",
+    "author": "Felipe Apablaza",
+    "license": "MIT",
+    "paths": [
+        "src/borc.cli",
+        "src/borc.core"
+    ]
+}
