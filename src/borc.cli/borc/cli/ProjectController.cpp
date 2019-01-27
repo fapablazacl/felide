@@ -1,5 +1,5 @@
 
-#include "CliController.hpp"
+#include "ProjectController.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -9,14 +9,14 @@
 #include <borc/dag/BuildGraphGenerator.hpp>
 
 namespace borc {
-    CliController::CliController(Project *project, Toolchain *toolchain) {
+    ProjectController::ProjectController(Project *project, Toolchain *toolchain) {
         this->project = project;
         this->toolchain = toolchain;
     }
 
-    CliController::~CliController() {}
+    ProjectController::~ProjectController() {}
 
-    void CliController::build(const std::string &moduleName) {
+    void ProjectController::build(const std::string &moduleName) {
         NodeRepository nodeRepository;
         BuildGraphGenerator buildGraphGenerator {&nodeRepository, toolchain};
 
@@ -50,11 +50,11 @@ namespace borc {
         // runService.runModule(borcCliModule);
     }
 
-    void CliController::clean() {
-        std::cout << "CliController::clean" << std::endl;
+    void ProjectController::clean() {
+        std::cout << "ProjectController::clean" << std::endl;
     }
 
-    void CliController::run() {
-        std::cout << "CliController::run" << std::endl;
+    void ProjectController::run() {
+        std::cout << "ProjectController::run" << std::endl;
     }
 }

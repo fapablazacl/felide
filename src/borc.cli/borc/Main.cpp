@@ -3,7 +3,7 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 
-#include <borc/cli/CliController.hpp>
+#include <borc/cli/ProjectController.hpp>
 #include <borc/core/Module.hpp>
 #include <borc/core/Project.hpp>
 #include <borc/core/ProjectFactory.hpp>
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
         const auto toolchainFactory = ToolchainFactory::create();
         const auto toolchain = toolchainFactory->createToolchain(ToolchainFamily::GCC);
 
-        CliController controller {project.get(), toolchain.get()};
+        ProjectController controller {project.get(), toolchain.get()};
 
         const std::string moduleName = vm["build"].as<std::string>();
 

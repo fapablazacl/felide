@@ -1,6 +1,6 @@
 
-#ifndef __BORC_CLI_CLICONTROLLER_HPP__
-#define __BORC_CLI_CLICONTROLLER_HPP__
+#ifndef __BORC_CLI_PROJECTCONTROLLER_HPP__
+#define __BORC_CLI_PROJECTCONTROLLER_HPP__
 
 #include <string>
 
@@ -8,11 +8,11 @@ namespace borc {
     class Module;
     class Project;
     class Toolchain;
-	class CliController {
+	class ProjectController {
 	public:
-		explicit CliController(Project *project, Toolchain *toolchain);
+		explicit ProjectController(Project *project, Toolchain *toolchain);
 
-		~CliController();
+		~ProjectController();
 
 		void build(const std::string &moduleName);
 

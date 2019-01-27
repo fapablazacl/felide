@@ -10,8 +10,8 @@ set (target "borc.cli")
 set (sources_borc "borc/Main.cpp")
 
 set (sources_borc_cli
-	"borc/cli/CliController.hpp"
-	"borc/cli/CliController.cpp"
+	"borc/cli/ProjectController.hpp"
+	"borc/cli/ProjectController.cpp"
 )
 
 set (sources_borc_core
