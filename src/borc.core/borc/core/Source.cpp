@@ -3,10 +3,10 @@
 #include "Module.hpp"
 
 #include <cassert>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 
 namespace borc {
-	Source::Source(const std::filesystem::path &partialFilePath, const Module *parentModule) {
+	Source::Source(const boost::filesystem::path &partialFilePath, const Module *parentModule) {
 		this->parentModule = parentModule;
 		this->partialFilePath = partialFilePath;
 	}
@@ -15,11 +15,11 @@ namespace borc {
 		return parentModule;
 	}
 
-	std::filesystem::path Source::getFilePath() const {
+	boost::filesystem::path Source::getFilePath() const {
 		return parentModule->getPath() / partialFilePath;
 	}
 
-	std::filesystem::path Source::getPartialFilePath() const {
+	boost::filesystem::path Source::getPartialFilePath() const {
 		return partialFilePath;
 	}
 }

@@ -9,7 +9,7 @@ namespace borc {
         this->wildcards = wildcards;
     }
 
-    bool SourceType::match(const std::filesystem::path &filePath) const {
+    bool SourceType::match(const boost::filesystem::path &filePath) const {
         const std::string ext = "*" + filePath.extension().string();
 
         auto it = std::find(wildcards.begin(), wildcards.end(), ext);

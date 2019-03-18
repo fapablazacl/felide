@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 #include <memory>
 #include "Predef.h"
 
@@ -22,11 +22,11 @@ namespace borc {
 
 		std::string getName() const;
 
-		std::filesystem::path getFullPath() const;
+		boost::filesystem::path getFullPath() const;
 
 		std::vector<const Module*> getModules() const;
 
-		std::filesystem::path computeOutputPath() const;
+		boost::filesystem::path computeOutputPath() const;
 
 	private:
 		//! The name of the project

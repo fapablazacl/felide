@@ -39,4 +39,6 @@ source_group(\\borc\\core FILES ${sources})
 
 add_library (${target} ${sources})
 
+target_link_libraries(${target} ${Boost_LIBRARIES})
+
 install(TARGETS ${target} DESTINATION "bin")

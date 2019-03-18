@@ -1,8 +1,9 @@
 
 #include "BuildService.hpp"
 
-#include <filesystem>
 #include <algorithm>
+#include <boost/filesystem.hpp>
+
 #include "Project.hpp"
 #include "Module.hpp"
 #include "Compiler.hpp"
@@ -56,7 +57,7 @@ namespace borc {
 	}
 
 	bool BuildService::isFileCompilable(const std::string &file) const {
-		const std::string ext = "*" + std::filesystem::path(file).extension().string();
+		const std::string ext = "*" + boost::filesystem::path(file).extension().string();
 
 		auto it = std::find(compilerWildcards.begin(), compilerWildcards.end(), ext);
 

@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 #include "Predef.h"
 
 namespace borc {
@@ -12,22 +12,22 @@ namespace borc {
 	public:
 		virtual ~AbstractSource() {}
 
-		virtual std::filesystem::path getFilePath() const = 0;
+		virtual boost::filesystem::path getFilePath() const = 0;
 	};
 
 	class Module;
 	class Source : public AbstractSource {
 	public:
-		explicit Source(const std::filesystem::path &partialFilePath, const Module *parentModule);
+		explicit Source(const boost::filesystem::path &partialFilePath, const Module *parentModule);
 
 		const Module* getParentModule() const;
 
-		virtual std::filesystem::path getFilePath() const override;
+		virtual boost::filesystem::path getFilePath() const override;
 
-		std::filesystem::path getPartialFilePath() const;
+		boost::filesystem::path getPartialFilePath() const;
 
 	private:
-		std::filesystem::path partialFilePath;
+		boost::filesystem::path partialFilePath;
 		const Module *parentModule = nullptr;
 	};
 }

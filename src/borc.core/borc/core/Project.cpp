@@ -24,8 +24,8 @@ namespace borc {
 		return name;
 	}
 
-	std::filesystem::path Project::getFullPath() const {
-		return std::filesystem::path(fullPath);
+	boost::filesystem::path Project::getFullPath() const {
+		return boost::filesystem::path(fullPath);
 	}
 
 	std::vector<const Module*> Project::getModules() const {
@@ -38,7 +38,7 @@ namespace borc {
 		return modules;
 	}
 
-	std::filesystem::path Project::computeOutputPath() const {
-		return std::filesystem::path(this->getFullPath()) / std::filesystem::path(".borc");
+	boost::filesystem::path Project::computeOutputPath() const {
+		return boost::filesystem::path(this->getFullPath()) / boost::filesystem::path(".borc");
 	}
 }
