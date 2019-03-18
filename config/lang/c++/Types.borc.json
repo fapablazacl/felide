@@ -1,0 +1,19 @@
+{
+    "id": "c++",
+    "dialects": ["98", "03", "11", "14", "17"],
+    "fileTypes": [
+        {
+            "id": "sources",
+            "name": "Source Files",
+            "patterns": ["*.cpp", "*.c", "*.cxx", "*.c++", "*.cc"]
+        }, {
+            "id": "headers",
+            "name": "Source Files",
+            "patterns": ["*.cpp", "*.c", "*.cxx", "*.c++", "*.cc"]
+        }, {
+            "id": "objects",
+            "name": "Object Files",
+            "patterns": ["*.obj"]
+        }
+    ]
+}
