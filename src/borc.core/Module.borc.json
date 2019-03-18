@@ -1,32 +1,38 @@
-{
-    "name": "borc.core",
-    "type": "library",
-    "sources": [
-        "borc/core/Predef.h",
-        "borc/core/Common.cpp",
-        "borc/core/Common.hpp",
-        "borc/core/BuildService.cpp",
-        "borc/core/BuildService.hpp",
-        "borc/core/RunService.cpp",
-        "borc/core/RunService.hpp",
-        "borc/core/Command.cpp",
-        "borc/core/Command.hpp",
-        "borc/core/CommandFactory.cpp",
-        "borc/core/CommandFactory.hpp",
-        "borc/core/SystemCommand.cpp",
-        "borc/core/SystemCommand.hpp",
-        "borc/core/Compiler.cpp",
-        "borc/core/Compiler.hpp",
-        "borc/core/Linker.cpp",
-        "borc/core/Linker.hpp",
-        "borc/core/Source.cpp",
-        "borc/core/Source.hpp",
-        "borc/core/Module.cpp",
-        "borc/core/Module.hpp",
-        "borc/core/Project.cpp",
-        "borc/core/Project.hpp" 
-    ],
-    "export": {
-        "includePaths": "./"
-    }
-}
+{ 
+    "name": "borc.core", 
+    "type": "library", 
+    "structure": {
+        "defines": {
+            "BORC_BUILD": null
+        },
+        "imports": [ "boost.filesystem" ],
+        "sources": [
+            "borc/core/Predef.h",
+            "borc/core/Common.cpp",
+            "borc/core/Common.hpp",
+            "borc/core/BuildService.cpp",
+            "borc/core/BuildService.hpp",
+            "borc/core/RunService.cpp",
+            "borc/core/RunService.hpp",
+            "borc/core/Command.cpp",
+            "borc/core/Command.hpp",
+            "borc/core/CommandFactory.cpp",
+            "borc/core/CommandFactory.hpp",
+            "borc/core/SystemCommand.cpp",
+            "borc/core/SystemCommand.hpp",
+            "borc/core/Compiler.cpp",
+            "borc/core/Compiler.hpp",
+            "borc/core/Linker.cpp",
+            "borc/core/Linker.hpp",
+            "borc/core/Source.cpp",
+            "borc/core/Source.hpp",
+            "borc/core/Module.cpp",
+            "borc/core/Module.hpp",
+            "borc/core/Project.cpp",
+            "borc/core/Project.hpp" 
+        ]
+    },
+    "export": { 
+        "includePaths": ["."]
+    } 
+} 
