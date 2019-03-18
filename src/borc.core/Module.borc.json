@@ -1,5 +1,5 @@
 { 
-    "name": "borc.core", 
+    "name": "core",
     "type": "library", 
     "structure": {
         "defines": {

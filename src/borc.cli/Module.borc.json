@@ -1,5 +1,5 @@
 {
-    "name": "borc.cli",
+    "name": "cli",
     "type": "application",
     "structure": {
         "defines": [],
