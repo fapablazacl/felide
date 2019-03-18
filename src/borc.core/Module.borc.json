@@ -3,7 +3,7 @@
     "type": "library", 
     "structure": {
         "defines": {
-            "BORC_BUILD": null
+            "BORC_BUILD": "1"
         },
         "imports": [ "boost.filesystem" ],
         "sources": [
