@@ -4,7 +4,7 @@
 
 #include <string>
 #include <vector>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 #include "Predef.h"
 
 namespace borc {
@@ -50,11 +50,11 @@ namespace borc {
 
 		std::vector<Module*> getDependencies() const;
 
-		std::filesystem::path getOutputPath() const;
+		boost::filesystem::path getOutputPath() const;
 
-		std::filesystem::path getPath() const;
+		boost::filesystem::path getPath() const;
 
-		std::filesystem::path getOutputFilePath() const;
+		boost::filesystem::path getOutputFilePath() const;
 
 	private:
 		//! parent project of the module

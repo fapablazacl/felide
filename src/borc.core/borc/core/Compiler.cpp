@@ -17,8 +17,8 @@ namespace borc {
 	}
 
 	std::string Compiler::compile(const Project *project, const Module *module, const std::string &file, const CompileOptions &options) const {
-		const std::filesystem::path sourceFilePath = std::filesystem::canonical(module->getPath() / std::filesystem::path(file));
-		const std::filesystem::path objectFilePath = std::filesystem::canonical(module->getOutputPath()) / std::filesystem::path(file + ".obj");
+		const boost::filesystem::path sourceFilePath = boost::filesystem::canonical(module->getPath() / boost::filesystem::path(file));
+		const boost::filesystem::path objectFilePath = boost::filesystem::canonical(module->getOutputPath()) / boost::filesystem::path(file + ".obj");
 
 		std::cout << "    " << file << " ..." << std::endl;
 
@@ -53,10 +53,10 @@ namespace borc {
 		return objectFilePath.string();
 	}
 
-	std::filesystem::path Compiler::getObjectFilePath(const Source *source) const {
+	boost::filesystem::path Compiler::getObjectFilePath(const Source *source) const {
 		const auto objectBaseFilePath = source->getPartialFilePath().string() + ".obj";
 		const auto outputPath = source->getParentModule()->getOutputPath();
-		const auto objectFilePath = std::filesystem::canonical(outputPath) / std::filesystem::path(objectBaseFilePath);
+		const auto objectFilePath = boost::filesystem::canonical(outputPath) / boost::filesystem::path(objectBaseFilePath);
 
 		return objectFilePath;
 	}

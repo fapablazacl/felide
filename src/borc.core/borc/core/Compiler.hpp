@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <iostream>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 #include "Predef.h"
 
 namespace borc {
@@ -48,7 +48,7 @@ namespace borc {
 
 		Command* createCompileCommand(const Source *source, const CompileOptions &options) const;
 
-		std::filesystem::path getObjectFilePath(const Source *source) const;
+		boost::filesystem::path getObjectFilePath(const Source *source) const;
 
 	private:
 		CommandFactory *commandFactory = nullptr;

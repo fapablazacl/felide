@@ -45,15 +45,15 @@ namespace borc {
 		return dependencies;
 	}
 
-	std::filesystem::path Module::getOutputPath() const {
+	boost::filesystem::path Module::getOutputPath() const {
 		return this->parentProject->computeOutputPath() / this->getPartialPath();
 	}
 
-	std::filesystem::path Module::getPath() const {
+	boost::filesystem::path Module::getPath() const {
 		return this->parentProject->getFullPath() / this->getPartialPath();
 	}
 
-	std::filesystem::path Module::getOutputFilePath() const {
+	boost::filesystem::path Module::getOutputFilePath() const {
 		std::string moduleFileName = this->getName();
 
 		if (this->getType() == ModuleType::Library) {
@@ -65,7 +65,7 @@ namespace borc {
 			moduleFileName = moduleFileName + ".exe";
 		}
 
-		return this->getOutputPath() / std::filesystem::path(moduleFileName);
+		return this->getOutputPath() / boost::filesystem::path(moduleFileName);
 	}
 
 	std::vector<Source*> Module::getSources() const {

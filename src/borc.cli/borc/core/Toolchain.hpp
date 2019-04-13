@@ -3,13 +3,13 @@
 #define __BORC_CORE_TOOLCHAIN_HPP__
 
 #include <set>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 
 namespace borc {
 	struct SourceType {
 		SourceType(const std::initializer_list<std::string> &wildcards);
 
-		bool match(const std::filesystem::path &filePath) const;
+		bool match(const boost::filesystem::path &filePath) const;
 
 		std::set<std::string> wildcards;
 	};

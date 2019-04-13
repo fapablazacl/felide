@@ -1,10 +1,10 @@
 {
-    "name": "felide",
+    "name": "borc",
     "description": "A lightweight IDE made with <3",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "author": "Felipe Apablaza",
     "license": "MIT",
-    "paths": [
+    "modules": [
         "src/borc.cli",
         "src/borc.core"
     ]

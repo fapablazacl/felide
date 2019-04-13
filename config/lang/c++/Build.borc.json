@@ -1,0 +1,18 @@
+{
+    "languageId": "c++",
+    "pipes": [
+        {
+            "tool": "c++/compiler",
+            "input": "c++/sources",
+            "output": "c++/objects"
+        }, {
+            "tool": "asm/assembler",
+            "input": "asm/sources",
+            "output": "c++/objects"
+        }, {
+            "tool": "c++/linker",
+            "input": "c++/objects",
+            "output": "c++/target"
+        }
+    ]
+}
