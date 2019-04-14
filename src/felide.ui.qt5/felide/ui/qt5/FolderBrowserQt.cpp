@@ -47,7 +47,7 @@ namespace felide {
 
         // connect signal handlers
         connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
-            m_presenter->openFile();
+            m_presenter->openCurrentFile();
 
             // QString path = this->m_fileSystemModel->fileInfo(index).absoluteFilePath();
             // this->projectItemOpenRequest(path);
@@ -55,12 +55,18 @@ namespace felide {
 
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
             QMenu contextMenu("Context Menu", this);
+
+            // TODO: Refactor the context menu generation into a generic one
+            QAction openAction("Open", this);
+            contextMenu.addAction(&openAction);
+            this->connect(&openAction, &QAction::triggered, [this]() {
+                m_presenter->openCurrentFile();
+            });
+
             QAction renameAction("Rename", this);
-
             contextMenu.addAction(&renameAction);
-
             this->connect(&renameAction, &QAction::triggered, [this]() {
-                m_presenter->renamePath();
+                m_presenter->renameCurrentPath();
             });
 
             contextMenu.exec(this->mapToGlobal(pos));

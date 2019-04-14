@@ -44,7 +44,7 @@ namespace felide {
         fs::create_directory(fs::path(folderPath), errorCode);
     }
 
-    void FolderBrowserPresenter::openFile() {
+    void FolderBrowserPresenter::openCurrentFile() {
         // determine the currently selected path
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -52,7 +52,7 @@ namespace felide {
         }
     }
 
-    void FolderBrowserPresenter::renamePath() {
+    void FolderBrowserPresenter::renameCurrentPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
