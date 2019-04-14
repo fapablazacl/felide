@@ -31,7 +31,7 @@ namespace felide {
 
         virtual void openCurrentFile();
 
-        virtual void deletePath(const std::string &path);
+        virtual void deleteCurrentPath();
 
     private:
         IDEFramePresenter *ideFramePresenter;

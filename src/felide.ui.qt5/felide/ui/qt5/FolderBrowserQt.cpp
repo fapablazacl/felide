@@ -48,9 +48,6 @@ namespace felide {
         // connect signal handlers
         connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
             m_presenter->openCurrentFile();
-
-            // QString path = this->m_fileSystemModel->fileInfo(index).absoluteFilePath();
-            // this->projectItemOpenRequest(path);
         });
 
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
@@ -69,6 +66,12 @@ namespace felide {
             contextMenu.addAction(&renameAction);
             this->connect(&renameAction, &QAction::triggered, [this]() {
                 m_presenter->renameCurrentPath();
+            });
+
+            QAction deleteAction("Delete", this);
+            contextMenu.addAction(&deleteAction);
+            this->connect(&deleteAction, &QAction::triggered, [this]() {
+                m_presenter->deleteCurrentPath();
             });
 
             contextMenu.exec(this->mapToGlobal(pos));
