@@ -22,7 +22,7 @@ namespace felide {
 
         virtual void createFolder(const std::string &folderPath);
 
-        virtual void renamePath(const std::string &oldPath, const std::string &newPath);
+        virtual void renamePath();
 
         virtual void deletePath(const std::string &path);
 

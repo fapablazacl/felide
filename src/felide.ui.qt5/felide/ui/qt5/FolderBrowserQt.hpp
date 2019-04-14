@@ -17,7 +17,9 @@ namespace felide {
         Q_OBJECT
 
     public:
-        void displayFolder(const std::string &folder) override;
+        virtual void displayFolder(const std::string &folder) override;
+
+        virtual boost::optional<std::string> getSelectedPath() const override;
 
     public:
         FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager);

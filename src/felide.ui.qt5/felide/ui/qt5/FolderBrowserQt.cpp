@@ -12,6 +12,19 @@
 #include "DialogManagerQt.hpp"
 
 namespace felide {
+    void FolderBrowserQt::displayFolder(const std::string &folder) {
+        this->setProjectFolder(folder.c_str());
+    }
+
+    boost::optional<std::string> FolderBrowserQt::getSelectedPath() const {
+        const QModelIndex index = m_treeView->currentIndex();
+        const QString path = m_fileSystemModel->fileInfo(index).absoluteFilePath();
+
+        return path.toStdString();
+    }
+}
+
+namespace felide {
     FolderBrowserQt::FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager) : QWidget(parent), FolderBrowser(presenter) {
         m_treeView = new QTreeView(this);
 
@@ -46,10 +59,7 @@ namespace felide {
             contextMenu.addAction(&renameAction);
 
             this->connect(&renameAction, &QAction::triggered, [this]() {
-                const QModelIndex index = m_treeView->currentIndex();
-                const QString path = m_fileSystemModel->fileInfo(index).absoluteFilePath();
-
-                std::cout << path.toStdString() << std::endl;
+                m_presenter->renamePath();
             });
 
             contextMenu.exec(this->mapToGlobal(pos));
@@ -73,9 +83,5 @@ namespace felide {
 
     QString FolderBrowserQt::projectFolder() const {
         return m_projectFolder;
-    }
-
-    void FolderBrowserQt::displayFolder(const std::string &folder) {
-        this->setProjectFolder(folder.c_str());
     }
 }

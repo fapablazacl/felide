@@ -39,15 +39,36 @@ namespace felide {
 
     void FolderBrowserPresenter::createFolder(const std::string &folderPath) {
         namespace fs = boost::filesystem;
-
         boost::system::error_code errorCode;
 
         fs::create_directory(fs::path(folderPath), errorCode);
     }
 
-    void FolderBrowserPresenter::renamePath(const std::string &oldPath, const std::string &newPath) {
-        // TODO: Add implementation
-        std::cout << "FolderBrowserPresenter::renamePath: from " << oldPath << " to " << newPath << std::endl;
+    void FolderBrowserPresenter::renamePath() {
+        namespace fs = boost::filesystem;
+
+        // determine the currently selected path
+        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        if (!selectedPathOptional) {
+            return;
+        }
+
+        const auto selectedPath = fs::path(*selectedPathOptional);
+        
+        // prompt the user for a new path
+        const auto newFilenameOptional = m_dialogManager->showInputDialog("New Name", selectedPath.filename().string());
+        if (!newFilenameOptional) {
+            return;
+        }
+
+        const auto newFilename = fs::path(*newFilenameOptional);
+        const auto newPath = selectedPath.parent_path() / newFilename;
+
+        // do the rename
+        boost::filesystem::rename(selectedPath, newPath);
+
+        // TODO:
+        // notify to the views
     }
 
     void FolderBrowserPresenter::deletePath(const std::string &path) {

@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QInputDialog>
 #include <boost/algorithm/string/join.hpp>
 
 namespace felide {
@@ -139,6 +140,25 @@ namespace felide {
             const QString folder = folders[0];
             
             return folder.toStdString();
+        } else {
+            return {};
+        }
+    }
+
+    boost::optional<std::string> DialogManagerQt::showInputDialog(const std::string &title, const std::string &defaultText) const {
+        bool ok = false;
+
+        QString text = QInputDialog::getText (
+            m_parent, 
+            "QInputDialog::getText()",
+            "User name:", 
+            QLineEdit::Normal,
+            defaultText.c_str(), 
+            &ok
+        );
+
+        if (ok) {
+            return text.toStdString();
         } else {
             return {};
         }

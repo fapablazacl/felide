@@ -123,12 +123,12 @@ namespace felide {
     }
 
     IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter), m_editorManagerPresenter(nullptr) {
+        m_dialogManager = std::make_unique<DialogManagerQt>(this);
+
         this->setupMenuBar();
         this->setupEditorManager();
         this->setupDockUI();
         this->setupFolderBrowser();
-
-        m_dialogManager = std::make_unique<DialogManagerQt>(this);
 
         QDesktopWidget desktopWidget;
         
