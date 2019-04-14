@@ -11,6 +11,14 @@
 #include "IDEFramePresenter.hpp"
 
 namespace felide {
+    static std::string describePath(const boost::filesystem::path &path) {
+        if (boost::filesystem::is_directory(path)) {
+            return "directory";
+        } else {
+            return "file";
+        }
+    }
+
     FolderBrowserPresenter::FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter) {
         this->ideFramePresenter = ideFramePresenter;
     }
@@ -74,7 +82,7 @@ namespace felide {
         // prompt the user for a new path
         const auto newFilenameOptional = m_dialogManager->showInputDialog (
             "felide", 
-            "New name", 
+            "Please, enter a new name for the \"" + selectedPath.filename().string() + "\" " + describePath(selectedPath), 
             selectedPath.filename().string()
         );
 
@@ -87,14 +95,6 @@ namespace felide {
 
         // do the rename
         boost::filesystem::rename(selectedPath, newPath);
-    }
-
-    static std::string describePath(const boost::filesystem::path &path) {
-        if (boost::filesystem::is_directory(path)) {
-            return "directory";
-        } else {
-            return "file";
-        }
     }
 
     void FolderBrowserPresenter::deleteSelectedPath() {
