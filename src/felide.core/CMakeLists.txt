@@ -137,9 +137,9 @@ set (sources
 )
 
 if (FELIDE_STATIC_LINK)
-    add_library (${target} SHARED ${sources})
-else ()
     add_library (${target} ${sources})
+else ()
+    add_library (${target} SHARED ${sources})
 endif()
 
 target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")

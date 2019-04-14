@@ -122,7 +122,7 @@ namespace felide {
         return menuBarPtr;
     }
 
-    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {
+    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter), m_editorManagerPresenter(nullptr) {
         this->setupMenuBar();
         this->setupEditorManager();
         this->setupDockUI();

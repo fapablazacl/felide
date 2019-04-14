@@ -10,6 +10,7 @@ option (FELIDE_STATIC_LINK  "Uses static linking for all external and internal d
 option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
+option (FELIDE_POC_WINDOWS_FORMDESIGNER "Build the Form-Designer POC" OFF)
 
 if (FELIDE_STATIC_LINK)
     add_definitions (-DFELIDE_STATIC_LINK)
@@ -53,15 +54,15 @@ include_directories("src/borc.core")
 add_subdirectory("src/borc.cli")
 
 # IDE Core
-# include_directories ("src/felide.core")
-# add_subdirectory ("src/felide.core")
+include_directories ("src/felide.core")
+add_subdirectory ("src/felide.core")
 
 # CLI Tool
 # include_directories ("src/felide-cli")
 # add_subdirectory ("src/felide-cli")
 
 # IDE GUI
-# add_subdirectory ("src/felide")
+#add_subdirectory ("src/felide")
 
 # Windows template library
 if (FELIDE_UI_WINDOWS)
@@ -80,3 +81,7 @@ if (FELIDE_UI_QT5)
 endif ()
 
 add_subdirectory("src/sandbox")
+
+if (FELIDE_POC_WINDOWS_FORMDESIGNER)
+	add_subdirectory ("pocs/form-designer")
+endif()
