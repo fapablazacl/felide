@@ -56,12 +56,14 @@ namespace felide {
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
             QMenu contextMenu("Context Menu", this);
 
-            // TODO: Refactor the context menu generation into a generic one
+            // TODO: Refactor the context menu generation into a generic one (like the one used in the MainFrame)
             QAction openAction("Open", this);
             contextMenu.addAction(&openAction);
             this->connect(&openAction, &QAction::triggered, [this]() {
                 m_presenter->openCurrentFile();
             });
+
+            contextMenu.addSeparator();
 
             QAction renameAction("Rename", this);
             contextMenu.addAction(&renameAction);

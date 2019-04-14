@@ -9,8 +9,12 @@ namespace felide {
     class FELIDE_API IDEModel;
     class FELIDE_API FolderBrowser;
     class FELIDE_API DialogManager;
+    class FELIDE_API IDEFramePresenter;
+
     class FELIDE_API FolderBrowserPresenter {
     public:
+        FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter);
+
         void attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager);
 
         void detachView();
@@ -30,6 +34,7 @@ namespace felide {
         virtual void deletePath(const std::string &path);
 
     private:
+        IDEFramePresenter *ideFramePresenter;
         FolderBrowser *m_folderBrowser;
         DialogManager *m_dialogManager;
     };

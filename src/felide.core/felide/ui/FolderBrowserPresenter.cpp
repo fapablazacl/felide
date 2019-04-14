@@ -8,8 +8,13 @@
 
 #include "FolderBrowser.hpp"
 #include "DialogManager.hpp"
+#include "IDEFramePresenter.hpp"
 
 namespace felide {
+    FolderBrowserPresenter::FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter) {
+        this->ideFramePresenter = ideFramePresenter;
+    }
+
     FolderBrowserPresenter::~FolderBrowserPresenter() {}
 
     void FolderBrowserPresenter::attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
@@ -50,6 +55,8 @@ namespace felide {
         if (!selectedPathOptional) {
             return;
         }
+
+        ideFramePresenter->editorShow(*selectedPathOptional);
     }
 
     void FolderBrowserPresenter::renameCurrentPath() {

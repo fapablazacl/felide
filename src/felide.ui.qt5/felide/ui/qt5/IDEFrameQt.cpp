@@ -122,13 +122,12 @@ namespace felide {
         return menuBarPtr;
     }
 
-    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter), m_editorManagerPresenter(nullptr) {
+    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter), m_editorManagerPresenter(nullptr), m_folderBrowserPresenter(presenter) {
         m_dialogManager = std::make_unique<DialogManagerQt>(this);
 
         this->setupMenuBar();
         this->setupEditorManager();
         this->setupDockUI();
-        this->setupFolderBrowser();
 
         QDesktopWidget desktopWidget;
         
@@ -179,12 +178,6 @@ namespace felide {
         } else {
             evt->ignore();
         }
-    }
-
-    void IDEFrameQt::setupFolderBrowser() {
-        connect(m_folderBrowser, &FolderBrowserQt::projectItemOpenRequest, [&](const QString &filePath) {
-            m_presenter->editorShow(filePath.toStdString());
-        });
     }
 }
 
