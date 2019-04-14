@@ -60,6 +60,7 @@ namespace felide {
     }
 
     void FolderBrowserPresenter::renameSelectedPath() {
+        // TODO: Notify to the other views
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -71,7 +72,12 @@ namespace felide {
         const auto selectedPath = fs::path(*selectedPathOptional);
         
         // prompt the user for a new path
-        const auto newFilenameOptional = m_dialogManager->showInputDialog("Please enter a New File Name", "New Name", selectedPath.filename().string());
+        const auto newFilenameOptional = m_dialogManager->showInputDialog (
+            "felide", 
+            "New name", 
+            selectedPath.filename().string()
+        );
+
         if (!newFilenameOptional) {
             return;
         }
@@ -81,8 +87,14 @@ namespace felide {
 
         // do the rename
         boost::filesystem::rename(selectedPath, newPath);
+    }
 
-        // TODO: Notify to the corresponding entities
+    static std::string describePath(const boost::filesystem::path &path) {
+        if (boost::filesystem::is_directory(path)) {
+            return "directory";
+        } else {
+            return "file";
+        }
     }
 
     void FolderBrowserPresenter::deleteSelectedPath() {
@@ -100,7 +112,7 @@ namespace felide {
         // prompt the user confirmation
         auto selectedButton = m_dialogManager->showMessageDialog (
             "felide", 
-            "Delete the file/directory" + selectedPath.filename().string() + "?", 
+            "Delete the \"" + selectedPath.filename().string() + "\" " + describePath(selectedPath) + "?", 
             DialogIcon::Warning, DialogButton::OkCancel
         );
 
@@ -110,7 +122,5 @@ namespace felide {
         
         // do the delete
         boost::filesystem::remove(selectedPath);
-
-        // TODO: Notify to the corresponding entities
     }
 } 
