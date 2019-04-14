@@ -6,6 +6,7 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
+    class FELIDE_API IDEModel;
     class FELIDE_API FolderBrowser;
     class FELIDE_API DialogManager;
     class FELIDE_API FolderBrowserPresenter {
@@ -23,6 +24,8 @@ namespace felide {
         virtual void createFolder(const std::string &folderPath);
 
         virtual void renamePath();
+
+        virtual void openFile();
 
         virtual void deletePath(const std::string &path);
 

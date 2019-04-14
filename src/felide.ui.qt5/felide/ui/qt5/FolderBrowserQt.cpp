@@ -47,9 +47,10 @@ namespace felide {
 
         // connect signal handlers
         connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
-            QString path = this->m_fileSystemModel->fileInfo(index).absoluteFilePath();
+            m_presenter->openFile();
 
-            this->projectItemOpenRequest(path);
+            // QString path = this->m_fileSystemModel->fileInfo(index).absoluteFilePath();
+            // this->projectItemOpenRequest(path);
         });
 
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {

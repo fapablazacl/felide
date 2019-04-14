@@ -44,6 +44,14 @@ namespace felide {
         fs::create_directory(fs::path(folderPath), errorCode);
     }
 
+    void FolderBrowserPresenter::openFile() {
+        // determine the currently selected path
+        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        if (!selectedPathOptional) {
+            return;
+        }
+    }
+
     void FolderBrowserPresenter::renamePath() {
         namespace fs = boost::filesystem;
 
@@ -56,7 +64,7 @@ namespace felide {
         const auto selectedPath = fs::path(*selectedPathOptional);
         
         // prompt the user for a new path
-        const auto newFilenameOptional = m_dialogManager->showInputDialog("New Name", selectedPath.filename().string());
+        const auto newFilenameOptional = m_dialogManager->showInputDialog("Please enter a New File Name", "New Name", selectedPath.filename().string());
         if (!newFilenameOptional) {
             return;
         }

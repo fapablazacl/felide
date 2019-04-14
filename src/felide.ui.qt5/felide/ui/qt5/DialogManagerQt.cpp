@@ -145,13 +145,13 @@ namespace felide {
         }
     }
 
-    boost::optional<std::string> DialogManagerQt::showInputDialog(const std::string &title, const std::string &defaultText) const {
+    boost::optional<std::string> DialogManagerQt::showInputDialog(const std::string &title, const std::string &label, const std::string &defaultText) const {
         bool ok = false;
 
         QString text = QInputDialog::getText (
             m_parent, 
-            "QInputDialog::getText()",
-            "User name:", 
+            title.c_str(),
+            label.c_str(), 
             QLineEdit::Normal,
             defaultText.c_str(), 
             &ok
