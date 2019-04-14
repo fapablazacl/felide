@@ -97,6 +97,8 @@ set (sources_felide_ui
     "felide/ui/Editor.cpp"
     "felide/ui/EditorManager.hpp"
     "felide/ui/EditorManager.cpp"
+	"felide/ui/EditorManagerModel.hpp"
+    "felide/ui/EditorManagerModel.cpp"
     "felide/ui/EditorManagerPresenter.hpp"
     "felide/ui/EditorManagerPresenter.cpp"
     "felide/ui/DialogManager.hpp"

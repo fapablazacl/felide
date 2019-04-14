@@ -101,7 +101,7 @@ namespace felide {
     }
     
     void IDEFramePresenter::fileOpenFolderTriggered() {
-        auto folderOptional = m_impl->dialogManager->showFolderDialog("This is a tedst");
+        auto folderOptional = m_impl->dialogManager->showFolderDialog("Open Folder ...");
         
         if (!folderOptional) {
             return;

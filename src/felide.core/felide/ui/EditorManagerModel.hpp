@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_EDITORMANAGERPRESENTER_HPP__
-#define __FELIDE_UI_EDITORMANAGERPRESENTER_HPP__
+#ifndef __FELIDE_UI_EDITORMANAGERMODEL_HPP__
+#define __FELIDE_UI_EDITORMANAGERMODEL_HPP__
 
 #include <cstddef>
 #include <felide/Predef.hpp>

@@ -41,8 +41,9 @@ target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 target_link_libraries (
     ${target} 
     Qt5::Widgets
-    qscintilla2_qt5
+    debug qscintilla2_qt5d
+	optimized qscintilla2_qt5
     felide.core
 )
 
-install(TARGETS ${target} DESTINATION "bin")
+install (TARGETS ${target} DESTINATION "bin")
