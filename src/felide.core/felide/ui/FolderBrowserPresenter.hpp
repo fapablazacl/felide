@@ -27,11 +27,11 @@ namespace felide {
 
         virtual void createFolder(const std::string &folderPath);
 
-        virtual void renameCurrentPath();
+        virtual void renameSelectedPath();
 
-        virtual void openCurrentFile();
+        virtual void openSelectedFile();
 
-        virtual void deleteCurrentPath();
+        virtual void deleteSelectedPath();
 
     private:
         IDEFramePresenter *ideFramePresenter;

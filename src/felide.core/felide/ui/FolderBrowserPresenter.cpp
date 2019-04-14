@@ -49,7 +49,7 @@ namespace felide {
         fs::create_directory(fs::path(folderPath), errorCode);
     }
 
-    void FolderBrowserPresenter::openCurrentFile() {
+    void FolderBrowserPresenter::openSelectedFile() {
         // determine the currently selected path
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -59,7 +59,7 @@ namespace felide {
         ideFramePresenter->editorShow(*selectedPathOptional);
     }
 
-    void FolderBrowserPresenter::renameCurrentPath() {
+    void FolderBrowserPresenter::renameSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -85,7 +85,7 @@ namespace felide {
         // TODO: Notify to the corresponding entities
     }
 
-    void FolderBrowserPresenter::deleteCurrentPath() {
+    void FolderBrowserPresenter::deleteSelectedPath() {
         // TODO: Notify to the other views
         namespace fs = boost::filesystem;
 
