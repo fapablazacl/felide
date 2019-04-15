@@ -119,7 +119,11 @@ namespace felide {
         }
         
         // do the delete
-        boost::filesystem::remove(selectedPath);
+        if (boost::filesystem::is_directory(selectedPath)) {
+            boost::filesystem::remove_all(selectedPath);
+        } else {
+            boost::filesystem::remove(selectedPath);
+        }
     }
 
     boost::optional<std::string> FolderBrowserPresenter::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {
