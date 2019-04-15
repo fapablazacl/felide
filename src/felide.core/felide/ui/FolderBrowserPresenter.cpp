@@ -78,16 +78,31 @@ namespace felide {
         }
 
         const auto selectedPath = fs::path(*selectedPathOptional);
+        const auto pathKind = describePath(selectedPath);
         
         // prompt the user for a new path
-        const auto newFilenameOptional = m_dialogManager->showInputDialog (
-            "felide", 
-            "Please, enter a new name for the \"" + selectedPath.filename().string() + "\" " + describePath(selectedPath), 
-            selectedPath.filename().string()
-        );
+        boost::optional<std::string> newFilenameOptional;
 
-        if (!newFilenameOptional) {
-            return;
+        int attemped = 0;
+
+        while (true) {
+            const std::string prefix = attemped > 0 ? ("Invalid " + pathKind + " name. ") : "";
+
+            newFilenameOptional = m_dialogManager->showInputDialog (
+                "felide", 
+                prefix + "Please, enter a new name for the \"" + selectedPath.filename().string() + "\" " + pathKind,
+                selectedPath.filename().string()
+            );
+
+            if (!newFilenameOptional) {
+                return;
+            }
+
+            if (fs::native(*newFilenameOptional)) {
+                break;
+            }
+
+            ++attemped;
         }
 
         const auto newFilename = fs::path(*newFilenameOptional);
