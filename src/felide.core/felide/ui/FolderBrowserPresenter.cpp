@@ -92,7 +92,7 @@ namespace felide {
             "felide", 
             "Please, enter the new folder name", 
             "Previous name was invalid. Enter the new folder name", 
-            "Newfile"
+            "Newfolder"
         );
 
         if (!newFolderNameOptional) {
@@ -112,7 +112,7 @@ namespace felide {
         namespace fs = boost::filesystem;
         boost::system::error_code errorCode;
 
-        fs::create_directory(fs::path(*newFolderNameOptional), errorCode);
+        fs::create_directory(folderPath, errorCode);
 
         // TODO: Notify to the view the change in the filesystem (?)
     }
