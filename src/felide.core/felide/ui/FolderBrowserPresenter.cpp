@@ -43,17 +43,78 @@ namespace felide {
         m_folderBrowser->displayFolder(*folderPathOptional);
     }
 
-    void FolderBrowserPresenter::createFile(const std::string &filePath) {
+    void FolderBrowserPresenter::createFile() {
+        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        if (!selectedPathOptional) {
+            return;
+        }
+
+        const auto selectedPath = boost::filesystem::path(*selectedPathOptional);
+
+        // ask for the new filename
+        const auto newFileNameOptional = this->askValidPath(
+            "felide", 
+            "Please, enter the new file name", 
+            "Previous name was invalid. Enter the new file name", 
+            "Newfile"
+        );
+
+        if (!newFileNameOptional) {
+            return;
+        }
+
+        // construct the new file path
+        boost::filesystem::path filePath;
+
+        if (boost::filesystem::is_directory(selectedPath)) {
+            filePath = selectedPath / (*newFileNameOptional);
+        } else {
+            filePath = selectedPath.parent_path() / (*newFileNameOptional);
+        }
+
+        // perform a "touch" function
         std::ofstream os;
-        os.open(filePath.c_str(), std::ios_base::out);
+        os.open(filePath.string().c_str(), std::ios_base::out);
         os.close();
     }
 
-    void FolderBrowserPresenter::createFolder(const std::string &folderPath) {
+    void FolderBrowserPresenter::createFolder() {
+        // 
+        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        if (!selectedPathOptional) {
+            return;
+        }
+
+        const auto selectedPath = boost::filesystem::path(*selectedPathOptional);
+
+        // ask the new folder name
+        const auto newFolderNameOptional = this->askValidPath(
+            "felide", 
+            "Please, enter the new folder name", 
+            "Previous name was invalid. Enter the new folder name", 
+            "Newfile"
+        );
+
+        if (!newFolderNameOptional) {
+            return;
+        }
+
+        // construct folder path
+        boost::filesystem::path folderPath;
+
+        if (boost::filesystem::is_directory(selectedPath)) {
+            folderPath = selectedPath / (*newFolderNameOptional);
+        } else {
+            folderPath = selectedPath.parent_path() / (*newFolderNameOptional);
+        }
+
+        // create the directory on his final location
         namespace fs = boost::filesystem;
         boost::system::error_code errorCode;
 
-        fs::create_directory(fs::path(folderPath), errorCode);
+        fs::create_directory(fs::path(*newFolderNameOptional), errorCode);
+
+        // TODO: Notify to the view the change in the filesystem (?)
     }
 
     void FolderBrowserPresenter::openSelectedFile() {
@@ -67,7 +128,6 @@ namespace felide {
     }
 
     void FolderBrowserPresenter::renameSelectedPath() {
-        // TODO: Notify to the other views
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -93,10 +153,11 @@ namespace felide {
             // do the rename
             boost::filesystem::rename(selectedPath, newPath);
         }
+
+        // TODO: Notify to the view the change in the filesystem (?)
     }
 
     void FolderBrowserPresenter::deleteSelectedPath() {
-        // TODO: Notify to the other views
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -124,6 +185,8 @@ namespace felide {
         } else {
             boost::filesystem::remove(selectedPath);
         }
+
+        // TODO: Notify to the view the change in the filesystem (?)
     }
 
     boost::optional<std::string> FolderBrowserPresenter::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {

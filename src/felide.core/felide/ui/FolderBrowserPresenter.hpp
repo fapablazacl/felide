@@ -24,9 +24,9 @@ namespace felide {
 
         virtual void browseFolder();
 
-        virtual void createFile(const std::string &filePath);
+        virtual void createFile();
 
-        virtual void createFolder(const std::string &folderPath);
+        virtual void createFolder();
 
         virtual void renameSelectedPath();
 
