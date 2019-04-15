@@ -124,7 +124,11 @@ namespace felide {
             return;
         }
 
-        ideFramePresenter->editorShow(*selectedPathOptional);
+        const auto selectedFile = boost::filesystem::path(*selectedPathOptional);
+
+        if (!boost::filesystem::is_directory(selectedFile)) {
+            ideFramePresenter->editorShow(selectedFile.string());
+        }
     }
 
     void FolderBrowserPresenter::renameSelectedPath() {
