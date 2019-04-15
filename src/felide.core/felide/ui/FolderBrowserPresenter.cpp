@@ -128,7 +128,44 @@ namespace felide {
 
         if (!boost::filesystem::is_directory(selectedFile)) {
             ideFramePresenter->editorShow(selectedFile.string());
+        } 
+    }
+
+    void FolderBrowserPresenter::moveSelectedPath(const std::string &targetFolder) {
+        // TODO: Add directory check to the targetFolder variable
+
+        namespace fs = boost::filesystem;
+        
+        // determine the currently selected path
+        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        if (!selectedPathOptional) {
+            return;
         }
+
+        const auto selectedPath = fs::path(*selectedPathOptional);
+
+        // compute destination path
+        const auto destinationPath = fs::path(targetFolder) / selectedPath.filename();
+
+        if (selectedPath == destinationPath) {
+            return;
+        }
+
+        // existence check!
+        if (fs::exists(destinationPath)) {
+            const auto selectedButton = m_dialogManager->showMessageDialog (
+                "felide", 
+                "File/Directory already exists. Replace it?", 
+                DialogIcon::Warning, 
+                DialogButton::YesNo
+            );
+
+            if (selectedButton == DialogButton::No) {
+                return;
+            }
+        }
+
+        fs::rename(selectedPath, destinationPath);
     }
 
     void FolderBrowserPresenter::renameSelectedPath() {

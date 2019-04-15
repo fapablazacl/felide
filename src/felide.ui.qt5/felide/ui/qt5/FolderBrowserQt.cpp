@@ -6,10 +6,56 @@
 #include <QAction>
 #include <QMenu>
 #include <QMessageBox>
+#include <QMimeData>
 #include <iostream>
 #include <felide/ui/FolderBrowserPresenter.hpp>
 
 #include "DialogManagerQt.hpp"
+
+#include <boost/filesystem.hpp>
+
+namespace felide {
+    namespace fs = boost::filesystem;
+
+    // TODO: Refactor file handling logic into another layer
+    class FolderBrowserQtTreeModel : public QFileSystemModel {
+    public:
+        FolderBrowserQtTreeModel(QWidget *parent, FolderBrowserPresenter *presenter) : QFileSystemModel(parent) {
+            this->presenter = presenter;
+        }
+
+        virtual Qt::ItemFlags flags(const QModelIndex &index) const override {
+            if (!index.isValid()) {
+                return 0;
+            }
+
+            const auto path = fs::path(this->filePath(index).toStdString());
+
+            if (fs::is_directory(path)) {
+                return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
+            } else {
+                return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled;
+            }
+        }
+
+        virtual Qt::DropActions supportedDropActions() const override {
+            return Qt::CopyAction | Qt::MoveAction;
+        }
+
+        virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override {
+            if (action == Qt::MoveAction) {
+                const QString absFilePath = this->fileInfo(parent).absoluteFilePath();
+
+                presenter->moveSelectedPath(absFilePath.toStdString());
+            }
+
+            return QFileSystemModel::dropMimeData(data, action, row, column, parent);
+        }
+
+    private:
+        FolderBrowserPresenter *presenter = nullptr;
+    };
+}
 
 namespace felide {
     void FolderBrowserQt::displayFolder(const std::string &folder) {
@@ -32,8 +78,15 @@ namespace felide {
         this->layout()->addWidget(m_treeView);
 
         // instance file system model
-        m_fileSystemModel = new QFileSystemModel(this);
+        m_fileSystemModel = new FolderBrowserQtTreeModel(this, presenter);
         m_fileSystemModel->setFilter(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
+
+        // enable treeview support
+        m_treeView->setDragDropMode(QAbstractItemView::InternalMove);
+        // m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        m_treeView->setDragEnabled(true);
+        m_treeView->setAcceptDrops(true);
+        // m_treeView->setDropIndicatorShown(true);
 
         // bind view and model together
         m_treeView->setModel(m_fileSystemModel);

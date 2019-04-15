@@ -28,6 +28,8 @@ namespace felide {
 
         virtual void createFolder();
 
+        virtual void moveSelectedPath(const std::string &targetFolder);
+
         virtual void renameSelectedPath();
 
         virtual void openSelectedFile();
