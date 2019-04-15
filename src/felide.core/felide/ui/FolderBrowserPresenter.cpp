@@ -187,14 +187,22 @@ namespace felide {
             "felide", prompt, prefix + prompt, selectedPath.filename().string()
         );
 
-        if (newFilenameOptional) {
-            const auto newFilename = fs::path(*newFilenameOptional);
-            const auto newPath = selectedPath.parent_path() / newFilename;
-
-            // do the rename
-            boost::filesystem::rename(selectedPath, newPath);
+        if (!newFilenameOptional) {
+            return;
         }
 
+        // compute new path
+        const auto newFilename = fs::path(*newFilenameOptional);
+        const auto newPath = selectedPath.parent_path() / newFilename;
+
+        if (boost::filesystem::exists(newPath)) {
+            m_dialogManager->showMessageDialog("felide", "Another file already exists.", DialogIcon::Error, DialogButton::Ok);
+            return;
+        }
+
+        // do the rename
+        boost::filesystem::rename(selectedPath, newPath);
+        
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
