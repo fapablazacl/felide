@@ -4,6 +4,7 @@
 
 #include <string>
 #include <felide/Predef.hpp>
+#include <boost/optional/optional_fwd.hpp>
 
 namespace felide {
     class FELIDE_API IDEModel;
@@ -32,6 +33,9 @@ namespace felide {
         virtual void openSelectedFile();
 
         virtual void deleteSelectedPath();
+
+    private:
+        boost::optional<std::string> askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue);
 
     private:
         IDEFramePresenter *ideFramePresenter;

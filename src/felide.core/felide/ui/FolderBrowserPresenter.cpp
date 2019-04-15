@@ -1,5 +1,4 @@
 
-
 #include "FolderBrowserPresenter.hpp"
 
 #include <fstream>
@@ -11,7 +10,7 @@
 #include "IDEFramePresenter.hpp"
 
 namespace felide {
-    static std::string describePath(const boost::filesystem::path &path) {
+    static std::string describePathKind(const boost::filesystem::path &path) {
         if (boost::filesystem::is_directory(path)) {
             return "directory";
         } else {
@@ -78,38 +77,22 @@ namespace felide {
         }
 
         const auto selectedPath = fs::path(*selectedPathOptional);
-        const auto pathKind = describePath(selectedPath);
+        const auto pathKind = describePathKind(selectedPath);
+        const auto prompt = "Please, enter a new name for the \"" + selectedPath.filename().string() + "\" " + pathKind;
+        const auto prefix = "Invalid " + pathKind + " name. ";
         
         // prompt the user for a new path
-        boost::optional<std::string> newFilenameOptional;
+        boost::optional<std::string> newFilenameOptional = this->askValidPath (
+            "felide", prompt, prefix + prompt, selectedPath.filename().string()
+        );
 
-        int attemped = 0;
+        if (newFilenameOptional) {
+            const auto newFilename = fs::path(*newFilenameOptional);
+            const auto newPath = selectedPath.parent_path() / newFilename;
 
-        while (true) {
-            const std::string prefix = attemped > 0 ? ("Invalid " + pathKind + " name. ") : "";
-
-            newFilenameOptional = m_dialogManager->showInputDialog (
-                "felide", 
-                prefix + "Please, enter a new name for the \"" + selectedPath.filename().string() + "\" " + pathKind,
-                selectedPath.filename().string()
-            );
-
-            if (!newFilenameOptional) {
-                return;
-            }
-
-            if (fs::native(*newFilenameOptional)) {
-                break;
-            }
-
-            ++attemped;
+            // do the rename
+            boost::filesystem::rename(selectedPath, newPath);
         }
-
-        const auto newFilename = fs::path(*newFilenameOptional);
-        const auto newPath = selectedPath.parent_path() / newFilename;
-
-        // do the rename
-        boost::filesystem::rename(selectedPath, newPath);
     }
 
     void FolderBrowserPresenter::deleteSelectedPath() {
@@ -127,7 +110,7 @@ namespace felide {
         // prompt the user confirmation
         auto selectedButton = m_dialogManager->showMessageDialog (
             "felide", 
-            "Delete the \"" + selectedPath.filename().string() + "\" " + describePath(selectedPath) + "?", 
+            "Delete the \"" + selectedPath.filename().string() + "\" " + describePathKind(selectedPath) + "?", 
             DialogIcon::Warning, DialogButton::OkCancel
         );
 
@@ -137,5 +120,24 @@ namespace felide {
         
         // do the delete
         boost::filesystem::remove(selectedPath);
+    }
+
+    boost::optional<std::string> FolderBrowserPresenter::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {
+        int attemped = 0;
+
+        boost::optional<std::string> validNamePath = {};
+
+        while (true) {
+            const std::string finalPrompt = (!attemped ? prompt : promptForInvalidInput);
+            
+            validNamePath = m_dialogManager->showInputDialog(title, finalPrompt, defaultValue);
+            if (!validNamePath || boost::filesystem::native(*validNamePath)) {
+                break;
+            }
+
+            ++attemped;
+        }
+
+        return validNamePath;
     }
 } 
