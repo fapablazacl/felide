@@ -33,7 +33,7 @@ namespace felide {
     void IDEFramePresenter::attachView(IDEFrame *view) {
         assert(view);
         
-        view = view;
+        this->view = view;
         editorManager = view->getEditorManager();
         dialogManager = view->getDialogManager();
         
