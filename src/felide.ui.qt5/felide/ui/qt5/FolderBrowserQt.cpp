@@ -46,7 +46,7 @@ namespace felide {
             if (action == Qt::MoveAction) {
                 const QString absFilePath = this->fileInfo(parent).absoluteFilePath();
 
-                presenter->moveSelectedPath(absFilePath.toStdString());
+                presenter->onMoveSelectedPath(absFilePath.toStdString());
             }
 
             return QFileSystemModel::dropMimeData(data, action, row, column, parent);
@@ -100,7 +100,7 @@ namespace felide {
 
         // connect signal handlers
         connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
-            m_presenter->openSelectedFile();
+            m_presenter->onOpenSelectedFile();
         });
 
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
@@ -111,7 +111,7 @@ namespace felide {
             QAction openAction("Open", this);
             contextMenu.addAction(&openAction);
             this->connect(&openAction, &QAction::triggered, [this]() {
-                m_presenter->openSelectedFile();
+                m_presenter->onOpenSelectedFile();
             });
 
             contextMenu.addSeparator();
@@ -119,13 +119,13 @@ namespace felide {
             QAction createFileAction("Create File", this);
             contextMenu.addAction(&createFileAction);
             this->connect(&createFileAction, &QAction::triggered, [this]() {
-                m_presenter->createFile();
+                m_presenter->onCreateFile();
             });
 
             QAction createFolderAction("Create Folder", this);
             contextMenu.addAction(&createFolderAction);
             this->connect(&createFolderAction, &QAction::triggered, [this]() {
-                m_presenter->createFolder();
+                m_presenter->onCreateFolder();
             });
 
             contextMenu.addSeparator();
@@ -133,13 +133,13 @@ namespace felide {
             QAction renameAction("Rename", this);
             contextMenu.addAction(&renameAction);
             this->connect(&renameAction, &QAction::triggered, [this]() {
-                m_presenter->renameSelectedPath();
+                m_presenter->onRenameSelectedPath();
             });
 
             QAction deleteAction("Delete", this);
             contextMenu.addAction(&deleteAction);
             this->connect(&deleteAction, &QAction::triggered, [this]() {
-                m_presenter->deleteSelectedPath();
+                m_presenter->onDeleteSelectedPath();
             });
 
             contextMenu.exec(this->mapToGlobal(pos));

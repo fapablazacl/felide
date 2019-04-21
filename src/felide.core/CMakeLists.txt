@@ -103,6 +103,8 @@ set (sources_felide_ui_folderbrowser
     "felide/ui/folder-browser/FolderBrowser.cpp"
     "felide/ui/folder-browser/FolderBrowserPresenter.hpp"
     "felide/ui/folder-browser/FolderBrowserPresenter.cpp"
+	"felide/ui/folder-browser/FolderBrowserModel.hpp"
+    "felide/ui/folder-browser/FolderBrowserModel.cpp"
 )
 
 set (sources_felide_ui_ideframe

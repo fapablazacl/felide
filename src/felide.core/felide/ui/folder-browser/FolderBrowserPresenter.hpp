@@ -22,19 +22,19 @@ namespace felide {
 
         virtual ~FolderBrowserPresenter();
 
-        virtual void browseFolder();
+        virtual void onBrowseFolder();
 
-        virtual void createFile();
+        virtual void onCreateFile();
 
-        virtual void createFolder();
+        virtual void onCreateFolder();
 
-        virtual void moveSelectedPath(const std::string &targetFolder);
+        virtual void onMoveSelectedPath(const std::string &targetFolder);
 
-        virtual void renameSelectedPath();
+        virtual void onRenameSelectedPath();
 
-        virtual void openSelectedFile();
+        virtual void onOpenSelectedFile();
 
-        virtual void deleteSelectedPath();
+        virtual void onDeleteSelectedPath();
 
     private:
         boost::optional<std::string> askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue);

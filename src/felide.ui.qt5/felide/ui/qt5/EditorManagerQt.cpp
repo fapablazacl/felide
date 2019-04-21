@@ -49,25 +49,25 @@ namespace felide {
                 QAction closeAction("Close", this);
                 contextMenu.addAction(&closeAction);
                 this->connect(&closeAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->closeEditor(editor);
+                    m_presenter->onCloseEditor(editor);
                 });
 
                 QAction closeAllButThisAction("Close all but this", this);
                 contextMenu.addAction(&closeAllButThisAction);
                 this->connect(&closeAllButThisAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->closeOthers(editor);
+                    m_presenter->onCloseOthers(editor);
                 });
 
                 QAction closeAllAction("Close all", this);
                 contextMenu.addAction(&closeAllAction);
                 this->connect(&closeAllAction, &QAction::triggered, [this]() {
-                    m_presenter->closeAll();
+                    m_presenter->onCloseAll();
                 });
 
                 QAction closeToTheRightAction("Close to the right", this);
                 contextMenu.addAction(&closeToTheRightAction);
                 this->connect(&closeToTheRightAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->closeToTheRight(editor);
+                    m_presenter->onCloseToTheRight(editor);
                 });
 
                 contextMenu.exec(this->mapToGlobal(pos));

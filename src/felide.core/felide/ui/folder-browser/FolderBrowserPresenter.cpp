@@ -4,10 +4,10 @@
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
+#include <felide/ui/DialogManager.hpp>
+#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 
 #include "FolderBrowser.hpp"
-#include "DialogManager.hpp"
-#include "IDEFramePresenter.hpp"
 
 namespace felide {
     static std::string describePathKind(const boost::filesystem::path &path) {
@@ -33,7 +33,7 @@ namespace felide {
         m_folderBrowser = nullptr;
     }
 
-    void FolderBrowserPresenter::browseFolder() {
+    void FolderBrowserPresenter::onBrowseFolder() {
         auto folderPathOptional = m_dialogManager->showFolderDialog("Open Folder");
 
         if (!folderPathOptional) {
@@ -43,7 +43,7 @@ namespace felide {
         m_folderBrowser->displayFolder(*folderPathOptional);
     }
 
-    void FolderBrowserPresenter::createFile() {
+    void FolderBrowserPresenter::onCreateFile() {
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
             return;
@@ -78,7 +78,7 @@ namespace felide {
         os.close();
     }
 
-    void FolderBrowserPresenter::createFolder() {
+    void FolderBrowserPresenter::onCreateFolder() {
         // 
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -117,7 +117,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    void FolderBrowserPresenter::openSelectedFile() {
+    void FolderBrowserPresenter::onOpenSelectedFile() {
         // determine the currently selected path
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -131,7 +131,7 @@ namespace felide {
         } 
     }
 
-    void FolderBrowserPresenter::moveSelectedPath(const std::string &targetFolder) {
+    void FolderBrowserPresenter::onMoveSelectedPath(const std::string &targetFolder) {
         // TODO: Add directory check to the targetFolder variable
 
         namespace fs = boost::filesystem;
@@ -168,7 +168,7 @@ namespace felide {
         fs::rename(selectedPath, destinationPath);
     }
 
-    void FolderBrowserPresenter::renameSelectedPath() {
+    void FolderBrowserPresenter::onRenameSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -206,7 +206,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    void FolderBrowserPresenter::deleteSelectedPath() {
+    void FolderBrowserPresenter::onDeleteSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path

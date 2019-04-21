@@ -11,11 +11,11 @@ namespace felide {
         m_view = view;
     }
 
-    void EditorManagerPresenter::closeEditor(Editor *editor) {
+    void EditorManagerPresenter::onCloseEditor(Editor *editor) {
         m_view->closeEditor(editor);
     }
 
-    void EditorManagerPresenter::closeOthers(Editor *editor) {
+    void EditorManagerPresenter::onCloseOthers(Editor *editor) {
         auto editors = m_view->getEditors();
         
         for (auto current : editors) {
@@ -25,7 +25,7 @@ namespace felide {
         }
     }
 
-    void EditorManagerPresenter::closeToTheRight(Editor *editor) {
+    void EditorManagerPresenter::onCloseToTheRight(Editor *editor) {
         bool close = false;
 
         auto editors = m_view->getEditors();
@@ -41,7 +41,7 @@ namespace felide {
         }
     }
 
-    void EditorManagerPresenter::closeAll() {
+    void EditorManagerPresenter::onCloseAll() {
         auto editors = m_view->getEditors();
 
         for (auto editor : editors) {

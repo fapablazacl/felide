@@ -15,13 +15,13 @@ namespace felide {
 
         void attachView(EditorManager *view);
 
-        void closeEditor(Editor *editor);
+        void onCloseEditor(Editor *editor);
 
-        void closeOthers(Editor *editor);
+        void onCloseOthers(Editor *editor);
 
-        void closeToTheRight(Editor *editor);
+        void onCloseToTheRight(Editor *editor);
 
-        void closeAll();
+        void onCloseAll();
 
     private:
         EditorManager *m_view = nullptr;
