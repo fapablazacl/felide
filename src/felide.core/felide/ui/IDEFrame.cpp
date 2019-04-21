@@ -35,8 +35,7 @@ namespace felide {
                 Menu::action([] () {}, "Replace ..."),
             }),
             Menu::menu("&View", {
-                Menu::action([] () {}, "&Output"), 
-                Menu::action([] () {}, "&Workspace")
+                Menu::action([this] () { m_presenter->viewFolderBrowserToggle(); }, "&Folder Browser")
             }),
             Menu::menu("&Build", {
                 Menu::action([] () {}, "&Clean"),

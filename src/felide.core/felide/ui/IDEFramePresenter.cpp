@@ -316,6 +316,10 @@ namespace felide {
         }
     }
 
+    void IDEFramePresenter::viewFolderBrowserToggle() {
+        // TODO: Add implementation
+    }
+
     EditorModel* IDEFramePresenter::createEditorModel(const Editor *view, const int tag) {
         auto editorModel = new EditorModel(tag);
 

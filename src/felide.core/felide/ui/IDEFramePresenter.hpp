@@ -57,6 +57,8 @@ namespace felide {
         
         void editorShow(const std::string &fileName);
 
+        void viewFolderBrowserToggle();
+
         bool closeRequested();
 
     public:

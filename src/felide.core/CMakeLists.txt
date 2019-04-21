@@ -114,6 +114,10 @@ set (sources_felide_system
     "felide/system/Plugin.cpp"
     "felide/system/PluginManager.hpp"
     "felide/system/PluginManager.cpp"
+	"felide/system/MessageBus.hpp"
+    "felide/system/MessageBus.cpp"
+	"felide/system/Component.hpp"
+    "felide/system/Component.cpp"
 )
 
 source_group ("felide"              FILES ${sources_felide})
