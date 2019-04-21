@@ -3,13 +3,14 @@
 #define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 
 #include <felide/Predef.hpp>
+#include <felide/ui/DialogManager.hpp>
+#include <felide/ui/editor/Editor.hpp>
+#include <felide/ui/editor/EditorModel.hpp>
+#include <felide/ui/editor-manager/EditorManager.hpp>
+#include <felide/ui/folder-browser/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
-#include "Editor.hpp"
-#include "EditorModel.hpp"
-#include "EditorManager.hpp"
-#include "DialogManager.hpp"
-#include "FolderBrowser.hpp"
+
 #include <map>
 #include <memory>
 

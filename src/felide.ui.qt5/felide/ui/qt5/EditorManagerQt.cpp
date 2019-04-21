@@ -6,7 +6,7 @@
 #include <QTabBar>
 #include <QAction>
 #include <QMenu>
-#include <felide/ui/EditorManagerPresenter.hpp>
+#include <felide/ui/editor-manager/EditorManagerPresenter.hpp>
 
 #include "EditorQt.hpp"
 

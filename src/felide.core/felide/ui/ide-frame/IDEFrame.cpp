@@ -2,7 +2,8 @@
 #include "IDEFrame.hpp"
 
 #include "IDEFramePresenter.hpp"
-#include "Menu.hpp"
+
+#include <felide/ui/Menu.hpp>
 
 namespace felide {
     IDEFrame::IDEFrame(IDEFramePresenter *presenter) {

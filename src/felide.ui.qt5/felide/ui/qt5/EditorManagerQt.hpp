@@ -5,7 +5,7 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <boost/optional.hpp>
-#include <felide/ui/EditorManager.hpp>
+#include <felide/ui/editor-manager/EditorManager.hpp>
 
 namespace felide {
     class EditorQt;

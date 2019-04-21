@@ -82,29 +82,41 @@ set (sources_felide_cpp
     "felide/cpp/ModuleToolset.cpp"
 ) 
 
+set (sources_felide_ui_editor
+    "felide/ui/editor/EditorModel.hpp"
+    "felide/ui/editor/EditorModel.cpp"
+    "felide/ui/editor/Editor.hpp"
+    "felide/ui/editor/Editor.cpp"
+)
+
+set (sources_felide_ui_editormanager
+    "felide/ui/editor-manager/EditorManager.hpp"
+    "felide/ui/editor-manager/EditorManager.cpp"
+    "felide/ui/editor-manager/EditorManagerPresenter.hpp"
+    "felide/ui/editor-manager/EditorManagerPresenter.cpp"
+)
+
+set (sources_felide_ui_folderbrowser
+    "felide/ui/folder-browser/FolderBrowser.hpp"
+    "felide/ui/folder-browser/FolderBrowser.cpp"
+    "felide/ui/folder-browser/FolderBrowserPresenter.hpp"
+    "felide/ui/folder-browser/FolderBrowserPresenter.cpp"
+)
+
+set (sources_felide_ui_ideframe
+    "felide/ui/ide-frame/IDEFrameModel.hpp"
+    "felide/ui/ide-frame/IDEFrameModel.cpp"
+    "felide/ui/ide-frame/IDEFramePresenter.hpp"
+    "felide/ui/ide-frame/IDEFramePresenter.cpp"
+    "felide/ui/ide-frame/IDEFrame.hpp"
+    "felide/ui/ide-frame/IDEFrame.cpp"
+)
+
 set (sources_felide_ui
-    "felide/ui/EditorModel.hpp"
-    "felide/ui/EditorModel.cpp"
-    "felide/ui/IDEFrameModel.hpp"
-    "felide/ui/IDEFrameModel.cpp"
-    "felide/ui/IDEFramePresenter.hpp"
-    "felide/ui/IDEFramePresenter.cpp"
-    "felide/ui/IDEFrame.hpp"
-    "felide/ui/IDEFrame.cpp"
+	"felide/ui/DialogManager.hpp"
+    "felide/ui/DialogManager.cpp"
     "felide/ui/Menu.hpp"
     "felide/ui/Menu.cpp"
-    "felide/ui/Editor.hpp"
-    "felide/ui/Editor.cpp"
-    "felide/ui/EditorManager.hpp"
-    "felide/ui/EditorManager.cpp"
-    "felide/ui/EditorManagerPresenter.hpp"
-    "felide/ui/EditorManagerPresenter.cpp"
-    "felide/ui/DialogManager.hpp"
-    "felide/ui/DialogManager.cpp"
-    "felide/ui/FolderBrowser.hpp"
-    "felide/ui/FolderBrowser.cpp"
-    "felide/ui/FolderBrowserPresenter.hpp"
-    "felide/ui/FolderBrowserPresenter.cpp"
     "felide/ui/UIToolkit.hpp"
     "felide/ui/UIToolkit.cpp"
 ) 
@@ -127,7 +139,11 @@ source_group ("felide\\toolsets"    FILES ${sources_felide_toolsets})
 source_group ("felide\\tasks"       FILES ${sources_felide_tasks})
 source_group ("felide\\cpp"         FILES ${sources_felide_cpp})
 source_group ("felide\\ui"          FILES ${sources_felide_ui})
-source_group ("felide\\system"      FILES ${sources_felide_system})
+source_group ("felide\\ui\\editor"  		FILES ${sources_felide_ui_editor})
+source_group ("felide\\ui\\editor-manager"  FILES ${sources_felide_ui_editormanager})
+source_group ("felide\\ui\\folder-browser"  FILES ${sources_felide_ui_folderbrowser})
+source_group ("felide\\ui\\ide-frame"  		FILES ${sources_felide_ui_ideframe})
+source_group ("felide\\system" FILES ${sources_felide_system})
 
 set (sources
     ${sources_felide}
@@ -137,6 +153,10 @@ set (sources
     ${sources_felide_tasks}
     ${sources_felide_cpp}
     ${sources_felide_ui}
+	${sources_felide_ui_editor}
+	${sources_felide_ui_editormanager}
+	${sources_felide_ui_folderbrowser}
+	${sources_felide_ui_ideframe}
     ${sources_felide_system}
 )
 

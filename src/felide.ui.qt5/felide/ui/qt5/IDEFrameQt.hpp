@@ -9,10 +9,10 @@
 #include <QAction>
 #include <map>
 
-#include <felide/ui/IDEFramePresenter.hpp>
-#include <felide/ui/IDEFrame.hpp>
-#include <felide/ui/FolderBrowserPresenter.hpp>
-#include <felide/ui/EditorManagerPresenter.hpp>
+#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/ui/ide-frame/IDEFrame.hpp>
+#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/ui/editor-manager/EditorManagerPresenter.hpp>
 #include <felide/ui/Menu.hpp>
 #include "EditorManagerQt.hpp"
 #include "DialogManagerQt.hpp"
