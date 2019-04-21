@@ -40,12 +40,12 @@ namespace felide {
 
         connect(m_editorManager, &EditorManagerQt::editorContentChanged, [&](EditorQt *editor) {
             assert(editor);
-            m_presenter->editorContentModified(editor);
+            m_presenter->onEditorContentModified(editor);
         });
         
         connect(m_editorManager, &EditorManagerQt::editorCloseRequested, [&](EditorQt *editor) {
             assert(editor);
-            m_presenter->editorCloseRequested(editor);
+            m_presenter->onEditorCloseRequested(editor);
         });
 
         this->setCentralWidget(m_editorManager);
@@ -65,7 +65,7 @@ namespace felide {
     }
     
     void IDEFrameQt::closeEvent(QCloseEvent *evt) {
-        if (m_presenter->closeRequested()) {
+        if (m_presenter->onCloseRequested()) {
             evt->accept();
         } else {
             evt->ignore();

@@ -30,43 +30,44 @@ namespace felide {
         void detachView();
 
     public:
-        void fileNewTriggered();
+        void onFileNew();
 
-        void fileOpenTriggered();
+        void onFileOpen();
         
-        void fileOpenFolderTriggered();
+        void onFileOpenFolder();
 
-        void fileSaveTriggered();
+        void onFileSave();
 
-        void fileSaveAsTriggered();
+        void onFileSaveAs();
 
-        void fileSaveAllTriggered();
+        void onFileSaveAll();
 
-        void fileCloseTriggered();
+        void onFileClose();
 
-        void fileExitTriggered();
+        void onFileExit();
 
-        void editUndo();
+        void onEditUndo();
 
-        void editRedo();
+        void onEditRedo();
 
-        void editCut();
+        void onEditCut();
 
-        void editCopy();
+        void onEditCopy();
 
-        void editPaste();
+        void onEditPaste();
 
-        void editorContentModified(Editor *view);
+        void onEditorContentModified(Editor *view);
         
-        void editorCloseRequested(Editor *view);
+        void onEditorCloseRequested(Editor *view);
         
-        void editorShow(const std::string &fileName);
+        void onEditorShow(const std::string &fileName);
 
-        void viewFolderBrowserToggle();
+        void onViewFolderBrowser();
 
-        bool closeRequested();
+        bool onCloseRequested();
 
     public:
+        // TODO: Make it private (used in Main.cpp)
         void openFolder(const std::string &fullPath);
 
     private:

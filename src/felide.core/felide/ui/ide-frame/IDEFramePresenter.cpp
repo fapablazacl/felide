@@ -45,7 +45,7 @@ namespace felide {
         view = nullptr;
     }
 
-    void IDEFramePresenter::fileNewTriggered() {
+    void IDEFramePresenter::onFileNew() {
         int tag = model.increaseDocumentCount();
 
         assert(editorManager);
@@ -61,7 +61,7 @@ namespace felide {
         {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc", "*.h", "*.c"}},
     };
     
-    void IDEFramePresenter::fileOpenTriggered() {
+    void IDEFramePresenter::onFileOpen() {
         using boost::filesystem::path;
         
         const auto filePathOptional = dialogManager->showFileDialog({
@@ -77,10 +77,10 @@ namespace felide {
 
         const std::string filePath = *filePathOptional;
 
-        this->editorShow(filePath);
+        this->onEditorShow(filePath);
     }
     
-    void IDEFramePresenter::fileOpenFolderTriggered() {
+    void IDEFramePresenter::onFileOpenFolder() {
         auto folderOptional = dialogManager->showFolderDialog("Open Folder ...");
         
         if (!folderOptional) {
@@ -90,7 +90,7 @@ namespace felide {
         this->openFolder(*folderOptional);
     }
 
-    void IDEFramePresenter::fileSaveTriggered() {
+    void IDEFramePresenter::onFileSave() {
         using boost::filesystem::path;
         
         auto editor = editorManager->getCurrentEditor();
@@ -108,7 +108,7 @@ namespace felide {
         }
     }
 
-    void IDEFramePresenter::fileSaveAsTriggered() {
+    void IDEFramePresenter::onFileSaveAs() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -118,7 +118,7 @@ namespace felide {
         this->editorSaveAs(editor);
     }
 
-    void IDEFramePresenter::editUndo() {
+    void IDEFramePresenter::onEditUndo() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -128,7 +128,7 @@ namespace felide {
         editor->undo();
     }
 
-    void IDEFramePresenter::editRedo() {
+    void IDEFramePresenter::onEditRedo() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -138,7 +138,7 @@ namespace felide {
         editor->redo();
     }
 
-    void IDEFramePresenter::editCut() {
+    void IDEFramePresenter::onEditCut() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -148,7 +148,7 @@ namespace felide {
         editor->cut();
     }
 
-    void IDEFramePresenter::editCopy() {
+    void IDEFramePresenter::onEditCopy() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -158,7 +158,7 @@ namespace felide {
         editor->copy();
     }
 
-    void IDEFramePresenter::editPaste() {
+    void IDEFramePresenter::onEditPaste() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -168,11 +168,11 @@ namespace felide {
         editor->paste();
     }
 
-    void IDEFramePresenter::fileSaveAllTriggered() {
+    void IDEFramePresenter::onFileSaveAll() {
         std::cout << "IDEFramePresenter::fileSaveAll()" << std::endl;
     }
 
-    void IDEFramePresenter::fileCloseTriggered() {
+    void IDEFramePresenter::onFileClose() {
         auto editor = editorManager->getCurrentEditor();
         
         if (!editor) {
@@ -182,18 +182,18 @@ namespace felide {
         editorManager->closeEditor(editor);
     }
 
-    void IDEFramePresenter::fileExitTriggered() {
+    void IDEFramePresenter::onFileExit() {
         view->close();
     }
 
-    void IDEFramePresenter::editorContentModified(Editor *editor) {
+    void IDEFramePresenter::onEditorContentModified(Editor *editor) {
         auto editorModel = this->getEditorModel(editor);
 
         editorModel->modify();
         editor->setTitle(mapEditorTitle(editorModel));
     }
     
-    void IDEFramePresenter::editorCloseRequested(Editor *editor) {
+    void IDEFramePresenter::onEditorCloseRequested(Editor *editor) {
         bool closeEditor = true;
         
         auto model = this->getEditorModel(editor);
@@ -222,7 +222,7 @@ namespace felide {
         }
     }
     
-    bool IDEFramePresenter::closeRequested() {
+    bool IDEFramePresenter::onCloseRequested() {
         assert(this);
         assert(dialogManager);
         DialogButton button = dialogManager->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
@@ -266,7 +266,7 @@ namespace felide {
         this->editorSave(editor, editorModel);
     }
 
-    void IDEFramePresenter::editorShow(const std::string &filePath) {
+    void IDEFramePresenter::onEditorShow(const std::string &filePath) {
 		if (boost::filesystem::is_directory(filePath)) {
 			return;
 		}
@@ -295,7 +295,7 @@ namespace felide {
         }
     }
 
-    void IDEFramePresenter::viewFolderBrowserToggle() {
+    void IDEFramePresenter::onViewFolderBrowser() {
         // TODO: Add implementation
     }
 
