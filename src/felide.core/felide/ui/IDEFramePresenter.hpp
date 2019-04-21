@@ -5,7 +5,11 @@
 #include <felide/Predef.hpp>
 
 #include "IDEFrameModel.hpp"
-
+#include "Editor.hpp"
+#include "EditorModel.hpp"
+#include "EditorManager.hpp"
+#include "DialogManager.hpp"
+#include "FolderBrowser.hpp"
 #include <map>
 #include <memory>
 
@@ -13,7 +17,7 @@ namespace felide {
     class FELIDE_API EditorModel;
     class FELIDE_API Editor;
     class FELIDE_API IDEFrame;
-
+    
     class FELIDE_API IDEFramePresenter {
     public:
         IDEFramePresenter();
@@ -78,8 +82,13 @@ namespace felide {
         Editor* getEditor(const EditorModel *model);
 
     private:
-        struct Private;
-        Private *m_impl = nullptr;
+        IDEFrame *view = nullptr;
+        IDEFrameModel model;
+
+        EditorManager *editorManager = nullptr;
+        DialogManager *dialogManager = nullptr;
+        
+        std::map<const Editor*, std::unique_ptr<EditorModel>> editorModels;
     };
 }
 
