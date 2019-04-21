@@ -92,6 +92,8 @@ set (sources_felide_ui_editor
 set (sources_felide_ui_editormanager
     "felide/ui/editor-manager/EditorManager.hpp"
     "felide/ui/editor-manager/EditorManager.cpp"
+	"felide/ui/editor-manager/EditorManagerModel.hpp"
+    "felide/ui/editor-manager/EditorManagerModel.cpp"
     "felide/ui/editor-manager/EditorManagerPresenter.hpp"
     "felide/ui/editor-manager/EditorManagerPresenter.cpp"
 )
