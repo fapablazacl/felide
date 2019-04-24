@@ -2,12 +2,11 @@
 #include "MainWindow.hpp"
 
 #include <cassert>
-#include <experimental/filesystem>
-#include <felide/FileUtil.hpp>
-#include <felide/UI/GTK3/Helper.hpp>
-#include <felide/UI/GTK3/EditorManager/Editor.hpp>
+#include <boost/filesystem.hpp>
+#include <felide/util/FileUtil.hpp>
+#include <felide/ui/gtk3/EditorManager/Editor.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
     class MainWindowImpl : public MainWindow {
@@ -27,11 +26,11 @@ namespace felide::gtk3 {
             // setup client area
             set_border_width(10);
 
-            m_paned.add1(ref(m_projectExplorer));
+            m_paned.add1(*m_projectExplorer.get());
             m_projectExplorer->show();
             m_projectExplorer->signal_item_activated().connect(sigc::mem_fun(*this, &MainWindowImpl::on_item_activated));
 
-            m_paned.add2(ref(m_editorManager));
+            m_paned.add2(*m_projectExplorer.get());
             m_editorManager->show();
 
             add(m_paned);

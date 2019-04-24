@@ -1,7 +1,7 @@
 
 #include <gtkmm.h>
-#include <felide/UI/GTK3/MainWindow.hpp>
-#include <felide/UI/GTK3/MainApplication.hpp>
+#include <felide/ui/gtk3/MainWindow.hpp>
+#include <felide/ui/gtk3/MainApplication.hpp>
 
 int main(int argc, char* argv[]) {
     using namespace felide::gtk3;

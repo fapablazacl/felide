@@ -5,7 +5,7 @@
 #include <gtkmm.h>
 #include <string>
 
-#include <felide/UI/GTK3/EditorManager/EditorManager.hpp>
+#include <felide/ui/gtk3/EditorManager/EditorManager.hpp>
 #include "ProjectExplorer.hpp"
 
 namespace felide::gtk3 {

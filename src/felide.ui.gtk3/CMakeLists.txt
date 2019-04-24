@@ -1,6 +1,7 @@
 
 find_package (PkgConfig)
-pkg_check_modules (GTKMM gtkmm-3.0 gtksourceviewmm-3.0 gdlmm-3.0)
+# pkg_check_modules (GTKMM gtkmm-3.0 gtksourceviewmm-3.0 gdlmm-3.0)
+pkg_check_modules (GTKMM gtkmm-3.0 gtksourceviewmm-3.0)
 
 include_directories(.)
 

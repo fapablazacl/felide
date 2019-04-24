@@ -27,17 +27,17 @@ namespace felide::gtk3 {
                 editor->set_dirty_flag(false);
                 editor->show();
 
-                auto header = EditorHeader::create(ref(editor), title);
-                editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header, &EditorHeader::update_title_label));
+                auto header = EditorHeader::create(*editor.get(), title);
+                editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header.get(), &EditorHeader::update_title_label));
 
                 // TODO: Find a way to not dynamically instance the editor header
-                m_notebook.append_page(ref(editor), ref(header));
-                m_editors[key] = editor;
+                m_notebook.append_page(*editor.get(), *header.get());
+                m_editors.insert({key, editor});
             } else {
                 editor = it->second;
             }
 
-            const int pageIndex = m_notebook.page_num(*editor);
+            const int pageIndex = m_notebook.page_num(*editor.get());
             m_notebook.set_current_page(pageIndex);
         }
 
@@ -79,7 +79,7 @@ namespace felide::gtk3 {
 
     private:
         Gtk::Notebook m_notebook;
-        std::map<std::string, Editor*> m_editors;
+        std::map<std::string, Glib::RefPtr<Editor>> m_editors;
         signal_editor_closed_t m_signal_editor_closed;
     };
 

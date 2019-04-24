@@ -2,10 +2,10 @@
 #include "ProjectExplorer.hpp"
 
 #include <iostream>
-#include <experimental/filesystem>
-#include <felide/FileUtil.hpp>
+#include <boost/filesystem.hpp>
+#include <felide/util/FileUtil.hpp>
 
-namespace fs = std::experimental::filesystem;
+namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
     class ProjectItemModel : public Gtk::TreeModel::ColumnRecord {
@@ -99,7 +99,7 @@ namespace felide::gtk3 {
         }
 
         std::string GetPathName(const fs::path &path) {
-            return path.filename();
+            return path.filename().string();
         }
 
         void PopulateTreeNode(fs::path path, Gtk::TreeModel::iterator treeIterator) {

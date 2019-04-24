@@ -23,7 +23,7 @@ namespace felide::gtk3 {
 
         virtual void update_title_label() override {
             std::string title = m_title;
-            if (m_editor->get_dirty_flag()) {
+            if (m_editor.get_dirty_flag()) {
                 title += " *";
             }
 
