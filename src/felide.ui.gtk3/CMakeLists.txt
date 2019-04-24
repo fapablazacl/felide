@@ -15,7 +15,6 @@ set (src
 )
 
 set (felide_ui_gtk3_src
-    "felide/ui/gtk3/Helper.hpp"
     "felide/ui/gtk3/MainWindow.hpp" 
     "felide/ui/gtk3/MainWindow.cpp"
     "felide/ui/gtk3/MainApplication.hpp"

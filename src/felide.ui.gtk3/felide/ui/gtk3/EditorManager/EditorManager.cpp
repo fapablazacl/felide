@@ -3,87 +3,79 @@
 #include "Editor.hpp"
 #include "EditorHeader.hpp"
 
+#include <cassert>
 #include <map>
 #include <iostream>
 
 namespace felide::gtk3 {
-    class EditorManagerImpl : public EditorManager {
-    public:
-        EditorManagerImpl() {
-            add(m_notebook);
-            m_notebook.show();
+    EditorManager::EditorManager() {
+        add(m_notebook);
+        m_notebook.show();
+    }
+
+    EditorManager::~EditorManager() {}
+
+    void EditorManager::open_editor(const std::string &key, const std::string &title, const std::string &content) {
+        auto it = m_editors.find(key);
+
+        Editor *editor = nullptr;
+
+        if (it == m_editors.end()) {
+            editor = Gtk::manage(new Editor(key));
+
+            editor->set_text(content);
+            editor->set_dirty_flag(false);
+            editor->show();
+
+            // auto header = EditorHeader::create(*editor.get(), title);
+            auto header = Gtk::manage(new EditorHeader(*editor, title));
+            editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header, &EditorHeader::update_title_label));
+
+            // TODO: Find a way to not dynamically instance the editor header
+            m_notebook.append_page(*editor, *header);
+            m_editors.insert({key, editor});
+        } else {
+            editor = it->second;
         }
 
-        virtual ~EditorManagerImpl() {}
+        const int pageIndex = m_notebook.page_num(*editor);
+        m_notebook.set_current_page(pageIndex);
+    }
 
-        virtual void open_editor(const std::string &key, const std::string &title, const std::string &content) override {
-            auto it = m_editors.find(key);
+    Editor& EditorManager::get_current_editor() {
+        const int pageIndex = m_notebook.get_current_page();
 
-            Glib::RefPtr<Editor> editor;
-
-            if (it == m_editors.end()) {
-                editor = Editor::create(key);
-                editor->set_text(content);
-                editor->set_dirty_flag(false);
-                editor->show();
-
-                auto header = EditorHeader::create(*editor.get(), title);
-                editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header.get(), &EditorHeader::update_title_label));
-
-                // TODO: Find a way to not dynamically instance the editor header
-                m_notebook.append_page(*editor.get(), *header.get());
-                m_editors.insert({key, editor});
-            } else {
-                editor = it->second;
-            }
-
-            const int pageIndex = m_notebook.page_num(*editor.get());
-            m_notebook.set_current_page(pageIndex);
+        if (pageIndex == -1) {
+            // TODO: Fix this nasty hack
+            return *static_cast<Editor*>(nullptr);
         }
 
-        virtual Editor* get_current_editor() override {
-            const int pageIndex = m_notebook.get_current_page();
+        auto page = m_notebook.get_nth_page(pageIndex);
 
-            if (pageIndex == -1) {
-                return nullptr;
+        assert(page);
+
+        return static_cast<Editor&>(*page);
+    }
+
+    void EditorManager::close_editor(Editor &editor) {
+        // remove from UI
+        int pageIndex = -1;
+        for (int i=0; i<m_notebook.get_n_pages(); i++) {
+            if (&editor == m_notebook.get_nth_page(i)) {
+                pageIndex = i;
+                break;
             }
-
-            return static_cast<Editor*>(m_notebook.get_nth_page(pageIndex));
         }
 
-        virtual void close_editor(Editor *editor) override {
-            if (!editor) {
-                return;
-            }
-
-            // remove from UI
-            int pageIndex = -1;
-            for (int i=0; i<m_notebook.get_n_pages(); i++) {
-                if (editor == m_notebook.get_nth_page(i)) {
-                    pageIndex = i;
-                    break;
-                }
-            }
-
-            if (pageIndex > -1) {
-                m_notebook.remove_page(pageIndex);
-            }
-
-            // remove from local cache
-            m_editors.erase(editor->get_key());
+        if (pageIndex > -1) {
+            m_notebook.remove_page(pageIndex);
         }
 
-        virtual signal_editor_closed_t signal_editor_closed() override {
-            return m_signal_editor_closed;
-        }
+        // remove from local cache
+        m_editors.erase(editor.get_key());
+    }
 
-    private:
-        Gtk::Notebook m_notebook;
-        std::map<std::string, Glib::RefPtr<Editor>> m_editors;
-        signal_editor_closed_t m_signal_editor_closed;
-    };
-
-    Glib::RefPtr<EditorManager> EditorManager::create() {
-        return Glib::RefPtr<EditorManager>(new EditorManagerImpl());
+    signal_editor_closed_t EditorManager::signal_editor_closed() {
+        return m_signal_editor_closed;
     }
 }

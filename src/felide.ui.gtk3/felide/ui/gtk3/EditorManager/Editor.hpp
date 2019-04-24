@@ -4,30 +4,44 @@
 
 #include <string>
 #include <gtkmm.h>
+#include <gtksourceviewmm.h>
 
 namespace felide::gtk3 {
+    typedef sigc::signal<void> signal_editor_dirty_changed_t;
+
     /**
      * @brief A Simple Text Editor control with scrollbars
      */
     class Editor : public Gtk::Bin {
     public:
-        static Glib::RefPtr<Editor> create(const std::string &key);
+        Editor(const Editor&) = delete;
 
-        virtual ~Editor() {}
+        Editor(const std::string &key);
+        
+        virtual ~Editor();
 
-        virtual void set_text(const std::string &text) = 0;
+        void set_text(const std::string &text);
 
-        virtual std::string get_text() const = 0;
+        std::string get_text() const;
 
-        virtual std::string get_key() const = 0;
+        std::string get_key() const;
 
-        virtual void set_dirty_flag(const bool flag) = 0;
+        void set_dirty_flag(const bool flag);
 
-        virtual bool get_dirty_flag() const = 0;
+        bool get_dirty_flag() const;
+
+        void on_text_buffer_changed();
+        
+    private:
+        std::string m_key;
+        mutable bool m_dirty_flag = false;
+        Gtk::ScrolledWindow m_scrolled;
+        Gsv::View m_textView;
+
+        signal_editor_dirty_changed_t m_signal_editor_dirty_changed;
 
     public:
-        typedef sigc::signal<void> signal_editor_dirty_changed_t;
-        virtual signal_editor_dirty_changed_t signal_editor_dirty_changed() = 0;
+        signal_editor_dirty_changed_t signal_editor_dirty_changed();
     };
 }
 
