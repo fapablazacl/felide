@@ -1,13 +1,23 @@
 
 #include <gtkmm.h>
-#include <felide/UI/GTK3/MainWindow.hpp>
-#include <felide/UI/GTK3/MainApplication.hpp>
+#include <felide/ui/gtk3/MainWindow.hpp>
+#include <felide/ui/gtk3/MainApplication.hpp>
+
+#include <memory>
+#include <iostream>
 
 int main(int argc, char* argv[]) {
     using namespace felide::gtk3;
 
-    auto window = MainWindow::create_raw();
+    std::cout << "Initializing Application ..." << std::endl;
     auto app = MainApplication::create(argc, argv, "org.devwarecl.felide");
-    
-    return app->run(*window);
+    std::cout << "Done." << std::endl;
+
+    std::cout << "Initializing MainWindow ..." << std::endl;
+    MainWindow window;
+    std::cout << "Done." << std::endl;
+
+    std::cout << "Running ..." << std::endl;
+
+    return app->run(window);
 }

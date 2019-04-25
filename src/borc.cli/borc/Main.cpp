@@ -1,7 +1,7 @@
 
 #include <string>
 #include <iostream>
-#include <filesystem>
+#include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
 
 #include <borc/cli/ProjectController.hpp>
@@ -11,8 +11,10 @@
 #include <borc/core/Toolchain.hpp>
 #include <borc/core/ToolchainFactory.hpp>
 
+namespace fs = boost::filesystem;
+
 std::string getFullPath() {
-    return (std::filesystem::current_path() / "Package.borc.json").string();
+    return (fs::current_path() / "Package.borc.json").string();
     // return "/home/fapablaza/Desktop/devwarecl/felide/Package.borc.json";
 }
 

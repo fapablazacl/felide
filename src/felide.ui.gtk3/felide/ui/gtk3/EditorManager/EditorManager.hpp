@@ -6,22 +6,28 @@
 
 namespace felide::gtk3 {
     class Editor;
+
+    typedef sigc::signal<bool, Editor*> signal_editor_closed_t;
+
     class EditorManager : public Gtk::Bin {
     public:
-        static Glib::RefPtr<EditorManager> create();
+        EditorManager();
 
-        virtual ~EditorManager() {}
+        virtual ~EditorManager();
 
-        virtual void open_editor(const std::string &key, const std::string &title, const std::string &content) = 0;
+        void open_editor(const std::string &key, const std::string &title, const std::string &content);
 
-        virtual Editor* get_current_editor() = 0;
+        Editor& get_current_editor();
 
-        virtual void close_editor(Editor *editor) = 0;
+        void close_editor(Editor &editor);
 
     public:
-        typedef sigc::signal<bool, Editor*> signal_editor_closed_t;
+        signal_editor_closed_t signal_editor_closed();
 
-        virtual signal_editor_closed_t signal_editor_closed() = 0;
+    private:
+        Gtk::Notebook m_notebook;
+        std::map<std::string, Editor*> m_editors;
+        signal_editor_closed_t m_signal_editor_closed;
     };
 }
 

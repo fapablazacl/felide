@@ -31,15 +31,17 @@ namespace felide {
 
             const auto path = fs::path(this->filePath(index).toStdString());
 
+            Qt::ItemFlags flags = Qt::ItemFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
+
             if (fs::is_directory(path)) {
-                return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
-            } else {
-                return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled;
+                flags |= Qt::ItemIsDropEnabled;
             }
+
+            return flags;
         }
 
         virtual Qt::DropActions supportedDropActions() const override {
-            return Qt::CopyAction | Qt::MoveAction;
+            return Qt::DropActions(Qt::CopyAction | Qt::MoveAction);
         }
 
         virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override {

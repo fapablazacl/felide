@@ -9,13 +9,20 @@ namespace felide::gtk3 {
     class Editor;
     class EditorHeader : public Gtk::HBox {
     public:
-        static Glib::RefPtr<EditorHeader> create(Editor &editor, const std::string &title);
+        EditorHeader(Editor &editor, const std::string &title);
 
-        virtual ~EditorHeader() {}
+        ~EditorHeader();
 
-        virtual void update_title_label() = 0;
+        void update_title_label();
 
-        virtual Gtk::Button* get_close_button() = 0;
+        Gtk::Button* get_close_button();
+
+    private:
+        Editor &m_editor;
+        std::string m_title;
+        Gtk::Image m_closeImage;
+        Gtk::Label m_titleLabel;
+        Gtk::Button m_closeButton;
     };
 }
 
