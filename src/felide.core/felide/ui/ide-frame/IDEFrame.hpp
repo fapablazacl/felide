@@ -3,6 +3,9 @@
 #define __FELIDE_UI_MAINWINDOWVIEW_HPP__
 
 #include <felide/Predef.hpp>
+#include <felide/ui/FileFilter.hpp>
+#include <boost/optional/optional_fwd.hpp>
+#include <boost/filesystem/path.hpp>
 
 namespace felide {
     class FELIDE_API EditorManager;
@@ -15,16 +18,37 @@ namespace felide {
 
     class FELIDE_API IDEFrame {
     public:
+        struct FileOperationViewData {
+            std::string title;
+            std::vector<FileFilter> filters;
+            boost::optional<boost::filesystem::path> defaultFilePath;
+        };
+
+        struct DirectoryOpenViewData {
+            std::string title;
+            boost::optional<boost::filesystem::path> defaultDirectoryPath;
+        };
+
+    public:
         explicit IDEFrame(IDEFramePresenter *presenter);
 
         virtual ~IDEFrame();
 
+        [[deprecated]]
         virtual EditorManager* getEditorManager() = 0;
 
+        [[deprecated]]
         virtual DialogManager* getDialogManager() = 0;
         
+        [[deprecated]]
         virtual FolderBrowser* getFolderBrowser() = 0;
-        
+
+        virtual boost::optional<boost::filesystem::path> showFileOpenDialog(const FileOperationViewData &viewData) const = 0;
+
+        virtual boost::optional<boost::filesystem::path> showFileSaveDialog(const FileOperationViewData &viewData) const = 0;
+
+        virtual boost::optional<boost::filesystem::path> showDirectoryOpenDialog(const DirectoryOpenViewData &viewData) const = 0;
+
         virtual void close() = 0;
 
         virtual void show() = 0;

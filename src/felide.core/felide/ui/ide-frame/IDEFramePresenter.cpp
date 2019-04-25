@@ -50,18 +50,13 @@ namespace felide {
         editor->setTitle(mapEditorTitle(editorModel));
     }
 
-    static const std::vector<FileFilter> filters = {
-        {"All Files", {"*.*"}},
-        {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc", "*.h", "*.c"}},
-    };
-    
     void IDEFramePresenter::onFileOpen() {
         using boost::filesystem::path;
         
         const auto filePathOptional = view->getDialogManager()->showFileDialog({
            "Open File",
            FileDialogType::OpenFile,
-           filters,
+           model.getFileFilters(),
            ""
         });
 
@@ -243,7 +238,7 @@ namespace felide {
         const boost::optional<std::string> filePathOptional = view->getDialogManager()->showFileDialog({
             "Save File",
             FileDialogType::SaveFile,
-            filters,
+            model.getFileFilters(),
             ""
         });
         

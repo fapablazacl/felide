@@ -9,4 +9,11 @@ namespace felide {
     int IDEFrameModel::increaseDocumentCount() {
         return ++createdDocumentCount;
     }
+
+    std::vector<FileFilter> IDEFrameModel::getFileFilters() const {
+        return {
+            {"All Files", {"*.*"}},
+            {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc", "*.h", "*.c"}},
+        };
+    }
 }

@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <boost/optional.hpp>
+#include <felide/ui/FileFilter.hpp>
 #include <felide/Predef.hpp>
 
 namespace felide {
@@ -28,11 +29,6 @@ namespace felide {
     inline DialogButton operator| (const DialogButton f1, const DialogButton f2) {
         return static_cast<DialogButton>(static_cast<int>(f1) | static_cast<int>(f2));
     }
-
-    struct FileFilter {
-        std::string description;
-        std::vector<std::string> wildcards;
-    };
 
     enum class FileDialogType {
         OpenFile,
