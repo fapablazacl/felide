@@ -87,9 +87,6 @@ namespace felide {
         IDEFrame *view = nullptr;
         IDEFrameModel model;
 
-        EditorManager *editorManager = nullptr;
-        DialogManager *dialogManager = nullptr;
-        
         std::map<const Editor*, std::unique_ptr<EditorModel>> editorModels;
     };
 }

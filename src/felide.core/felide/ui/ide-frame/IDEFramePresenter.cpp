@@ -34,11 +34,6 @@ namespace felide {
         assert(view);
         
         this->view = view;
-        editorManager = view->getEditorManager();
-        dialogManager = view->getDialogManager();
-        
-        assert(editorManager);
-        assert(dialogManager);
     }
 
     void IDEFramePresenter::detachView() {
@@ -48,8 +43,7 @@ namespace felide {
     void IDEFramePresenter::onFileNew() {
         int tag = model.increaseDocumentCount();
 
-        assert(editorManager);
-        auto editor = editorManager->appendEditor();
+        auto editor = view->getEditorManager()->appendEditor();
         auto editorModel = this->createEditorModel(editor, tag);
 
         editor->setConfig(EditorConfig::Default());
@@ -64,7 +58,7 @@ namespace felide {
     void IDEFramePresenter::onFileOpen() {
         using boost::filesystem::path;
         
-        const auto filePathOptional = dialogManager->showFileDialog({
+        const auto filePathOptional = view->getDialogManager()->showFileDialog({
            "Open File",
            FileDialogType::OpenFile,
            filters,
@@ -81,7 +75,7 @@ namespace felide {
     }
     
     void IDEFramePresenter::onFileOpenFolder() {
-        auto folderOptional = dialogManager->showFolderDialog("Open Folder ...");
+        auto folderOptional = view->getDialogManager()->showFolderDialog("Open Folder ...");
         
         if (!folderOptional) {
             return;
@@ -93,7 +87,7 @@ namespace felide {
     void IDEFramePresenter::onFileSave() {
         using boost::filesystem::path;
         
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -109,7 +103,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileSaveAs() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -119,7 +113,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onEditUndo() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -129,7 +123,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onEditRedo() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -139,7 +133,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onEditCut() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -149,7 +143,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onEditCopy() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -159,7 +153,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onEditPaste() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
@@ -173,13 +167,13 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileClose() {
-        auto editor = editorManager->getCurrentEditor();
+        auto editor = view->getEditorManager()->getCurrentEditor();
         
         if (!editor) {
             return;
         }
 
-        editorManager->closeEditor(editor);
+        view->getEditorManager()->closeEditor(editor);
     }
 
     void IDEFramePresenter::onFileExit() {
@@ -199,7 +193,7 @@ namespace felide {
         auto model = this->getEditorModel(editor);
         
         if (model->getModifiedFlag()) {
-            DialogButton button = dialogManager->showMessageDialog("felide", "Save Changes?", DialogIcon::Question, DialogButton::YesNoCancel);
+            DialogButton button = view->getDialogManager()->showMessageDialog("felide", "Save Changes?", DialogIcon::Question, DialogButton::YesNoCancel);
             
             switch (button) {
                 case DialogButton::Yes:
@@ -218,14 +212,14 @@ namespace felide {
         
         if (closeEditor) {
             editorModels.erase(editor);
-            editorManager->closeEditor(editor);
+            view->getEditorManager()->closeEditor(editor);
         }
     }
     
     bool IDEFramePresenter::onCloseRequested() {
         assert(this);
-        assert(dialogManager);
-        DialogButton button = dialogManager->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
+        assert(view->getDialogManager());
+        DialogButton button = view->getDialogManager()->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
         
         return button == DialogButton::Yes;
     }
@@ -246,7 +240,7 @@ namespace felide {
     void IDEFramePresenter::editorSaveAs(Editor *editor) {
         auto editorModel = this->getEditorModel(editor);
         
-        const boost::optional<std::string> filePathOptional = dialogManager->showFileDialog({
+        const boost::optional<std::string> filePathOptional = view->getDialogManager()->showFileDialog({
             "Save File",
             FileDialogType::SaveFile,
             filters,
@@ -280,11 +274,11 @@ namespace felide {
         });
 
         if (viewModelIt != viewModels.end()) {
-            editorManager->showEditor(const_cast<Editor*>(viewModelIt->first));
+            view->getEditorManager()->showEditor(const_cast<Editor*>(viewModelIt->first));
         } else {
             const std::string content = FileUtil::load(filePath);
 
-            auto editor = editorManager->appendEditor();
+            auto editor = view->getEditorManager()->appendEditor();
             auto editorModel = this->createEditorModel(editor, filePath);
             
             editor->setConfig(EditorConfig::Default());
