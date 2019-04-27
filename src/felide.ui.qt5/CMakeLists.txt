@@ -41,13 +41,22 @@ source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
 # TODO: Parametrize QScintilla for Windows Builds
-target_link_libraries (
-    ${target} 
-    Qt5::Widgets
-    # debug qscintilla2_qt5d
-    # optimized qscintilla2_qt5
-    qscintilla2_qt5
-    felide.core
-)
+
+if (WIN32)
+	target_link_libraries (
+		${target} 
+		Qt5::Widgets
+		debug qscintilla2_qt5d
+		optimized qscintilla2_qt5
+		felide.core
+	)
+else()
+	target_link_libraries (
+		${target} 
+		Qt5::Widgets
+		qscintilla2_qt5
+		felide.core
+	)
+endif()
 
 install (TARGETS ${target} DESTINATION "bin")

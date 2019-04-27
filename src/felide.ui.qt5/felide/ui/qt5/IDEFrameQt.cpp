@@ -94,11 +94,37 @@ namespace felide {
         QMainWindow::show();
     }
 
+    static FileDialogData mapFileOperationVD(const IDEFrame::FileOperationViewData &viewData, const FileDialogType type) {
+        auto fileDialogData = FileDialogData();
+
+        if (viewData.defaultFilePath) {
+            fileDialogData.defaultPath = viewData.defaultFilePath.get().string();
+        }
+
+        fileDialogData.filters = viewData.filters;
+        fileDialogData.title = viewData.title;
+        fileDialogData.type = type;
+
+        return fileDialogData;
+    }
+    
     boost::optional<boost::filesystem::path> IDEFrameQt::showFileOpenDialog(const FileOperationViewData &viewData) const {
+        const FileDialogData fileDialogData = mapFileOperationVD(viewData, FileDialogType::OpenFile);
+
+        if (auto result = m_dialogManager->showFileDialog(fileDialogData); result) {
+            return boost::filesystem::path(result.get());
+        }
+
         return {};
     }
 
     boost::optional<boost::filesystem::path> IDEFrameQt::showFileSaveDialog(const FileOperationViewData &viewData) const {
+        const FileDialogData fileDialogData = mapFileOperationVD(viewData, FileDialogType::SaveFile);
+
+        if (auto result = m_dialogManager->showFileDialog(fileDialogData); result) {
+            return boost::filesystem::path(result.get());
+        }
+
         return {};
     }
 
