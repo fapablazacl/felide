@@ -93,4 +93,16 @@ namespace felide {
     void IDEFrameQt::show() {
         QMainWindow::show();
     }
+
+    boost::optional<boost::filesystem::path> IDEFrameQt::showFileOpenDialog(const FileOperationViewData &viewData) const {
+        return {};
+    }
+
+    boost::optional<boost::filesystem::path> IDEFrameQt::showFileSaveDialog(const FileOperationViewData &viewData) const {
+        return {};
+    }
+
+    boost::optional<boost::filesystem::path> IDEFrameQt::showDirectoryOpenDialog(const DirectoryOpenViewData &viewData) const {
+        return {};
+    }
 }
