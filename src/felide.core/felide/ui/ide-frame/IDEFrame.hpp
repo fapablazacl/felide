@@ -24,7 +24,7 @@ namespace felide {
             boost::optional<boost::filesystem::path> defaultFilePath;
         };
 
-        struct DirectoryOpenViewData {
+        struct FolderOpenViewData {
             std::string title;
             boost::optional<boost::filesystem::path> defaultDirectoryPath;
         };
@@ -47,7 +47,7 @@ namespace felide {
 
         virtual boost::optional<boost::filesystem::path> showFileSaveDialog(const FileOperationViewData &viewData) const = 0;
 
-        virtual boost::optional<boost::filesystem::path> showDirectoryOpenDialog(const DirectoryOpenViewData &viewData) const = 0;
+        virtual boost::optional<boost::filesystem::path> showFolderOpenDialog(const FolderOpenViewData &viewData) const = 0;
 
         virtual void close() = 0;
 

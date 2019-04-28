@@ -128,7 +128,13 @@ namespace felide {
         return {};
     }
 
-    boost::optional<boost::filesystem::path> IDEFrameQt::showDirectoryOpenDialog(const DirectoryOpenViewData &viewData) const {
+    boost::optional<boost::filesystem::path> IDEFrameQt::showFolderOpenDialog(const IDEFrame::FolderOpenViewData &viewData) const {
+        const std::string &title = viewData.title;
+
+        if (auto result = m_dialogManager->showFolderDialog(title); result) {
+            return boost::filesystem::path(result.get());
+        }
+
         return {};
     }
 }

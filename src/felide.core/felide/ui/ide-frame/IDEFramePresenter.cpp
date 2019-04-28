@@ -51,32 +51,26 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileOpen() {
-        using boost::filesystem::path;
-        
-        const auto filePathOptional = view->getDialogManager()->showFileDialog({
+        const IDEFrame::FileOperationViewData viewData = {
            "Open File",
-           FileDialogType::OpenFile,
            model.getFileFilters(),
            ""
-        });
+        };
 
-        if (!filePathOptional) {
-            return;
+        if (auto filePath = view->showFileOpenDialog(viewData); filePath) {
+            this->onEditorShow(filePath.get().string());
         }
-
-        const std::string filePath = *filePathOptional;
-
-        this->onEditorShow(filePath);
     }
     
     void IDEFramePresenter::onFileOpenFolder() {
-        auto folderOptional = view->getDialogManager()->showFolderDialog("Open Folder ...");
-        
-        if (!folderOptional) {
-            return;
+        const IDEFrame::FolderOpenViewData viewData = {
+            "Open Folder", 
+            boost::filesystem::current_path()
+        };
+
+        if (auto folder = view->showFolderOpenDialog(viewData); folder) {
+            this->openFolder(folder.get().string());
         }
-        
-        this->openFolder(*folderOptional);
     }
 
     void IDEFramePresenter::onFileSave() {
@@ -235,24 +229,20 @@ namespace felide {
     void IDEFramePresenter::editorSaveAs(Editor *editor) {
         auto editorModel = this->getEditorModel(editor);
         
-        const boost::optional<std::string> filePathOptional = view->getDialogManager()->showFileDialog({
-            "Save File",
-            FileDialogType::SaveFile,
+        const IDEFrame::FileOperationViewData viewData = {
+           "Save File",
             model.getFileFilters(),
             ""
-        });
+        };
+
+        if (auto filePath = view->showFileSaveDialog(viewData); filePath) {
+            const std::string content = editor->getContent();
         
-        if (!filePathOptional) {
-            return;
+            editorModel->setFilePath(filePath.get().string());
+            editorModel->setContent(content);
+        
+            this->editorSave(editor, editorModel);
         }
-        
-        const std::string filePath = *filePathOptional;
-        const std::string content = editor->getContent();
-        
-        editorModel->setFilePath(filePath);
-        editorModel->setContent(content);
-        
-        this->editorSave(editor, editorModel);
     }
 
     void IDEFramePresenter::onEditorShow(const std::string &filePath) {
