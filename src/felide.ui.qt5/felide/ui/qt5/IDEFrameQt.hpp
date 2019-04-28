@@ -9,10 +9,10 @@
 #include <QAction>
 #include <map>
 
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/ui/ide-frame/IDEFrameController.hpp>
 #include <felide/ui/ide-frame/IDEFrame.hpp>
-#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/ui/editor-manager/EditorManagerPresenter.hpp>
+#include <felide/ui/folder-browser/FolderBrowserController.hpp>
+#include <felide/ui/editor-manager/EditorManagerController.hpp>
 #include <felide/ui/Menu.hpp>
 #include "EditorManagerQt.hpp"
 #include "DialogManagerQt.hpp"
@@ -23,7 +23,7 @@ namespace felide {
         Q_OBJECT;
 
     public:
-        explicit IDEFrameQt(IDEFramePresenter *presenter);
+        explicit IDEFrameQt(IDEFrameController *controller);
 
     public:
         virtual EditorManager* getEditorManager() override;
@@ -55,9 +55,9 @@ namespace felide {
         std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:
-        EditorManagerPresenter m_editorManagerPresenter;
+        EditorManagerController m_editorManagerController;
 
-        FolderBrowserPresenter m_folderBrowserPresenter;
+        FolderBrowserController m_folderBrowserController;
         FolderBrowserQt *m_folderBrowser;
         QDockWidget *m_folderBrowserDock;
     };

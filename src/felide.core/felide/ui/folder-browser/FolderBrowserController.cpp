@@ -1,11 +1,11 @@
 
-#include "FolderBrowserPresenter.hpp"
+#include "FolderBrowserController.hpp"
 
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/ui/DialogManager.hpp>
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/ui/ide-frame/IDEFrameController.hpp>
 
 #include "FolderBrowser.hpp"
 
@@ -18,22 +18,22 @@ namespace felide {
         }
     }
 
-    FolderBrowserPresenter::FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter) {
+    FolderBrowserController::FolderBrowserController(IDEFrameController *ideFramePresenter) {
         this->ideFramePresenter = ideFramePresenter;
     }
 
-    FolderBrowserPresenter::~FolderBrowserPresenter() {}
+    FolderBrowserController::~FolderBrowserController() {}
 
-    void FolderBrowserPresenter::attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
+    void FolderBrowserController::attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
         m_folderBrowser = folderBrowser;
         m_dialogManager = dialogManager;
     }
 
-    void FolderBrowserPresenter::detachView() {
+    void FolderBrowserController::detachView() {
         m_folderBrowser = nullptr;
     }
 
-    void FolderBrowserPresenter::onBrowseFolder() {
+    void FolderBrowserController::onBrowseFolder() {
         auto folderPathOptional = m_dialogManager->showFolderDialog("Open Folder");
 
         if (!folderPathOptional) {
@@ -43,7 +43,7 @@ namespace felide {
         m_folderBrowser->displayFolder(*folderPathOptional);
     }
 
-    void FolderBrowserPresenter::onCreateFile() {
+    void FolderBrowserController::onCreateFile() {
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
             return;
@@ -78,7 +78,7 @@ namespace felide {
         os.close();
     }
 
-    void FolderBrowserPresenter::onCreateFolder() {
+    void FolderBrowserController::onCreateFolder() {
         // 
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -117,7 +117,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    void FolderBrowserPresenter::onOpenSelectedFile() {
+    void FolderBrowserController::onOpenSelectedFile() {
         // determine the currently selected path
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -131,7 +131,7 @@ namespace felide {
         } 
     }
 
-    void FolderBrowserPresenter::onMoveSelectedPath(const std::string &targetFolder) {
+    void FolderBrowserController::onMoveSelectedPath(const std::string &targetFolder) {
         // TODO: Add directory check to the targetFolder variable
 
         namespace fs = boost::filesystem;
@@ -168,7 +168,7 @@ namespace felide {
         fs::rename(selectedPath, destinationPath);
     }
 
-    void FolderBrowserPresenter::onRenameSelectedPath() {
+    void FolderBrowserController::onRenameSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -206,7 +206,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    void FolderBrowserPresenter::onDeleteSelectedPath() {
+    void FolderBrowserController::onDeleteSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -238,7 +238,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    boost::optional<std::string> FolderBrowserPresenter::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {
+    boost::optional<std::string> FolderBrowserController::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {
         int attemped = 0;
 
         boost::optional<std::string> validNamePath = {};

@@ -7,11 +7,11 @@
 #include <vector>
 
 namespace felide {
-    class FELIDE_API EditorManagerPresenter;
+    class FELIDE_API EditorManagerController;
     class FELIDE_API Editor;
     class FELIDE_API EditorManager {
     public:
-        explicit EditorManager(EditorManagerPresenter *presenter);
+        explicit EditorManager(EditorManagerController *presenter);
 
         virtual ~EditorManager();
 
@@ -30,7 +30,7 @@ namespace felide {
         std::vector<Editor*> getEditors();
 
     protected:
-        EditorManagerPresenter *m_presenter = nullptr;
+        EditorManagerController *m_presenter = nullptr;
     };
 } 
 

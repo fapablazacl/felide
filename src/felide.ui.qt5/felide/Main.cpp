@@ -2,7 +2,7 @@
 #include <QApplication>
 
 #include <felide/ui/qt5/IDEFrameQt.hpp>
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/ui/ide-frame/IDEFrameController.hpp>
 #include <boost/filesystem.hpp>
 
 int main(int argc, char **argv) {
@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 
     QApplication app(argc, argv);
 
-    IDEFramePresenter presenter;
+    IDEFrameController presenter;
 
     IDEFrameQt ideFrame(&presenter);
     ideFrame.show();

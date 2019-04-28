@@ -10,7 +10,7 @@
 
 namespace felide {
     class DialogManagerQt;
-    class FELIDE_API FolderBrowserPresenter;
+    class FELIDE_API FolderBrowserController;
     class FELIDE_API DialogManager;
 
     class FolderBrowserQt : public QWidget, public FolderBrowser {
@@ -22,7 +22,7 @@ namespace felide {
         virtual boost::optional<std::string> getSelectedPath() const override;
 
     public:
-        FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager);
+        FolderBrowserQt(QWidget *parent, FolderBrowserController *presenter, DialogManagerQt *dialogManager);
 
         ~FolderBrowserQt();
 

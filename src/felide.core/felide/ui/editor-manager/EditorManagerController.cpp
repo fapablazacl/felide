@@ -1,21 +1,21 @@
 
-#include "EditorManagerPresenter.hpp"
+#include "EditorManagerController.hpp"
 #include "EditorManager.hpp"
 
 namespace felide {
-    EditorManagerPresenter::EditorManagerPresenter(EditorManagerModel *model) {
+    EditorManagerController::EditorManagerController(EditorManagerModel *model) {
         m_model = model;
     }
 
-    void EditorManagerPresenter::attachView(EditorManager *view) {
+    void EditorManagerController::attachView(EditorManager *view) {
         m_view = view;
     }
 
-    void EditorManagerPresenter::onCloseEditor(Editor *editor) {
+    void EditorManagerController::onCloseEditor(Editor *editor) {
         m_view->closeEditor(editor);
     }
 
-    void EditorManagerPresenter::onCloseOthers(Editor *editor) {
+    void EditorManagerController::onCloseOthers(Editor *editor) {
         auto editors = m_view->getEditors();
         
         for (auto current : editors) {
@@ -25,7 +25,7 @@ namespace felide {
         }
     }
 
-    void EditorManagerPresenter::onCloseToTheRight(Editor *editor) {
+    void EditorManagerController::onCloseToTheRight(Editor *editor) {
         bool close = false;
 
         auto editors = m_view->getEditors();
@@ -41,7 +41,7 @@ namespace felide {
         }
     }
 
-    void EditorManagerPresenter::onCloseAll() {
+    void EditorManagerController::onCloseAll() {
         auto editors = m_view->getEditors();
 
         for (auto editor : editors) {

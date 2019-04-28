@@ -1,12 +1,12 @@
 
 #include "IDEFrame.hpp"
 
-#include "IDEFramePresenter.hpp"
+#include "IDEFrameController.hpp"
 
 #include <felide/ui/Menu.hpp>
 
 namespace felide {
-    IDEFrame::IDEFrame(IDEFramePresenter *presenter) {
+    IDEFrame::IDEFrame(IDEFrameController *presenter) {
         m_presenter = presenter;
 
         m_menu = new Menu(Menu::menuBar({

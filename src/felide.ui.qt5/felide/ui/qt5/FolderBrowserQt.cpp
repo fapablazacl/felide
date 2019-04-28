@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <QMimeData>
 #include <iostream>
-#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/ui/folder-browser/FolderBrowserController.hpp>
 
 #include "DialogManagerQt.hpp"
 
@@ -20,7 +20,7 @@ namespace felide {
     // TODO: Refactor file handling logic into another layer
     class FolderBrowserQtTreeModel : public QFileSystemModel {
     public:
-        FolderBrowserQtTreeModel(QWidget *parent, FolderBrowserPresenter *presenter) : QFileSystemModel(parent) {
+        FolderBrowserQtTreeModel(QWidget *parent, FolderBrowserController *presenter) : QFileSystemModel(parent) {
             this->presenter = presenter;
         }
 
@@ -55,7 +55,7 @@ namespace felide {
         }
 
     private:
-        FolderBrowserPresenter *presenter = nullptr;
+        FolderBrowserController *presenter = nullptr;
     };
 }
 
@@ -73,7 +73,7 @@ namespace felide {
 }
 
 namespace felide {
-    FolderBrowserQt::FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager) : QWidget(parent), FolderBrowser(presenter) {
+    FolderBrowserQt::FolderBrowserQt(QWidget *parent, FolderBrowserController *presenter, DialogManagerQt *dialogManager) : QWidget(parent), FolderBrowser(presenter) {
         m_treeView = new QTreeView(this);
 
         this->setLayout(new QVBoxLayout(this));

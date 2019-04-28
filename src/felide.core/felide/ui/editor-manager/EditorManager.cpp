@@ -2,7 +2,7 @@
 #include "EditorManager.hpp"
 
 namespace felide {
-    EditorManager::EditorManager(EditorManagerPresenter *presenter) {
+    EditorManager::EditorManager(EditorManagerController *presenter) {
         m_presenter = presenter;
     }
 

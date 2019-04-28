@@ -6,7 +6,7 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API IDEFramePresenter;
+    class FELIDE_API IDEFrameController;
     class FELIDE_API UIToolkit {
     public:
         virtual ~UIToolkit();

@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <iostream>
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/ui/ide-frame/IDEFrameController.hpp>
 
 #include "EditorQt.hpp"
 #include "DialogManagerQt.hpp"
@@ -14,7 +14,7 @@
 #include "UtilitiesQt.hpp"
 
 namespace felide {
-    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter), m_editorManagerPresenter(nullptr), m_folderBrowserPresenter(presenter) {
+    IDEFrameQt::IDEFrameQt(IDEFrameController *presenter) : IDEFrame(presenter), m_editorManagerController(nullptr), m_folderBrowserController(presenter) {
         m_dialogManager = std::make_unique<DialogManagerQt>(this);
 
         this->setupMenuBar();
@@ -36,7 +36,7 @@ namespace felide {
     }
 
     void IDEFrameQt::setupEditorManager() {
-        m_editorManager = new EditorManagerQt(this, &m_editorManagerPresenter);
+        m_editorManager = new EditorManagerQt(this, &m_editorManagerController);
 
         connect(m_editorManager, &EditorManagerQt::editorContentChanged, [&](EditorQt *editor) {
             assert(editor);
@@ -57,7 +57,7 @@ namespace felide {
         // setup folder browser dock widget
         m_folderBrowserDock = new QDockWidget("Folder Browser", this);
         
-        m_folderBrowser = new FolderBrowserQt(m_folderBrowserDock, &m_folderBrowserPresenter, m_dialogManager.get());
+        m_folderBrowser = new FolderBrowserQt(m_folderBrowserDock, &m_folderBrowserController, m_dialogManager.get());
         m_folderBrowserDock->setAllowedAreas(areas);
         m_folderBrowserDock->setWidget(m_folderBrowser);
 

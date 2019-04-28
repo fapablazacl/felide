@@ -9,9 +9,9 @@ namespace felide {
     class FELIDE_API EditorManagerModel;
     class FELIDE_API Editor;
     class FELIDE_API EditorManager;
-    class FELIDE_API EditorManagerPresenter {
+    class FELIDE_API EditorManagerController {
     public:
-        explicit EditorManagerPresenter(EditorManagerModel *model);
+        explicit EditorManagerController(EditorManagerModel *model);
 
         void attachView(EditorManager *view);
 

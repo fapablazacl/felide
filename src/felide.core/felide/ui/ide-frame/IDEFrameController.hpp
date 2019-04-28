@@ -19,11 +19,11 @@ namespace felide {
     class FELIDE_API Editor;
     class FELIDE_API IDEFrame;
     
-    class FELIDE_API IDEFramePresenter {
+    class FELIDE_API IDEFrameController {
     public:
-        IDEFramePresenter();
+        IDEFrameController();
 
-        virtual ~IDEFramePresenter();
+        virtual ~IDEFrameController();
 
         void attachView(IDEFrame *view);
 

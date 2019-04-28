@@ -6,12 +6,12 @@
 #include <QTabBar>
 #include <QAction>
 #include <QMenu>
-#include <felide/ui/editor-manager/EditorManagerPresenter.hpp>
+#include <felide/ui/editor-manager/EditorManagerController.hpp>
 
 #include "EditorQt.hpp"
 
 namespace felide {
-    EditorManagerQt::EditorManagerQt(QWidget *parent, EditorManagerPresenter *presenter) : QWidget(parent), EditorManager(presenter) {
+    EditorManagerQt::EditorManagerQt(QWidget *parent, EditorManagerController *controller) : QWidget(parent), EditorManager(controller) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);

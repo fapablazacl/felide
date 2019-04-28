@@ -94,15 +94,15 @@ set (sources_felide_ui_editormanager
     "felide/ui/editor-manager/EditorManager.cpp"
 	"felide/ui/editor-manager/EditorManagerModel.hpp"
     "felide/ui/editor-manager/EditorManagerModel.cpp"
-    "felide/ui/editor-manager/EditorManagerPresenter.hpp"
-    "felide/ui/editor-manager/EditorManagerPresenter.cpp"
+    "felide/ui/editor-manager/EditorManagerController.hpp"
+    "felide/ui/editor-manager/EditorManagerController.cpp"
 )
 
 set (sources_felide_ui_folderbrowser
     "felide/ui/folder-browser/FolderBrowser.hpp"
     "felide/ui/folder-browser/FolderBrowser.cpp"
-    "felide/ui/folder-browser/FolderBrowserPresenter.hpp"
-    "felide/ui/folder-browser/FolderBrowserPresenter.cpp"
+    "felide/ui/folder-browser/FolderBrowserController.hpp"
+    "felide/ui/folder-browser/FolderBrowserController.cpp"
 	"felide/ui/folder-browser/FolderBrowserModel.hpp"
     "felide/ui/folder-browser/FolderBrowserModel.cpp"
 )
@@ -110,8 +110,8 @@ set (sources_felide_ui_folderbrowser
 set (sources_felide_ui_ideframe
     "felide/ui/ide-frame/IDEFrameModel.hpp"
     "felide/ui/ide-frame/IDEFrameModel.cpp"
-    "felide/ui/ide-frame/IDEFramePresenter.hpp"
-    "felide/ui/ide-frame/IDEFramePresenter.cpp"
+    "felide/ui/ide-frame/IDEFrameController.hpp"
+    "felide/ui/ide-frame/IDEFrameController.cpp"
     "felide/ui/ide-frame/IDEFrame.hpp"
     "felide/ui/ide-frame/IDEFrame.cpp"
 )

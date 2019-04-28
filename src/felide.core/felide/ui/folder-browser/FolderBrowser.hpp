@@ -7,10 +7,10 @@
 #include <boost/optional/optional.hpp>
 
 namespace felide {
-    class FELIDE_API FolderBrowserPresenter;
+    class FELIDE_API FolderBrowserController;
     class FELIDE_API FolderBrowser {
     public:
-        explicit FolderBrowser(FolderBrowserPresenter *presenter);
+        explicit FolderBrowser(FolderBrowserController *presenter);
         virtual ~FolderBrowser();
 
         virtual void displayFolder(const std::string &folder) = 0;
@@ -18,7 +18,7 @@ namespace felide {
         virtual boost::optional<std::string> getSelectedPath() const = 0;
 
     protected:
-        FolderBrowserPresenter *m_presenter;
+        FolderBrowserController *m_presenter;
     };
 } 
 

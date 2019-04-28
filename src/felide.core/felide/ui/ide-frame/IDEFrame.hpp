@@ -12,7 +12,7 @@ namespace felide {
     class FELIDE_API DialogManager;
     class FELIDE_API FolderBrowser;
 
-    class FELIDE_API IDEFramePresenter;
+    class FELIDE_API IDEFrameController;
 
     struct Menu;
 
@@ -30,7 +30,7 @@ namespace felide {
         };
 
     public:
-        explicit IDEFrame(IDEFramePresenter *presenter);
+        explicit IDEFrame(IDEFrameController *presenter);
 
         virtual ~IDEFrame();
 
@@ -54,7 +54,7 @@ namespace felide {
         virtual void show() = 0;
 
     protected:
-        IDEFramePresenter *m_presenter;
+        IDEFrameController *m_presenter;
         Menu *m_menu;
     };
 }
