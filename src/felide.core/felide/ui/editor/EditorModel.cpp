@@ -2,65 +2,65 @@
 #include "EditorModel.hpp"
 
 namespace felide {
-    int EditorModel::count = 0;
+    int DocumentModel::count = 0;
 
-    EditorModel::EditorModel(int tag) {
+    DocumentModel::DocumentModel(int tag) {
         this->tag = tag;
         id = ++count;
     }
 
-    EditorModel::EditorModel(const std::string &filePath) {
+    DocumentModel::DocumentModel(const std::string &filePath) {
         id = ++count;
         
         this->setFilePath(filePath);
     }
 
-    EditorModel::EditorModel(const std::string &filePath, const std::string &content) {
+    DocumentModel::DocumentModel(const std::string &filePath, const std::string &content) {
         id = ++count;
 
         this->setFilePath(filePath);
         this->setContent(content);
     }
 
-    EditorModel::~EditorModel() {}
+    DocumentModel::~DocumentModel() {}
 
-    int EditorModel::getTag() const {
+    int DocumentModel::getTag() const {
         return tag;
     }
 
-    int EditorModel::getId() const {
+    int DocumentModel::getId() const {
         return id;
     }
 
-    void EditorModel::setModifiedFlag(const bool value) {
+    void DocumentModel::setModifiedFlag(const bool value) {
         modified = value;
     }
 
-    bool EditorModel::getModifiedFlag() const {
+    bool DocumentModel::getModifiedFlag() const {
         return modified;
     }
 
-    void EditorModel::modify() {
+    void DocumentModel::modify() {
         modified = true;
     }
 
-    void EditorModel::setFilePath(const std::string &value) {
+    void DocumentModel::setFilePath(const std::string &value) {
         filePath = value;
     }
 
-    std::string EditorModel::getFilePath() const {
+    std::string DocumentModel::getFilePath() const {
         return filePath;
     }
 
-    bool EditorModel::hasFilePath() const {
+    bool DocumentModel::hasFilePath() const {
         return filePath != "";
     }
 
-    void EditorModel::setContent(const std::string &value) {
+    void DocumentModel::setContent(const std::string &value) {
         content = value;
     }
 
-    std::string EditorModel::getContent() const {
+    std::string DocumentModel::getContent() const {
         return content;        
     }
 }

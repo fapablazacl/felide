@@ -8,38 +8,38 @@
 #include <felide/ui/editor-manager/EditorManager.hpp>
 
 namespace felide {
-    class EditorQt;
-    class Editor;
-    class EditorManagerQt : public QWidget, public EditorManager {
+    class DocumentQt;
+    class Document;
+    class DocumentManagerQt : public QWidget, public DocumentManager {
         Q_OBJECT
 
     public:
-        explicit EditorManagerQt(QWidget *parent, EditorManagerController *presenter);
+        explicit DocumentManagerQt(QWidget *parent, DocumentManagerController *presenter);
 
-        virtual ~EditorManagerQt();
+        virtual ~DocumentManagerQt();
         
     public:
-        boost::optional<int> getEditorIndex(const EditorQt *editor);
+        boost::optional<int> getEditorIndex(const DocumentQt *editor);
         
-        void changeEditorTitle(EditorQt *editor, const std::string &title);
+        void changeEditorTitle(DocumentQt *editor, const std::string &title);
         
     signals:
-        void editorContentChanged(EditorQt *editor);
+        void editorContentChanged(DocumentQt *editor);
         
-        void editorCloseRequested(EditorQt *editor);
+        void editorCloseRequested(DocumentQt *editor);
 
     public:
-        virtual Editor* appendEditor() override;
+        virtual Document* appendEditor() override;
 
-        virtual Editor* getCurrentEditor() override;
+        virtual Document* getCurrentEditor() override;
 
         virtual std::size_t getEditorCount() const override;
 
-        virtual Editor* getEditor(const std::size_t index) override;
+        virtual Document* getEditor(const std::size_t index) override;
         
-        virtual void closeEditor(Editor *editorView) override;
+        virtual void closeEditor(Document *editorView) override;
 
-        virtual void showEditor(Editor *editorView) override;
+        virtual void showEditor(Document *editorView) override;
 
     private:
         QTabWidget *m_tabWidget = nullptr;

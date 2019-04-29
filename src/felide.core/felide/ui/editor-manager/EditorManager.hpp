@@ -1,36 +1,36 @@
 
-#ifndef __FELIDE_UI_EDITORMANAGERVIEW_HPP__
-#define __FELIDE_UI_EDITORMANAGERVIEW_HPP__
+#ifndef __FELIDE_UI_DOCUMENTMANAGER_HPP__
+#define __FELIDE_UI_DOCUMENTMANAGER_HPP__
 
 #include <cstddef>
 #include <felide/Predef.hpp>
 #include <vector>
 
 namespace felide {
-    class FELIDE_API EditorManagerController;
-    class FELIDE_API Editor;
-    class FELIDE_API EditorManager {
+    class FELIDE_API DocumentManagerController;
+    class FELIDE_API Document;
+    class FELIDE_API DocumentManager {
     public:
-        explicit EditorManager(EditorManagerController *presenter);
+        explicit DocumentManager(DocumentManagerController *presenter);
 
-        virtual ~EditorManager();
+        virtual ~DocumentManager();
 
-        virtual Editor* appendEditor() = 0;
+        virtual Document* appendEditor() = 0;
 
-        virtual Editor* getCurrentEditor() = 0;
+        virtual Document* getCurrentEditor() = 0;
 
         virtual std::size_t getEditorCount() const = 0;
 
-        virtual Editor* getEditor(const std::size_t index) = 0;
+        virtual Document* getEditor(const std::size_t index) = 0;
         
-        virtual void closeEditor(Editor *editor) = 0;
+        virtual void closeEditor(Document *editor) = 0;
 
-        virtual void showEditor(Editor *editor) = 0;
+        virtual void showEditor(Document *editor) = 0;
 
-        std::vector<Editor*> getEditors();
+        std::vector<Document*> getEditors();
 
     protected:
-        EditorManagerController *m_presenter = nullptr;
+        DocumentManagerController *m_presenter = nullptr;
     };
 } 
 

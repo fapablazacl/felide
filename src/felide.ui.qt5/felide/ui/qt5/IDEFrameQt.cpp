@@ -36,14 +36,14 @@ namespace felide {
     }
 
     void IDEFrameQt::setupEditorManager() {
-        m_editorManager = new EditorManagerQt(this, &m_editorManagerController);
+        m_editorManager = new DocumentManagerQt(this, &m_editorManagerController);
 
-        connect(m_editorManager, &EditorManagerQt::editorContentChanged, [&](EditorQt *editor) {
+        connect(m_editorManager, &DocumentManagerQt::editorContentChanged, [&](DocumentQt *editor) {
             assert(editor);
             m_presenter->onEditorContentModified(editor);
         });
         
-        connect(m_editorManager, &EditorManagerQt::editorCloseRequested, [&](EditorQt *editor) {
+        connect(m_editorManager, &DocumentManagerQt::editorCloseRequested, [&](DocumentQt *editor) {
             assert(editor);
             m_presenter->onEditorCloseRequested(editor);
         });
@@ -74,7 +74,7 @@ namespace felide {
 }
 
 namespace felide {
-    EditorManager* IDEFrameQt::getEditorManager() {
+    DocumentManager* IDEFrameQt::getEditorManager() {
         return m_editorManager;
     }
 

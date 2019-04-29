@@ -15,8 +15,8 @@
 #include <memory>
 
 namespace felide {
-    class FELIDE_API EditorModel;
-    class FELIDE_API Editor;
+    class FELIDE_API DocumentModel;
+    class FELIDE_API Document;
     class FELIDE_API IDEFrame;
     
     class FELIDE_API IDEFrameController {
@@ -56,9 +56,9 @@ namespace felide {
 
         void onEditPaste();
 
-        void onEditorContentModified(Editor *view);
+        void onEditorContentModified(Document *view);
         
-        void onEditorCloseRequested(Editor *view);
+        void onEditorCloseRequested(Document *view);
         
         void onEditorShow(const std::string &fileName);
 
@@ -71,23 +71,23 @@ namespace felide {
         void openFolder(const std::string &fullPath);
 
     private:
-        void editorSave(Editor *view, EditorModel *editorModel);
+        void editorSave(Document *view, DocumentModel *editorModel);
         
-        void editorSaveAs(Editor *view);
+        void editorSaveAs(Document *view);
         
-        EditorModel* createEditorModel(const Editor *view, const int tag);
+        DocumentModel* createEditorModel(const Document *view, const int tag);
 
-        EditorModel* createEditorModel(const Editor *view, const std::string &fileName);
+        DocumentModel* createEditorModel(const Document *view, const std::string &fileName);
 
-        EditorModel* getEditorModel(const Editor *view);
+        DocumentModel* getEditorModel(const Document *view);
         
-        Editor* getEditor(const EditorModel *model);
+        Document* getEditor(const DocumentModel *model);
 
     private:
         IDEFrame *view = nullptr;
         IDEFrameModel model;
 
-        std::map<const Editor*, std::unique_ptr<EditorModel>> editorModels;
+        std::map<const Document*, std::unique_ptr<DocumentModel>> editorModels;
     };
 }
 

@@ -6,26 +6,26 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API EditorManagerModel;
-    class FELIDE_API Editor;
-    class FELIDE_API EditorManager;
-    class FELIDE_API EditorManagerController {
+    class FELIDE_API DocumentManagerModel;
+    class FELIDE_API Document;
+    class FELIDE_API DocumentManager;
+    class FELIDE_API DocumentManagerController {
     public:
-        explicit EditorManagerController(EditorManagerModel *model);
+        explicit DocumentManagerController(DocumentManagerModel *model);
 
-        void attachView(EditorManager *view);
+        void attachView(DocumentManager *view);
 
-        void onCloseEditor(Editor *editor);
+        void onCloseEditor(Document *editor);
 
-        void onCloseOthers(Editor *editor);
+        void onCloseOthers(Document *editor);
 
-        void onCloseToTheRight(Editor *editor);
+        void onCloseToTheRight(Document *editor);
 
         void onCloseAll();
 
     private:
-        EditorManager *m_view = nullptr;
-        EditorManagerModel *m_model = nullptr;
+        DocumentManager *m_view = nullptr;
+        DocumentManagerModel *m_model = nullptr;
     };
 }
 

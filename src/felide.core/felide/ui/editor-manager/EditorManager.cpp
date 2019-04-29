@@ -2,14 +2,14 @@
 #include "EditorManager.hpp"
 
 namespace felide {
-    EditorManager::EditorManager(EditorManagerController *presenter) {
+    DocumentManager::DocumentManager(DocumentManagerController *presenter) {
         m_presenter = presenter;
     }
 
-    EditorManager::~EditorManager() {}
+    DocumentManager::~DocumentManager() {}
 
-    std::vector<Editor*> EditorManager::getEditors() {
-        std::vector<Editor*> editors;
+    std::vector<Document*> DocumentManager::getEditors() {
+        std::vector<Document*> editors;
 
         for (int i=0; i<this->getEditorCount(); i++) {
             editors.push_back(this->getEditor(i));

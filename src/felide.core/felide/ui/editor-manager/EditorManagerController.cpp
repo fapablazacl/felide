@@ -3,19 +3,19 @@
 #include "EditorManager.hpp"
 
 namespace felide {
-    EditorManagerController::EditorManagerController(EditorManagerModel *model) {
+    DocumentManagerController::DocumentManagerController(DocumentManagerModel *model) {
         m_model = model;
     }
 
-    void EditorManagerController::attachView(EditorManager *view) {
+    void DocumentManagerController::attachView(DocumentManager *view) {
         m_view = view;
     }
 
-    void EditorManagerController::onCloseEditor(Editor *editor) {
+    void DocumentManagerController::onCloseEditor(Document *editor) {
         m_view->closeEditor(editor);
     }
 
-    void EditorManagerController::onCloseOthers(Editor *editor) {
+    void DocumentManagerController::onCloseOthers(Document *editor) {
         auto editors = m_view->getEditors();
         
         for (auto current : editors) {
@@ -25,7 +25,7 @@ namespace felide {
         }
     }
 
-    void EditorManagerController::onCloseToTheRight(Editor *editor) {
+    void DocumentManagerController::onCloseToTheRight(Document *editor) {
         bool close = false;
 
         auto editors = m_view->getEditors();
@@ -41,7 +41,7 @@ namespace felide {
         }
     }
 
-    void EditorManagerController::onCloseAll() {
+    void DocumentManagerController::onCloseAll() {
         auto editors = m_view->getEditors();
 
         for (auto editor : editors) {

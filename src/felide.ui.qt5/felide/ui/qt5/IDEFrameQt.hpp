@@ -26,7 +26,7 @@ namespace felide {
         explicit IDEFrameQt(IDEFrameController *controller);
 
     public:
-        virtual EditorManager* getEditorManager() override;
+        virtual DocumentManager* getEditorManager() override;
 
         virtual DialogManager* getDialogManager() override;
         
@@ -51,11 +51,11 @@ namespace felide {
         virtual void closeEvent(QCloseEvent *evt) override;
         
     private:
-        EditorManagerQt *m_editorManager = nullptr;
+        DocumentManagerQt *m_editorManager = nullptr;
         std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:
-        EditorManagerController m_editorManagerController;
+        DocumentManagerController m_editorManagerController;
 
         FolderBrowserController m_folderBrowserController;
         FolderBrowserQt *m_folderBrowser;

@@ -7,7 +7,7 @@
 #include "EditorManagerQt.hpp"
 
 namespace felide {
-    EditorQt::EditorQt(QWidget *parent, EditorManagerQt *editorManager) : QWidget(parent) {
+    DocumentQt::DocumentQt(QWidget *parent, DocumentManagerQt *editorManager) : QWidget(parent) {
         m_editorManager = editorManager;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
@@ -19,37 +19,37 @@ namespace felide {
         m_scintilla->setFocus();
     }
 
-    EditorQt::~EditorQt() {}
+    DocumentQt::~DocumentQt() {}
 
-    void EditorQt::setupScintilla() {
+    void DocumentQt::setupScintilla() {
         connect(m_scintilla, &QsciScintilla::textChanged, [this]() {
             contentChanged();
         });
     }
 
-    void EditorQt::setupLayout() {
+    void DocumentQt::setupLayout() {
         QGridLayout *layout = new QGridLayout(this);
         layout->addWidget(m_scintilla);
         this->setLayout(layout);
     }
 
-    void EditorQt::setTitle(const std::string &title) {
+    void DocumentQt::setTitle(const std::string &title) {
         m_editorManager->changeEditorTitle(this, title);
     }
 
-    std::string EditorQt::getTitle() const {
+    std::string DocumentQt::getTitle() const {
         return m_title;
     }
 
-    void EditorQt::setContent(const std::string &content)  {
+    void DocumentQt::setContent(const std::string &content)  {
         m_scintilla->setText(content.c_str());
     }
 
-    std::string EditorQt::getContent() const  {
+    std::string DocumentQt::getContent() const  {
         return m_scintilla->text().toStdString();
     }
 
-    void EditorQt::setConfig(const EditorConfig &config)  {
+    void DocumentQt::setConfig(const DocumentConfig &config)  {
         assert(m_scintilla);
 
         auto font = QFont{config.fontName.c_str(), config.fontSize};
@@ -65,42 +65,42 @@ namespace felide {
         m_config = config;
     }
 
-    EditorConfig EditorQt::getConfig() const  {
+    DocumentConfig DocumentQt::getConfig() const  {
         assert(m_scintilla);
 
         return m_config;
     }
 
-    void EditorQt::undo()  {
+    void DocumentQt::undo()  {
         assert(m_scintilla);
         m_scintilla->undo();
     }
 
-    void EditorQt::redo()  {
+    void DocumentQt::redo()  {
         assert(m_scintilla);
         m_scintilla->redo();
     }
 
-    void EditorQt::cut()  {
+    void DocumentQt::cut()  {
         assert(m_scintilla);
         m_scintilla->cut();
     }
 
-    void EditorQt::copy()  {
+    void DocumentQt::copy()  {
         assert(m_scintilla);
         m_scintilla->copy();
     }
 
-    void EditorQt::paste()  {
+    void DocumentQt::paste()  {
         assert(m_scintilla);
         m_scintilla->paste();
     }
 
-    void EditorQt::clearAll()  {
+    void DocumentQt::clearAll()  {
         // TODO: Agregar implementacion
     }
 
-    void EditorQt::clearUndoBuffer()  {
+    void DocumentQt::clearUndoBuffer()  {
         // TODO: Agregar implementacion
     }
 }

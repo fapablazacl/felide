@@ -11,7 +11,7 @@
 #include "EditorQt.hpp"
 
 namespace felide {
-    EditorManagerQt::EditorManagerQt(QWidget *parent, EditorManagerController *controller) : QWidget(parent), EditorManager(controller) {
+    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerController *controller) : QWidget(parent), DocumentManager(controller) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);
@@ -19,7 +19,7 @@ namespace felide {
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, [=] (int tabIndex) {
             QWidget *widget = m_tabWidget->widget(tabIndex);
             
-            auto editor = dynamic_cast<EditorQt*>(widget);
+            auto editor = dynamic_cast<DocumentQt*>(widget);
             if (editor) {
                 editorCloseRequested(editor);
             }
@@ -43,7 +43,7 @@ namespace felide {
 
             // trigger context menu on that tab
             if (found) {
-                Editor *editor = this->getEditor(index);
+                Document *editor = this->getEditor(index);
                 QMenu contextMenu("Context Menu", this);
 
                 QAction closeAction("Close", this);
@@ -81,9 +81,9 @@ namespace felide {
         m_presenter->attachView(this);
     }
 
-    EditorManagerQt::~EditorManagerQt() {}
+    DocumentManagerQt::~DocumentManagerQt() {}
     
-    boost::optional<int> EditorManagerQt::getEditorIndex(const EditorQt *editor) {
+    boost::optional<int> DocumentManagerQt::getEditorIndex(const DocumentQt *editor) {
         for (int i=0; i<m_tabWidget->count(); i++) {
             if (m_tabWidget->widget(i) == editor) {
                 return i;
@@ -93,7 +93,7 @@ namespace felide {
         return {};
     }
     
-    void EditorManagerQt::changeEditorTitle(EditorQt *editor, const std::string &title) {
+    void DocumentManagerQt::changeEditorTitle(DocumentQt *editor, const std::string &title) {
         auto index = this->getEditorIndex(editor);
         
         if (!index) {
@@ -103,10 +103,10 @@ namespace felide {
         m_tabWidget->setTabText(*index, title.c_str());
     }
 
-    Editor* EditorManagerQt::appendEditor() {
-        auto editor = new EditorQt(m_tabWidget, this);
+    Document* DocumentManagerQt::appendEditor() {
+        auto editor = new DocumentQt(m_tabWidget, this);
 
-        connect(editor, &EditorQt::contentChanged, [=]() {
+        connect(editor, &DocumentQt::contentChanged, [=]() {
             editorContentChanged(editor);
         });
         
@@ -116,26 +116,26 @@ namespace felide {
         return editor;
     }
 
-    Editor* EditorManagerQt::getCurrentEditor() {
+    Document* DocumentManagerQt::getCurrentEditor() {
         QWidget *widget = m_tabWidget->currentWidget();
 
         if (!widget) {
             return nullptr;
         }
 
-        return dynamic_cast<Editor*>(widget);
+        return dynamic_cast<Document*>(widget);
     }
 
-    std::size_t EditorManagerQt::getEditorCount() const {
+    std::size_t DocumentManagerQt::getEditorCount() const {
         return static_cast<std::size_t>(m_tabWidget->count());
     }
 
-    Editor* EditorManagerQt::getEditor(const std::size_t index) {
-        return dynamic_cast<Editor*>(m_tabWidget->widget(static_cast<int>(index)));
+    Document* DocumentManagerQt::getEditor(const std::size_t index) {
+        return dynamic_cast<Document*>(m_tabWidget->widget(static_cast<int>(index)));
     }
     
-    void EditorManagerQt::closeEditor(Editor *editorView) {
-        const auto editor = dynamic_cast<EditorQt*>(editorView);
+    void DocumentManagerQt::closeEditor(Document *editorView) {
+        const auto editor = dynamic_cast<DocumentQt*>(editorView);
         
         if (!editor) {
             return;
@@ -150,8 +150,8 @@ namespace felide {
         m_tabWidget->removeTab(*index);
     }
 
-    void EditorManagerQt::showEditor(Editor *editorView) {
-        const auto editor = dynamic_cast<EditorQt*>(editorView);
+    void DocumentManagerQt::showEditor(Document *editorView) {
+        const auto editor = dynamic_cast<DocumentQt*>(editorView);
 
         if (!editor) {
             return;

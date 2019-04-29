@@ -11,13 +11,13 @@
 #include <felide/ui/editor/Editor.hpp>
 
 namespace felide {
-    class EditorManagerQt;
-    class EditorQt : public QWidget, public Editor {
+    class DocumentManagerQt;
+    class DocumentQt : public QWidget, public Document {
         Q_OBJECT
 
     public:
-        explicit EditorQt(QWidget *parent, EditorManagerQt *editorManager);
-        virtual ~EditorQt();
+        explicit DocumentQt(QWidget *parent, DocumentManagerQt *editorManager);
+        virtual ~DocumentQt();
 
     private:
         void setupScintilla();
@@ -34,8 +34,8 @@ namespace felide {
         virtual void setContent(const std::string &content) override;
         virtual std::string getContent() const override;
 
-        virtual void setConfig(const EditorConfig &config) override;
-        virtual EditorConfig getConfig() const override;
+        virtual void setConfig(const DocumentConfig &config) override;
+        virtual DocumentConfig getConfig() const override;
 
         virtual void undo() override;
         virtual void redo() override;
@@ -49,10 +49,10 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
-        EditorManagerQt *m_editorManager = nullptr;
+        DocumentManagerQt *m_editorManager = nullptr;
         QsciScintilla *m_scintilla = nullptr;
         std::string m_title;
-        EditorConfig m_config;
+        DocumentConfig m_config;
     };
 }
 

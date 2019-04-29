@@ -1,19 +1,19 @@
 
-#ifndef __FELIDE_UI_EDITORMODEL_HPP__
-#define __FELIDE_UI_EDITORMODEL_HPP__
+#ifndef __FELIDE_UI_DOCUMENTMODEL_HPP__
+#define __FELIDE_UI_DOCUMENTMODEL_HPP__
 
 #include <string>
 
 namespace felide {
-    class EditorModel {
+    class DocumentModel {
     public:
-        explicit EditorModel(int tag);
+        explicit DocumentModel(int tag);
 
-        explicit EditorModel(const std::string &filePath);
+        explicit DocumentModel(const std::string &filePath);
 
-        explicit EditorModel(const std::string &filePath, const std::string &content);
+        explicit DocumentModel(const std::string &filePath, const std::string &content);
 
-        ~EditorModel();
+        ~DocumentModel();
 
         int getTag() const;
 

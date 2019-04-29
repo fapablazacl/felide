@@ -4,7 +4,7 @@
 #include <felide/util/OS.hpp>
 
 namespace felide {
-    EditorConfig EditorConfig::Default() {
+    DocumentConfig DocumentConfig::Default() {
         switch (getCurrentOS()) {
             case OS::Linux: return {"Inconsolata", 8, 4, true, true};
             case OS::Windows: return {"Consolas", 8, 4, true, true};
@@ -12,5 +12,5 @@ namespace felide {
         }
     }
 
-    Editor::~Editor() {}
+    Document::~Document() {}
 }

@@ -8,7 +8,7 @@
 #include <boost/filesystem/path.hpp>
 
 namespace felide {
-    class FELIDE_API EditorManager;
+    class FELIDE_API DocumentManager;
     class FELIDE_API DialogManager;
     class FELIDE_API FolderBrowser;
 
@@ -35,7 +35,7 @@ namespace felide {
         virtual ~IDEFrame();
 
         [[deprecated]]
-        virtual EditorManager* getEditorManager() = 0;
+        virtual DocumentManager* getEditorManager() = 0;
 
         [[deprecated]]
         virtual DialogManager* getDialogManager() = 0;
