@@ -20,6 +20,8 @@ set (sources_felide
 set (sources_felide_util
     "felide/util/FileUtil.cpp"
     "felide/util/FileUtil.hpp"
+	"felide/util/FileService.cpp"
+    "felide/util/FileService.hpp"
     "felide/util/Strings.hpp"
     "felide/util/Strings.cpp"
     "felide/util/OS.hpp"
@@ -83,10 +85,12 @@ set (sources_felide_cpp
 ) 
 
 set (sources_felide_ui_editor
-    "felide/ui/editor/EditorModel.hpp"
-    "felide/ui/editor/EditorModel.cpp"
     "felide/ui/editor/Editor.hpp"
     "felide/ui/editor/Editor.cpp"
+	"felide/ui/editor/EditorModel.hpp"
+    "felide/ui/editor/EditorModel.cpp"
+	"felide/ui/editor/EditorController.hpp"
+    "felide/ui/editor/EditorController.cpp"
 )
 
 set (sources_felide_ui_editormanager

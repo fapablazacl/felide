@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_DIALOGMANAGERVIEW_HPP__
-#define __FELIDE_UI_DIALOGMANAGERVIEW_HPP__
+#ifndef __FELIDE_UI_DIALOGMANAGER_HPP__
+#define __FELIDE_UI_DIALOGMANAGER_HPP__
 
 #include <string>
 #include <vector>
