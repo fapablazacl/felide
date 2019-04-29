@@ -84,22 +84,22 @@ set (sources_felide_cpp
     "felide/cpp/ModuleToolset.cpp"
 ) 
 
-set (sources_felide_ui_editor
-    "felide/ui/editor/Editor.hpp"
-    "felide/ui/editor/Editor.cpp"
-	"felide/ui/editor/EditorModel.hpp"
-    "felide/ui/editor/EditorModel.cpp"
-	"felide/ui/editor/EditorController.hpp"
-    "felide/ui/editor/EditorController.cpp"
+set (sources_felide_ui_document
+    "felide/ui/document/Document.hpp"
+    "felide/ui/document/Document.cpp"
+	"felide/ui/document/DocumentModel.hpp"
+    "felide/ui/document/DocumentModel.cpp"
+	"felide/ui/document/DocumentController.hpp"
+    "felide/ui/document/DocumentController.cpp"
 )
 
-set (sources_felide_ui_editormanager
-    "felide/ui/editor-manager/EditorManager.hpp"
-    "felide/ui/editor-manager/EditorManager.cpp"
-	"felide/ui/editor-manager/EditorManagerModel.hpp"
-    "felide/ui/editor-manager/EditorManagerModel.cpp"
-    "felide/ui/editor-manager/EditorManagerController.hpp"
-    "felide/ui/editor-manager/EditorManagerController.cpp"
+set (sources_felide_ui_documentmanager
+    "felide/ui/document-manager/DocumentManager.hpp"
+    "felide/ui/document-manager/DocumentManager.cpp"
+	"felide/ui/document-manager/DocumentManagerModel.hpp"
+    "felide/ui/document-manager/DocumentManagerModel.cpp"
+    "felide/ui/document-manager/DocumentManagerController.hpp"
+    "felide/ui/document-manager/DocumentManagerController.cpp"
 )
 
 set (sources_felide_ui_folderbrowser
@@ -149,8 +149,8 @@ source_group ("felide\\toolsets"    FILES ${sources_felide_toolsets})
 source_group ("felide\\tasks"       FILES ${sources_felide_tasks})
 source_group ("felide\\cpp"         FILES ${sources_felide_cpp})
 source_group ("felide\\ui"          FILES ${sources_felide_ui})
-source_group ("felide\\ui\\editor"  		FILES ${sources_felide_ui_editor})
-source_group ("felide\\ui\\editor-manager"  FILES ${sources_felide_ui_editormanager})
+source_group ("felide\\ui\\editor"  		FILES ${sources_felide_ui_document})
+source_group ("felide\\ui\\editor-manager"  FILES ${sources_felide_ui_documentmanager})
 source_group ("felide\\ui\\folder-browser"  FILES ${sources_felide_ui_folderbrowser})
 source_group ("felide\\ui\\ide-frame"  		FILES ${sources_felide_ui_ideframe})
 source_group ("felide\\system" FILES ${sources_felide_system})
@@ -163,8 +163,8 @@ set (sources
     ${sources_felide_tasks}
     ${sources_felide_cpp}
     ${sources_felide_ui}
-	${sources_felide_ui_editor}
-	${sources_felide_ui_editormanager}
+	${sources_felide_ui_document}
+	${sources_felide_ui_documentmanager}
 	${sources_felide_ui_folderbrowser}
 	${sources_felide_ui_ideframe}
     ${sources_felide_system}
