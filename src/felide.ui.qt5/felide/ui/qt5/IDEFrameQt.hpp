@@ -12,9 +12,9 @@
 #include <felide/ui/ide-frame/IDEFrameController.hpp>
 #include <felide/ui/ide-frame/IDEFrame.hpp>
 #include <felide/ui/folder-browser/FolderBrowserController.hpp>
-#include <felide/ui/editor-manager/EditorManagerController.hpp>
+#include <felide/ui/document-manager/DocumentManagerController.hpp>
 #include <felide/ui/Menu.hpp>
-#include "EditorManagerQt.hpp"
+#include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"
 
 namespace felide {
@@ -26,7 +26,7 @@ namespace felide {
         explicit IDEFrameQt(IDEFrameController *controller);
 
     public:
-        virtual DocumentManager* getEditorManager() override;
+        virtual DocumentManager* getDocumentManager() override;
 
         virtual DialogManager* getDialogManager() override;
         
@@ -44,7 +44,7 @@ namespace felide {
 
     private:
         void setupMenuBar();
-        void setupEditorManager();
+        void setupDocumentManager();
         void setupDockUI();
 
     private:

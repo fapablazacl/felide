@@ -127,7 +127,7 @@ namespace felide {
         const auto selectedFile = boost::filesystem::path(*selectedPathOptional);
 
         if (!boost::filesystem::is_directory(selectedFile)) {
-            ideFramePresenter->onEditorShow(selectedFile.string());
+            ideFramePresenter->onDocumentShow(selectedFile.string());
         } 
     }
 

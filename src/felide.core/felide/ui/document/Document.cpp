@@ -1,5 +1,5 @@
 
-#include "Editor.hpp"
+#include "Document.hpp"
 
 #include <felide/util/OS.hpp>
 

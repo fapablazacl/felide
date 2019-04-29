@@ -35,7 +35,7 @@ namespace felide {
         virtual ~IDEFrame();
 
         [[deprecated]]
-        virtual DocumentManager* getEditorManager() = 0;
+        virtual DocumentManager* getDocumentManager() = 0;
 
         [[deprecated]]
         virtual DialogManager* getDialogManager() = 0;

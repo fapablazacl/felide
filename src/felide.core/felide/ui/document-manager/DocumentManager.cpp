@@ -1,5 +1,5 @@
 
-#include "EditorManager.hpp"
+#include "DocumentManager.hpp"
 
 namespace felide {
     DocumentManager::DocumentManager(DocumentManagerController *presenter) {
@@ -8,11 +8,11 @@ namespace felide {
 
     DocumentManager::~DocumentManager() {}
 
-    std::vector<Document*> DocumentManager::getEditors() {
+    std::vector<Document*> DocumentManager::getDocuments() {
         std::vector<Document*> editors;
 
-        for (int i=0; i<this->getEditorCount(); i++) {
-            editors.push_back(this->getEditor(i));
+        for (int i=0; i<this->getDocumentCount(); i++) {
+            editors.push_back(this->getDocument(i));
         }
 
         return editors;

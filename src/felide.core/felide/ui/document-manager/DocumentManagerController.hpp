@@ -15,7 +15,7 @@ namespace felide {
 
         void attachView(DocumentManager *view);
 
-        void onCloseEditor(Document *editor);
+        void onCloseDocument(Document *editor);
 
         void onCloseOthers(Document *editor);
 

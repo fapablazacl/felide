@@ -5,7 +5,7 @@
 #include <QWidget>
 #include <QTabWidget>
 #include <boost/optional.hpp>
-#include <felide/ui/editor-manager/EditorManager.hpp>
+#include <felide/ui/document-manager/DocumentManager.hpp>
 
 namespace felide {
     class DocumentQt;
@@ -19,9 +19,9 @@ namespace felide {
         virtual ~DocumentManagerQt();
         
     public:
-        boost::optional<int> getEditorIndex(const DocumentQt *editor);
+        boost::optional<int> getDocumentIndex(const DocumentQt *editor);
         
-        void changeEditorTitle(DocumentQt *editor, const std::string &title);
+        void changeDocumentTitle(DocumentQt *editor, const std::string &title);
         
     signals:
         void editorContentChanged(DocumentQt *editor);
@@ -29,17 +29,17 @@ namespace felide {
         void editorCloseRequested(DocumentQt *editor);
 
     public:
-        virtual Document* appendEditor() override;
+        virtual Document* appendDocument() override;
 
-        virtual Document* getCurrentEditor() override;
+        virtual Document* getCurrentDocument() override;
 
-        virtual std::size_t getEditorCount() const override;
+        virtual std::size_t getDocumentCount() const override;
 
-        virtual Document* getEditor(const std::size_t index) override;
+        virtual Document* getDocument(const std::size_t index) override;
         
-        virtual void closeEditor(Document *editorView) override;
+        virtual void closeDocument(Document *editorView) override;
 
-        virtual void showEditor(Document *editorView) override;
+        virtual void showDocument(Document *editorView) override;
 
     private:
         QTabWidget *m_tabWidget = nullptr;

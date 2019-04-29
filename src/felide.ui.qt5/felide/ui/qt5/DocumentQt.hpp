@@ -8,7 +8,7 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include <felide/ui/editor/Editor.hpp>
+#include <felide/ui/document/Document.hpp>
 
 namespace felide {
     class DocumentManagerQt;

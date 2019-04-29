@@ -4,9 +4,9 @@
 
 #include <felide/Predef.hpp>
 #include <felide/ui/DialogManager.hpp>
-#include <felide/ui/editor/Editor.hpp>
-#include <felide/ui/editor/EditorModel.hpp>
-#include <felide/ui/editor-manager/EditorManager.hpp>
+#include <felide/ui/document/Document.hpp>
+#include <felide/ui/document/DocumentModel.hpp>
+#include <felide/ui/document-manager/DocumentManager.hpp>
 #include <felide/ui/folder-browser/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
@@ -56,11 +56,11 @@ namespace felide {
 
         void onEditPaste();
 
-        void onEditorContentModified(Document *view);
+        void onDocumentContentModified(Document *view);
         
-        void onEditorCloseRequested(Document *view);
+        void onDocumentCloseRequested(Document *view);
         
-        void onEditorShow(const std::string &fileName);
+        void onDocumentShow(const std::string &fileName);
 
         void onViewFolderBrowser();
 
@@ -75,13 +75,13 @@ namespace felide {
         
         void editorSaveAs(Document *view);
         
-        DocumentModel* createEditorModel(const Document *view, const int tag);
+        DocumentModel* createDocumentModel(const Document *view, const int tag);
 
-        DocumentModel* createEditorModel(const Document *view, const std::string &fileName);
+        DocumentModel* createDocumentModel(const Document *view, const std::string &fileName);
 
-        DocumentModel* getEditorModel(const Document *view);
+        DocumentModel* getDocumentModel(const Document *view);
         
-        Document* getEditor(const DocumentModel *model);
+        Document* getDocument(const DocumentModel *model);
 
     private:
         IDEFrame *view = nullptr;

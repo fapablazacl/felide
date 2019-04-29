@@ -1,6 +1,6 @@
 
-#include "EditorManagerController.hpp"
-#include "EditorManager.hpp"
+#include "DocumentManagerController.hpp"
+#include "DocumentManager.hpp"
 
 namespace felide {
     DocumentManagerController::DocumentManagerController(DocumentManagerModel *model) {
@@ -11,16 +11,16 @@ namespace felide {
         m_view = view;
     }
 
-    void DocumentManagerController::onCloseEditor(Document *editor) {
-        m_view->closeEditor(editor);
+    void DocumentManagerController::onCloseDocument(Document *editor) {
+        m_view->closeDocument(editor);
     }
 
     void DocumentManagerController::onCloseOthers(Document *editor) {
-        auto editors = m_view->getEditors();
+        auto editors = m_view->getDocuments();
         
         for (auto current : editors) {
             if (current != editor) {
-                m_view->closeEditor(current);
+                m_view->closeDocument(current);
             }
         }
     }
@@ -28,11 +28,11 @@ namespace felide {
     void DocumentManagerController::onCloseToTheRight(Document *editor) {
         bool close = false;
 
-        auto editors = m_view->getEditors();
+        auto editors = m_view->getDocuments();
 
         for (auto current : editors) {
             if (close == true) {
-                m_view->closeEditor(current);
+                m_view->closeDocument(current);
             }
 
             if (current == editor) {
@@ -42,10 +42,10 @@ namespace felide {
     }
 
     void DocumentManagerController::onCloseAll() {
-        auto editors = m_view->getEditors();
+        auto editors = m_view->getDocuments();
 
         for (auto editor : editors) {
-            m_view->closeEditor(editor);
+            m_view->closeDocument(editor);
         }
     }
 }

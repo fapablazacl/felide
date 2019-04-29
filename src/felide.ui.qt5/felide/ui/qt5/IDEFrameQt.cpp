@@ -8,7 +8,7 @@
 #include <iostream>
 #include <felide/ui/ide-frame/IDEFrameController.hpp>
 
-#include "EditorQt.hpp"
+#include "DocumentQt.hpp"
 #include "DialogManagerQt.hpp"
 #include "FolderBrowserQt.hpp"
 #include "UtilitiesQt.hpp"
@@ -18,7 +18,7 @@ namespace felide {
         m_dialogManager = std::make_unique<DialogManagerQt>(this);
 
         this->setupMenuBar();
-        this->setupEditorManager();
+        this->setupDocumentManager();
         this->setupDockUI();
 
         QDesktopWidget desktopWidget;
@@ -35,17 +35,17 @@ namespace felide {
         this->setMenuBar(createMenuBar(this, *m_menu));
     }
 
-    void IDEFrameQt::setupEditorManager() {
+    void IDEFrameQt::setupDocumentManager() {
         m_editorManager = new DocumentManagerQt(this, &m_editorManagerController);
 
         connect(m_editorManager, &DocumentManagerQt::editorContentChanged, [&](DocumentQt *editor) {
             assert(editor);
-            m_presenter->onEditorContentModified(editor);
+            m_presenter->onDocumentContentModified(editor);
         });
         
         connect(m_editorManager, &DocumentManagerQt::editorCloseRequested, [&](DocumentQt *editor) {
             assert(editor);
-            m_presenter->onEditorCloseRequested(editor);
+            m_presenter->onDocumentCloseRequested(editor);
         });
 
         this->setCentralWidget(m_editorManager);
@@ -74,7 +74,7 @@ namespace felide {
 }
 
 namespace felide {
-    DocumentManager* IDEFrameQt::getEditorManager() {
+    DocumentManager* IDEFrameQt::getDocumentManager() {
         return m_editorManager;
     }
 

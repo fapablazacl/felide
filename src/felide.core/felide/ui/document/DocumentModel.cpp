@@ -1,5 +1,5 @@
 
-#include "EditorModel.hpp"
+#include "DocumentModel.hpp"
 
 namespace felide {
     int DocumentModel::count = 0;

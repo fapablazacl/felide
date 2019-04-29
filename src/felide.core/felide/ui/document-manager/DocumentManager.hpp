@@ -15,19 +15,19 @@ namespace felide {
 
         virtual ~DocumentManager();
 
-        virtual Document* appendEditor() = 0;
+        virtual Document* appendDocument() = 0;
 
-        virtual Document* getCurrentEditor() = 0;
+        virtual Document* getCurrentDocument() = 0;
 
-        virtual std::size_t getEditorCount() const = 0;
+        virtual std::size_t getDocumentCount() const = 0;
 
-        virtual Document* getEditor(const std::size_t index) = 0;
+        virtual Document* getDocument(const std::size_t index) = 0;
         
-        virtual void closeEditor(Document *editor) = 0;
+        virtual void closeDocument(Document *editor) = 0;
 
-        virtual void showEditor(Document *editor) = 0;
+        virtual void showDocument(Document *editor) = 0;
 
-        std::vector<Document*> getEditors();
+        std::vector<Document*> getDocuments();
 
     protected:
         DocumentManagerController *m_presenter = nullptr;

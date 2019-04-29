@@ -10,7 +10,7 @@
 #include <cassert>
 
 namespace felide {
-    static std::string mapEditorTitle(const DocumentModel *model) {
+    static std::string mapDocumentTitle(const DocumentModel *model) {
         std::string title;
 
         if (model->hasFilePath()) {
@@ -43,11 +43,11 @@ namespace felide {
     void IDEFrameController::onFileNew() {
         int tag = model.increaseDocumentCount();
 
-        auto editor = view->getEditorManager()->appendEditor();
-        auto editorModel = this->createEditorModel(editor, tag);
+        auto editor = view->getDocumentManager()->appendDocument();
+        auto editorModel = this->createDocumentModel(editor, tag);
 
         editor->setConfig(DocumentConfig::Default());
-        editor->setTitle(mapEditorTitle(editorModel));
+        editor->setTitle(mapDocumentTitle(editorModel));
     }
 
     void IDEFrameController::onFileOpen() {
@@ -58,7 +58,7 @@ namespace felide {
         };
 
         if (auto filePath = view->showFileOpenDialog(viewData); filePath) {
-            this->onEditorShow(filePath.get().string());
+            this->onDocumentShow(filePath.get().string());
         }
     }
     
@@ -76,13 +76,13 @@ namespace felide {
     void IDEFrameController::onFileSave() {
         using boost::filesystem::path;
         
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
         }
 
-        auto editorModel = this->getEditorModel(editor);
+        auto editorModel = this->getDocumentModel(editor);
 
         if (editorModel->hasFilePath()) {
             this->editorSave(editor, editorModel);
@@ -92,7 +92,7 @@ namespace felide {
     }
 
     void IDEFrameController::onFileSaveAs() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
@@ -102,7 +102,7 @@ namespace felide {
     }
 
     void IDEFrameController::onEditUndo() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
@@ -112,7 +112,7 @@ namespace felide {
     }
 
     void IDEFrameController::onEditRedo() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
@@ -122,7 +122,7 @@ namespace felide {
     }
 
     void IDEFrameController::onEditCut() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
@@ -132,7 +132,7 @@ namespace felide {
     }
 
     void IDEFrameController::onEditCopy() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
@@ -142,7 +142,7 @@ namespace felide {
     }
 
     void IDEFrameController::onEditPaste() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
@@ -156,30 +156,30 @@ namespace felide {
     }
 
     void IDEFrameController::onFileClose() {
-        auto editor = view->getEditorManager()->getCurrentEditor();
+        auto editor = view->getDocumentManager()->getCurrentDocument();
         
         if (!editor) {
             return;
         }
 
-        view->getEditorManager()->closeEditor(editor);
+        view->getDocumentManager()->closeDocument(editor);
     }
 
     void IDEFrameController::onFileExit() {
         view->close();
     }
 
-    void IDEFrameController::onEditorContentModified(Document *editor) {
-        auto editorModel = this->getEditorModel(editor);
+    void IDEFrameController::onDocumentContentModified(Document *editor) {
+        auto editorModel = this->getDocumentModel(editor);
 
         editorModel->modify();
-        editor->setTitle(mapEditorTitle(editorModel));
+        editor->setTitle(mapDocumentTitle(editorModel));
     }
     
-    void IDEFrameController::onEditorCloseRequested(Document *editor) {
-        bool closeEditor = true;
+    void IDEFrameController::onDocumentCloseRequested(Document *editor) {
+        bool closeDocument = true;
         
-        auto model = this->getEditorModel(editor);
+        auto model = this->getDocumentModel(editor);
         
         if (model->getModifiedFlag()) {
             DialogButton button = view->getDialogManager()->showMessageDialog("felide", "Save Changes?", DialogIcon::Question, DialogButton::YesNoCancel);
@@ -187,11 +187,11 @@ namespace felide {
             switch (button) {
                 case DialogButton::Yes:
                     this->editorSave(editor, model);
-                    closeEditor = true;
+                    closeDocument = true;
                     break;
                     
                 case DialogButton::No:
-                    closeEditor = true;
+                    closeDocument = true;
                     break;
 
                 default:
@@ -199,9 +199,9 @@ namespace felide {
             }
         }
         
-        if (closeEditor) {
+        if (closeDocument) {
             editorModels.erase(editor);
-            view->getEditorManager()->closeEditor(editor);
+            view->getDocumentManager()->closeDocument(editor);
         }
     }
     
@@ -223,11 +223,11 @@ namespace felide {
         
         editorModel->setFilePath(fileName);
         editorModel->setModifiedFlag(false);
-        editor->setTitle(mapEditorTitle(editorModel));
+        editor->setTitle(mapDocumentTitle(editorModel));
     }
     
     void IDEFrameController::editorSaveAs(Document *editor) {
-        auto editorModel = this->getEditorModel(editor);
+        auto editorModel = this->getDocumentModel(editor);
         
         const IDEFrame::FileOperationViewData viewData = {
            "Save File",
@@ -245,7 +245,7 @@ namespace felide {
         }
     }
 
-    void IDEFrameController::onEditorShow(const std::string &filePath) {
+    void IDEFrameController::onDocumentShow(const std::string &filePath) {
 		if (boost::filesystem::is_directory(filePath)) {
 			return;
 		}
@@ -259,18 +259,18 @@ namespace felide {
         });
 
         if (viewModelIt != viewModels.end()) {
-            view->getEditorManager()->showEditor(const_cast<Document*>(viewModelIt->first));
+            view->getDocumentManager()->showDocument(const_cast<Document*>(viewModelIt->first));
         } else {
             const std::string content = FileUtil::load(filePath);
 
-            auto editor = view->getEditorManager()->appendEditor();
-            auto editorModel = this->createEditorModel(editor, filePath);
+            auto editor = view->getDocumentManager()->appendDocument();
+            auto editorModel = this->createDocumentModel(editor, filePath);
             
             editor->setConfig(DocumentConfig::Default());
             editor->setContent(content);
             editorModel->setModifiedFlag(false);
             editorModel->setContent(content);
-            editor->setTitle(mapEditorTitle(editorModel));
+            editor->setTitle(mapDocumentTitle(editorModel));
         }
     }
 
@@ -278,7 +278,7 @@ namespace felide {
         // TODO: Add implementation
     }
 
-    DocumentModel* IDEFrameController::createEditorModel(const Document *view, const int tag) {
+    DocumentModel* IDEFrameController::createDocumentModel(const Document *view, const int tag) {
         auto editorModel = new DocumentModel(tag);
 
         editorModels[view] = std::unique_ptr<DocumentModel>(editorModel);
@@ -286,7 +286,7 @@ namespace felide {
         return editorModel;
     }
 
-    DocumentModel* IDEFrameController::createEditorModel(const Document *view, const std::string &fileName) {
+    DocumentModel* IDEFrameController::createDocumentModel(const Document *view, const std::string &fileName) {
         auto editorModel = new DocumentModel(fileName);
         
         editorModels[view] = std::unique_ptr<DocumentModel>(editorModel);
@@ -294,7 +294,7 @@ namespace felide {
         return editorModel;
     }
 
-    DocumentModel* IDEFrameController::getEditorModel(const Document *view) {
+    DocumentModel* IDEFrameController::getDocumentModel(const Document *view) {
         auto editorModel = editorModels[view].get();
 
         assert(editorModel);
@@ -302,7 +302,7 @@ namespace felide {
         return editorModel;
     }
     
-    Document* IDEFrameController::getEditor(const DocumentModel *model) {
+    Document* IDEFrameController::getDocument(const DocumentModel *model) {
         assert(model);
         Document* view = nullptr;
         

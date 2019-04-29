@@ -1,5 +1,5 @@
 
-#include "EditorController.hpp"
+#include "DocumentController.hpp"
 
 namespace felide {
 

@@ -13,12 +13,12 @@ link_directories("${Qt5_DIR}/../../")
 set (src_felide "felide/Main.cpp")
 
 set (src_felide_ui_qt5
-    "felide/ui/qt5/EditorQt.hpp"
-    "felide/ui/qt5/EditorQt.cpp"
+    "felide/ui/qt5/DocumentQt.hpp"
+    "felide/ui/qt5/DocumentQt.cpp"
     "felide/ui/qt5/IDEFrameQt.hpp"
     "felide/ui/qt5/IDEFrameQt.cpp"
-    "felide/ui/qt5/EditorManagerQt.hpp"
-    "felide/ui/qt5/EditorManagerQt.cpp"
+    "felide/ui/qt5/DocumentManagerQt.hpp"
+    "felide/ui/qt5/DocumentManagerQt.cpp"
     "felide/ui/qt5/DialogManagerQt.hpp"
     "felide/ui/qt5/DialogManagerQt.cpp"
     "felide/ui/qt5/FolderBrowserQt.hpp"

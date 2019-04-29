@@ -1,10 +1,10 @@
 
-#include "EditorQt.hpp"
+#include "DocumentQt.hpp"
 
 #include <cassert>
 #include <iostream>
 #include <QLayout>
-#include "EditorManagerQt.hpp"
+#include "DocumentManagerQt.hpp"
 
 namespace felide {
     DocumentQt::DocumentQt(QWidget *parent, DocumentManagerQt *editorManager) : QWidget(parent) {
@@ -34,7 +34,7 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        m_editorManager->changeEditorTitle(this, title);
+        m_editorManager->changeDocumentTitle(this, title);
     }
 
     std::string DocumentQt::getTitle() const {

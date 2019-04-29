@@ -1,14 +1,14 @@
 
-#include "EditorManagerQt.hpp"
+#include "DocumentManagerQt.hpp"
 
 #include <iostream>
 #include <QGridLayout>
 #include <QTabBar>
 #include <QAction>
 #include <QMenu>
-#include <felide/ui/editor-manager/EditorManagerController.hpp>
+#include <felide/ui/document-manager/DocumentManagerController.hpp>
 
-#include "EditorQt.hpp"
+#include "DocumentQt.hpp"
 
 namespace felide {
     DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerController *controller) : QWidget(parent), DocumentManager(controller) {
@@ -43,13 +43,13 @@ namespace felide {
 
             // trigger context menu on that tab
             if (found) {
-                Document *editor = this->getEditor(index);
+                Document *editor = this->getDocument(index);
                 QMenu contextMenu("Context Menu", this);
 
                 QAction closeAction("Close", this);
                 contextMenu.addAction(&closeAction);
                 this->connect(&closeAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->onCloseEditor(editor);
+                    m_presenter->onCloseDocument(editor);
                 });
 
                 QAction closeAllButThisAction("Close all but this", this);
@@ -83,7 +83,7 @@ namespace felide {
 
     DocumentManagerQt::~DocumentManagerQt() {}
     
-    boost::optional<int> DocumentManagerQt::getEditorIndex(const DocumentQt *editor) {
+    boost::optional<int> DocumentManagerQt::getDocumentIndex(const DocumentQt *editor) {
         for (int i=0; i<m_tabWidget->count(); i++) {
             if (m_tabWidget->widget(i) == editor) {
                 return i;
@@ -93,8 +93,8 @@ namespace felide {
         return {};
     }
     
-    void DocumentManagerQt::changeEditorTitle(DocumentQt *editor, const std::string &title) {
-        auto index = this->getEditorIndex(editor);
+    void DocumentManagerQt::changeDocumentTitle(DocumentQt *editor, const std::string &title) {
+        auto index = this->getDocumentIndex(editor);
         
         if (!index) {
             return;
@@ -103,7 +103,7 @@ namespace felide {
         m_tabWidget->setTabText(*index, title.c_str());
     }
 
-    Document* DocumentManagerQt::appendEditor() {
+    Document* DocumentManagerQt::appendDocument() {
         auto editor = new DocumentQt(m_tabWidget, this);
 
         connect(editor, &DocumentQt::contentChanged, [=]() {
@@ -116,7 +116,7 @@ namespace felide {
         return editor;
     }
 
-    Document* DocumentManagerQt::getCurrentEditor() {
+    Document* DocumentManagerQt::getCurrentDocument() {
         QWidget *widget = m_tabWidget->currentWidget();
 
         if (!widget) {
@@ -126,22 +126,22 @@ namespace felide {
         return dynamic_cast<Document*>(widget);
     }
 
-    std::size_t DocumentManagerQt::getEditorCount() const {
+    std::size_t DocumentManagerQt::getDocumentCount() const {
         return static_cast<std::size_t>(m_tabWidget->count());
     }
 
-    Document* DocumentManagerQt::getEditor(const std::size_t index) {
+    Document* DocumentManagerQt::getDocument(const std::size_t index) {
         return dynamic_cast<Document*>(m_tabWidget->widget(static_cast<int>(index)));
     }
     
-    void DocumentManagerQt::closeEditor(Document *editorView) {
+    void DocumentManagerQt::closeDocument(Document *editorView) {
         const auto editor = dynamic_cast<DocumentQt*>(editorView);
         
         if (!editor) {
             return;
         }
         
-        const auto index = this->getEditorIndex(editor);
+        const auto index = this->getDocumentIndex(editor);
         
         if (!index) {
             return;
@@ -150,14 +150,14 @@ namespace felide {
         m_tabWidget->removeTab(*index);
     }
 
-    void DocumentManagerQt::showEditor(Document *editorView) {
+    void DocumentManagerQt::showDocument(Document *editorView) {
         const auto editor = dynamic_cast<DocumentQt*>(editorView);
 
         if (!editor) {
             return;
         }
         
-        const auto index = this->getEditorIndex(editor);
+        const auto index = this->getDocumentIndex(editor);
         
         if (!index) {
             return;
