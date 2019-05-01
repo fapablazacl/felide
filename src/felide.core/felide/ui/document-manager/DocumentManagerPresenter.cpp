@@ -1,6 +1,8 @@
 
 #include "DocumentManagerPresenter.hpp"
+
 #include "DocumentManager.hpp"
+#include "DocumentManagerModel.hpp"
 
 namespace felide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {

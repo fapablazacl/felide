@@ -27,6 +27,8 @@ namespace felide {
 
         virtual void showDocument(Document *editor) = 0;
 
+        virtual void closeDocuments(const std::vector<Document*> &documents);
+
         std::vector<Document*> enumerateDocuments();
 
     protected:

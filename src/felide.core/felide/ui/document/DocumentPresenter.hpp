@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_DOCUMENTCONTROLLER_HPP__
-#define __FELIDE_UI_DOCUMENTCONTROLLER_HPP__
+#ifndef __FELIDE_UI_DOCUMENTPRESENTER_HPP__
+#define __FELIDE_UI_DOCUMENTPRESENTER_HPP__
 
 namespace felide {
     class DocumentPresenter {

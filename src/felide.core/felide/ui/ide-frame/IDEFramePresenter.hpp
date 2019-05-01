@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_MAINWINDOWCONTROLLER_HPP__
-#define __FELIDE_UI_MAINWINDOWCONTROLLER_HPP__
+#ifndef __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
+#define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 
 #include <felide/Predef.hpp>
 #include <felide/ui/DialogManager.hpp>
