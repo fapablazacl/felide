@@ -1,5 +1,5 @@
 
-#include "DocumentManagerController.hpp"
+#include "DocumentManagerPresenter.hpp"
 #include "DocumentManager.hpp"
 
 namespace felide {

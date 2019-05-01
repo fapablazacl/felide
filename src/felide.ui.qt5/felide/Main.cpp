@@ -2,7 +2,7 @@
 #include <QApplication>
 
 #include <felide/ui/qt5/IDEFrameQt.hpp>
-#include <felide/ui/ide-frame/IDEFrameController.hpp>
+#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 #include <boost/filesystem.hpp>
 
 int main(int argc, char **argv) {

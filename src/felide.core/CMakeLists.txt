@@ -91,8 +91,8 @@ set (sources_felide_ui_document
     "felide/ui/document/Document.cpp"
 	"felide/ui/document/DocumentModel.hpp"
     "felide/ui/document/DocumentModel.cpp"
-	"felide/ui/document/DocumentController.hpp"
-    "felide/ui/document/DocumentController.cpp"
+	"felide/ui/document/DocumentPresenter.hpp"
+    "felide/ui/document/DocumentPresenter.cpp"
 )
 
 set (sources_felide_ui_documentmanager
@@ -100,15 +100,15 @@ set (sources_felide_ui_documentmanager
     "felide/ui/document-manager/DocumentManager.cpp"
 	"felide/ui/document-manager/DocumentManagerModel.hpp"
     "felide/ui/document-manager/DocumentManagerModel.cpp"
-    "felide/ui/document-manager/DocumentManagerController.hpp"
-    "felide/ui/document-manager/DocumentManagerController.cpp"
+    "felide/ui/document-manager/DocumentManagerPresenter.hpp"
+    "felide/ui/document-manager/DocumentManagerPresenter.cpp"
 )
 
 set (sources_felide_ui_folderbrowser
     "felide/ui/folder-browser/FolderBrowser.hpp"
     "felide/ui/folder-browser/FolderBrowser.cpp"
-    "felide/ui/folder-browser/FolderBrowserController.hpp"
-    "felide/ui/folder-browser/FolderBrowserController.cpp"
+    "felide/ui/folder-browser/FolderBrowserPresenter.hpp"
+    "felide/ui/folder-browser/FolderBrowserPresenter.cpp"
 	"felide/ui/folder-browser/FolderBrowserModel.hpp"
     "felide/ui/folder-browser/FolderBrowserModel.cpp"
 )
@@ -116,8 +116,8 @@ set (sources_felide_ui_folderbrowser
 set (sources_felide_ui_ideframe
     "felide/ui/ide-frame/IDEFrameModel.hpp"
     "felide/ui/ide-frame/IDEFrameModel.cpp"
-    "felide/ui/ide-frame/IDEFrameController.hpp"
-    "felide/ui/ide-frame/IDEFrameController.cpp"
+    "felide/ui/ide-frame/IDEFramePresenter.hpp"
+    "felide/ui/ide-frame/IDEFramePresenter.cpp"
     "felide/ui/ide-frame/IDEFrame.hpp"
     "felide/ui/ide-frame/IDEFrame.cpp"
 )

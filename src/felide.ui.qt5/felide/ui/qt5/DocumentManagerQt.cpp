@@ -6,7 +6,7 @@
 #include <QTabBar>
 #include <QAction>
 #include <QMenu>
-#include <felide/ui/document-manager/DocumentManagerController.hpp>
+#include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
 
 #include "DocumentQt.hpp"
 

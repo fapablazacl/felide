@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <iostream>
-#include <felide/ui/ide-frame/IDEFrameController.hpp>
+#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 
 #include "DocumentQt.hpp"
 #include "DialogManagerQt.hpp"

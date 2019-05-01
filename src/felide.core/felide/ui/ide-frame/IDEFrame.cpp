@@ -1,7 +1,7 @@
 
 #include "IDEFrame.hpp"
 
-#include "IDEFrameController.hpp"
+#include "IDEFramePresenter.hpp"
 
 #include <felide/ui/Menu.hpp>
 

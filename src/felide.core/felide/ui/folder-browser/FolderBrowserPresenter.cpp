@@ -1,11 +1,11 @@
 
-#include "FolderBrowserController.hpp"
+#include "FolderBrowserPresenter.hpp"
 
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/ui/DialogManager.hpp>
-#include <felide/ui/ide-frame/IDEFrameController.hpp>
+#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 
 #include "FolderBrowser.hpp"
 
