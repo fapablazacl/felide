@@ -162,7 +162,7 @@ namespace felide {
             return;
         }
 
-        view->getDocumentManager()->closeDocument(editor);
+        this->onDocumentCloseRequested(editor);
     }
 
     void IDEFrameController::onFileExit() {

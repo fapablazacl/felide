@@ -27,7 +27,7 @@ namespace felide {
 
         virtual void showDocument(Document *editor) = 0;
 
-        std::vector<Document*> getDocuments();
+        std::vector<Document*> enumerateDocuments();
 
     protected:
         DocumentManagerController *m_presenter = nullptr;

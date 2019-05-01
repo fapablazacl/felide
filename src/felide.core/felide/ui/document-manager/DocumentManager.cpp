@@ -8,7 +8,7 @@ namespace felide {
 
     DocumentManager::~DocumentManager() {}
 
-    std::vector<Document*> DocumentManager::getDocuments() {
+    std::vector<Document*> DocumentManager::enumerateDocuments() {
         std::vector<Document*> editors;
 
         for (int i=0; i<this->getDocumentCount(); i++) {

@@ -16,7 +16,7 @@ namespace felide {
     }
 
     void DocumentManagerController::onCloseOthers(Document *editor) {
-        auto editors = m_view->getDocuments();
+        auto editors = m_view->enumerateDocuments();
         
         for (auto current : editors) {
             if (current != editor) {
@@ -28,7 +28,7 @@ namespace felide {
     void DocumentManagerController::onCloseToTheRight(Document *editor) {
         bool close = false;
 
-        auto editors = m_view->getDocuments();
+        auto editors = m_view->enumerateDocuments();
 
         for (auto current : editors) {
             if (close == true) {
@@ -42,7 +42,7 @@ namespace felide {
     }
 
     void DocumentManagerController::onCloseAll() {
-        auto editors = m_view->getDocuments();
+        auto editors = m_view->enumerateDocuments();
 
         for (auto editor : editors) {
             m_view->closeDocument(editor);
