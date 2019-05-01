@@ -3,46 +3,46 @@
 #define __FELIDE_UI_DOCUMENTMODEL_HPP__
 
 #include <string>
+#include <memory>
 
 namespace felide {
+    /**
+     * An abstraction of a Document.
+     */
     class DocumentModel {
     public:
-        explicit DocumentModel(int tag);
+        virtual ~DocumentModel();
 
-        explicit DocumentModel(const std::string &filePath);
+        virtual int getTag() const = 0;
 
-        explicit DocumentModel(const std::string &filePath, const std::string &content);
+        virtual int getId() const = 0;
 
-        ~DocumentModel();
+        virtual void setModifiedFlag(const bool value) = 0;
 
-        int getTag() const;
+        virtual bool getModifiedFlag() const = 0;
 
-        int getId() const;
+        virtual void modify() = 0;
 
-        void setModifiedFlag(const bool value);
+        virtual void setFilePath(const std::string &value) = 0;
 
-        bool getModifiedFlag() const;
+        virtual std::string getFilePath() const = 0;
 
-        void modify();
+        virtual bool hasFilePath() const = 0;
 
-        void setFilePath(const std::string &value);
+        virtual void setContent(const std::string &value) = 0;
 
-        std::string getFilePath() const;
+        virtual std::string getContent() const = 0;
 
-        bool hasFilePath() const;
+    public:
+        static int getCount();
 
-        void setContent(const std::string &value);
+        static std::unique_ptr<DocumentModel> create(int tag);
 
-        std::string getContent() const;
+        static std::unique_ptr<DocumentModel> create(const std::string &filePath);
 
-    private:
-        int tag = 0;
-        int id = 0;
-        bool modified = false;
-        std::string filePath;
-        std::string content;
+        static std::unique_ptr<DocumentModel> create(const std::string &filePath, const std::string &content);
 
-    private:
+    protected:
         static int count;
     };
 }

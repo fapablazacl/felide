@@ -279,19 +279,21 @@ namespace felide {
     }
 
     DocumentModel* IDEFrameController::createDocumentModel(const Document *view, const int tag) {
-        auto editorModel = new DocumentModel(tag);
+        auto editorModel = DocumentModel::create(tag);
+        auto editorModelPtr = editorModel.get();
 
-        editorModels[view] = std::unique_ptr<DocumentModel>(editorModel);
+        editorModels[view] = std::move(editorModel);
 
-        return editorModel;
+        return editorModelPtr;
     }
 
     DocumentModel* IDEFrameController::createDocumentModel(const Document *view, const std::string &fileName) {
-        auto editorModel = new DocumentModel(fileName);
+        auto editorModel = DocumentModel::create(fileName);
+        auto editorModelPtr = editorModel.get();
         
-        editorModels[view] = std::unique_ptr<DocumentModel>(editorModel);
+        editorModels[view] = std::move(editorModel);
 
-        return editorModel;
+        return editorModelPtr;
     }
 
     DocumentModel* IDEFrameController::getDocumentModel(const Document *view) {

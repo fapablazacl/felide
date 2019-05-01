@@ -2,65 +2,96 @@
 #include "DocumentModel.hpp"
 
 namespace felide {
-    int DocumentModel::count = 0;
+    class DocumentModelImpl : public DocumentModel {
+    public:
+        DocumentModelImpl(int tag) {
+            id = ++count;
 
-    DocumentModel::DocumentModel(int tag) {
-        this->tag = tag;
-        id = ++count;
-    }
+            this->tag = tag;
+        }
 
-    DocumentModel::DocumentModel(const std::string &filePath) {
-        id = ++count;
+        DocumentModelImpl(const std::string &filePath) {
+            id = ++count;
         
-        this->setFilePath(filePath);
-    }
+            this->setFilePath(filePath);
+        }
 
-    DocumentModel::DocumentModel(const std::string &filePath, const std::string &content) {
-        id = ++count;
+        DocumentModelImpl(const std::string &filePath, const std::string &content) {
+            id = ++count;
 
-        this->setFilePath(filePath);
-        this->setContent(content);
-    }
+            this->setFilePath(filePath);
+            this->setContent(content);
+        }
+
+        virtual ~DocumentModelImpl() {}
+
+        int getTag() const {
+            return tag;
+        }
+
+        int getId() const {
+            return id;
+        }
+
+        void setModifiedFlag(const bool value) {
+            modified = value;
+        }
+
+        bool getModifiedFlag() const {
+            return modified;
+        }
+
+        void modify() {
+            modified = true;
+        }
+
+        void setFilePath(const std::string &value) {
+            filePath = value;
+        }
+
+        std::string getFilePath() const {
+            return filePath;
+        }
+
+        bool hasFilePath() const {
+            return filePath != "";
+        }
+
+        void setContent(const std::string &value) {
+            content = value;
+        }
+
+        std::string getContent() const {
+            return content;        
+        }
+
+    private:
+        int tag = 0;
+        int id = 0;
+        bool modified = false;
+        std::string filePath;
+        std::string content;
+    };
+}
+
+namespace felide {
+    int DocumentModel::count = 0;
 
     DocumentModel::~DocumentModel() {}
 
-    int DocumentModel::getTag() const {
-        return tag;
+    int DocumentModel::getCount() {
+        return DocumentModel::count;
     }
 
-    int DocumentModel::getId() const {
-        return id;
+    std::unique_ptr<DocumentModel> DocumentModel::create(int tag) {
+        return std::make_unique<DocumentModelImpl>(tag);
     }
 
-    void DocumentModel::setModifiedFlag(const bool value) {
-        modified = value;
+    std::unique_ptr<DocumentModel> DocumentModel::create(const std::string &filePath) {
+        return std::make_unique<DocumentModelImpl>(filePath);
     }
 
-    bool DocumentModel::getModifiedFlag() const {
-        return modified;
-    }
-
-    void DocumentModel::modify() {
-        modified = true;
-    }
-
-    void DocumentModel::setFilePath(const std::string &value) {
-        filePath = value;
-    }
-
-    std::string DocumentModel::getFilePath() const {
-        return filePath;
-    }
-
-    bool DocumentModel::hasFilePath() const {
-        return filePath != "";
-    }
-
-    void DocumentModel::setContent(const std::string &value) {
-        content = value;
-    }
-
-    std::string DocumentModel::getContent() const {
-        return content;        
+    std::unique_ptr<DocumentModel> DocumentModel::create(const std::string &filePath, const std::string &content) {
+        return std::make_unique<DocumentModelImpl>(filePath, content);
     }
 }
