@@ -11,31 +11,31 @@ namespace felide {
         this->view = view;
     }
 
-    void DocumentManagerPresenter::onCloseDocument(Document *editor) {
-        view->closeDocument(editor);
+    void DocumentManagerPresenter::onCloseDocument(Document *document) {
+        view->closeDocument(document);
     }
 
-    void DocumentManagerPresenter::onCloseOthers(Document *editor) {
-        auto editors = view->enumerateDocuments();
+    void DocumentManagerPresenter::onCloseOthers(Document *document) {
+        auto documents = view->enumerateDocuments();
         
-        for (auto current : editors) {
-            if (current != editor) {
+        for (auto current : documents) {
+            if (current != document) {
                 view->closeDocument(current);
             }
         }
     }
 
-    void DocumentManagerPresenter::onCloseToTheRight(Document *editor) {
+    void DocumentManagerPresenter::onCloseToTheRight(Document *document) {
         bool close = false;
 
-        auto editors = view->enumerateDocuments();
+        auto documents = view->enumerateDocuments();
 
-        for (auto current : editors) {
+        for (auto current : documents) {
             if (close == true) {
                 view->closeDocument(current);
             }
 
-            if (current == editor) {
+            if (current == document) {
                 close = true;
             }
         }
