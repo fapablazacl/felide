@@ -18,22 +18,22 @@ namespace felide {
         }
     }
 
-    FolderBrowserController::FolderBrowserController(IDEFrameController *ideFramePresenter) {
+    FolderBrowserPresenter::FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter) {
         this->ideFramePresenter = ideFramePresenter;
     }
 
-    FolderBrowserController::~FolderBrowserController() {}
+    FolderBrowserPresenter::~FolderBrowserPresenter() {}
 
-    void FolderBrowserController::attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
+    void FolderBrowserPresenter::attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
         m_folderBrowser = folderBrowser;
         m_dialogManager = dialogManager;
     }
 
-    void FolderBrowserController::detachView() {
+    void FolderBrowserPresenter::detachView() {
         m_folderBrowser = nullptr;
     }
 
-    void FolderBrowserController::onBrowseFolder() {
+    void FolderBrowserPresenter::onBrowseFolder() {
         auto folderPathOptional = m_dialogManager->showFolderDialog("Open Folder");
 
         if (!folderPathOptional) {
@@ -43,7 +43,7 @@ namespace felide {
         m_folderBrowser->displayFolder(*folderPathOptional);
     }
 
-    void FolderBrowserController::onCreateFile() {
+    void FolderBrowserPresenter::onCreateFile() {
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
             return;
@@ -78,7 +78,7 @@ namespace felide {
         os.close();
     }
 
-    void FolderBrowserController::onCreateFolder() {
+    void FolderBrowserPresenter::onCreateFolder() {
         // 
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -117,7 +117,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    void FolderBrowserController::onOpenSelectedFile() {
+    void FolderBrowserPresenter::onOpenSelectedFile() {
         // determine the currently selected path
         const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
         if (!selectedPathOptional) {
@@ -131,7 +131,7 @@ namespace felide {
         } 
     }
 
-    void FolderBrowserController::onMoveSelectedPath(const std::string &targetFolder) {
+    void FolderBrowserPresenter::onMoveSelectedPath(const std::string &targetFolder) {
         // TODO: Add directory check to the targetFolder variable
 
         namespace fs = boost::filesystem;
@@ -168,7 +168,7 @@ namespace felide {
         fs::rename(selectedPath, destinationPath);
     }
 
-    void FolderBrowserController::onRenameSelectedPath() {
+    void FolderBrowserPresenter::onRenameSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -206,7 +206,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    void FolderBrowserController::onDeleteSelectedPath() {
+    void FolderBrowserPresenter::onDeleteSelectedPath() {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
@@ -238,7 +238,7 @@ namespace felide {
         // TODO: Notify to the view the change in the filesystem (?)
     }
 
-    boost::optional<std::string> FolderBrowserController::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {
+    boost::optional<std::string> FolderBrowserPresenter::askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue) {
         int attemped = 0;
 
         boost::optional<std::string> validNamePath = {};

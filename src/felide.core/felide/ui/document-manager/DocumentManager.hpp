@@ -7,11 +7,11 @@
 #include <vector>
 
 namespace felide {
-    class FELIDE_API DocumentManagerController;
+    class FELIDE_API DocumentManagerPresenter;
     class FELIDE_API Document;
     class FELIDE_API DocumentManager {
     public:
-        explicit DocumentManager(DocumentManagerController *presenter);
+        explicit DocumentManager(DocumentManagerPresenter *presenter);
 
         virtual ~DocumentManager();
 
@@ -30,7 +30,7 @@ namespace felide {
         std::vector<Document*> enumerateDocuments();
 
     protected:
-        DocumentManagerController *m_presenter = nullptr;
+        DocumentManagerPresenter *m_presenter = nullptr;
     };
 } 
 

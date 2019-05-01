@@ -2,7 +2,7 @@
 #include "FolderBrowser.hpp"
 
 namespace felide {
-    FolderBrowser::FolderBrowser(FolderBrowserController *presenter) {
+    FolderBrowser::FolderBrowser(FolderBrowserPresenter *presenter) {
         m_presenter = presenter;
     }
 

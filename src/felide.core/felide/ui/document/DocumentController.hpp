@@ -3,9 +3,9 @@
 #define __FELIDE_UI_DOCUMENTCONTROLLER_HPP__
 
 namespace felide {
-    class DocumentController {
+    class DocumentPresenter {
     public:
-        ~DocumentController();
+        ~DocumentPresenter();
     };
 }
 

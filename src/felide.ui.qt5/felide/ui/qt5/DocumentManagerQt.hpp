@@ -14,7 +14,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit DocumentManagerQt(QWidget *parent, DocumentManagerController *presenter);
+        explicit DocumentManagerQt(QWidget *parent, DocumentManagerPresenter *presenter);
 
         virtual ~DocumentManagerQt();
         

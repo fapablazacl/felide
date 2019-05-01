@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 
     QApplication app(argc, argv);
 
-    IDEFrameController presenter;
+    IDEFramePresenter presenter;
 
     IDEFrameQt ideFrame(&presenter);
     ideFrame.show();

@@ -23,7 +23,7 @@ namespace felide {
         Q_OBJECT;
 
     public:
-        explicit IDEFrameQt(IDEFrameController *controller);
+        explicit IDEFrameQt(IDEFramePresenter *controller);
 
     public:
         virtual DocumentManager* getDocumentManager() override;
@@ -55,9 +55,9 @@ namespace felide {
         std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:
-        DocumentManagerController m_editorManagerController;
+        DocumentManagerPresenter m_editorManagerController;
 
-        FolderBrowserController m_folderBrowserController;
+        FolderBrowserPresenter m_folderBrowserController;
         FolderBrowserQt *m_folderBrowser;
         QDockWidget *m_folderBrowserDock;
     };

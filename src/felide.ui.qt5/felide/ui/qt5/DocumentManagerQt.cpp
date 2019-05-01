@@ -11,7 +11,7 @@
 #include "DocumentQt.hpp"
 
 namespace felide {
-    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerController *controller) : QWidget(parent), DocumentManager(controller) {
+    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerPresenter *controller) : QWidget(parent), DocumentManager(controller) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);

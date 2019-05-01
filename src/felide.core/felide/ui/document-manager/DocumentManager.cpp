@@ -2,7 +2,7 @@
 #include "DocumentManager.hpp"
 
 namespace felide {
-    DocumentManager::DocumentManager(DocumentManagerController *presenter) {
+    DocumentManager::DocumentManager(DocumentManagerPresenter *presenter) {
         m_presenter = presenter;
     }
 

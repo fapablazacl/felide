@@ -14,7 +14,7 @@
 #include "UtilitiesQt.hpp"
 
 namespace felide {
-    IDEFrameQt::IDEFrameQt(IDEFrameController *presenter) : IDEFrame(presenter), m_editorManagerController(nullptr), m_folderBrowserController(presenter) {
+    IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter), m_editorManagerController(nullptr), m_folderBrowserController(presenter) {
         m_dialogManager = std::make_unique<DialogManagerQt>(this);
 
         this->setupMenuBar();

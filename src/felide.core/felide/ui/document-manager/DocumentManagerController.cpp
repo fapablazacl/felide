@@ -3,19 +3,19 @@
 #include "DocumentManager.hpp"
 
 namespace felide {
-    DocumentManagerController::DocumentManagerController(DocumentManagerModel *model) {
+    DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {
         m_model = model;
     }
 
-    void DocumentManagerController::attachView(DocumentManager *view) {
+    void DocumentManagerPresenter::attachView(DocumentManager *view) {
         m_view = view;
     }
 
-    void DocumentManagerController::onCloseDocument(Document *editor) {
+    void DocumentManagerPresenter::onCloseDocument(Document *editor) {
         m_view->closeDocument(editor);
     }
 
-    void DocumentManagerController::onCloseOthers(Document *editor) {
+    void DocumentManagerPresenter::onCloseOthers(Document *editor) {
         auto editors = m_view->enumerateDocuments();
         
         for (auto current : editors) {
@@ -25,7 +25,7 @@ namespace felide {
         }
     }
 
-    void DocumentManagerController::onCloseToTheRight(Document *editor) {
+    void DocumentManagerPresenter::onCloseToTheRight(Document *editor) {
         bool close = false;
 
         auto editors = m_view->enumerateDocuments();
@@ -41,7 +41,7 @@ namespace felide {
         }
     }
 
-    void DocumentManagerController::onCloseAll() {
+    void DocumentManagerPresenter::onCloseAll() {
         auto editors = m_view->enumerateDocuments();
 
         for (auto editor : editors) {

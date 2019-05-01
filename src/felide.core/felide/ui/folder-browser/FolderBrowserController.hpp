@@ -10,17 +10,17 @@ namespace felide {
     class FELIDE_API IDEModel;
     class FELIDE_API FolderBrowser;
     class FELIDE_API DialogManager;
-    class FELIDE_API IDEFrameController;
+    class FELIDE_API IDEFramePresenter;
 
-    class FELIDE_API FolderBrowserController {
+    class FELIDE_API FolderBrowserPresenter {
     public:
-        FolderBrowserController(IDEFrameController *ideFramePresenter);
+        FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter);
 
         void attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager);
 
         void detachView();
 
-        virtual ~FolderBrowserController();
+        virtual ~FolderBrowserPresenter();
 
         virtual void onBrowseFolder();
 
@@ -40,7 +40,7 @@ namespace felide {
         boost::optional<std::string> askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue);
 
     private:
-        IDEFrameController *ideFramePresenter;
+        IDEFramePresenter *ideFramePresenter;
         FolderBrowser *m_folderBrowser;
         DialogManager *m_dialogManager;
     };

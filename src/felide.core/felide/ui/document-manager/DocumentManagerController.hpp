@@ -9,9 +9,9 @@ namespace felide {
     class FELIDE_API DocumentManagerModel;
     class FELIDE_API Document;
     class FELIDE_API DocumentManager;
-    class FELIDE_API DocumentManagerController {
+    class FELIDE_API DocumentManagerPresenter {
     public:
-        explicit DocumentManagerController(DocumentManagerModel *model);
+        explicit DocumentManagerPresenter(DocumentManagerModel *model);
 
         void attachView(DocumentManager *view);
 

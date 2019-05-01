@@ -6,7 +6,7 @@
 #include <felide/ui/Menu.hpp>
 
 namespace felide {
-    IDEFrame::IDEFrame(IDEFrameController *presenter) {
+    IDEFrame::IDEFrame(IDEFramePresenter *presenter) {
         m_presenter = presenter;
 
         m_menu = new Menu(Menu::menuBar({
