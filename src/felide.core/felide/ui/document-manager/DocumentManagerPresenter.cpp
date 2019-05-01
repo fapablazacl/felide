@@ -4,23 +4,23 @@
 
 namespace felide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {
-        m_model = model;
+        this->model = model;
     }
 
     void DocumentManagerPresenter::attachView(DocumentManager *view) {
-        m_view = view;
+        this->view = view;
     }
 
     void DocumentManagerPresenter::onCloseDocument(Document *editor) {
-        m_view->closeDocument(editor);
+        view->closeDocument(editor);
     }
 
     void DocumentManagerPresenter::onCloseOthers(Document *editor) {
-        auto editors = m_view->enumerateDocuments();
+        auto editors = view->enumerateDocuments();
         
         for (auto current : editors) {
             if (current != editor) {
-                m_view->closeDocument(current);
+                view->closeDocument(current);
             }
         }
     }
@@ -28,11 +28,11 @@ namespace felide {
     void DocumentManagerPresenter::onCloseToTheRight(Document *editor) {
         bool close = false;
 
-        auto editors = m_view->enumerateDocuments();
+        auto editors = view->enumerateDocuments();
 
         for (auto current : editors) {
             if (close == true) {
-                m_view->closeDocument(current);
+                view->closeDocument(current);
             }
 
             if (current == editor) {
@@ -42,10 +42,10 @@ namespace felide {
     }
 
     void DocumentManagerPresenter::onCloseAll() {
-        auto editors = m_view->enumerateDocuments();
+        auto editors = view->enumerateDocuments();
 
         for (auto editor : editors) {
-            m_view->closeDocument(editor);
+            view->closeDocument(editor);
         }
     }
 }

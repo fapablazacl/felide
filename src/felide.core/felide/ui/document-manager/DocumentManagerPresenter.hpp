@@ -24,8 +24,8 @@ namespace felide {
         void onCloseAll();
 
     private:
-        DocumentManager *m_view = nullptr;
-        DocumentManagerModel *m_model = nullptr;
+        DocumentManager *view = nullptr;
+        DocumentManagerModel *model = nullptr;
     };
 }
 
