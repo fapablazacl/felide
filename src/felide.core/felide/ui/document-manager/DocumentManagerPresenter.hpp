@@ -28,6 +28,7 @@ namespace felide {
         void onCloseAll();
 
         std::tuple<Document*, DocumentModel*> createDocument(const int tag);
+
         std::tuple<Document*, DocumentModel*> createDocument(const std::string &filePath);
 
     private:

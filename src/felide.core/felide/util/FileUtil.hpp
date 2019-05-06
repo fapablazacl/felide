@@ -11,8 +11,10 @@ namespace felide {
         ~FileUtil() = delete;
 
     public:
+        [[deprecated]]
         static std::string load(const std::string &filename);
 
+        [[deprecated]]
         static void save(const std::string &filename, const std::string &content);
     };
 }

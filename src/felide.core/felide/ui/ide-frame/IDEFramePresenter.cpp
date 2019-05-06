@@ -10,21 +10,6 @@
 #include <cassert>
 
 namespace felide {
-    static std::string mapDocumentTitle(const DocumentModel *model) {
-        std::string title;
-
-        if (model->hasFilePath()) {
-            using boost::filesystem::path;
-
-            title = path(model->getFilePath()).filename().string();
-        } else {
-            title = "Untitled " + std::to_string(model->getTag());
-        }
-        
-        title = (model->getModifiedFlag() ? "[*]" : "") + title;
-
-        return title;
-    }
 
     IDEFramePresenter::IDEFramePresenter() {}
 
@@ -47,7 +32,7 @@ namespace felide {
         auto editorModel = this->createDocumentModel(editor, tag);
 
         editor->setConfig(DocumentConfig::Default());
-        editor->setTitle(mapDocumentTitle(editorModel));
+        // editor->setTitle(mapDocumentTitle(editorModel));
     }
 
     void IDEFramePresenter::onFileOpen() {
@@ -173,7 +158,7 @@ namespace felide {
         auto editorModel = this->getDocumentModel(editor);
 
         editorModel->modify();
-        editor->setTitle(mapDocumentTitle(editorModel));
+        // editor->setTitle(mapDocumentTitle(editorModel));
     }
     
     void IDEFramePresenter::onDocumentCloseRequested(Document *editor) {
@@ -223,7 +208,7 @@ namespace felide {
         
         editorModel->setFilePath(fileName);
         editorModel->setModifiedFlag(false);
-        editor->setTitle(mapDocumentTitle(editorModel));
+        // editor->setTitle(mapDocumentTitle(editorModel));
     }
     
     void IDEFramePresenter::editorSaveAs(Document *editor) {
@@ -270,7 +255,7 @@ namespace felide {
             editor->setContent(content);
             editorModel->setModifiedFlag(false);
             editorModel->setContent(content);
-            editor->setTitle(mapDocumentTitle(editorModel));
+            // editor->setTitle(mapDocumentTitle(editorModel));
         }
     }
 
