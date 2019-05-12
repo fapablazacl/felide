@@ -1,5 +1,6 @@
 
 #include "DocumentQt.hpp"
+#include "DocumentManagerQt.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -8,7 +9,8 @@
 #include <felide/ui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QWidget *parent, DocumentPresenter *presenter) : QWidget(parent) {
+    DocumentQt::DocumentQt(QWidget *parent, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parent) {
+        this->documentManager = documentManager;
         this->presenter = presenter;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
@@ -18,6 +20,8 @@ namespace felide {
         this->setupLayout();
 
         m_scintilla->setFocus();
+
+        presenter->onInitialized(this);
     }
 
     DocumentQt::~DocumentQt() {}
@@ -35,7 +39,7 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        // TODO: Add implementation
+        documentManager->changeDocumentTitle(this, title);
     }
 
     std::string DocumentQt::getTitle() const {

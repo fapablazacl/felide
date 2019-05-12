@@ -6,6 +6,8 @@
 #include <QTabBar>
 #include <QAction>
 #include <QMenu>
+
+#include <felide/ui/document/DocumentPresenter.hpp>
 #include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
 
 #include "DocumentQt.hpp"
@@ -19,8 +21,7 @@ namespace felide {
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, [=] (int tabIndex) {
             QWidget *widget = m_tabWidget->widget(tabIndex);
             
-            auto editor = dynamic_cast<DocumentQt*>(widget);
-            if (editor) {
+            if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
                 editorCloseRequested(editor);
             }
         });
@@ -79,7 +80,7 @@ namespace felide {
         layout->addWidget(m_tabWidget);
         this->setLayout(layout);
 
-        m_presenter->attachView(this);
+        m_presenter->onInitialized(this);
     }
 
     DocumentManagerQt::~DocumentManagerQt() {}
@@ -95,24 +96,23 @@ namespace felide {
     }
     
     void DocumentManagerQt::changeDocumentTitle(DocumentQt *editor, const std::string &title) {
-        auto index = this->getDocumentIndex(editor);
-        
-        if (!index) {
-            return;
+        if (auto index = this->getDocumentIndex(editor)) {
+            m_tabWidget->setTabText(index.get(), title.c_str());
         }
-        
-        m_tabWidget->setTabText(*index, title.c_str());
     }
 }
 
 namespace felide {
-    Document* DocumentManagerQt::appendDocument(DocumentPresenter *presenter) {
-        auto editor = new DocumentQt(m_tabWidget, presenter);
+    Document* DocumentManagerQt::appendDocument(DocumentPresenter *documentPresenter) {
+        auto document = new DocumentQt(m_tabWidget, documentPresenter, this);
 
-        m_tabWidget->addTab(editor, "");
-        m_tabWidget->setCurrentWidget(editor);
+        m_tabWidget->addTab(document, "");
+        m_tabWidget->setCurrentWidget(document);
 
-        return editor;
+        // FIXME: issue a new 'onInitialized' in order to update the DocumentManager's tabbed title
+        documentPresenter->onInitialized(document);
+        
+        return document;
     }
 
     Document* DocumentManagerQt::getCurrentDocument() {

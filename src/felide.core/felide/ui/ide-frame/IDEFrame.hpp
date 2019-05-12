@@ -34,13 +34,11 @@ namespace felide {
 
         virtual ~IDEFrame();
 
-        [[deprecated]]
         virtual DocumentManager* getDocumentManager() = 0;
 
         [[deprecated]]
         virtual DialogManager* getDialogManager() = 0;
         
-        [[deprecated]]
         virtual FolderBrowser* getFolderBrowser() = 0;
 
         virtual boost::optional<boost::filesystem::path> showFileOpenDialog(const FileOperationViewData &viewData) const = 0;

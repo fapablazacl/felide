@@ -4,6 +4,7 @@
 #include "IDEFrameModel.hpp"
 
 #include <boost/filesystem.hpp>
+#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
 #include <felide/util/FileUtil.hpp>
 
 #include <iostream>
@@ -12,6 +13,10 @@
 namespace felide {
     IDEFramePresenter::IDEFramePresenter(IDEFrameModel *model) {
         this->model = model;
+
+        // initialize child presenters
+        documentManagerPresenter = std::make_unique<DocumentManagerPresenter>(model->getDocumentManagerModel());
+        folderBrowserPresenter = std::make_unique<FolderBrowserPresenter>(model->getFolderBrowserModel(), this);
     }
 
     IDEFramePresenter::~IDEFramePresenter() {}
@@ -23,14 +28,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileNew() {
-        int tag = model->increaseDocumentCount();
-
-        // TODO: Pass a valid DocumentPresenter instance
-        auto editor = view->getDocumentManager()->appendDocument(nullptr);
-        auto editorModel = this->createDocumentModel(editor, tag);
-
-        editor->setConfig(DocumentConfig::Default());
-        // editor->setTitle(mapDocumentTitle(editorModel));
+        documentManagerPresenter->onNewDocument();
     }
 
     void IDEFramePresenter::onFileOpen() {
@@ -41,7 +39,7 @@ namespace felide {
         };
 
         if (auto filePath = view->showFileOpenDialog(viewData); filePath) {
-            this->onDocumentShow(filePath.get().string());
+            documentManagerPresenter->onOpenDocument(filePath.get());
         }
     }
     
@@ -51,8 +49,8 @@ namespace felide {
             boost::filesystem::current_path()
         };
 
-        if (auto folder = view->showFolderOpenDialog(viewData); folder) {
-            this->openFolder(folder.get().string());
+        if (auto folderPath = view->showFolderOpenDialog(viewData); folderPath) {
+            folderBrowserPresenter->onDisplayFolder(folderPath.get());
         }
     }
 
@@ -323,5 +321,13 @@ namespace felide {
 
     void IDEFramePresenter::openFolder(const std::string &fullPath) {
         view->getFolderBrowser()->displayFolder(fullPath);
+    }
+
+    DocumentManagerPresenter*  IDEFramePresenter::getDocumentManagerPresenter() {
+        return documentManagerPresenter.get();
+    }
+
+    FolderBrowserPresenter* IDEFramePresenter::getFolderBrowserPresenter() {
+        return folderBrowserPresenter.get();
     }
 }

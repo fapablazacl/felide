@@ -16,6 +16,9 @@ namespace felide {
 
     void DocumentPresenter::onInitialized(Document *view) {
         this->view = view;
+
+        const std::string title = this->computeTitle(model);
+        view->setTitle(title);
     }
 
     void DocumentPresenter::onContentChanged() {

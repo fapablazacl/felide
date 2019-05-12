@@ -4,6 +4,7 @@
 
 #include <string>
 #include <felide/Predef.hpp>
+#include <boost/filesystem/path.hpp>
 #include <boost/optional/optional_fwd.hpp>
 
 namespace felide {
@@ -12,9 +13,11 @@ namespace felide {
     class FELIDE_API DialogManager;
     class FELIDE_API IDEFramePresenter;
 
+    class FELIDE_API FolderBrowserModel;
+
     class FELIDE_API FolderBrowserPresenter {
     public:
-        FolderBrowserPresenter(IDEFramePresenter *ideFramePresenter);
+        FolderBrowserPresenter(FolderBrowserModel *model, IDEFramePresenter *ideFramePresenter);
 
         void attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager);
 
@@ -35,11 +38,14 @@ namespace felide {
         virtual void onOpenSelectedFile();
 
         virtual void onDeleteSelectedPath();
+        
+        virtual void onDisplayFolder(const boost::filesystem::path &folderPath);
 
     private:
         boost::optional<std::string> askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue);
 
     private:
+        FolderBrowserModel *model;
         IDEFramePresenter *ideFramePresenter;
         FolderBrowser *m_folderBrowser;
         DialogManager *m_dialogManager;

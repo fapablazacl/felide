@@ -5,11 +5,15 @@
 #include <cstddef>
 #include <map>
 #include <tuple>
+#include <list>
+
+#include <boost/filesystem/path.hpp>
 #include <felide/Predef.hpp>
 
 namespace felide {
     class FELIDE_API Document;
     class FELIDE_API DocumentModel;
+    class FELIDE_API DocumentPresenter;
 
     class FELIDE_API DocumentManagerModel;
     class FELIDE_API DocumentManager;
@@ -17,7 +21,13 @@ namespace felide {
     public:
         explicit DocumentManagerPresenter(DocumentManagerModel *model);
 
-        void attachView(DocumentManager *view);
+        ~DocumentManagerPresenter();
+
+        void onInitialized(DocumentManager *view);
+
+        void onNewDocument();
+
+        void onOpenDocument(const boost::filesystem::path &path);
 
         void onCloseDocument(Document *document);
 
@@ -27,14 +37,14 @@ namespace felide {
 
         void onCloseAll();
 
-        std::tuple<Document*, DocumentModel*> createDocument(const int tag);
-
-        std::tuple<Document*, DocumentModel*> createDocument(const std::string &filePath);
-
+    private:
+        DocumentPresenter* createDocumentPresenter(DocumentModel *documentModel);
+        
     private:
         DocumentManager *view = nullptr;
         DocumentManagerModel *model = nullptr;
 
+        std::list<std::unique_ptr<DocumentPresenter>> documentPresenters;
         std::map<Document*, DocumentModel*> documentModels;
     };
 }

@@ -55,9 +55,6 @@ namespace felide {
         std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:
-        DocumentManagerPresenter m_editorManagerController;
-
-        FolderBrowserPresenter m_folderBrowserController;
         FolderBrowserQt *m_folderBrowser;
         QDockWidget *m_folderBrowserDock;
     };

@@ -18,6 +18,12 @@ namespace felide {
         virtual void save(const boost::filesystem::path &filePath, const std::string &content) override {
             FileUtil::save(filePath.string(), content);
         }
+
+        virtual void touch(const boost::filesystem::path &filePath) override {
+            std::ofstream os;
+            os.open(filePath.string().c_str(), std::ios_base::out);
+            os.close();
+        }
     };
 }
 

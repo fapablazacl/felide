@@ -4,13 +4,27 @@
 #include "DocumentManager.hpp"
 #include "DocumentManagerModel.hpp"
 
+#include <felide/ui/document/DocumentPresenter.hpp>
+
 namespace felide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {
         this->model = model;
     }
 
-    void DocumentManagerPresenter::attachView(DocumentManager *view) {
+    DocumentManagerPresenter::~DocumentManagerPresenter() {}
+
+    void DocumentManagerPresenter::onInitialized(DocumentManager *view) {
         this->view = view;
+    }
+
+    void DocumentManagerPresenter::onNewDocument() {
+        auto documentModel = model->createDocument();
+        auto documentPresenter = this->createDocumentPresenter(documentModel);
+        auto documentView = view->appendDocument(documentPresenter);
+    }
+
+    void DocumentManagerPresenter::onOpenDocument(const boost::filesystem::path &path) {
+        // TODO: Add implementation
     }
 
     void DocumentManagerPresenter::onCloseDocument(Document *document) {
@@ -49,5 +63,13 @@ namespace felide {
         for (auto editor : editors) {
             view->closeDocument(editor);
         }
+    }
+
+    DocumentPresenter* DocumentManagerPresenter::createDocumentPresenter(DocumentModel *documentModel) {
+        auto presenter = new DocumentPresenter(documentModel);
+
+        documentPresenters.emplace_back(presenter);
+
+        return presenter;
     }
 }

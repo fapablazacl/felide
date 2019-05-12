@@ -8,6 +8,9 @@
 #include <felide/ui/FileFilter.hpp>
 
 namespace felide {
+    class FELIDE_API DocumentManagerModel;
+    class FELIDE_API FolderBrowserModel;
+
     class FELIDE_API IDEFrameModel {
     public:
         virtual ~IDEFrameModel();
@@ -17,6 +20,10 @@ namespace felide {
         virtual int increaseDocumentCount() = 0;
 
         virtual std::vector<FileFilter> getFileFilters() const = 0;
+
+        virtual DocumentManagerModel *getDocumentManagerModel() = 0;
+
+        virtual FolderBrowserModel *getFolderBrowserModel() = 0;
 
     public:
         static std::unique_ptr<IDEFrameModel> create();

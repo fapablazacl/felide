@@ -15,6 +15,8 @@ namespace felide {
 
         virtual void save(const boost::filesystem::path &filePath, const std::string &content) = 0;
 
+        virtual void touch(const boost::filesystem::path &filePath) = 0;
+
     public:
         static std::unique_ptr<FileService> create();
     };

@@ -18,7 +18,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit DocumentQt(QWidget *parent, DocumentPresenter *presenter);
+        explicit DocumentQt(QWidget *parent, DocumentPresenter *presenter, DocumentManagerQt *documentManager);
         virtual ~DocumentQt();
 
     private:
@@ -48,6 +48,7 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
+        DocumentManagerQt *documentManager = nullptr;
         DocumentPresenter *presenter = nullptr;
         QsciScintilla *m_scintilla = nullptr;
         std::string m_title;

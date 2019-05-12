@@ -7,6 +7,7 @@
 #include <felide/ui/document/Document.hpp>
 #include <felide/ui/document/DocumentModel.hpp>
 #include <felide/ui/document-manager/DocumentManager.hpp>
+#include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
 #include <felide/ui/folder-browser/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
@@ -65,6 +66,10 @@ namespace felide {
         bool onCloseRequested();
 
     public:
+        DocumentManagerPresenter* getDocumentManagerPresenter();
+
+        FolderBrowserPresenter* getFolderBrowserPresenter();
+
         // TODO: Make it private (used in Main.cpp)
         void openFolder(const std::string &fullPath);
 
@@ -85,7 +90,8 @@ namespace felide {
         IDEFrame *view = nullptr;
         IDEFrameModel *model = nullptr;
 
-        // std::map<const Document*, std::unique_ptr<DocumentModel>> editorModels;
+        std::unique_ptr<DocumentManagerPresenter> documentManagerPresenter;
+        std::unique_ptr<FolderBrowserPresenter> folderBrowserPresenter;
     };
 }
 

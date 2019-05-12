@@ -1,9 +1,17 @@
 
 #include "IDEFrameModel.hpp" 
 
+#include <felide/ui/document-manager/DocumentManagerModel.hpp>
+#include <felide/ui/folder-browser/FolderBrowserModel.hpp>
+
 namespace felide {
     class IDEFrameModelImpl : public IDEFrameModel {
     public:
+        IDEFrameModelImpl() {
+            this->documentManagerModel = DocumentManagerModel::create();
+            this->folderBrowserModel = FolderBrowserModel::create();
+        }
+
         virtual int getCreatedDocumentCount() const override {
             return createdDocumentCount;
         }
@@ -19,8 +27,18 @@ namespace felide {
             };
         }
 
+        virtual DocumentManagerModel *getDocumentManagerModel() override {
+            return documentManagerModel.get();
+        }
+
+        virtual FolderBrowserModel *getFolderBrowserModel() override {
+            return folderBrowserModel.get();
+        }
+
     private:
         int createdDocumentCount = 0;
+        std::unique_ptr<DocumentManagerModel> documentManagerModel;
+        std::unique_ptr<FolderBrowserModel> folderBrowserModel;
     };
 }
 

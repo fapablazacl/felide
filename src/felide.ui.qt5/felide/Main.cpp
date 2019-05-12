@@ -17,8 +17,8 @@ int main(int argc, char **argv) {
 
     view.show();
 
+    // TODO: Add command line parsing
     if (argc > 1) {
-        // TODO: Add command line parsing support
         const auto fullPath = boost::filesystem::current_path() / argv[1];
         presenter.openFolder(fullPath.string());
     }

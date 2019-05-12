@@ -20,7 +20,7 @@ namespace felide {
         virtual std::vector<DocumentModel*> enumerateDocuments() const = 0;
 
     public:
-        std::unique_ptr<DocumentManagerModel> create();
+        static std::unique_ptr<DocumentManagerModel> create();
     };
 }
 
