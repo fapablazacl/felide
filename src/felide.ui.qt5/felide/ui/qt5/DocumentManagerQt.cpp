@@ -13,7 +13,7 @@
 #include "DocumentQt.hpp"
 
 namespace felide {
-    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerPresenter *controller) : QWidget(parent), DocumentManager(controller) {
+    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);
@@ -109,20 +109,18 @@ namespace felide {
         m_tabWidget->addTab(document, "");
         m_tabWidget->setCurrentWidget(document);
 
-        // FIXME: issue a new 'onInitialized' in order to update the DocumentManager's tabbed title
+        // FIXME: Call the 'onInitialized' method in order to update the DocumentManager's tabbed title
         documentPresenter->onInitialized(document);
         
         return document;
     }
 
     Document* DocumentManagerQt::getCurrentDocument() {
-        QWidget *widget = m_tabWidget->currentWidget();
-
-        if (!widget) {
-            return nullptr;
+        if (QWidget *widget = m_tabWidget->currentWidget()) {
+            return dynamic_cast<Document*>(widget);
         }
 
-        return dynamic_cast<Document*>(widget);
+        return nullptr;
     }
 
     std::size_t DocumentManagerQt::getDocumentCount() const {
@@ -134,7 +132,7 @@ namespace felide {
     }
     
     void DocumentManagerQt::closeDocument(Document *editorView) {
-        if(const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
+        if (const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
             if (const auto index = this->getDocumentIndex(editor)) {
                 m_tabWidget->removeTab(*index);
             }
@@ -142,7 +140,7 @@ namespace felide {
     }
 
     void DocumentManagerQt::showDocument(Document *editorView) {
-        if(const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
+        if (const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
             if (const auto index = this->getDocumentIndex(editor)) {
                 m_tabWidget->setCurrentIndex(*index);
             }

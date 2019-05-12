@@ -29,7 +29,7 @@ namespace felide {
         void editorCloseRequested(DocumentQt *editor);
 
     public:
-        virtual Document* appendDocument(DocumentPresenter *presenter) override;
+        virtual Document* appendDocument(DocumentPresenter *documentPresenter) override;
 
         virtual Document* getCurrentDocument() override;
 
@@ -37,9 +37,9 @@ namespace felide {
 
         virtual Document* getDocument(const std::size_t index) override;
         
-        virtual void closeDocument(Document *editorView) override;
+        virtual void closeDocument(Document *document) override;
 
-        virtual void showDocument(Document *editorView) override;
+        virtual void showDocument(Document *document) override;
 
     private:
         QTabWidget *m_tabWidget = nullptr;
