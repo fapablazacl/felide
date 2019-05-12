@@ -41,6 +41,7 @@ namespace felide {
                 }
             }
 
+            // TODO: Generate menu Dinamically
             // trigger context menu on that tab
             if (found) {
                 Document *editor = this->getDocument(index);
@@ -102,14 +103,12 @@ namespace felide {
         
         m_tabWidget->setTabText(*index, title.c_str());
     }
+}
 
-    Document* DocumentManagerQt::appendDocument() {
-        auto editor = new DocumentQt(m_tabWidget, this);
+namespace felide {
+    Document* DocumentManagerQt::appendDocument(DocumentPresenter *presenter) {
+        auto editor = new DocumentQt(m_tabWidget, presenter);
 
-        connect(editor, &DocumentQt::contentChanged, [=]() {
-            editorContentChanged(editor);
-        });
-        
         m_tabWidget->addTab(editor, "");
         m_tabWidget->setCurrentWidget(editor);
 
@@ -135,34 +134,18 @@ namespace felide {
     }
     
     void DocumentManagerQt::closeDocument(Document *editorView) {
-        const auto editor = dynamic_cast<DocumentQt*>(editorView);
-        
-        if (!editor) {
-            return;
+        if(const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
+            if (const auto index = this->getDocumentIndex(editor)) {
+                m_tabWidget->removeTab(*index);
+            }
         }
-        
-        const auto index = this->getDocumentIndex(editor);
-        
-        if (!index) {
-            return;
-        }
-        
-        m_tabWidget->removeTab(*index);
     }
 
     void DocumentManagerQt::showDocument(Document *editorView) {
-        const auto editor = dynamic_cast<DocumentQt*>(editorView);
-
-        if (!editor) {
-            return;
+        if(const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
+            if (const auto index = this->getDocumentIndex(editor)) {
+                m_tabWidget->setCurrentIndex(*index);
+            }
         }
-        
-        const auto index = this->getDocumentIndex(editor);
-        
-        if (!index) {
-            return;
-        }
-
-        m_tabWidget->setCurrentIndex(*index);
     }
 }

@@ -4,11 +4,12 @@
 #include <cassert>
 #include <iostream>
 #include <QLayout>
-#include "DocumentManagerQt.hpp"
+
+#include <felide/ui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QWidget *parent, DocumentManagerQt *editorManager) : QWidget(parent) {
-        m_editorManager = editorManager;
+    DocumentQt::DocumentQt(QWidget *parent, DocumentPresenter *presenter) : QWidget(parent) {
+        this->presenter = presenter;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
         m_scintilla->setMarginWidth(1, QString("1000"));
@@ -23,7 +24,7 @@ namespace felide {
 
     void DocumentQt::setupScintilla() {
         connect(m_scintilla, &QsciScintilla::textChanged, [this]() {
-            contentChanged();
+            this->presenter->onContentChanged();
         });
     }
 
@@ -34,7 +35,7 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        m_editorManager->changeDocumentTitle(this, title);
+        // TODO: Add implementation
     }
 
     std::string DocumentQt::getTitle() const {
@@ -97,10 +98,10 @@ namespace felide {
     }
 
     void DocumentQt::clearAll()  {
-        // TODO: Agregar implementacion
+        // TODO: Add implementation
     }
 
     void DocumentQt::clearUndoBuffer()  {
-        // TODO: Agregar implementacion
+        // TODO: Add implementation
     }
 }

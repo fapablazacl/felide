@@ -29,7 +29,7 @@ namespace felide {
         void editorCloseRequested(DocumentQt *editor);
 
     public:
-        virtual Document* appendDocument() override;
+        virtual Document* appendDocument(DocumentPresenter *presenter) override;
 
         virtual Document* getCurrentDocument() override;
 

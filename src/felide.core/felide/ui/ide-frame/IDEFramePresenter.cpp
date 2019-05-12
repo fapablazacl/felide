@@ -28,7 +28,8 @@ namespace felide {
     void IDEFramePresenter::onFileNew() {
         int tag = model.increaseDocumentCount();
 
-        auto editor = view->getDocumentManager()->appendDocument();
+        // TODO: Pass a valid DocumentPresenter instance
+        auto editor = view->getDocumentManager()->appendDocument(nullptr);
         auto editorModel = this->createDocumentModel(editor, tag);
 
         editor->setConfig(DocumentConfig::Default());
@@ -162,6 +163,7 @@ namespace felide {
     }
     
     void IDEFramePresenter::onDocumentCloseRequested(Document *editor) {
+        /*
         bool closeDocument = true;
         
         auto model = this->getDocumentModel(editor);
@@ -188,6 +190,7 @@ namespace felide {
             editorModels.erase(editor);
             view->getDocumentManager()->closeDocument(editor);
         }
+        */
     }
     
     bool IDEFramePresenter::onCloseRequested() {
@@ -231,6 +234,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onDocumentShow(const std::string &filePath) {
+        /*
 		if (boost::filesystem::is_directory(filePath)) {
 			return;
 		}
@@ -257,6 +261,7 @@ namespace felide {
             editorModel->setContent(content);
             // editor->setTitle(mapDocumentTitle(editorModel));
         }
+        */
     }
 
     void IDEFramePresenter::onViewFolderBrowser() {
@@ -264,32 +269,46 @@ namespace felide {
     }
 
     DocumentModel* IDEFramePresenter::createDocumentModel(const Document *view, const int tag) {
+        return nullptr;
+
+        /*
         auto editorModel = DocumentModel::create(tag);
         auto editorModelPtr = editorModel.get();
 
         editorModels[view] = std::move(editorModel);
 
         return editorModelPtr;
+        */
     }
 
     DocumentModel* IDEFramePresenter::createDocumentModel(const Document *view, const std::string &fileName) {
+        return nullptr;
+
+        /*
         auto editorModel = DocumentModel::create(fileName);
         auto editorModelPtr = editorModel.get();
         
         editorModels[view] = std::move(editorModel);
 
         return editorModelPtr;
+        */
     }
 
     DocumentModel* IDEFramePresenter::getDocumentModel(const Document *view) {
+        return nullptr;
+
+        /*
         auto editorModel = editorModels[view].get();
 
         assert(editorModel);
 
         return editorModel;
+        */
     }
     
     Document* IDEFramePresenter::getDocument(const DocumentModel *model) {
+        return nullptr;
+        /*
         assert(model);
         Document* view = nullptr;
         
@@ -302,6 +321,7 @@ namespace felide {
         }
         
         return view;
+        */
     }
 
     void IDEFramePresenter::openFolder(const std::string &fullPath) {

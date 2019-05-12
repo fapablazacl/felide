@@ -11,21 +11,20 @@
 #include <felide/ui/document/Document.hpp>
 
 namespace felide {
+    class DocumentPresenter;
+
     class DocumentManagerQt;
     class DocumentQt : public QWidget, public Document {
         Q_OBJECT
 
     public:
-        explicit DocumentQt(QWidget *parent, DocumentManagerQt *editorManager);
+        explicit DocumentQt(QWidget *parent, DocumentPresenter *presenter);
         virtual ~DocumentQt();
 
     private:
         void setupScintilla();
 
         void setupLayout();
-
-    signals:
-        void contentChanged();
 
     public:
         virtual void setTitle(const std::string &title) override;
@@ -49,7 +48,7 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
-        DocumentManagerQt *m_editorManager = nullptr;
+        DocumentPresenter *presenter = nullptr;
         QsciScintilla *m_scintilla = nullptr;
         std::string m_title;
         DocumentConfig m_config;

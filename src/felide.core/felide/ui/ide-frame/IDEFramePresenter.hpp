@@ -87,7 +87,7 @@ namespace felide {
         IDEFrame *view = nullptr;
         IDEFrameModel model;
 
-        std::map<const Document*, std::unique_ptr<DocumentModel>> editorModels;
+        // std::map<const Document*, std::unique_ptr<DocumentModel>> editorModels;
     };
 }
 

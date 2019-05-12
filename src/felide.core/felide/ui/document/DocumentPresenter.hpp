@@ -23,6 +23,10 @@ namespace felide {
 
         void onSave();
 
+        void onClose();
+
+        void onShow();
+
     private:
         std::string computeTitle(DocumentModel *model) const;
 

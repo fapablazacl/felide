@@ -7,15 +7,17 @@
 #include <vector>
 
 namespace felide {
-    class FELIDE_API DocumentManagerPresenter;
     class FELIDE_API Document;
+    class FELIDE_API DocumentPresenter;
+
+    class FELIDE_API DocumentManagerPresenter;
     class FELIDE_API DocumentManager {
     public:
         explicit DocumentManager(DocumentManagerPresenter *presenter);
 
         virtual ~DocumentManager();
 
-        virtual Document* appendDocument() = 0;
+        virtual Document* appendDocument(DocumentPresenter *presenter) = 0;
 
         virtual Document* getCurrentDocument() = 0;
 

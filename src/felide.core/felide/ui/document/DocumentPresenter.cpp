@@ -59,4 +59,12 @@ namespace felide {
 
         return title;
     }
+
+    void DocumentPresenter::onClose() {
+        // TODO: Add implementation
+    }
+
+    void DocumentPresenter::onShow() {
+        // TODO: Add implementation
+    }
 }
