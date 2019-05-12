@@ -21,13 +21,11 @@ namespace felide {
     
     class FELIDE_API IDEFramePresenter {
     public:
-        IDEFramePresenter();
+        IDEFramePresenter(IDEFrameModel *model);
 
         virtual ~IDEFramePresenter();
 
-        void attachView(IDEFrame *view);
-
-        void detachView();
+        void onInitialized(IDEFrame *view);
 
     public:
         void onFileNew();
@@ -85,7 +83,7 @@ namespace felide {
 
     private:
         IDEFrame *view = nullptr;
-        IDEFrameModel model;
+        IDEFrameModel *model = nullptr;
 
         // std::map<const Document*, std::unique_ptr<DocumentModel>> editorModels;
     };

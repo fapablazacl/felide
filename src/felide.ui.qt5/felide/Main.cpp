@@ -2,6 +2,7 @@
 #include <QApplication>
 
 #include <felide/ui/qt5/IDEFrameQt.hpp>
+#include <felide/ui/ide-frame/IDEFrameModel.hpp>
 #include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 #include <boost/filesystem.hpp>
 
@@ -10,10 +11,11 @@ int main(int argc, char **argv) {
 
     QApplication app(argc, argv);
 
-    IDEFramePresenter presenter;
+    auto model = IDEFrameModel::create();
+    auto presenter = IDEFramePresenter{model.get()};
+    auto view = IDEFrameQt{&presenter};
 
-    IDEFrameQt ideFrame(&presenter);
-    ideFrame.show();
+    view.show();
 
     if (argc > 1) {
         // TODO: Add command line parsing support

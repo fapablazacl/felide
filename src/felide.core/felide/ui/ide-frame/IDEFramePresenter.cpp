@@ -10,23 +10,20 @@
 #include <cassert>
 
 namespace felide {
-
-    IDEFramePresenter::IDEFramePresenter() {}
+    IDEFramePresenter::IDEFramePresenter(IDEFrameModel *model) {
+        this->model = model;
+    }
 
     IDEFramePresenter::~IDEFramePresenter() {}
 
-    void IDEFramePresenter::attachView(IDEFrame *view) {
+    void IDEFramePresenter::onInitialized(IDEFrame *view) {
         assert(view);
         
         this->view = view;
     }
 
-    void IDEFramePresenter::detachView() {
-        view = nullptr;
-    }
-
     void IDEFramePresenter::onFileNew() {
-        int tag = model.increaseDocumentCount();
+        int tag = model->increaseDocumentCount();
 
         // TODO: Pass a valid DocumentPresenter instance
         auto editor = view->getDocumentManager()->appendDocument(nullptr);
@@ -39,7 +36,7 @@ namespace felide {
     void IDEFramePresenter::onFileOpen() {
         const IDEFrame::FileOperationViewData viewData = {
            "Open File",
-           model.getFileFilters(),
+           model->getFileFilters(),
            ""
         };
 
@@ -219,7 +216,7 @@ namespace felide {
         
         const IDEFrame::FileOperationViewData viewData = {
            "Save File",
-            model.getFileFilters(),
+            model->getFileFilters(),
             ""
         };
 

@@ -28,7 +28,7 @@ namespace felide {
         this->setMinimumSize(screenSize.size() * 0.4);
         this->resize(screenSize.size() * 0.7);
 
-        m_presenter->attachView(this);
+        m_presenter->onInitialized(this);
     }
 
     void IDEFrameQt::setupMenuBar() {

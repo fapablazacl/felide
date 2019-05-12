@@ -2,18 +2,32 @@
 #include "IDEFrameModel.hpp" 
 
 namespace felide {
-    int IDEFrameModel::getCreatedDocumentCount() const {
-        return createdDocumentCount;
-    }
+    class IDEFrameModelImpl : public IDEFrameModel {
+    public:
+        virtual int getCreatedDocumentCount() const override {
+            return createdDocumentCount;
+        }
 
-    int IDEFrameModel::increaseDocumentCount() {
-        return ++createdDocumentCount;
-    }
+        virtual int increaseDocumentCount() override {
+            return ++createdDocumentCount;
+        }
 
-    std::vector<FileFilter> IDEFrameModel::getFileFilters() const {
-        return {
-            {"All Files", {"*.*"}},
-            {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc", "*.h", "*.c"}},
-        };
+        virtual std::vector<FileFilter> getFileFilters() const override {
+            return {
+                {"All Files", {"*.*"}},
+                {"C/C++ Files", {"*.hpp", "*.cpp", "*.hh", "*.cc", "*.h", "*.c"}},
+            };
+        }
+
+    private:
+        int createdDocumentCount = 0;
+    };
+}
+
+namespace felide {
+    IDEFrameModel::~IDEFrameModel() {}
+
+    std::unique_ptr<IDEFrameModel> IDEFrameModel::create() {
+        return std::make_unique<IDEFrameModelImpl>();
     }
 }
