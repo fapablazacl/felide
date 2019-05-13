@@ -3,6 +3,7 @@
 #define __FELIDE_UI_DOCUMENTPRESENTER_HPP__
 
 #include <string>
+#include <boost/filesystem/path.hpp>
 
 namespace felide {
     class Document;
@@ -26,6 +27,12 @@ namespace felide {
         void onClose();
 
         void onShow();
+
+        bool hasFilePath(const boost::filesystem::path &filePath) const;
+
+        Document* getView() const;
+
+        DocumentModel* getModel() const;
 
     private:
         std::string computeTitle(DocumentModel *model) const;

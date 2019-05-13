@@ -31,6 +31,8 @@ namespace felide {
     public:
         virtual Document* appendDocument(DocumentPresenter *documentPresenter) override;
 
+        virtual void setCurrentDocument(Document *document) override;
+
         virtual Document* getCurrentDocument() override;
 
         virtual std::size_t getDocumentCount() const override;

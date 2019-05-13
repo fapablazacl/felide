@@ -45,7 +45,6 @@ namespace felide {
         DocumentManagerModel *model = nullptr;
 
         std::list<std::unique_ptr<DocumentPresenter>> documentPresenters;
-        std::map<Document*, DocumentModel*> documentModels;
     };
 }
 

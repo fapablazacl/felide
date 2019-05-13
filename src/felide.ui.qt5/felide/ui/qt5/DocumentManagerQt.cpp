@@ -109,6 +109,14 @@ namespace felide {
         return document;
     }
 
+    void DocumentManagerQt::setCurrentDocument(Document *document) {
+        if (const auto editor = dynamic_cast<DocumentQt*>(document)) {
+            if (const auto index = this->getDocumentIndex(editor)) {
+                m_tabWidget->setCurrentIndex(index.get());
+            }
+        }
+    }
+
     Document* DocumentManagerQt::getCurrentDocument() {
         if (QWidget *widget = m_tabWidget->currentWidget()) {
             return dynamic_cast<Document*>(widget);
@@ -128,7 +136,7 @@ namespace felide {
     void DocumentManagerQt::closeDocument(Document *editorView) {
         if (const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
             if (const auto index = this->getDocumentIndex(editor)) {
-                m_tabWidget->removeTab(*index);
+                m_tabWidget->removeTab(index.get());
             }
         }
     }
@@ -136,7 +144,7 @@ namespace felide {
     void DocumentManagerQt::showDocument(Document *editorView) {
         if (const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
             if (const auto index = this->getDocumentIndex(editor)) {
-                m_tabWidget->setCurrentIndex(*index);
+                m_tabWidget->setCurrentIndex(index.get());
             }
         }
     }

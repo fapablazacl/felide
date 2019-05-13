@@ -71,4 +71,16 @@ namespace felide {
     void DocumentPresenter::onShow() {
         // TODO: Add implementation
     }
+
+    bool DocumentPresenter::hasFilePath(const boost::filesystem::path &filePath) const {
+        return boost::filesystem::path(model->getFilePath()) == filePath;
+    }
+    
+    Document* DocumentPresenter::getView() const {
+        return view;
+    }
+
+    DocumentModel* DocumentPresenter::getModel() const {
+        return model;
+    }
 }

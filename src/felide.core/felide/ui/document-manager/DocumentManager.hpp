@@ -21,6 +21,8 @@ namespace felide {
 
         virtual Document* getCurrentDocument() = 0;
 
+        virtual void setCurrentDocument(Document *document) = 0;
+
         virtual std::size_t getDocumentCount() const = 0;
 
         virtual Document* getDocument(const std::size_t index) = 0;
