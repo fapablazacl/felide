@@ -29,6 +29,10 @@ namespace felide {
 
         void onOpenDocument(const boost::filesystem::path &path);
 
+        void onSaveDocument();
+
+        void onSaveAsDocument();
+
         void onCloseDocument(Document *document);
 
         void onCloseOthers(Document *document);
@@ -38,8 +42,14 @@ namespace felide {
         void onCloseAll();
 
     private:
-        DocumentPresenter* createDocumentPresenter(DocumentModel *documentModel);
-        
+        DocumentPresenter* createDocumentMVP();
+
+        DocumentPresenter* createDocumentMVP(const boost::filesystem::path &filePath);
+
+        DocumentPresenter* findDocumentPresenter(Document *document);
+
+        DocumentPresenter* findDocumentPresenter(const boost::filesystem::path &filePath);
+
     private:
         DocumentManager *view = nullptr;
         DocumentManagerModel *model = nullptr;

@@ -5,7 +5,7 @@
 #include "DocumentManagerModel.hpp"
 
 #include <algorithm>
-#include <felide/util/FileService.hpp>
+
 #include <felide/ui/document/DocumentModel.hpp>
 #include <felide/ui/document/DocumentPresenter.hpp>
 
@@ -21,34 +21,36 @@ namespace felide {
     }
 
     void DocumentManagerPresenter::onNewDocument() {
-        auto documentModel = model->createDocument();
-        auto documentPresenter = this->createDocumentPresenter(documentModel);
-        auto documentView = view->appendDocument(documentPresenter);
+        this->createDocumentMVP();
     }
 
     void DocumentManagerPresenter::onOpenDocument(const boost::filesystem::path &filePath) {
-        auto &dps = documentPresenters;
+        DocumentPresenter *documentPresenter;
 
-        auto documentPresenterIt = std::find_if(dps.begin(), dps.end(), [filePath](std::unique_ptr<DocumentPresenter> &dp) {
-            return dp->hasFilePath(filePath);
-        });
-
-        if (documentPresenterIt == dps.end()) {
-            auto fileService = FileService::create();
-
-            auto documentModel = model->createDocument();
-            documentModel->setContent(fileService->load(filePath));
-            documentModel->setFilePath(filePath.string());
-
-            auto documentPresenter = this->createDocumentPresenter(documentModel);
-            auto documentView = view->appendDocument(documentPresenter);
+        if (documentPresenter = this->findDocumentPresenter(filePath)) {
+            view->setCurrentDocument(documentPresenter->getView());
         } else {
-            view->setCurrentDocument(documentPresenterIt->get()->getView());
+            this->createDocumentMVP(filePath);
         }
     }
 
+    void DocumentManagerPresenter::onSaveDocument() {
+        if (auto document = view->getCurrentDocument()) {
+            if (auto documentPresenter = this->findDocumentPresenter(document)) {
+                documentPresenter->onSave();
+            }
+        }
+    }
+
+    void DocumentManagerPresenter::onSaveAsDocument() {
+
+    }
+
     void DocumentManagerPresenter::onCloseDocument(Document *document) {
-        view->closeDocument(document);
+        if (auto documentPresenter = this->findDocumentPresenter(document)) {
+            view->closeDocument(document);
+            model->closeDocument(documentPresenter->getModel());
+        }
     }
 
     void DocumentManagerPresenter::onCloseOthers(Document *document) {
@@ -85,11 +87,45 @@ namespace felide {
         }
     }
 
-    DocumentPresenter* DocumentManagerPresenter::createDocumentPresenter(DocumentModel *documentModel) {
-        auto presenter = new DocumentPresenter(documentModel);
+    DocumentPresenter* DocumentManagerPresenter::createDocumentMVP() {
+        return this->createDocumentMVP("");
+    }
 
-        documentPresenters.emplace_back(presenter);
+    DocumentPresenter* DocumentManagerPresenter::createDocumentMVP(const boost::filesystem::path &filePath) {
+        auto documentModel = model->createDocument();
+        documentModel->setFilePath(filePath.string());
 
-        return presenter;
+        auto documentPresenter = new DocumentPresenter(documentModel);
+        auto documentView = view->appendDocument(documentPresenter);
+
+        documentPresenters.emplace_back(documentPresenter);
+
+        return documentPresenter;
+    }
+
+    DocumentPresenter* DocumentManagerPresenter::findDocumentPresenter(Document *document) {
+        auto &dps = documentPresenters;
+        auto documentPresenterIt = std::find_if(dps.begin(), dps.end(), [document](std::unique_ptr<DocumentPresenter> &dp) {
+            return dp->getView() == document;
+        });
+
+        if (documentPresenterIt != dps.end()) {
+            return documentPresenterIt->get();
+        }
+
+        return nullptr;
+    }
+    
+    DocumentPresenter* DocumentManagerPresenter::findDocumentPresenter(const boost::filesystem::path &filePath) {
+        auto &dps = documentPresenters;
+        auto documentPresenterIt = std::find_if(dps.begin(), dps.end(), [filePath](std::unique_ptr<DocumentPresenter> &dp) {
+            return dp->hasFilePath(filePath);
+        });
+
+        if (documentPresenterIt != dps.end()) {
+            return documentPresenterIt->get();
+        }
+
+        return nullptr;
     }
 }

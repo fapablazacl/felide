@@ -59,6 +59,9 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileSave() {
+        documentManagerPresenter->onSaveDocument();
+
+        /*
         using boost::filesystem::path;
         
         auto editor = view->getDocumentManager()->getCurrentDocument();
@@ -74,6 +77,7 @@ namespace felide {
         } else {
             this->editorSaveAs(editor);
         }
+        */
     }
 
     void IDEFramePresenter::onFileSaveAs() {
@@ -155,10 +159,12 @@ namespace felide {
     }
 
     void IDEFramePresenter::onDocumentContentModified(Document *editor) {
+        /*
         auto editorModel = this->getDocumentModel(editor);
 
         editorModel->modify();
         // editor->setTitle(mapDocumentTitle(editorModel));
+        */
     }
     
     void IDEFramePresenter::onDocumentCloseRequested(Document *editor) {

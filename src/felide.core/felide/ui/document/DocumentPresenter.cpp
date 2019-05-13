@@ -5,7 +5,7 @@
 #include "Document.hpp"
 
 #include <boost/filesystem/path.hpp>
-#include <felide/util/FileUtil.hpp>
+#include <felide/util/FileService.hpp>
 
 namespace felide {
     DocumentPresenter::DocumentPresenter(DocumentModel *model) {
@@ -16,6 +16,13 @@ namespace felide {
 
     void DocumentPresenter::onInitialized(Document *view) {
         this->view = view;
+
+        if (model->hasFilePath()) {
+            auto fileService = FileService::create();
+            auto content = fileService->load(model->getFilePath());
+
+            model->setContent(content);
+        }
 
         const std::string title = this->computeTitle(model);
         view->setTitle(title);
@@ -30,13 +37,15 @@ namespace felide {
     }
 
     void DocumentPresenter::onSave() {
+        auto fileService = FileService::create();
+
         model->setContent(view->getContent());
 
         const std::string fileName = model->getFilePath();
         const std::string content = model->getContent();
         
-        FileUtil::save(fileName, content);
-        
+        fileService->save(fileName, content);
+
         model->setFilePath(fileName);
         model->setModifiedFlag(false);
 
