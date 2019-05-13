@@ -16,7 +16,7 @@ namespace felide {
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
         m_scintilla->setMarginWidth(1, QString("1000"));
 
-        this->setupScintilla();
+        this->setupSignals();
         this->setupLayout();
 
         m_scintilla->setFocus();
@@ -26,7 +26,7 @@ namespace felide {
 
     DocumentQt::~DocumentQt() {}
 
-    void DocumentQt::setupScintilla() {
+    void DocumentQt::setupSignals() {
         connect(m_scintilla, &QsciScintilla::textChanged, [this]() {
             this->presenter->onContentChanged();
         });

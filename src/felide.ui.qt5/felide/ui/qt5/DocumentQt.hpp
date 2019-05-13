@@ -22,7 +22,7 @@ namespace felide {
         virtual ~DocumentQt();
 
     private:
-        void setupScintilla();
+        void setupSignals();
 
         void setupLayout();
 
