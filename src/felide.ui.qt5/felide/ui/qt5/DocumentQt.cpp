@@ -17,13 +17,15 @@ namespace felide {
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
         m_scintilla->setMarginWidth(1, QString("1000"));
 
-        this->setupSignals();
         this->setupLayout();
 
         parentTabWidget->addTab(this, "");
         parentTabWidget->setCurrentWidget(this);
 
         presenter->onInitialized(this);
+
+        // HACK: This prevents the raise of the textChanged signal, just only for the 1st time.
+        this->setupSignals();
     }
 
     DocumentQt::~DocumentQt() {}
