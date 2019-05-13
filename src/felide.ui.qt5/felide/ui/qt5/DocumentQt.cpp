@@ -5,11 +5,12 @@
 #include <cassert>
 #include <iostream>
 #include <QLayout>
+#include <QTabWidget>
 
 #include <felide/ui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QWidget *parent, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parent) {
+    DocumentQt::DocumentQt(QTabWidget *parentTabWidget, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parentTabWidget) {
         this->documentManager = documentManager;
         this->presenter = presenter;
         m_scintilla = new QsciScintilla(this);
@@ -19,7 +20,8 @@ namespace felide {
         this->setupSignals();
         this->setupLayout();
 
-        m_scintilla->setFocus();
+        parentTabWidget->addTab(this, "");
+        parentTabWidget->setCurrentWidget(this);
 
         presenter->onInitialized(this);
     }

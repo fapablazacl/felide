@@ -106,12 +106,6 @@ namespace felide {
     Document* DocumentManagerQt::appendDocument(DocumentPresenter *documentPresenter) {
         auto document = new DocumentQt(m_tabWidget, documentPresenter, this);
 
-        m_tabWidget->addTab(document, "");
-        m_tabWidget->setCurrentWidget(document);
-
-        // FIXME: Call the 'onInitialized' method in order to update the DocumentManager's tabbed title
-        documentPresenter->onInitialized(document);
-        
         return document;
     }
 
