@@ -33,6 +33,8 @@ namespace felide {
 
         void onFileOpen();
         
+        void onFileOpen(const std::string &fileName);
+
         void onFileOpenFolder();
 
         void onFileSave();
@@ -59,8 +61,6 @@ namespace felide {
         
         void onDocumentCloseRequested(Document *view);
         
-        void onDocumentShow(const std::string &fileName);
-
         void onViewFolderBrowser();
 
         bool onCloseRequested();

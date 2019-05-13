@@ -4,6 +4,8 @@
 #include "DocumentManager.hpp"
 #include "DocumentManagerModel.hpp"
 
+#include <felide/util/FileService.hpp>
+#include <felide/ui/document/DocumentModel.hpp>
 #include <felide/ui/document/DocumentPresenter.hpp>
 
 namespace felide {
@@ -23,8 +25,15 @@ namespace felide {
         auto documentView = view->appendDocument(documentPresenter);
     }
 
-    void DocumentManagerPresenter::onOpenDocument(const boost::filesystem::path &path) {
-        // TODO: Add implementation
+    void DocumentManagerPresenter::onOpenDocument(const boost::filesystem::path &filePath) {
+        auto fileService = FileService::create();
+
+        auto documentModel = model->createDocument();
+        documentModel->setContent(fileService->load(filePath));
+        documentModel->setFilePath(filePath.string());
+
+        auto documentPresenter = this->createDocumentPresenter(documentModel);
+        auto documentView = view->appendDocument(documentPresenter);
     }
 
     void DocumentManagerPresenter::onCloseDocument(Document *document) {

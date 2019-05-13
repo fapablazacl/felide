@@ -117,16 +117,13 @@ namespace felide {
 
     void FolderBrowserPresenter::onOpenSelectedFile() {
         // determine the currently selected path
-        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
-        if (!selectedPathOptional) {
-            return;
+        if (const auto selectedPath = m_folderBrowser->getSelectedPath()) {
+            const auto filePath = boost::filesystem::path(selectedPath.get());
+
+            if (!boost::filesystem::is_directory(filePath)) {
+                ideFramePresenter->onFileOpen(filePath.string());
+            } 
         }
-
-        const auto selectedFile = boost::filesystem::path(*selectedPathOptional);
-
-        if (!boost::filesystem::is_directory(selectedFile)) {
-            ideFramePresenter->onDocumentShow(selectedFile.string());
-        } 
     }
 
     void FolderBrowserPresenter::onMoveSelectedPath(const std::string &targetFolder) {

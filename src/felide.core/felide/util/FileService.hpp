@@ -9,7 +9,7 @@
 namespace felide {
     class FileService {
     public:
-        virtual ~FileService() = 0;
+        virtual ~FileService();
 
         virtual std::string load(const boost::filesystem::path &filePath) = 0;
 

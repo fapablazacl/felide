@@ -28,6 +28,8 @@ namespace felide {
 }
 
 namespace felide {
+    FileService::~FileService() {}
+
     std::unique_ptr<FileService> FileService::create() {
         return std::make_unique<FileServiceImpl>();
     }

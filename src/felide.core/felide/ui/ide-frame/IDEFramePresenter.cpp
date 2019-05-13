@@ -43,6 +43,10 @@ namespace felide {
         }
     }
     
+    void IDEFramePresenter::onFileOpen(const std::string &filePath) {
+        documentManagerPresenter->onOpenDocument(filePath);
+    }
+
     void IDEFramePresenter::onFileOpenFolder() {
         const IDEFrame::FolderOpenViewData viewData = {
             "Open Folder", 
@@ -226,37 +230,6 @@ namespace felide {
         
             this->editorSave(editor, editorModel);
         }
-    }
-
-    void IDEFramePresenter::onDocumentShow(const std::string &filePath) {
-        /*
-		if (boost::filesystem::is_directory(filePath)) {
-			return;
-		}
-
-        auto &viewModels = editorModels;
-
-        auto viewModelIt = std::find_if(viewModels.begin(), viewModels.end(), [filePath](const auto &pair) {
-            const auto &editorModel = pair.second;
-
-            return editorModel->hasFilePath() && editorModel->getFilePath() == filePath;
-        });
-
-        if (viewModelIt != viewModels.end()) {
-            view->getDocumentManager()->showDocument(const_cast<Document*>(viewModelIt->first));
-        } else {
-            const std::string content = FileUtil::load(filePath);
-
-            auto editor = view->getDocumentManager()->appendDocument();
-            auto editorModel = this->createDocumentModel(editor, filePath);
-            
-            editor->setConfig(DocumentConfig::Default());
-            editor->setContent(content);
-            editorModel->setModifiedFlag(false);
-            editorModel->setContent(content);
-            // editor->setTitle(mapDocumentTitle(editorModel));
-        }
-        */
     }
 
     void IDEFramePresenter::onViewFolderBrowser() {
