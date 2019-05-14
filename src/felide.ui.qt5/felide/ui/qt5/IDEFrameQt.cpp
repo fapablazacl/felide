@@ -40,12 +40,12 @@ namespace felide {
 
         connect(m_editorManager, &DocumentManagerQt::editorContentChanged, [&](DocumentQt *editor) {
             assert(editor);
-            m_presenter->onDocumentContentModified(editor);
+            // TODO: Add implementation
         });
         
         connect(m_editorManager, &DocumentManagerQt::editorCloseRequested, [&](DocumentQt *editor) {
             assert(editor);
-            m_presenter->onDocumentCloseRequested(editor);
+            // TODO: Add implementation
         });
 
         this->setCentralWidget(m_editorManager);

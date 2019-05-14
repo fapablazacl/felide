@@ -42,8 +42,16 @@ namespace felide {
         }
     }
 
-    void DocumentManagerPresenter::onSaveAsDocument() {
+    void DocumentManagerPresenter::onSaveAllDocuments() {
+        // TODO: Add implementation
+    }
 
+    void DocumentManagerPresenter::onSaveAsDocument() {
+        if (auto document = view->getCurrentDocument()) {
+            if (auto documentPresenter = this->findDocumentPresenter(document)) {
+                documentPresenter->onSaveAs();
+            }
+        }
     }
 
     void DocumentManagerPresenter::onCloseDocument(Document *document) {

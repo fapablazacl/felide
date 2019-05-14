@@ -25,6 +25,8 @@ namespace felide {
 
         void onSave();
 
+        void onSaveAs();
+
         void onClose();
 
         void onShow();

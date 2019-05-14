@@ -36,7 +36,6 @@ namespace felide {
 
         virtual DocumentManager* getDocumentManager() = 0;
 
-        [[deprecated]]
         virtual DialogManager* getDialogManager() = 0;
         
         virtual FolderBrowser* getFolderBrowser() = 0;

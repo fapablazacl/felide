@@ -35,6 +35,8 @@ namespace felide {
 
         void onSaveAsDocument();
 
+        void onSaveAllDocuments();
+
         void onCloseDocument(Document *document);
 
         void onCloseOthers(Document *document);

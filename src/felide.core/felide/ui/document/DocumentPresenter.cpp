@@ -72,6 +72,24 @@ namespace felide {
         view->setTitle(title);
     }
 
+    void DocumentPresenter::onSaveAs() {
+        auto fileDialog = FileDialogData {};
+
+        fileDialog.title = "Save File";
+        fileDialog.type = FileDialogType::SaveFile;
+        fileDialog.filters = {
+            FileFilter{"All Files", {"*.*"}}
+        };
+
+        if (auto filePath = dialogView->showFileDialog(fileDialog)) {
+            model->setFilePath(filePath.get());
+
+            this->onSave();
+        } else {
+            return;
+        }
+    }
+
     void DocumentPresenter::onTitleChanged() {
         const std::string title = this->computeTitle(model);
         view->setTitle(title);

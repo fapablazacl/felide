@@ -58,10 +58,6 @@ namespace felide {
 
         void onEditPaste();
 
-        void onDocumentContentModified(Document *view);
-        
-        void onDocumentCloseRequested(Document *view);
-        
         void onViewFolderBrowser();
 
         bool onCloseRequested();
@@ -73,19 +69,6 @@ namespace felide {
 
         // TODO: Make it private (used in Main.cpp)
         void openFolder(const std::string &fullPath);
-
-    private:
-        void editorSave(Document *view, DocumentModel *editorModel);
-        
-        void editorSaveAs(Document *view);
-        
-        DocumentModel* createDocumentModel(const Document *view, const int tag);
-
-        DocumentModel* createDocumentModel(const Document *view, const std::string &fileName);
-
-        DocumentModel* getDocumentModel(const Document *view);
-        
-        Document* getDocument(const DocumentModel *model);
 
     private:
         DialogManager *dialogView = nullptr;
