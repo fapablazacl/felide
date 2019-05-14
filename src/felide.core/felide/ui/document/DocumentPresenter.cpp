@@ -5,6 +5,8 @@
 #include "Document.hpp"
 
 #include <boost/filesystem/path.hpp>
+
+#include <felide/ui/DialogManager.hpp>
 #include <felide/util/FileService.hpp>
 
 namespace felide {
@@ -38,6 +40,21 @@ namespace felide {
     }
 
     void DocumentPresenter::onSave() {
+        if (!model->hasFilePath()) {
+            auto fileDialog = FileDialogData {};
+            fileDialog.title = "Save File";
+            fileDialog.type = FileDialogType::SaveFile;
+            fileDialog.filters = {
+                FileFilter{"All Files", {"*.*"}}
+            };
+
+            if (auto filePath = dialogView->showFileDialog(fileDialog)) {
+                model->setFilePath(filePath.get());
+            } else {
+                return;
+            }
+        }
+
         auto fileService = FileService::create();
 
         model->setContent(view->getContent());
