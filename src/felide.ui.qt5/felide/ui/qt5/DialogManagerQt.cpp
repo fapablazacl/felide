@@ -126,10 +126,10 @@ namespace felide {
         return filename.toStdString();
     }
     
-    boost::optional<std::string> DialogManagerQt::showFolderDialog(const std::string &title) {
+    boost::optional<std::string> DialogManagerQt::showFolderDialog(const FolderDialogData &data) {
         QFileDialog dialog;
         
-        dialog.setWindowTitle(title.c_str());
+        dialog.setWindowTitle(data.title.c_str());
         dialog.setFileMode(QFileDialog::Directory);
         dialog.setOption(QFileDialog::ShowDirsOnly);
         

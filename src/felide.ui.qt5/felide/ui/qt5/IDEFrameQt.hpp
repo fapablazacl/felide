@@ -36,12 +36,6 @@ namespace felide {
 
         virtual void show() override;
 
-        virtual boost::optional<boost::filesystem::path> showFileOpenDialog(const FileOperationViewData &viewData) const override;
-
-        virtual boost::optional<boost::filesystem::path> showFileSaveDialog(const FileOperationViewData &viewData) const override;
-
-        virtual boost::optional<boost::filesystem::path> showFolderOpenDialog(const FolderOpenViewData &viewData) const override;
-
     private:
         void setupMenuBar();
         void setupDocumentManager();

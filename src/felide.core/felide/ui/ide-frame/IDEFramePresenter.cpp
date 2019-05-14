@@ -33,13 +33,12 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileOpen() {
-        const IDEFrame::FileOperationViewData viewData = {
-           "Open File",
-           model->getFileFilters(),
-           ""
-        };
+        auto fileDialog = FileDialogData{};
+        fileDialog.title = "Open File";
+        fileDialog.filters = model->getFileFilters();
+        fileDialog.type = FileDialogType::OpenFile;
 
-        if (auto filePath = view->showFileOpenDialog(viewData); filePath) {
+        if (auto filePath = dialogView->showFileDialog(fileDialog)) {
             documentManagerPresenter->onOpenDocument(filePath.get());
         }
     }
@@ -49,12 +48,10 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileOpenFolder() {
-        const IDEFrame::FolderOpenViewData viewData = {
-            "Open Folder", 
-            boost::filesystem::current_path()
-        };
+        auto folderDialog = FolderDialogData{};
+        folderDialog.title = "Open Folder";
 
-        if (auto folderPath = view->showFolderOpenDialog(viewData); folderPath) {
+        if (auto folderPath = dialogView->showFolderDialog(folderDialog)) {
             folderBrowserPresenter->onDisplayFolder(folderPath.get());
         }
     }
@@ -102,7 +99,8 @@ namespace felide {
     bool IDEFramePresenter::onCloseRequested() {
         assert(this);
         assert(view->getDialogManager());
-        DialogButton button = view->getDialogManager()->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
+
+        const DialogButton button = dialogView->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
         
         return button == DialogButton::Yes;
     }

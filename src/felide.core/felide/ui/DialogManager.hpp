@@ -42,12 +42,17 @@ namespace felide {
         std::string defaultPath;
     };
 
+    struct FolderDialogData {
+        std::string title;
+        std::string defaultPath;
+    };
+
     class FELIDE_API DialogManager {
     public:
         virtual ~DialogManager();
         virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const = 0;
-		virtual boost::optional<std::string> showFileDialog(const FileDialogData& data) const = 0;
-        virtual boost::optional<std::string> showFolderDialog(const std::string &title) = 0;
+		virtual boost::optional<std::string> showFileDialog(const FileDialogData &data) const = 0;
+        virtual boost::optional<std::string> showFolderDialog(const FolderDialogData &data) = 0;
         virtual boost::optional<std::string> showInputDialog(const std::string &title, const std::string &label, const std::string &defaultText) const = 0;
     };
 }

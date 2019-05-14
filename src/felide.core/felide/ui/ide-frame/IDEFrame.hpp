@@ -18,18 +18,6 @@ namespace felide {
 
     class FELIDE_API IDEFrame {
     public:
-        struct FileOperationViewData {
-            std::string title;
-            std::vector<FileFilter> filters;
-            boost::optional<boost::filesystem::path> defaultFilePath;
-        };
-
-        struct FolderOpenViewData {
-            std::string title;
-            boost::optional<boost::filesystem::path> defaultDirectoryPath;
-        };
-
-    public:
         explicit IDEFrame(IDEFramePresenter *presenter);
 
         virtual ~IDEFrame();
@@ -39,12 +27,6 @@ namespace felide {
         virtual DialogManager* getDialogManager() = 0;
         
         virtual FolderBrowser* getFolderBrowser() = 0;
-
-        virtual boost::optional<boost::filesystem::path> showFileOpenDialog(const FileOperationViewData &viewData) const = 0;
-
-        virtual boost::optional<boost::filesystem::path> showFileSaveDialog(const FileOperationViewData &viewData) const = 0;
-
-        virtual boost::optional<boost::filesystem::path> showFolderOpenDialog(const FolderOpenViewData &viewData) const = 0;
 
         virtual void close() = 0;
 

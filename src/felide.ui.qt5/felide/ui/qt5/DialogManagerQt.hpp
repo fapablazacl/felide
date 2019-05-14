@@ -13,7 +13,7 @@ namespace felide {
         
         virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const override;
 		virtual boost::optional<std::string> showFileDialog(const FileDialogData& data) const override;
-        virtual boost::optional<std::string> showFolderDialog(const std::string &title) override;
+        virtual boost::optional<std::string> showFolderDialog(const FolderDialogData &data) override;
         virtual boost::optional<std::string> showInputDialog(const std::string &title, const std::string &label, const std::string &defaultText) const override;
 
     private:
