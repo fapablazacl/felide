@@ -19,6 +19,7 @@ namespace felide {
     class FELIDE_API DocumentModel;
     class FELIDE_API Document;
     class FELIDE_API IDEFrame;
+    class FELIDE_API DialogManager;
     
     class FELIDE_API IDEFramePresenter {
     public:
@@ -26,7 +27,7 @@ namespace felide {
 
         virtual ~IDEFramePresenter();
 
-        void onInitialized(IDEFrame *view);
+        void onInitialized(IDEFrame *view, DialogManager *dialogView);
 
     public:
         void onFileNew();
@@ -87,6 +88,7 @@ namespace felide {
         Document* getDocument(const DocumentModel *model);
 
     private:
+        DialogManager *dialogView = nullptr;
         IDEFrame *view = nullptr;
         IDEFrameModel *model = nullptr;
 

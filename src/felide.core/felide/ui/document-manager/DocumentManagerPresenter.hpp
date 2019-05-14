@@ -11,6 +11,8 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
+    class FELIDE_API DialogManager;
+
     class FELIDE_API Document;
     class FELIDE_API DocumentModel;
     class FELIDE_API DocumentPresenter;

@@ -10,6 +10,8 @@
 
 #include <felide/ui/document/Document.hpp>
 
+#include "DialogManagerQt.hpp"
+
 namespace felide {
     class DocumentPresenter;
 
@@ -49,6 +51,7 @@ namespace felide {
         virtual void clearUndoBuffer() override;
 
     private:
+        DialogManagerQt dialogManager;
         DocumentManagerQt *documentManager = nullptr;
         DocumentPresenter *presenter = nullptr;
         QsciScintilla *m_scintilla = nullptr;

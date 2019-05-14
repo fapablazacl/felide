@@ -4,19 +4,20 @@
 
 #include <string>
 #include <boost/filesystem/path.hpp>
+#include <felide/Predef.hpp>
 
 namespace felide {
-    class Document;
-    class DocumentModel;
-    class FileDialogService;
-    
-    class DocumentPresenter {
+    class FELIDE_API Document;
+    class FELIDE_API DocumentModel;
+    class FELIDE_API DialogManager;
+
+    class FELIDE_API DocumentPresenter {
     public:
         DocumentPresenter(DocumentModel *model);
 
         ~DocumentPresenter();
 
-        void onInitialized(Document *view);
+        void onInitialized(Document *view, DialogManager *dialogView);
 
         void onContentChanged();
 
@@ -38,6 +39,7 @@ namespace felide {
         std::string computeTitle(DocumentModel *model) const;
 
     private:
+        DialogManager *dialogView = nullptr;
         Document *view = nullptr;
         DocumentModel *model = nullptr;
     };

@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <felide/Predef.hpp>
+#include <boost/filesystem/path.hpp>
 
 namespace felide {
     class FELIDE_API DocumentModel;
@@ -14,6 +15,8 @@ namespace felide {
         virtual ~DocumentManagerModel();
 
         virtual DocumentModel* createDocument() = 0;
+
+        virtual DocumentModel* createDocument(const boost::filesystem::path &filePath) = 0;
 
         virtual void closeDocument(DocumentModel *documentModel) = 0;
 

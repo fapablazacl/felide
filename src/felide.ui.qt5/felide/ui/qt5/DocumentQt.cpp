@@ -10,7 +10,7 @@
 #include <felide/ui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QTabWidget *parentTabWidget, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parentTabWidget) {
+    DocumentQt::DocumentQt(QTabWidget *parentTabWidget, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parentTabWidget), dialogManager(this) {
         this->documentManager = documentManager;
         this->presenter = presenter;
         m_scintilla = new QsciScintilla(this);
@@ -22,7 +22,7 @@ namespace felide {
         parentTabWidget->addTab(this, "");
         parentTabWidget->setCurrentWidget(this);
 
-        presenter->onInitialized(this);
+        presenter->onInitialized(this, &dialogManager);
 
         // HACK: This prevents the raise of the textChanged signal, just only for the 1st time.
         this->setupSignals();

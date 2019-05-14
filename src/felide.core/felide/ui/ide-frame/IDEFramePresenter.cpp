@@ -21,10 +21,11 @@ namespace felide {
 
     IDEFramePresenter::~IDEFramePresenter() {}
 
-    void IDEFramePresenter::onInitialized(IDEFrame *view) {
+    void IDEFramePresenter::onInitialized(IDEFrame *view, DialogManager *dialogView) {
         assert(view);
         
         this->view = view;
+        this->dialogView = dialogView;
     }
 
     void IDEFramePresenter::onFileNew() {

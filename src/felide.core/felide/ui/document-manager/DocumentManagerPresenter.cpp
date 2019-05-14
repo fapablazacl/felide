@@ -92,9 +92,8 @@ namespace felide {
     }
 
     DocumentPresenter* DocumentManagerPresenter::createDocumentMVP(const boost::filesystem::path &filePath) {
-        auto documentModel = model->createDocument();
-        documentModel->setFilePath(filePath.string());
-
+        auto documentModel = model->createDocument(filePath);
+        
         auto documentPresenter = new DocumentPresenter(documentModel);
         auto documentView = view->appendDocument(documentPresenter);
 

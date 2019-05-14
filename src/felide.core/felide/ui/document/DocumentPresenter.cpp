@@ -14,8 +14,9 @@ namespace felide {
 
     DocumentPresenter::~DocumentPresenter() {}
 
-    void DocumentPresenter::onInitialized(Document *view) {
+    void DocumentPresenter::onInitialized(Document *view, DialogManager *dialogView) {
         this->view = view;
+        this->dialogView = dialogView;
 
         if (model->hasFilePath()) {
             auto fileService = FileService::create();

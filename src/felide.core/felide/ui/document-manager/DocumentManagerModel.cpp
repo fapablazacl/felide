@@ -11,12 +11,19 @@ namespace felide {
         virtual ~DocumentManagerModelImpl() {}
 
         virtual DocumentModel* createDocument() override {
-            auto document = DocumentModel::create(0);
+            auto document = DocumentModel::create(++createdDocumentCount);
             auto documentPtr = document.get();
 
             documents.push_back(std::move(document));
 
             return documentPtr;
+        }
+
+        virtual DocumentModel* createDocument(const boost::filesystem::path &filePath) override {
+            auto document = this->createDocument();
+            document->setFilePath(filePath.string());
+
+            return document;
         }
 
         virtual void closeDocument(DocumentModel *documentModel) override {
@@ -43,6 +50,7 @@ namespace felide {
 
     private:
         std::list<std::unique_ptr<DocumentModel>> documents;
+        int createdDocumentCount = 0;
     };
 }
 
