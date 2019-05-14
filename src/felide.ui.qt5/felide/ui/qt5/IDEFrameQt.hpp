@@ -2,18 +2,20 @@
 #ifndef __FELIDE_UI_QT5_MAINWINDOW_HPP__
 #define __FELIDE_UI_QT5_MAINWINDOW_HPP__
 
+#include <map>
+
 #include <QMainWindow>
 #include <QDockWidget>
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
-#include <map>
 
 #include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 #include <felide/ui/ide-frame/IDEFrame.hpp>
 #include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
 #include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
 #include <felide/ui/Menu.hpp>
+
 #include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"
 

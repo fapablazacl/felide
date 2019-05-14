@@ -13,11 +13,11 @@ namespace felide {
 
     DialogManagerQt::~DialogManagerQt() {}
 
-    DialogButton DialogManagerQt::showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const {
+    DialogButton DialogManagerQt::showMessageDialog(const MessageDialogData &data) const {
         // Buttons
         QMessageBox::StandardButtons qbuttons;
 
-        switch (buttons) {
+        switch (data.buttons) {
             case DialogButton::Ok: 
                 qbuttons = QMessageBox::Ok;
                 break;
@@ -42,21 +42,21 @@ namespace felide {
         // Icon
         int result = 0;
 
-        switch (icon) {
+        switch (data.icon) {
             case DialogIcon::Information:
-                result = QMessageBox::information(m_parent, title.c_str(), msg.c_str(), qbuttons);
+                result = QMessageBox::information(m_parent, data.title.c_str(), data.message.c_str(), qbuttons);
                 break;
                 
             case DialogIcon::Warning:
-                result = QMessageBox::warning(m_parent, title.c_str(), msg.c_str(), qbuttons);
+                result = QMessageBox::warning(m_parent, data.title.c_str(), data.message.c_str(), qbuttons);
                 break;
 
             case DialogIcon::Error:
-                result = QMessageBox::critical(m_parent, title.c_str(), msg.c_str(), qbuttons);
+                result = QMessageBox::critical(m_parent, data.title.c_str(), data.message.c_str(), qbuttons);
                 break;
                 
             case DialogIcon::Question:
-                result = QMessageBox::question(m_parent, title.c_str(), msg.c_str(), qbuttons);
+                result = QMessageBox::question(m_parent, data.title.c_str(), data.message.c_str(), qbuttons);
                 break;
                 
             default:
@@ -145,15 +145,15 @@ namespace felide {
         }
     }
 
-    boost::optional<std::string> DialogManagerQt::showInputDialog(const std::string &title, const std::string &label, const std::string &defaultText) const {
+    boost::optional<std::string> DialogManagerQt::showInputDialog(const InputDialogData &data) const {
         bool ok = false;
 
         QString text = QInputDialog::getText (
             m_parent, 
-            title.c_str(),
-            label.c_str(), 
+            data.title.c_str(),
+            data.label.c_str(), 
             QLineEdit::Normal,
-            defaultText.c_str(), 
+            data.defaultText.c_str(), 
             &ok
         );
 

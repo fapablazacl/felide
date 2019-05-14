@@ -9,6 +9,23 @@
 #include <felide/Predef.hpp>
 
 namespace felide {
+    enum class FileDialogType {
+        OpenFile,
+        SaveFile
+    };
+
+    struct FileDialogData {
+        std::string title;
+        FileDialogType type;
+        std::vector<FileFilter> filters;
+        std::string defaultPath;
+    };
+
+    struct FolderDialogData {
+        std::string title;
+        std::string defaultPath;
+    };
+
     enum class DialogIcon {
         Information,
         Warning,
@@ -30,30 +47,26 @@ namespace felide {
         return static_cast<DialogButton>(static_cast<int>(f1) | static_cast<int>(f2));
     }
 
-    enum class FileDialogType {
-        OpenFile,
-        SaveFile
+    struct MessageDialogData {
+        std::string title;
+        std::string message;
+        DialogIcon icon;
+        DialogButton buttons;
     };
 
-    struct FileDialogData {
+    struct InputDialogData {
         std::string title;
-        FileDialogType type;
-        std::vector<FileFilter> filters;
-        std::string defaultPath;
-    };
-
-    struct FolderDialogData {
-        std::string title;
-        std::string defaultPath;
+        std::string label;
+        std::string defaultText;
     };
 
     class FELIDE_API DialogManager {
     public:
         virtual ~DialogManager();
-        virtual DialogButton showMessageDialog(const std::string &title, const std::string &msg, const DialogIcon icon, const DialogButton buttons) const = 0;
+        virtual DialogButton showMessageDialog(const MessageDialogData &data) const = 0;
 		virtual boost::optional<std::string> showFileDialog(const FileDialogData &data) const = 0;
         virtual boost::optional<std::string> showFolderDialog(const FolderDialogData &data) = 0;
-        virtual boost::optional<std::string> showInputDialog(const std::string &title, const std::string &label, const std::string &defaultText) const = 0;
+        virtual boost::optional<std::string> showInputDialog(const InputDialogData &data) const = 0;
     };
 }
 

@@ -100,7 +100,13 @@ namespace felide {
         assert(this);
         assert(view->getDialogManager());
 
-        const DialogButton button = dialogView->showMessageDialog("felide", "Exit?", DialogIcon::Question, DialogButton::YesNo);
+        auto messageDialog = MessageDialogData {};
+        messageDialog.title = "felide";
+        messageDialog.message = "Exit?";
+        messageDialog.icon = DialogIcon::Question;
+        messageDialog.buttons = DialogButton::YesNo;
+
+        const DialogButton button = dialogView->showMessageDialog(messageDialog);
         
         return button == DialogButton::Yes;
     }

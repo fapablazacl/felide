@@ -148,12 +148,13 @@ namespace felide {
 
         // existence check!
         if (fs::exists(destinationPath)) {
-            const auto selectedButton = m_dialogManager->showMessageDialog (
-                "felide", 
-                "File/Directory already exists. Replace it?", 
-                DialogIcon::Warning, 
-                DialogButton::YesNo
-            );
+            auto messageDialog = MessageDialogData {};
+            messageDialog.title = "felide";
+            messageDialog.message = "File/Directory already exists. Replace it?";
+            messageDialog.icon = DialogIcon::Warning;
+            messageDialog.buttons = DialogButton::YesNo;
+
+            const auto selectedButton = m_dialogManager->showMessageDialog (messageDialog);
 
             if (selectedButton == DialogButton::No) {
                 return;
@@ -191,7 +192,13 @@ namespace felide {
         const auto newPath = selectedPath.parent_path() / newFilename;
 
         if (boost::filesystem::exists(newPath)) {
-            m_dialogManager->showMessageDialog("felide", "Another file already exists.", DialogIcon::Error, DialogButton::Ok);
+            auto messageDialog = MessageDialogData {};
+            messageDialog.title = "felide";
+            messageDialog.message = "Another file already exists.";
+            messageDialog.icon = DialogIcon::Error;
+            messageDialog.buttons = DialogButton::Ok;
+
+            m_dialogManager->showMessageDialog(messageDialog);
             return;
         }
 
@@ -213,13 +220,13 @@ namespace felide {
         const auto selectedPath = fs::path(*selectedPathOptional);
         
         // prompt the user confirmation
-        auto selectedButton = m_dialogManager->showMessageDialog (
-            "felide", 
-            "Delete the \"" + selectedPath.filename().string() + "\" " + describePathKind(selectedPath) + "?", 
-            DialogIcon::Warning, DialogButton::OkCancel
-        );
+        auto messageDialog = MessageDialogData {};
+        messageDialog.title = "felide";
+        messageDialog.message = "Delete the \"" + selectedPath.filename().string() + "\" " + describePathKind(selectedPath) + "?";
+        messageDialog.icon = DialogIcon::Warning;
+        messageDialog.buttons = DialogButton::OkCancel;
 
-        if (selectedButton == DialogButton::Cancel) {
+        if (auto selectedButton = m_dialogManager->showMessageDialog(messageDialog) == DialogButton::Cancel) {
             return;
         }
         
@@ -241,7 +248,12 @@ namespace felide {
         while (true) {
             const std::string finalPrompt = (!attemped ? prompt : promptForInvalidInput);
             
-            validNamePath = m_dialogManager->showInputDialog(title, finalPrompt, defaultValue);
+            auto inputDialog = InputDialogData {};
+            inputDialog.title = title;
+            inputDialog.label = finalPrompt;
+            inputDialog.defaultText = defaultValue;
+
+            validNamePath = m_dialogManager->showInputDialog(inputDialog);
             if (!validNamePath || boost::filesystem::native(*validNamePath)) {
                 break;
             }
