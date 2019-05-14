@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <boost/optional.hpp>
+#include <boost/filesystem/path.hpp>
 #include <felide/ui/FileFilter.hpp>
 #include <felide/Predef.hpp>
 
@@ -64,9 +65,9 @@ namespace felide {
     public:
         virtual ~DialogManager();
         virtual DialogButton showMessageDialog(const MessageDialogData &data) const = 0;
-		virtual boost::optional<std::string> showFileDialog(const FileDialogData &data) const = 0;
-        virtual boost::optional<std::string> showFolderDialog(const FolderDialogData &data) = 0;
         virtual boost::optional<std::string> showInputDialog(const InputDialogData &data) const = 0;
+        virtual boost::optional<boost::filesystem::path> showFileDialog(const FileDialogData &data) const = 0;
+        virtual boost::optional<boost::filesystem::path> showFolderDialog(const FolderDialogData &data) = 0;
     };
 }
 

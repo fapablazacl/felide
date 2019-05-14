@@ -49,7 +49,7 @@ namespace felide {
             };
 
             if (auto filePath = dialogView->showFileDialog(fileDialog)) {
-                model->setFilePath(filePath.get());
+                model->setFilePath(filePath.get().string());
             } else {
                 return;
             }
@@ -82,7 +82,7 @@ namespace felide {
         };
 
         if (auto filePath = dialogView->showFileDialog(fileDialog)) {
-            model->setFilePath(filePath.get());
+            model->setFilePath(filePath.get().string());
 
             this->onSave();
         } else {

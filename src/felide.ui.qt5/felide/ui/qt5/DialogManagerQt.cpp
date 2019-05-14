@@ -94,7 +94,7 @@ namespace felide {
         return filtersStr;
     }
 
-    boost::optional<std::string> DialogManagerQt::showFileDialog(const FileDialogData& data) const {
+    boost::optional<boost::filesystem::path> DialogManagerQt::showFileDialog(const FileDialogData& data) const {
         const auto qfilters = mapFiltersToString(data.filters);
 
         QString filename;
@@ -126,7 +126,7 @@ namespace felide {
         return filename.toStdString();
     }
     
-    boost::optional<std::string> DialogManagerQt::showFolderDialog(const FolderDialogData &data) {
+    boost::optional<boost::filesystem::path> DialogManagerQt::showFolderDialog(const FolderDialogData &data) {
         QFileDialog dialog;
         
         dialog.setWindowTitle(data.title.c_str());

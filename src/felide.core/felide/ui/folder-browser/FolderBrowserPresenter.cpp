@@ -36,7 +36,7 @@ namespace felide {
 
     void FolderBrowserPresenter::onBrowseFolder() {
         if (auto folderPath = m_dialogManager->showFolderDialog({"Open Folder", ""})) {
-            m_folderBrowser->displayFolder(folderPath.get());
+            m_folderBrowser->displayFolder(folderPath.get().string());
         }
     }
 
