@@ -19,12 +19,12 @@ namespace felide {
         std::string title;
         FileDialogType type;
         std::vector<FileFilter> filters;
-        std::string defaultPath;
+        boost::filesystem::path defaultPath;
     };
 
     struct FolderDialogData {
         std::string title;
-        std::string defaultPath;
+        boost::filesystem::path defaultPath;
     };
 
     enum class DialogIcon {
