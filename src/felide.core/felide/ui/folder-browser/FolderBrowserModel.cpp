@@ -1,11 +1,13 @@
 
 #include "FolderBrowserModel.hpp"
 
+#include <boost/filesystem/operations.hpp>
+
 namespace felide {
     class FolderBrowserModelImpl : public FolderBrowserModel {
     public:
-        virtual std::string getHello() const override {
-            return "Hello, World!";
+        virtual boost::filesystem::path getCurrentFolderPath() const override {
+            return boost::filesystem::current_path();
         }
     };
 }

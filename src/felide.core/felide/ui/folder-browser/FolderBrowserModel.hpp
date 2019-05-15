@@ -4,13 +4,14 @@
 
 #include <string>
 #include <memory>
+#include <boost/filesystem/path.hpp>
 
 namespace felide {
     class FolderBrowserModel {
     public:
         virtual ~FolderBrowserModel();
 
-        virtual std::string getHello() const = 0;
+        virtual boost::filesystem::path getCurrentFolderPath() const = 0;
 
     public:
         static std::unique_ptr<FolderBrowserModel> create();
