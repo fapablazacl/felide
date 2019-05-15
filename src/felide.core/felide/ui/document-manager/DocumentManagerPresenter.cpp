@@ -6,6 +6,7 @@
 
 #include <algorithm>
 
+#include <felide/ui/DialogManager.hpp>
 #include <felide/ui/document/DocumentModel.hpp>
 #include <felide/ui/document/DocumentPresenter.hpp>
 
@@ -16,8 +17,9 @@ namespace felide {
 
     DocumentManagerPresenter::~DocumentManagerPresenter() {}
 
-    void DocumentManagerPresenter::onInitialized(DocumentManager *view) {
+    void DocumentManagerPresenter::onInitialized(DocumentManager *view, DialogManager *dialogView) {
         this->view = view;
+        this->dialogView = dialogView;
     }
 
     void DocumentManagerPresenter::onNewDocument() {
@@ -47,7 +49,6 @@ namespace felide {
 
         for (auto documentView : documentViews) {
             if (auto documentPresenter = this->findDocumentPresenter(documentView)) {
-                // TODO: Find a way to interrupt the cycle if the user cancel the saveAll operation
                 if (documentPresenter->onSave() == DocumentPresenter::UserResponse::Cancel) {
                     break;
                 }
@@ -65,8 +66,12 @@ namespace felide {
 
     void DocumentManagerPresenter::onCloseDocument(Document *document) {
         if (auto documentPresenter = this->findDocumentPresenter(document)) {
-            view->closeDocument(document);
-            model->closeDocument(documentPresenter->getModel());
+            if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
+                view->closeDocument(document);
+                model->closeDocument(documentPresenter->getModel());
+
+                this->closeDocumentPresenter(documentPresenter);
+            }
         }
     }
 
@@ -143,5 +148,14 @@ namespace felide {
         }
 
         return nullptr;
+    }
+
+    void DocumentManagerPresenter::closeDocumentPresenter(DocumentPresenter *documentPresenter) {
+        auto &dps = documentPresenters;
+        auto documentPresenterIt = std::find_if(dps.begin(), dps.end(), [documentPresenter](std::unique_ptr<DocumentPresenter> &dp) {
+            return dp.get() == documentPresenter;
+        });
+
+        documentPresenters.erase(documentPresenterIt);
     }
 }

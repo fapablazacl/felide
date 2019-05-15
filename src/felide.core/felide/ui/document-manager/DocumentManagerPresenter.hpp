@@ -25,7 +25,7 @@ namespace felide {
 
         ~DocumentManagerPresenter();
 
-        void onInitialized(DocumentManager *view);
+        void onInitialized(DocumentManager *view, DialogManager *dialogView);
 
         void onNewDocument();
 
@@ -54,7 +54,10 @@ namespace felide {
 
         DocumentPresenter* findDocumentPresenter(const boost::filesystem::path &filePath);
 
+        void closeDocumentPresenter(DocumentPresenter *documentPresenter);
+
     private:
+        DialogManager *dialogView = nullptr;
         DocumentManager *view = nullptr;
         DocumentManagerModel *model = nullptr;
 

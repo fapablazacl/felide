@@ -13,7 +13,7 @@
 #include "DocumentQt.hpp"
 
 namespace felide {
-    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter) {
+    DocumentManagerQt::DocumentManagerQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
         m_tabWidget = new QTabWidget(this);
         m_tabWidget->setTabsClosable(true);
         m_tabWidget->setDocumentMode(true);
@@ -22,7 +22,7 @@ namespace felide {
             QWidget *widget = m_tabWidget->widget(tabIndex);
             
             if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
-                // TODO: Add implementation
+                presenter->onCloseDocument(editor);
             }
         });
 
@@ -51,25 +51,25 @@ namespace felide {
                 QAction closeAction("Close", this);
                 contextMenu.addAction(&closeAction);
                 this->connect(&closeAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->onCloseDocument(editor);
+                    this->presenter->onCloseDocument(editor);
                 });
 
                 QAction closeAllButThisAction("Close all but this", this);
                 contextMenu.addAction(&closeAllButThisAction);
                 this->connect(&closeAllButThisAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->onCloseOtherDocuments(editor);
+                    this->presenter->onCloseOtherDocuments(editor);
                 });
 
                 QAction closeAllAction("Close all", this);
                 contextMenu.addAction(&closeAllAction);
                 this->connect(&closeAllAction, &QAction::triggered, [this]() {
-                    m_presenter->onCloseAllDocuments();
+                    this->presenter->onCloseAllDocuments();
                 });
 
                 QAction closeToTheRightAction("Close to the right", this);
                 contextMenu.addAction(&closeToTheRightAction);
                 this->connect(&closeToTheRightAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->onCloseDocumentsToTheRight(editor);
+                    this->presenter->onCloseDocumentsToTheRight(editor);
                 });
 
                 contextMenu.exec(this->mapToGlobal(pos));
@@ -80,7 +80,7 @@ namespace felide {
         layout->addWidget(m_tabWidget);
         this->setLayout(layout);
 
-        m_presenter->onInitialized(this);
+        presenter->onInitialized(this, &dialogManager);
     }
 
     DocumentManagerQt::~DocumentManagerQt() {}

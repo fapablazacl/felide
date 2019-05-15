@@ -98,6 +98,31 @@ namespace felide {
         return DocumentPresenter::UserResponse::Cancel;
     }
 
+    DocumentPresenter::UserResponse DocumentPresenter::onCloseRequested() {
+        if (!model->getModifiedFlag()) {
+            return DocumentPresenter::UserResponse::Accept;
+        }
+
+        auto messageDialog = MessageDialogData{};
+        messageDialog.title = "felide";
+        messageDialog.message = "The file has unsaved changes. Save them before closing?";
+        messageDialog.icon = DialogIcon::Question;
+        messageDialog.buttons = DialogButton::YesNoCancel;
+
+        auto dialogResult = dialogView->showMessageDialog(messageDialog);
+
+        switch (dialogResult) {
+        case DialogButton::Cancel:
+            return DocumentPresenter::UserResponse::Cancel;
+
+        case DialogButton::Yes:
+            return this->onSave();
+
+        case DialogButton::No:
+            return DocumentPresenter::UserResponse::Accept;
+        }
+    }
+
     void DocumentPresenter::onTitleChanged() {
         const std::string title = this->computeTitle(model);
         view->setTitle(title);

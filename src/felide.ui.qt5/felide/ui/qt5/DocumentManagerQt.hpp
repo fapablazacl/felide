@@ -4,8 +4,11 @@
 
 #include <QWidget>
 #include <QTabWidget>
+
 #include <boost/optional.hpp>
 #include <felide/ui/document-manager/DocumentManager.hpp>
+
+#include "DialogManagerQt.hpp"
 
 namespace felide {
     class DocumentQt;
@@ -40,6 +43,7 @@ namespace felide {
 
     private:
         QTabWidget *m_tabWidget = nullptr;
+        DialogManagerQt dialogManager;
     };
 } 
 

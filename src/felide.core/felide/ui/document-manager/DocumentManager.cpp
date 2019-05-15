@@ -3,7 +3,7 @@
 
 namespace felide {
     DocumentManager::DocumentManager(DocumentManagerPresenter *presenter) {
-        m_presenter = presenter;
+        this->presenter = presenter;
     }
 
     DocumentManager::~DocumentManager() {}

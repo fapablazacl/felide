@@ -36,7 +36,7 @@ namespace felide {
         std::vector<Document*> enumerateDocuments();
 
     protected:
-        DocumentManagerPresenter *m_presenter = nullptr;
+        DocumentManagerPresenter *presenter = nullptr;
     };
 } 
 
