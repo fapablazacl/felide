@@ -39,7 +39,7 @@ namespace felide {
         view->setTitle(title);
     }
 
-    void DocumentPresenter::onSave() {
+    DocumentPresenter::UserResponse DocumentPresenter::onSave() {
         // TODO: Put FileFilter getters from a PresenterService
 
         if (!model->hasFilePath()) {
@@ -54,7 +54,7 @@ namespace felide {
             if (auto filePath = dialogView->showFileDialog(fileDialog)) {
                 model->setFilePath(filePath.get().string());
             } else {
-                return;
+                return DocumentPresenter::UserResponse::Cancel;
             }
         }
 
@@ -73,9 +73,11 @@ namespace felide {
         const std::string title = this->computeTitle(model);
 
         view->setTitle(title);
+
+        return DocumentPresenter::UserResponse::Accept;
     }
 
-    void DocumentPresenter::onSaveAs() {
+    DocumentPresenter::UserResponse DocumentPresenter::onSaveAs() {
         auto fileDialog = FileDialogData {};
 
         fileDialog.title = "Save File";
@@ -88,9 +90,11 @@ namespace felide {
             model->setFilePath(filePath.get().string());
 
             this->onSave();
-        } else {
-            return;
+
+            return DocumentPresenter::UserResponse::Accept;
         }
+
+        return DocumentPresenter::UserResponse::Cancel;
     }
 
     void DocumentPresenter::onTitleChanged() {

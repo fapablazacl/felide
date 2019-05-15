@@ -48,7 +48,9 @@ namespace felide {
         for (auto documentView : documentViews) {
             if (auto documentPresenter = this->findDocumentPresenter(documentView)) {
                 // TODO: Find a way to interrupt the cycle if the user cancel the saveAll operation
-                documentPresenter->onSave();
+                if (documentPresenter->onSave() == DocumentPresenter::UserResponse::Cancel) {
+                    break;
+                }
             }
         }
     }

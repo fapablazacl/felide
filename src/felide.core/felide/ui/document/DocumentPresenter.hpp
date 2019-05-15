@@ -13,6 +13,11 @@ namespace felide {
 
     class FELIDE_API DocumentPresenter {
     public:
+        enum class UserResponse {
+            Cancel,
+            Accept
+        };
+
         DocumentPresenter(DocumentModel *model);
 
         ~DocumentPresenter();
@@ -23,9 +28,9 @@ namespace felide {
 
         void onTitleChanged();
 
-        void onSave();
+        UserResponse onSave();
 
-        void onSaveAs();
+        UserResponse onSaveAs();
 
         void onClose();
 
