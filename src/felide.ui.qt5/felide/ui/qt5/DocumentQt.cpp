@@ -24,6 +24,8 @@ namespace felide {
 
         presenter->onInitialized(this, &dialogManager);
 
+        m_scintilla->setFocus();
+
         // HACK: This prevents the raise of the textChanged signal, just only for the 1st time.
         this->setupSignals();
     }
