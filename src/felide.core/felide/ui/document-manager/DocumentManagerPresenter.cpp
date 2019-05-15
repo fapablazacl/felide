@@ -70,7 +70,7 @@ namespace felide {
         }
     }
 
-    void DocumentManagerPresenter::onCloseOthers(Document *document) {
+    void DocumentManagerPresenter::onCloseOtherDocuments(Document *document) {
         auto documents = view->enumerateDocuments();
         
         for (auto current : documents) {
@@ -80,7 +80,7 @@ namespace felide {
         }
     }
 
-    void DocumentManagerPresenter::onCloseToTheRight(Document *document) {
+    void DocumentManagerPresenter::onCloseDocumentsToTheRight(Document *document) {
         bool close = false;
 
         auto documents = view->enumerateDocuments();
@@ -96,7 +96,7 @@ namespace felide {
         }
     }
 
-    void DocumentManagerPresenter::onCloseAll() {
+    void DocumentManagerPresenter::onCloseAllDocuments() {
         auto editors = view->enumerateDocuments();
 
         for (auto editor : editors) {

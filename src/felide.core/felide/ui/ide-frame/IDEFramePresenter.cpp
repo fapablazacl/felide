@@ -89,7 +89,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileClose() {
-        // TODO: Add implementation
+        
     }
 
     void IDEFramePresenter::onFileExit() {

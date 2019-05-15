@@ -32,10 +32,6 @@ namespace felide {
 
         UserResponse onSaveAs();
 
-        void onClose();
-
-        void onShow();
-
         bool hasFilePath(const boost::filesystem::path &filePath) const;
 
         Document* getView() const;

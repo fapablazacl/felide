@@ -23,11 +23,6 @@ namespace felide {
         
         void changeDocumentTitle(DocumentQt *editor, const std::string &title);
         
-    signals:
-        void editorContentChanged(DocumentQt *editor);
-        
-        void editorCloseRequested(DocumentQt *editor);
-
     public:
         virtual Document* appendDocument(DocumentPresenter *documentPresenter) override;
 

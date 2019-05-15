@@ -37,17 +37,6 @@ namespace felide {
 
     void IDEFrameQt::setupDocumentManager() {
         m_editorManager = new DocumentManagerQt(this, m_presenter->getDocumentManagerPresenter());
-
-        connect(m_editorManager, &DocumentManagerQt::editorContentChanged, [&](DocumentQt *editor) {
-            assert(editor);
-            // TODO: Add implementation
-        });
-        
-        connect(m_editorManager, &DocumentManagerQt::editorCloseRequested, [&](DocumentQt *editor) {
-            assert(editor);
-            // TODO: Add implementation
-        });
-
         this->setCentralWidget(m_editorManager);
     }
     

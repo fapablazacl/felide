@@ -39,11 +39,11 @@ namespace felide {
 
         void onCloseDocument(Document *document);
 
-        void onCloseOthers(Document *document);
+        void onCloseOtherDocuments(Document *document);
 
-        void onCloseToTheRight(Document *document);
+        void onCloseDocumentsToTheRight(Document *document);
 
-        void onCloseAll();
+        void onCloseAllDocuments();
 
     private:
         DocumentPresenter* createDocumentMVP();

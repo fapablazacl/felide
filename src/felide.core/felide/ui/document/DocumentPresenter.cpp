@@ -78,12 +78,13 @@ namespace felide {
     }
 
     DocumentPresenter::UserResponse DocumentPresenter::onSaveAs() {
+        // TODO: Setup a PresenterService to support the UI
         auto fileDialog = FileDialogData {};
 
         fileDialog.title = "Save File";
         fileDialog.type = FileDialogType::SaveFile;
         fileDialog.filters = {
-            FileFilter{"All Files", {"*.*"}}
+            FileFilter{"All Files", {"*"}}
         };
 
         if (auto filePath = dialogView->showFileDialog(fileDialog)) {
@@ -115,14 +116,6 @@ namespace felide {
         const std::string fileTitle = this->computeFileTitle(model);
 
         return prefix + fileTitle;
-    }
-
-    void DocumentPresenter::onClose() {
-        // TODO: Add implementation
-    }
-
-    void DocumentPresenter::onShow() {
-        // TODO: Add implementation
     }
 
     bool DocumentPresenter::hasFilePath(const boost::filesystem::path &filePath) const {

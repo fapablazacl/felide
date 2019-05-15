@@ -22,7 +22,7 @@ namespace felide {
             QWidget *widget = m_tabWidget->widget(tabIndex);
             
             if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
-                editorCloseRequested(editor);
+                // TODO: Add implementation
             }
         });
 
@@ -57,19 +57,19 @@ namespace felide {
                 QAction closeAllButThisAction("Close all but this", this);
                 contextMenu.addAction(&closeAllButThisAction);
                 this->connect(&closeAllButThisAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->onCloseOthers(editor);
+                    m_presenter->onCloseOtherDocuments(editor);
                 });
 
                 QAction closeAllAction("Close all", this);
                 contextMenu.addAction(&closeAllAction);
                 this->connect(&closeAllAction, &QAction::triggered, [this]() {
-                    m_presenter->onCloseAll();
+                    m_presenter->onCloseAllDocuments();
                 });
 
                 QAction closeToTheRightAction("Close to the right", this);
                 contextMenu.addAction(&closeToTheRightAction);
                 this->connect(&closeToTheRightAction, &QAction::triggered, [this, editor]() {
-                    m_presenter->onCloseToTheRight(editor);
+                    m_presenter->onCloseDocumentsToTheRight(editor);
                 });
 
                 contextMenu.exec(this->mapToGlobal(pos));
