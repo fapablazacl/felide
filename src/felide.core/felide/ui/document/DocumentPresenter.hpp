@@ -38,6 +38,8 @@ namespace felide {
         DocumentModel* getModel() const;
 
     private:
+        std::string computeFileTitle(DocumentModel *model) const;
+
         std::string computeTitle(DocumentModel *model) const;
 
     private:

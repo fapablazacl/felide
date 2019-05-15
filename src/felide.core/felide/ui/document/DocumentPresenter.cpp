@@ -40,10 +40,13 @@ namespace felide {
     }
 
     void DocumentPresenter::onSave() {
+        // TODO: Put FileFilter getters from a PresenterService
+
         if (!model->hasFilePath()) {
             auto fileDialog = FileDialogData {};
             fileDialog.title = "Save File";
             fileDialog.type = FileDialogType::SaveFile;
+            fileDialog.defaultPath = this->computeFileTitle(model);
             fileDialog.filters = {
                 FileFilter{"All Files", {"*.*"}}
             };
@@ -95,18 +98,19 @@ namespace felide {
         view->setTitle(title);
     }
 
-    std::string DocumentPresenter::computeTitle(DocumentModel *model) const {
-        std::string title;
-
+    std::string DocumentPresenter::computeFileTitle(DocumentModel *model) const {
         if (model->hasFilePath()) {
-            title = boost::filesystem::path(model->getFilePath()).filename().string();
-        } else {
-            title = "Untitled " + std::to_string(model->getTag());
+            return boost::filesystem::path(model->getFilePath()).filename().string();
         }
-        
-        title = (model->getModifiedFlag() ? "[*]" : "") + title;
 
-        return title;
+        return "Untitled " + std::to_string(model->getTag());
+    }
+
+    std::string DocumentPresenter::computeTitle(DocumentModel *model) const {
+        const std::string prefix = (model->getModifiedFlag() ? "[*]" : "");
+        const std::string fileTitle = this->computeFileTitle(model);
+
+        return prefix + fileTitle;
     }
 
     void DocumentPresenter::onClose() {
