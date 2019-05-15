@@ -43,7 +43,14 @@ namespace felide {
     }
 
     void DocumentManagerPresenter::onSaveAllDocuments() {
-        // TODO: Add implementation
+        auto documentViews = view->enumerateDocuments();
+
+        for (auto documentView : documentViews) {
+            if (auto documentPresenter = this->findDocumentPresenter(documentView)) {
+                // TODO: Find a way to interrupt the cycle if the user cancel the saveAll operation
+                documentPresenter->onSave();
+            }
+        }
     }
 
     void DocumentManagerPresenter::onSaveAsDocument() {
