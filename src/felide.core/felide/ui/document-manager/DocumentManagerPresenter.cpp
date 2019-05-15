@@ -64,6 +64,10 @@ namespace felide {
         }
     }
 
+    void DocumentManagerPresenter::onCloseCurrentDocument() {
+        this->onCloseDocument(this->view->getCurrentDocument());
+    }
+
     void DocumentManagerPresenter::onCloseDocument(Document *document) {
         if (auto documentPresenter = this->findDocumentPresenter(document)) {
             if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {

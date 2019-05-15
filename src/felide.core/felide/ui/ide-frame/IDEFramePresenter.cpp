@@ -89,7 +89,7 @@ namespace felide {
     }
 
     void IDEFramePresenter::onFileClose() {
-        
+        documentManagerPresenter->onCloseCurrentDocument();
     }
 
     void IDEFramePresenter::onFileExit() {
