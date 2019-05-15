@@ -48,7 +48,7 @@ namespace felide {
             fileDialog.type = FileDialogType::SaveFile;
             fileDialog.defaultPath = this->computeFileTitle(model);
             fileDialog.filters = {
-                FileFilter{"All Files", {"*.*"}}
+                FileFilter{"All Files", {"*"}}
             };
 
             if (auto filePath = dialogView->showFileDialog(fileDialog)) {

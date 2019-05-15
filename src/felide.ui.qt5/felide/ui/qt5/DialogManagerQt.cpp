@@ -104,7 +104,7 @@ namespace felide {
                 filename = QFileDialog::getOpenFileName (
                     m_parent,
                     data.title.c_str(),
-                    QDir::currentPath(),
+                    data.defaultPath.c_str(),
                     qfilters.c_str()
                 );
                 break;
@@ -113,7 +113,7 @@ namespace felide {
                 filename = QFileDialog::getSaveFileName (
                     m_parent,
                     data.title.c_str(),
-                    QDir::currentPath(),
+                    data.defaultPath.c_str(),
                     qfilters.c_str()
                 );
                 break;
