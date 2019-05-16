@@ -58,6 +58,8 @@ namespace felide {
 
         void closeDocumentPresenter(DocumentPresenter *documentPresenter);
 
+        void closeDocumentMVP(DocumentPresenter *documentPresenter);
+
     private:
         DialogManager *dialogView = nullptr;
         DocumentManager *view = nullptr;

@@ -71,32 +71,38 @@ namespace felide {
     void DocumentManagerPresenter::onCloseDocument(Document *document) {
         if (auto documentPresenter = this->findDocumentPresenter(document)) {
             if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
-                view->closeDocument(document);
-                model->closeDocument(documentPresenter->getModel());
-
-                this->closeDocumentPresenter(documentPresenter);
+                this->closeDocumentMVP(documentPresenter);
             }
         }
     }
 
     void DocumentManagerPresenter::onCloseOtherDocuments(Document *document) {
         auto documents = view->enumerateDocuments();
-        
+
         for (auto current : documents) {
-            if (current != document) {
-                view->closeDocument(current);
+            if (current == document) {
+                continue;
+            }
+
+            if (auto documentPresenter = this->findDocumentPresenter(current)) {
+                if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
+                    this->closeDocumentMVP(documentPresenter);
+                }
             }
         }
     }
 
     void DocumentManagerPresenter::onCloseDocumentsToTheRight(Document *document) {
+        auto documents = view->enumerateDocuments();
         bool close = false;
 
-        auto documents = view->enumerateDocuments();
-
         for (auto current : documents) {
-            if (close == true) {
-                view->closeDocument(current);
+            if (close) {
+                if (auto documentPresenter = this->findDocumentPresenter(current)) {
+                    if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
+                        this->closeDocumentMVP(documentPresenter);
+                    }
+                }
             }
 
             if (current == document) {
@@ -106,10 +112,14 @@ namespace felide {
     }
 
     void DocumentManagerPresenter::onCloseAllDocuments() {
-        auto editors = view->enumerateDocuments();
+        auto documents = view->enumerateDocuments();
 
-        for (auto editor : editors) {
-            view->closeDocument(editor);
+        for (auto document : documents) {
+            if (auto documentPresenter = this->findDocumentPresenter(document)) {
+                if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
+                    this->closeDocumentMVP(documentPresenter);
+                }
+            }
         }
     }
 
@@ -119,7 +129,6 @@ namespace felide {
 
     DocumentPresenter* DocumentManagerPresenter::createDocumentMVP(const boost::filesystem::path &filePath) {
         auto documentModel = model->createDocument(filePath);
-        
         auto documentPresenter = new DocumentPresenter(documentModel);
         auto documentView = view->appendDocument(documentPresenter);
 
@@ -161,5 +170,12 @@ namespace felide {
         });
 
         documentPresenters.erase(documentPresenterIt);
+    }
+
+    void DocumentManagerPresenter::closeDocumentMVP(DocumentPresenter *documentPresenter) {
+        view->closeDocument(documentPresenter->getView());
+        model->closeDocument(documentPresenter->getModel());
+
+        this->closeDocumentPresenter(documentPresenter);
     }
 }
