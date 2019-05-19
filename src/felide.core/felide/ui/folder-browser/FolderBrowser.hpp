@@ -4,9 +4,14 @@
 
 #include <string>
 #include <felide/Predef.hpp>
+#include <felide/ui/Menu.hpp>
 #include <boost/optional/optional.hpp>
 
 namespace felide {
+    struct Point {
+        int x, y;
+    };
+
     class FELIDE_API FolderBrowserPresenter;
     class FELIDE_API FolderBrowser {
     public:
@@ -16,6 +21,8 @@ namespace felide {
         virtual void displayFolder(const std::string &folder) = 0;
 
         virtual boost::optional<std::string> getSelectedPath() const = 0;
+
+        virtual void displayContextualMenu(const Point &point, const Menu &menu) = 0;
 
     protected:
         FolderBrowserPresenter *m_presenter;

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/ui/DialogManager.hpp>
+#include <felide/ui/Menu.hpp>
 #include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 
 #include "FolderBrowser.hpp"
@@ -266,5 +267,19 @@ namespace felide {
 
     void FolderBrowserPresenter::onDisplayFolder(const boost::filesystem::path &folderPath) {
         m_folderBrowser->displayFolder(folderPath.string());
+    }
+
+    void FolderBrowserPresenter::onContextMenuRequested(const Point &point) {
+        const auto menu = Menu::menu("Context Menu", {
+            Menu::action([this] () { this->onOpenSelectedFile(); }, "Open"),
+            Menu::separator(),
+            Menu::action([this] () { this->onCreateFile(); }, "Create File"),
+            Menu::action([this] () { this->onCreateFolder(); }, "Create Folder"),
+            Menu::separator(),
+            Menu::action([this] () { this->onRenameSelectedPath(); }, "Rename"),
+            Menu::action([this] () { this->onDeleteSelectedPath(); }, "Delete")
+        });
+
+        m_folderBrowser->displayContextualMenu(point, menu);
     }
 } 

@@ -8,6 +8,8 @@
 #include <boost/optional/optional_fwd.hpp>
 
 namespace felide {
+    struct Point;
+
     class FELIDE_API IDEModel;
     class FELIDE_API FolderBrowser;
     class FELIDE_API DialogManager;
@@ -40,6 +42,8 @@ namespace felide {
         virtual void onDeleteSelectedPath();
         
         virtual void onDisplayFolder(const boost::filesystem::path &folderPath);
+
+        virtual void onContextMenuRequested(const Point &point);
 
     private:
         boost::optional<std::string> askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue);

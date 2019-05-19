@@ -11,6 +11,7 @@
 #include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
 
 #include "DialogManagerQt.hpp"
+#include "UtilitiesQt.hpp"
 
 #include <boost/filesystem.hpp>
 
@@ -106,45 +107,7 @@ namespace felide {
         });
 
         connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
-            // TODO: Refactor the context menu generation into a generic one (like the one used in the MainFrame)
-
-            QMenu contextMenu("Context Menu", this);
-
-            QAction openAction("Open", this);
-            contextMenu.addAction(&openAction);
-            this->connect(&openAction, &QAction::triggered, [this]() {
-                m_presenter->onOpenSelectedFile();
-            });
-
-            contextMenu.addSeparator();
-
-            QAction createFileAction("Create File", this);
-            contextMenu.addAction(&createFileAction);
-            this->connect(&createFileAction, &QAction::triggered, [this]() {
-                m_presenter->onCreateFile();
-            });
-
-            QAction createFolderAction("Create Folder", this);
-            contextMenu.addAction(&createFolderAction);
-            this->connect(&createFolderAction, &QAction::triggered, [this]() {
-                m_presenter->onCreateFolder();
-            });
-
-            contextMenu.addSeparator();
-
-            QAction renameAction("Rename", this);
-            contextMenu.addAction(&renameAction);
-            this->connect(&renameAction, &QAction::triggered, [this]() {
-                m_presenter->onRenameSelectedPath();
-            });
-
-            QAction deleteAction("Delete", this);
-            contextMenu.addAction(&deleteAction);
-            this->connect(&deleteAction, &QAction::triggered, [this]() {
-                m_presenter->onDeleteSelectedPath();
-            });
-
-            contextMenu.exec(this->mapToGlobal(pos));
+            m_presenter->onContextMenuRequested({pos.x(), pos.y()});
         });
 
         m_presenter->attachView(this, dialogManager);
@@ -165,5 +128,18 @@ namespace felide {
 
     QString FolderBrowserQt::projectFolder() const {
         return m_projectFolder;
+    }
+
+    void FolderBrowserQt::displayContextualMenu(const Point &point, const Menu &menu) {
+        QPoint pos;
+        pos.setX(point.x);
+        pos.setY(point.y);
+
+        QMenu contextMenu(menu.text.c_str(), this);
+        for (const Menu &childMenu : menu.childs) {
+            setupMenu(&contextMenu, childMenu);
+        }
+
+        contextMenu.exec(this->mapToGlobal(pos));
     }
 }

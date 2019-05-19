@@ -21,6 +21,8 @@ namespace felide {
 
         virtual boost::optional<std::string> getSelectedPath() const override;
 
+        virtual void displayContextualMenu(const Point &point, const Menu &menu) override;
+
     public:
         FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager);
 
