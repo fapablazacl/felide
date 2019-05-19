@@ -123,7 +123,7 @@ namespace felide {
             return {};
         }
 
-        return filename.toStdString();
+        return boost::filesystem::path(filename.toStdString());
     }
     
     boost::optional<boost::filesystem::path> DialogManagerQt::showFolderDialog(const FolderDialogData &data) {
@@ -139,7 +139,7 @@ namespace felide {
             assert(folders.size() == 1);
             const QString folder = folders[0];
             
-            return folder.toStdString();
+            return boost::filesystem::path(folder.toStdString());
         } else {
             return {};
         }
