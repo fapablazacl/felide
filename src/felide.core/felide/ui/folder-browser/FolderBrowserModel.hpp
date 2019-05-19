@@ -8,6 +8,8 @@
 #include <boost/filesystem/path.hpp>
 
 namespace felide {
+    class FolderService;
+
     class FolderBrowserModel {
     public:
         virtual ~FolderBrowserModel();
@@ -19,7 +21,7 @@ namespace felide {
         virtual std::vector<boost::filesystem::path> listChildPaths(const boost::filesystem::path &folderPath) const = 0;
 
     public:
-        static std::unique_ptr<FolderBrowserModel> create();
+        static std::unique_ptr<FolderBrowserModel> create(FolderService *folderService);
     };
 }
 

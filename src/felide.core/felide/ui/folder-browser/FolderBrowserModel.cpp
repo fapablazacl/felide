@@ -2,12 +2,14 @@
 #include "FolderBrowserModel.hpp"
 
 #include <boost/filesystem/operations.hpp>
+#include <felide/util/FolderService.hpp>
 
 namespace felide {
     class FolderBrowserModelImpl : public FolderBrowserModel {
     public:
-        FolderBrowserModelImpl() {
-            currentFolderPath = boost::filesystem::current_path();
+        FolderBrowserModelImpl(FolderService *folderService) {
+            this->folderService = folderService;
+            this->currentFolderPath = boost::filesystem::current_path();
         }
 
         virtual void setCurrentFolderPath(const boost::filesystem::path &folderPath) override {
@@ -19,23 +21,11 @@ namespace felide {
         }
 
         virtual std::vector<boost::filesystem::path> listChildPaths(const boost::filesystem::path &folderPath) const override {
-            auto childPathVector = std::vector<boost::filesystem::path>{};
-
-            auto subPathIterator = boost::filesystem::directory_iterator{folderPath};
-            auto end = boost::filesystem::directory_iterator{};
-
-            while (subPathIterator != end) {
-                boost::filesystem::path subPath = subPathIterator->path();
-
-                childPathVector.push_back(subPath);
-
-                subPathIterator++;
-            }
-
-            return childPathVector;
+            return folderService->listChildFolders(folderPath);
         }
     
     private:
+        FolderService *folderService;
         boost::filesystem::path currentFolderPath;
     };
 }
@@ -43,7 +33,7 @@ namespace felide {
 namespace felide {
     FolderBrowserModel::~FolderBrowserModel() {}
 
-    std::unique_ptr<FolderBrowserModel> FolderBrowserModel::create() {
-        return std::make_unique<FolderBrowserModelImpl>();
+    std::unique_ptr<FolderBrowserModel> FolderBrowserModel::create(FolderService *folderService) {
+        return std::make_unique<FolderBrowserModelImpl>(folderService);
     }
 }

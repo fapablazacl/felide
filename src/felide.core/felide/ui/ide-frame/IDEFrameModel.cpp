@@ -3,21 +3,16 @@
 
 #include <felide/ui/document-manager/DocumentManagerModel.hpp>
 #include <felide/ui/folder-browser/FolderBrowserModel.hpp>
+#include <felide/util/FolderService.hpp>
 
 namespace felide {
     class IDEFrameModelImpl : public IDEFrameModel {
     public:
         IDEFrameModelImpl() {
+            this->folderService = FolderService::create();
+
             this->documentManagerModel = DocumentManagerModel::create();
-            this->folderBrowserModel = FolderBrowserModel::create();
-        }
-
-        virtual int getCreatedDocumentCount() const override {
-            return createdDocumentCount;
-        }
-
-        virtual int increaseDocumentCount() override {
-            return ++createdDocumentCount;
+            this->folderBrowserModel = FolderBrowserModel::create(this->folderService.get());
         }
 
         virtual std::vector<FileFilter> getFileFilters() const override {
@@ -36,7 +31,7 @@ namespace felide {
         }
 
     private:
-        int createdDocumentCount = 0;
+        std::unique_ptr<FolderService> folderService;
         std::unique_ptr<DocumentManagerModel> documentManagerModel;
         std::unique_ptr<FolderBrowserModel> folderBrowserModel;
     };

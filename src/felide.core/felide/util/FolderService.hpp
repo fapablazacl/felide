@@ -9,7 +9,9 @@
 namespace felide {
     class FolderService {
     public:
-        virtual ~FolderService() = 0;
+        virtual ~FolderService();
+
+        virtual std::vector<boost::filesystem::path> listChildFolders(const boost::filesystem::path &folderPath) const = 0;
 
     public:
         static std::unique_ptr<FolderService> create();

@@ -15,10 +15,6 @@ namespace felide {
     public:
         virtual ~IDEFrameModel();
 
-        virtual int getCreatedDocumentCount() const = 0;
-
-        virtual int increaseDocumentCount() = 0;
-
         virtual std::vector<FileFilter> getFileFilters() const = 0;
 
         virtual DocumentManagerModel *getDocumentManagerModel() = 0;
