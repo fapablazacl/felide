@@ -26,23 +26,19 @@ namespace felide {
 
     FolderBrowserPresenter::~FolderBrowserPresenter() {}
 
-    void FolderBrowserPresenter::attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
-        m_folderBrowser = folderBrowser;
-        m_dialogManager = dialogManager;
-    }
-
-    void FolderBrowserPresenter::detachView() {
-        m_folderBrowser = nullptr;
+    void FolderBrowserPresenter::onInitialized(FolderBrowser *folderBrowser, DialogManager *dialogManager) {
+        this->view = folderBrowser;
+        this->dialogView = dialogManager;
     }
 
     void FolderBrowserPresenter::onBrowseFolder() {
-        if (auto folderPath = m_dialogManager->showFolderDialog({"Open Folder", ""})) {
-            m_folderBrowser->displayFolder(folderPath.get().string());
+        if (auto folderPath = dialogView->showFolderDialog({"Open Folder", ""})) {
+            view->displayFolder(folderPath.get().string());
         }
     }
 
     void FolderBrowserPresenter::onCreateFile() {
-        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        const auto selectedPathOptional = view->getSelectedPath();
         if (!selectedPathOptional) {
             return;
         }
@@ -79,7 +75,7 @@ namespace felide {
 
     void FolderBrowserPresenter::onCreateFolder() {
         // 
-        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        const auto selectedPathOptional = view->getSelectedPath();
         if (!selectedPathOptional) {
             return;
         }
@@ -118,7 +114,7 @@ namespace felide {
 
     void FolderBrowserPresenter::onOpenSelectedFile() {
         // determine the currently selected path
-        if (const auto selectedPath = m_folderBrowser->getSelectedPath()) {
+        if (const auto selectedPath = view->getSelectedPath()) {
             const auto filePath = boost::filesystem::path(selectedPath.get());
 
             if (!boost::filesystem::is_directory(filePath)) {
@@ -133,7 +129,7 @@ namespace felide {
         namespace fs = boost::filesystem;
         
         // determine the currently selected path
-        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        const auto selectedPathOptional = view->getSelectedPath();
         if (!selectedPathOptional) {
             return;
         }
@@ -155,7 +151,7 @@ namespace felide {
             messageDialog.icon = DialogIcon::Warning;
             messageDialog.buttons = DialogButton::YesNo;
 
-            const auto selectedButton = m_dialogManager->showMessageDialog (messageDialog);
+            const auto selectedButton = dialogView->showMessageDialog (messageDialog);
 
             if (selectedButton == DialogButton::No) {
                 return;
@@ -169,7 +165,7 @@ namespace felide {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
-        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        const auto selectedPathOptional = view->getSelectedPath();
         if (!selectedPathOptional) {
             return;
         }
@@ -199,7 +195,7 @@ namespace felide {
             messageDialog.icon = DialogIcon::Error;
             messageDialog.buttons = DialogButton::Ok;
 
-            m_dialogManager->showMessageDialog(messageDialog);
+            dialogView->showMessageDialog(messageDialog);
             return;
         }
 
@@ -213,7 +209,7 @@ namespace felide {
         namespace fs = boost::filesystem;
 
         // determine the currently selected path
-        const auto selectedPathOptional = m_folderBrowser->getSelectedPath();
+        const auto selectedPathOptional = view->getSelectedPath();
         if (!selectedPathOptional) {
             return;
         }
@@ -227,7 +223,7 @@ namespace felide {
         messageDialog.icon = DialogIcon::Warning;
         messageDialog.buttons = DialogButton::OkCancel;
 
-        if (auto selectedButton = m_dialogManager->showMessageDialog(messageDialog) == DialogButton::Cancel) {
+        if (auto selectedButton = dialogView->showMessageDialog(messageDialog) == DialogButton::Cancel) {
             return;
         }
         
@@ -254,7 +250,7 @@ namespace felide {
             inputDialog.label = finalPrompt;
             inputDialog.defaultText = defaultValue;
 
-            validNamePath = m_dialogManager->showInputDialog(inputDialog);
+            validNamePath = dialogView->showInputDialog(inputDialog);
             if (!validNamePath || boost::filesystem::native(*validNamePath)) {
                 break;
             }
@@ -266,7 +262,7 @@ namespace felide {
     }
 
     void FolderBrowserPresenter::onDisplayFolder(const boost::filesystem::path &folderPath) {
-        m_folderBrowser->displayFolder(folderPath.string());
+        view->displayFolder(folderPath.string());
     }
 
     void FolderBrowserPresenter::onContextMenuRequested(const Point &point) {
@@ -280,6 +276,6 @@ namespace felide {
             Menu::action([this] () { this->onDeleteSelectedPath(); }, "Delete")
         });
 
-        m_folderBrowser->displayContextualMenu(point, menu);
+        view->displayContextualMenu(point, menu);
     }
 } 

@@ -21,9 +21,7 @@ namespace felide {
     public:
         FolderBrowserPresenter(FolderBrowserModel *model, IDEFramePresenter *ideFramePresenter);
 
-        void attachView(FolderBrowser *folderBrowser, DialogManager *dialogManager);
-
-        void detachView();
+        void onInitialized(FolderBrowser *folderBrowser, DialogManager *dialogManager);
 
         virtual ~FolderBrowserPresenter();
 
@@ -49,10 +47,10 @@ namespace felide {
         boost::optional<std::string> askValidPath(const std::string &title, const std::string &prompt, const std::string &promptForInvalidInput, const std::string &defaultValue);
 
     private:
+        DialogManager *dialogView;
+        FolderBrowser *view;
         FolderBrowserModel *model;
         IDEFramePresenter *ideFramePresenter;
-        FolderBrowser *m_folderBrowser;
-        DialogManager *m_dialogManager;
     };
 } 
 

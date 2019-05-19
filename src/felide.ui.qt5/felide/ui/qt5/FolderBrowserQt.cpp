@@ -110,7 +110,7 @@ namespace felide {
             m_presenter->onContextMenuRequested({pos.x(), pos.y()});
         });
 
-        m_presenter->attachView(this, dialogManager);
+        m_presenter->onInitialized(this, dialogManager);
     }
 
     FolderBrowserQt::~FolderBrowserQt() {}
