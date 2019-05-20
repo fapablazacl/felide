@@ -11,7 +11,7 @@
 namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
-    IDEFrameGtk::IDEFrameGtk(IDEFramePresenter *presenter) : IDEFrame(presenter) {
+    IDEFrameGtk::IDEFrameGtk(IDEFramePresenter *presenter) : IDEFrame(presenter), dialogManager(*this) {
         // setup supported actions
         add_action("file_new", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_new));
         add_action("file_open", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_open));
@@ -45,7 +45,7 @@ namespace felide::gtk3 {
         maximize();
 
         // TODO: Pass a DialogManager implementation
-        presenter->onInitialized(this, nullptr);
+        presenter->onInitialized(this, &dialogManager);
     }
 
     IDEFrameGtk::~IDEFrameGtk() {}
@@ -62,9 +62,7 @@ namespace felide::gtk3 {
     }
 
     DialogManager* IDEFrameGtk::getDialogManager() {
-        // TODO: Add implementation
-        
-        return nullptr;
+        return &dialogManager;
     }
 
     FolderBrowser* IDEFrameGtk::getFolderBrowser() {

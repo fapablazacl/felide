@@ -7,10 +7,14 @@ namespace felide {
     DialogManagerGtk::~DialogManagerGtk() {}
 
     DialogButton DialogManagerGtk::showMessageDialog(const MessageDialogData &data) const {
+        // TODO: Add implementation
+        
         return DialogButton::Ok;
     }
 
     boost::optional<std::string> DialogManagerGtk::showInputDialog(const InputDialogData &data) const {
+        // TODO: Add implementation
+
         return {};
     }
 
@@ -48,6 +52,8 @@ namespace felide {
     }
 
     boost::optional<boost::filesystem::path> DialogManagerGtk::showFolderDialog(const FolderDialogData &data) {
+        // TODO: Add defaultPath usage
+
         Gtk::FileChooserDialog dialog(data.title.c_str(), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
         dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
         dialog.add_button("_Open", Gtk::RESPONSE_OK);
