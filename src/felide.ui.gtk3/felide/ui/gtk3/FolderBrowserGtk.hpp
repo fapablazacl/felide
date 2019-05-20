@@ -13,7 +13,7 @@ namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
     /**
-     * @brief ProjectExplorer thats open a "vanilla" project style (it just open a folder and shows it contents)
+     * @brief FolderBrowserGtk thats open a "vanilla" project style (it just open a folder and shows it contents)
      */ 
     class ProjectItemModel : public Gtk::TreeModel::ColumnRecord {
     public:
@@ -28,11 +28,11 @@ namespace felide::gtk3 {
 
     typedef sigc::signal<void, std::string> signal_item_activated_t;
 
-    class ProjectExplorer : public Gtk::Bin {
+    class FolderBrowserGtk : public Gtk::Bin {
     public:
-        ProjectExplorer();
+        FolderBrowserGtk();
 
-        virtual ~ProjectExplorer();
+        virtual ~FolderBrowserGtk();
 
         void LoadProject(const std::string &projectPath);
 

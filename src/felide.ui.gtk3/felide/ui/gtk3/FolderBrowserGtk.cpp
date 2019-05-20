@@ -2,7 +2,7 @@
 #include "FolderBrowserGtk.hpp"
 
 namespace felide::gtk3 {
-    ProjectExplorer::ProjectExplorer() {
+    FolderBrowserGtk::FolderBrowserGtk() {
         // setup UI
         add(m_scrolled);
 
@@ -19,13 +19,13 @@ namespace felide::gtk3 {
         show_all_children();
 
         // connect event handlers
-        // m_treeView.get_selection()->signal_changed().connect(sigc::mem_fun(*this, &ProjectExplorer::OnItemSelected));
-        m_treeView.signal_row_activated().connect(sigc::mem_fun(*this, &ProjectExplorer::OnItemActivated));
+        // m_treeView.get_selection()->signal_changed().connect(sigc::mem_fun(*this, &FolderBrowserGtk::OnItemSelected));
+        m_treeView.signal_row_activated().connect(sigc::mem_fun(*this, &FolderBrowserGtk::OnItemActivated));
     }
 
-    ProjectExplorer::~ProjectExplorer() {}
+    FolderBrowserGtk::~FolderBrowserGtk() {}
 
-    void ProjectExplorer::LoadProject(const std::string &projectPath) {
+    void FolderBrowserGtk::LoadProject(const std::string &projectPath) {
         // internal variable cleanup
         m_projectPath = projectPath;
         m_refTreeStore->clear();
@@ -45,11 +45,11 @@ namespace felide::gtk3 {
         m_treeView.expand_row(treePath, false);
     }
 
-    signal_item_activated_t ProjectExplorer::signal_item_activated() {
+    signal_item_activated_t FolderBrowserGtk::signal_item_activated() {
         return m_signal_item_activated;
     }
 
-    void ProjectExplorer::OnItemActivated(const Gtk::TreeModel::Path& treePath, Gtk::TreeViewColumn* column) {
+    void FolderBrowserGtk::OnItemActivated(const Gtk::TreeModel::Path& treePath, Gtk::TreeViewColumn* column) {
         Gtk::TreeModel::iterator iterator = m_treeView.get_model()->get_iter(treePath);
 
         if (!iterator) {
@@ -63,7 +63,7 @@ namespace felide::gtk3 {
         m_signal_item_activated(path);
     }
 
-    void ProjectExplorer::OnItemSelected() {
+    void FolderBrowserGtk::OnItemSelected() {
         /*
         Gtk::TreeModel::iterator iterator = m_treeView.get_selection()->get_selected();
 
@@ -78,11 +78,11 @@ namespace felide::gtk3 {
         */
     }
 
-    std::string ProjectExplorer::GetPathName(const fs::path &path) {
+    std::string FolderBrowserGtk::GetPathName(const fs::path &path) {
         return path.filename().string();
     }
 
-    void ProjectExplorer::PopulateTreeNode(fs::path path, Gtk::TreeModel::iterator treeIterator) {
+    void FolderBrowserGtk::PopulateTreeNode(fs::path path, Gtk::TreeModel::iterator treeIterator) {
         if (fs::is_directory(path)) {
             fs::directory_iterator subPathIterator(path);
             fs::directory_iterator end;

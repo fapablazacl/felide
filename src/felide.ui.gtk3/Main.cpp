@@ -13,8 +13,8 @@ int main(int argc, char* argv[]) {
     auto app = MainApplication::create(argc, argv, "org.devwarecl.felide");
     std::cout << "Done." << std::endl;
 
-    std::cout << "Initializing MainWindow ..." << std::endl;
-    MainWindow window;
+    std::cout << "Initializing IDEFrameGtk ..." << std::endl;
+    IDEFrameGtk window;
     std::cout << "Done." << std::endl;
 
     std::cout << "Running ..." << std::endl;

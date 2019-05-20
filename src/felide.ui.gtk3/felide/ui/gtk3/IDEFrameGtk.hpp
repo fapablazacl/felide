@@ -9,11 +9,11 @@
 #include "FolderBrowserGtk.hpp"
 
 namespace felide::gtk3 {
-    class MainWindow : public Gtk::ApplicationWindow {
+    class IDEFrameGtk : public Gtk::ApplicationWindow {
     public:
-        MainWindow();
+        IDEFrameGtk();
 
-        virtual ~MainWindow();
+        virtual ~IDEFrameGtk();
 
     private:
         void on_action_file_new();
@@ -37,7 +37,7 @@ namespace felide::gtk3 {
         std::string m_path;
 
         EditorManager m_editorManager;
-        ProjectExplorer m_projectExplorer;
+        FolderBrowserGtk m_projectExplorer;
         Glib::RefPtr<Gio::Menu> m_mainMenu;
 
         // AKA Splitter

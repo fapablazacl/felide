@@ -10,14 +10,14 @@
 namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
-    MainWindow::MainWindow() {
+    IDEFrameGtk::IDEFrameGtk() {
         // setup supported actions
-        add_action("file_new", sigc::mem_fun(*this, &MainWindow::on_action_file_new));
-        add_action("file_open", sigc::mem_fun(*this, &MainWindow::on_action_file_open));
-        add_action("file_open_project", sigc::mem_fun(*this, &MainWindow::on_action_file_open_project));
-        add_action("file_save", sigc::mem_fun(*this, &MainWindow::on_action_file_save));
-        add_action("file_save_as", sigc::mem_fun(*this, &MainWindow::on_action_file_save_as));
-        add_action("file_exit", sigc::mem_fun(*this, &MainWindow::on_action_file_exit));
+        add_action("file_new", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_new));
+        add_action("file_open", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_open));
+        add_action("file_open_project", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_open_project));
+        add_action("file_save", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_save));
+        add_action("file_save_as", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_save_as));
+        add_action("file_exit", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_exit));
 
         // setup client area
         set_border_width(10);
@@ -29,7 +29,7 @@ namespace felide::gtk3 {
         m_projectExplorer.show();
         std::cout << "      Shows to the User." << std::endl;
 
-        m_projectExplorer.signal_item_activated().connect(sigc::mem_fun(*this, &MainWindow::on_item_activated));
+        m_projectExplorer.signal_item_activated().connect(sigc::mem_fun(*this, &IDEFrameGtk::on_item_activated));
         std::cout << "      Connected Event Handlers" << std::endl;
 
         std::cout << "    Setting up Editor Manager..." << std::endl;
@@ -44,14 +44,14 @@ namespace felide::gtk3 {
         maximize();
     }
 
-    MainWindow::~MainWindow() {}
+    IDEFrameGtk::~IDEFrameGtk() {}
 
-    void MainWindow::on_action_file_new() {
+    void IDEFrameGtk::on_action_file_new() {
         m_title = "Untitled";
         m_path = "";
     }
 
-    void MainWindow::on_action_file_open_project() {
+    void IDEFrameGtk::on_action_file_open_project() {
         Gtk::FileChooserDialog dialog("Please choose a Folder", Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
         dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
         dialog.add_button("_Open", Gtk::RESPONSE_OK);
@@ -65,7 +65,7 @@ namespace felide::gtk3 {
         }
     }
 
-    void MainWindow::on_action_file_save() {
+    void IDEFrameGtk::on_action_file_save() {
         auto &editor = m_editorManager.get_current_editor();
 
         // TODO: Don't always assume that a Key is a Path
@@ -77,12 +77,12 @@ namespace felide::gtk3 {
         editor.set_dirty_flag(false);
     }
 
-    void MainWindow::on_action_file_close() {
+    void IDEFrameGtk::on_action_file_close() {
         auto &editor = m_editorManager.get_current_editor();
         m_editorManager.close_editor(editor);
     }
 
-    void MainWindow::on_action_file_open() {
+    void IDEFrameGtk::on_action_file_open() {
         auto fileFilter = Gtk::FileFilter::create();
         fileFilter->set_name("Text files");
         fileFilter->add_mime_type("text/plain");
@@ -104,7 +104,7 @@ namespace felide::gtk3 {
         }
     }
 
-    void MainWindow::on_action_file_save_as() {
+    void IDEFrameGtk::on_action_file_save_as() {
         // trigger dialog
         auto fileFilter = Gtk::FileFilter::create();
         fileFilter->set_name("Text files");
@@ -123,11 +123,11 @@ namespace felide::gtk3 {
         }
     }
 
-    void MainWindow::on_action_file_exit() {
+    void IDEFrameGtk::on_action_file_exit() {
         hide();
     }
 
-    void MainWindow::on_item_activated(std::string path) {
+    void IDEFrameGtk::on_item_activated(std::string path) {
         if (fs::is_directory(path)) {
             return;
         }
