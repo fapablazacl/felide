@@ -5,12 +5,13 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/util/FileUtil.hpp>
+#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 #include <felide/ui/gtk3/DocumentGtk.hpp>
 
 namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
-    IDEFrameGtk::IDEFrameGtk() {
+    IDEFrameGtk::IDEFrameGtk(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         // setup supported actions
         add_action("file_new", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_new));
         add_action("file_open", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_open));
@@ -42,6 +43,9 @@ namespace felide::gtk3 {
 
         std::cout << "    Done..." << std::endl;
         maximize();
+
+        // TODO: Pass a DialogManager implementation
+        presenter->onInitialized(this, nullptr);
     }
 
     IDEFrameGtk::~IDEFrameGtk() {}
@@ -49,6 +53,32 @@ namespace felide::gtk3 {
     void IDEFrameGtk::on_action_file_new() {
         m_title = "Untitled";
         m_path = "";
+    }
+
+    DocumentManager* IDEFrameGtk::getDocumentManager() {
+        // TODO: Add implementation
+
+        return nullptr;
+    }
+
+    DialogManager* IDEFrameGtk::getDialogManager() {
+        // TODO: Add implementation
+        
+        return nullptr;
+    }
+
+    FolderBrowser* IDEFrameGtk::getFolderBrowser() {
+        // TODO: Add implementation
+
+        return nullptr;
+    }
+
+    void IDEFrameGtk::close() {
+        // TODO: Add implementation
+    }
+
+    void IDEFrameGtk::show() {
+        // TODO: Add implementation
     }
 
     void IDEFrameGtk::on_action_file_open_project() {

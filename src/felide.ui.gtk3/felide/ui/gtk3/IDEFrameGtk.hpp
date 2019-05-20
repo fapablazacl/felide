@@ -5,15 +5,26 @@
 #include <gtkmm.h>
 #include <string>
 
+#include <felide/ui/ide-frame/IDEFrame.hpp>
 #include <felide/ui/gtk3/DocumentManagerGtk.hpp>
 #include "FolderBrowserGtk.hpp"
 
 namespace felide::gtk3 {
-    class IDEFrameGtk : public Gtk::ApplicationWindow {
+    class IDEFrameGtk : public Gtk::ApplicationWindow, public IDEFrame {
     public:
-        IDEFrameGtk();
+        IDEFrameGtk(IDEFramePresenter *presenter);
 
         virtual ~IDEFrameGtk();
+
+        virtual DocumentManager* getDocumentManager() override;
+
+        virtual DialogManager* getDialogManager() override;
+
+        virtual FolderBrowser* getFolderBrowser() override;
+
+        virtual void close() override;
+
+        virtual void show() override;
 
     private:
         void on_action_file_new();
