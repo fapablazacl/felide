@@ -44,7 +44,6 @@ namespace felide::gtk3 {
         std::cout << "    Done..." << std::endl;
         maximize();
 
-        // TODO: Pass a DialogManager implementation
         presenter->onInitialized(this, &dialogManager);
     }
 
@@ -75,6 +74,10 @@ namespace felide::gtk3 {
 
     void IDEFrameGtk::show() {
         // TODO: Add implementation
+    }
+
+    void IDEFrameGtk::setupMenuBar(const Menu &menu) {
+        
     }
 
     void IDEFrameGtk::on_action_file_open_project() {

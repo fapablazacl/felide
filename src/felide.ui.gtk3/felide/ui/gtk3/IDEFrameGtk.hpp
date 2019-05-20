@@ -27,7 +27,7 @@ namespace felide::gtk3 {
 
         virtual void show() override;
 
-        virtual void setupMenuBar(const Menu &menu) override {}
+        virtual void setupMenuBar(const Menu &menu) override;
 
     private:
         void on_action_file_new();
