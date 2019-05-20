@@ -5,7 +5,7 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/util/FileUtil.hpp>
-#include <felide/ui/gtk3/EditorManager/Editor.hpp>
+#include <felide/ui/gtk3/DocumentGtk.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -32,7 +32,7 @@ namespace felide::gtk3 {
         m_projectExplorer.signal_item_activated().connect(sigc::mem_fun(*this, &IDEFrameGtk::on_item_activated));
         std::cout << "      Connected Event Handlers" << std::endl;
 
-        std::cout << "    Setting up Editor Manager..." << std::endl;
+        std::cout << "    Setting up DocumentGtk Manager..." << std::endl;
         m_paned.add2(m_editorManager);
         m_editorManager.show();
 

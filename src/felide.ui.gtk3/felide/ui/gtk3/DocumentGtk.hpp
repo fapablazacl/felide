@@ -10,15 +10,15 @@ namespace felide::gtk3 {
     typedef sigc::signal<void> signal_editor_dirty_changed_t;
 
     /**
-     * @brief A Simple Text Editor control with scrollbars
+     * @brief A Simple Text DocumentGtk control with scrollbars
      */
-    class Editor : public Gtk::Bin {
+    class DocumentGtk : public Gtk::Bin {
     public:
-        Editor(const Editor&) = delete;
+        DocumentGtk(const DocumentGtk&) = delete;
 
-        Editor(const std::string &key);
+        DocumentGtk(const std::string &key);
         
-        virtual ~Editor();
+        virtual ~DocumentGtk();
 
         void set_text(const std::string &text);
 

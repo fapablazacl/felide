@@ -23,12 +23,12 @@ set (felide_ui_gtk3_src
     "felide/ui/gtk3/DialogManagerGtk.cpp"
     "felide/ui/gtk3/FolderBrowserGtk.hpp"
     "felide/ui/gtk3/FolderBrowserGtk.cpp"
-    "felide/ui/gtk3/EditorManager/Editor.hpp"
-    "felide/ui/gtk3/EditorManager/Editor.cpp"
-    "felide/ui/gtk3/EditorManager/EditorManager.hpp"
-    "felide/ui/gtk3/EditorManager/EditorManager.cpp"
-    "felide/ui/gtk3/EditorManager/EditorHeader.hpp"
-    "felide/ui/gtk3/EditorManager/EditorHeader.cpp"
+    "felide/ui/gtk3/DocumentGtk.hpp"
+    "felide/ui/gtk3/DocumentGtk.cpp"
+    "felide/ui/gtk3/DocumentManagerGtk.hpp"
+    "felide/ui/gtk3/DocumentManagerGtk.cpp"
+    "felide/ui/gtk3/DocumentHeader.hpp"
+    "felide/ui/gtk3/DocumentHeader.cpp"
 )
 
 add_executable (${target} ${src} ${felide_ui_gtk3_src})

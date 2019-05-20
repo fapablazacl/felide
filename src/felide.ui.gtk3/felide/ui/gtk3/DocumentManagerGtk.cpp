@@ -1,35 +1,35 @@
 
-#include "EditorManager.hpp"
-#include "Editor.hpp"
-#include "EditorHeader.hpp"
+#include "DocumentManagerGtk.hpp"
+#include "DocumentGtk.hpp"
+#include "DocumentHeader.hpp"
 
 #include <cassert>
 #include <map>
 #include <iostream>
 
 namespace felide::gtk3 {
-    EditorManager::EditorManager() {
+    DocumentManagerGtk::DocumentManagerGtk() {
         add(m_notebook);
         m_notebook.show();
     }
 
-    EditorManager::~EditorManager() {}
+    DocumentManagerGtk::~DocumentManagerGtk() {}
 
-    void EditorManager::open_editor(const std::string &key, const std::string &title, const std::string &content) {
+    void DocumentManagerGtk::open_editor(const std::string &key, const std::string &title, const std::string &content) {
         auto it = m_editors.find(key);
 
-        Editor *editor = nullptr;
+        DocumentGtk *editor = nullptr;
 
         if (it == m_editors.end()) {
-            editor = Gtk::manage(new Editor(key));
+            editor = Gtk::manage(new DocumentGtk(key));
 
             editor->set_text(content);
             editor->set_dirty_flag(false);
             editor->show();
 
-            // auto header = EditorHeader::create(*editor.get(), title);
-            auto header = Gtk::manage(new EditorHeader(*editor, title));
-            editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header, &EditorHeader::update_title_label));
+            // auto header = DocumentHeader::create(*editor.get(), title);
+            auto header = Gtk::manage(new DocumentHeader(*editor, title));
+            editor->signal_editor_dirty_changed().connect(sigc::mem_fun(*header, &DocumentHeader::update_title_label));
 
             // TODO: Find a way to not dynamically instance the editor header
             m_notebook.append_page(*editor, *header);
@@ -42,22 +42,22 @@ namespace felide::gtk3 {
         m_notebook.set_current_page(pageIndex);
     }
 
-    Editor& EditorManager::get_current_editor() {
+    DocumentGtk& DocumentManagerGtk::get_current_editor() {
         const int pageIndex = m_notebook.get_current_page();
 
         if (pageIndex == -1) {
             // TODO: Fix this nasty hack
-            return *static_cast<Editor*>(nullptr);
+            return *static_cast<DocumentGtk*>(nullptr);
         }
 
         auto page = m_notebook.get_nth_page(pageIndex);
 
         assert(page);
 
-        return static_cast<Editor&>(*page);
+        return static_cast<DocumentGtk&>(*page);
     }
 
-    void EditorManager::close_editor(Editor &editor) {
+    void DocumentManagerGtk::close_editor(DocumentGtk &editor) {
         // remove from UI
         int pageIndex = -1;
         for (int i=0; i<m_notebook.get_n_pages(); i++) {
@@ -75,7 +75,7 @@ namespace felide::gtk3 {
         m_editors.erase(editor.get_key());
     }
 
-    signal_editor_closed_t EditorManager::signal_editor_closed() {
+    signal_editor_closed_t DocumentManagerGtk::signal_editor_closed() {
         return m_signal_editor_closed;
     }
 }

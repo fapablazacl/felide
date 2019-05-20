@@ -1,9 +1,9 @@
 
-#include "EditorHeader.hpp"
-#include "Editor.hpp"
+#include "DocumentHeader.hpp"
+#include "DocumentGtk.hpp"
 
 namespace felide::gtk3 {
-    EditorHeader::EditorHeader(Editor &editor, const std::string &title) 
+    DocumentHeader::DocumentHeader(DocumentGtk &editor, const std::string &title) 
             : m_editor(editor), m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
         m_title = title;
 
@@ -17,9 +17,9 @@ namespace felide::gtk3 {
         show_all();
     }
 
-    EditorHeader::~EditorHeader() {}
+    DocumentHeader::~DocumentHeader() {}
 
-    void EditorHeader::update_title_label() {
+    void DocumentHeader::update_title_label() {
         std::string title = m_title;
         if (m_editor.get_dirty_flag()) {
             title += " *";
@@ -28,7 +28,7 @@ namespace felide::gtk3 {
         m_titleLabel.set_text(title);
     }
 
-    Gtk::Button* EditorHeader::get_close_button() {
+    Gtk::Button* DocumentHeader::get_close_button() {
         return &m_closeButton;
     }
 }

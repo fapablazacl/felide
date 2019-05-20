@@ -1,10 +1,10 @@
 
-#include "Editor.hpp"
+#include "DocumentGtk.hpp"
 
 #include <iostream>
 
 namespace felide::gtk3 {
-    Editor::Editor(const std::string &key) {
+    DocumentGtk::DocumentGtk(const std::string &key) {
         add(m_scrolled);
 
         m_scrolled.set_border_width(5);
@@ -19,39 +19,39 @@ namespace felide::gtk3 {
         m_textView.set_highlight_current_line(true);
         m_textView.set_tab_width(4);
         m_textView.set_monospace(true);
-        m_textView.get_buffer()->signal_changed().connect(sigc::mem_fun(*this, &Editor::on_text_buffer_changed));
+        m_textView.get_buffer()->signal_changed().connect(sigc::mem_fun(*this, &DocumentGtk::on_text_buffer_changed));
     }
 
-    Editor::~Editor() {}
+    DocumentGtk::~DocumentGtk() {}
 
-    void Editor::set_text(const std::string &text) {
+    void DocumentGtk::set_text(const std::string &text) {
         m_textView.get_buffer()->set_text(text);
     }
 
-    std::string Editor::get_text() const {
+    std::string DocumentGtk::get_text() const {
         return m_textView.get_buffer()->get_text();
     }
 
-    std::string Editor::get_key() const {
+    std::string DocumentGtk::get_key() const {
         return m_key;
     }
 
-    void Editor::set_dirty_flag(const bool flag) {
+    void DocumentGtk::set_dirty_flag(const bool flag) {
         if (m_dirty_flag != flag) {
             m_dirty_flag = flag;
             m_signal_editor_dirty_changed();
         }
     }
 
-    bool Editor::get_dirty_flag() const {
+    bool DocumentGtk::get_dirty_flag() const {
         return m_dirty_flag;
     }
 
-    signal_editor_dirty_changed_t Editor::signal_editor_dirty_changed() {
+    signal_editor_dirty_changed_t DocumentGtk::signal_editor_dirty_changed() {
         return m_signal_editor_dirty_changed;
     }
 
-    void Editor::on_text_buffer_changed() {
+    void DocumentGtk::on_text_buffer_changed() {
         set_dirty_flag(true);
     }
 }

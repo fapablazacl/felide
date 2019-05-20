@@ -5,7 +5,7 @@
 #include <gtkmm.h>
 #include <string>
 
-#include <felide/ui/gtk3/EditorManager/EditorManager.hpp>
+#include <felide/ui/gtk3/DocumentManagerGtk.hpp>
 #include "FolderBrowserGtk.hpp"
 
 namespace felide::gtk3 {
@@ -36,7 +36,7 @@ namespace felide::gtk3 {
         std::string m_title;
         std::string m_path;
 
-        EditorManager m_editorManager;
+        DocumentManagerGtk m_editorManager;
         FolderBrowserGtk m_projectExplorer;
         Glib::RefPtr<Gio::Menu> m_mainMenu;
 
