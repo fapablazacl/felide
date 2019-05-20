@@ -15,12 +15,14 @@ set (src
 )
 
 set (felide_ui_gtk3_src
-    "felide/ui/gtk3/MainWindow.hpp" 
-    "felide/ui/gtk3/MainWindow.cpp"
     "felide/ui/gtk3/MainApplication.hpp"
     "felide/ui/gtk3/MainApplication.cpp"
-    "felide/ui/gtk3/ProjectExplorer.hpp"
-    "felide/ui/gtk3/ProjectExplorer.cpp"
+    "felide/ui/gtk3/IDEFrameGtk.hpp" 
+    "felide/ui/gtk3/IDEFrameGtk.cpp"
+    "felide/ui/gtk3/DialogManagerGtk.hpp" 
+    "felide/ui/gtk3/DialogManagerGtk.cpp"
+    "felide/ui/gtk3/FolderBrowserGtk.hpp"
+    "felide/ui/gtk3/FolderBrowserGtk.cpp"
     "felide/ui/gtk3/EditorManager/Editor.hpp"
     "felide/ui/gtk3/EditorManager/Editor.cpp"
     "felide/ui/gtk3/EditorManager/EditorManager.hpp"

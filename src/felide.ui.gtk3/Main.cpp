@@ -1,6 +1,6 @@
 
 #include <gtkmm.h>
-#include <felide/ui/gtk3/MainWindow.hpp>
+#include <felide/ui/gtk3/IDEFrameGtk.hpp>
 #include <felide/ui/gtk3/MainApplication.hpp>
 
 #include <memory>
