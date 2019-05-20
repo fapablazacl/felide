@@ -11,7 +11,7 @@
 namespace fs = boost::filesystem;
 
 namespace felide::gtk3 {
-    IDEFrameGtk::IDEFrameGtk(IDEFramePresenter *presenter) : IDEFrame(presenter), dialogManager(*this) {
+    IDEFrameGtk::IDEFrameGtk(IDEFramePresenter *presenter) : IDEFrame(presenter), dialogManager(*this), folderBrowser(presenter->getFolderBrowserPresenter()) {
         // setup supported actions
         add_action("file_new", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_new));
         add_action("file_open", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_open));
@@ -66,9 +66,7 @@ namespace felide::gtk3 {
     }
 
     FolderBrowser* IDEFrameGtk::getFolderBrowser() {
-        // TODO: Add implementation
-
-        return nullptr;
+        return &folderBrowser;
     }
 
     void IDEFrameGtk::close() {

@@ -2,7 +2,7 @@
 #include "FolderBrowserGtk.hpp"
 
 namespace felide::gtk3 {
-    FolderBrowserGtk::FolderBrowserGtk() {
+    FolderBrowserGtk::FolderBrowserGtk(FolderBrowserPresenter *presenter) : FolderBrowser(presenter) {
         // setup UI
         add(m_scrolled);
 
@@ -24,6 +24,18 @@ namespace felide::gtk3 {
     }
 
     FolderBrowserGtk::~FolderBrowserGtk() {}
+
+    void FolderBrowserGtk::displayFolder(const std::string &folder) {
+
+    }
+
+    boost::optional<std::string> FolderBrowserGtk::getSelectedPath() const {
+        return {};
+    }
+
+    void FolderBrowserGtk::displayContextualMenu(const Point &point, const Menu &menu) {
+        
+    }
 
     void FolderBrowserGtk::LoadProject(const std::string &projectPath) {
         // internal variable cleanup

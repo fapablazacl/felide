@@ -15,6 +15,7 @@ namespace felide::gtk3 {
 
         virtual ~DocumentManagerGtk();
 
+    public:
         void open_editor(const std::string &key, const std::string &title, const std::string &content);
 
         DocumentGtk& get_current_editor();

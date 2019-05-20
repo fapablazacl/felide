@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <boost/filesystem.hpp>
+#include <felide/ui/folder-browser/FolderBrowser.hpp>
 #include <felide/util/FileUtil.hpp>
 
 namespace fs = boost::filesystem;
@@ -28,12 +29,19 @@ namespace felide::gtk3 {
 
     typedef sigc::signal<void, std::string> signal_item_activated_t;
 
-    class FolderBrowserGtk : public Gtk::Bin {
+    class FolderBrowserGtk : public Gtk::Bin, public FolderBrowser {
     public:
-        FolderBrowserGtk();
+        FolderBrowserGtk(FolderBrowserPresenter *presenter);
 
         virtual ~FolderBrowserGtk();
 
+        virtual void displayFolder(const std::string &folder) override;
+
+        virtual boost::optional<std::string> getSelectedPath() const override;
+
+        virtual void displayContextualMenu(const Point &point, const Menu &menu) override;
+
+    public:
         void LoadProject(const std::string &projectPath);
 
         signal_item_activated_t signal_item_activated();
