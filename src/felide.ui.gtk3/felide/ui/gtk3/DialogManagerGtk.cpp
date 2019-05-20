@@ -6,10 +6,63 @@ namespace felide {
 
     DialogManagerGtk::~DialogManagerGtk() {}
 
+    static Gtk::MessageType mapMessageIcon(DialogIcon icon) {
+        switch (icon) {
+            case DialogIcon::Question:      return Gtk::MESSAGE_QUESTION; 
+            case DialogIcon::Information:   return Gtk::MESSAGE_INFO; 
+            case DialogIcon::Error:         return Gtk::MESSAGE_ERROR;
+            case DialogIcon::Warning:       return Gtk::MESSAGE_WARNING;
+            default:                        return Gtk::MESSAGE_OTHER;
+        }
+    }
+
+    enum ButtonsGtk {
+        FELIDE_GTK_CANCEL, 
+        FELIDE_GTK_OK, 
+        FELIDE_GTK_YES, 
+        FELIDE_GTK_NO
+    };
+
+    static DialogButton mapResponseButton(ButtonsGtk result) {
+        switch (result) {
+            case FELIDE_GTK_CANCEL: return DialogButton::Cancel;
+            case FELIDE_GTK_OK: return DialogButton::Ok;
+            case FELIDE_GTK_YES: return DialogButton::Yes;
+            case FELIDE_GTK_NO: return DialogButton::No;
+            default: return DialogButton::Cancel;
+        }
+    }
+
     DialogButton DialogManagerGtk::showMessageDialog(const MessageDialogData &data) const {
-        // TODO: Add implementation
+        Gtk::MessageType messageIcon = mapMessageIcon(data.icon);
         
-        return DialogButton::Ok;
+        auto dialog = Gtk::MessageDialog{
+            parent, 
+            data.title.c_str(),
+            false /* use_markup */, 
+            messageIcon,
+            Gtk::BUTTONS_NONE
+        };
+
+        if (data.buttons & DialogButton::Ok) {
+            dialog.add_button("_Ok", FELIDE_GTK_OK);
+        }
+
+        if (data.buttons & DialogButton::Yes) {
+            dialog.add_button("_Yes", FELIDE_GTK_YES);
+        }
+
+        if (data.buttons & DialogButton::No) {
+            dialog.add_button("_No", FELIDE_GTK_NO);
+        }
+
+        if (data.buttons & DialogButton::Cancel) {
+            dialog.add_button("_Cancel", FELIDE_GTK_CANCEL);
+        }
+
+        const auto result = static_cast<ButtonsGtk>(dialog.run());
+
+        return mapResponseButton(result);
     }
 
     boost::optional<std::string> DialogManagerGtk::showInputDialog(const InputDialogData &data) const {

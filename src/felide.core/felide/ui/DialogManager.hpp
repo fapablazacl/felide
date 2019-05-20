@@ -48,6 +48,14 @@ namespace felide {
         return static_cast<DialogButton>(static_cast<int>(f1) | static_cast<int>(f2));
     }
 
+    inline bool operator& (const DialogButton f1, const DialogButton f2) {
+        if (f1 & f2) {
+            return true;
+        }
+
+        return false;
+    }
+
     struct MessageDialogData {
         std::string title;
         std::string message;
