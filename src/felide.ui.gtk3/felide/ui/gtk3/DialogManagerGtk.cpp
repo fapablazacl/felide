@@ -15,6 +15,8 @@ namespace felide {
     }
 
     boost::optional<boost::filesystem::path> DialogManagerGtk::showFileDialog(const FileDialogData &data) const {
+        // TODO: Add defaultPath usage
+
         const auto chooserAction = data.type == FileDialogType::OpenFile 
             ? Gtk::FILE_CHOOSER_ACTION_OPEN 
             : Gtk::FILE_CHOOSER_ACTION_SAVE;
@@ -46,6 +48,17 @@ namespace felide {
     }
 
     boost::optional<boost::filesystem::path> DialogManagerGtk::showFolderDialog(const FolderDialogData &data) {
+        Gtk::FileChooserDialog dialog(data.title.c_str(), Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);
+        dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+        dialog.add_button("_Open", Gtk::RESPONSE_OK);
+        dialog.set_transient_for(parent);
+
+        if (int result = dialog.run(); result == Gtk::RESPONSE_OK) {
+            const std::string folderPath = dialog.get_filename();
+            
+            return boost::filesystem::path(folderPath);
+        }
+
         return {};
     }
 }
