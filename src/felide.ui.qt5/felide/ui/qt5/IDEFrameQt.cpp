@@ -36,8 +36,8 @@ namespace felide {
     }
 
     void IDEFrameQt::setupDocumentManager() {
-        m_editorManager = new DocumentManagerQt(this, m_presenter->getDocumentManagerPresenter());
-        this->setCentralWidget(m_editorManager);
+        documentManager = new DocumentManagerQt(this, m_presenter->getDocumentManagerPresenter());
+        this->setCentralWidget(documentManager);
     }
     
     void IDEFrameQt::setupDockUI() {
@@ -64,7 +64,7 @@ namespace felide {
 
 namespace felide {
     DocumentManager* IDEFrameQt::getDocumentManager() {
-        return m_editorManager;
+        return documentManager;
     }
 
     DialogManager* IDEFrameQt::getDialogManager() {

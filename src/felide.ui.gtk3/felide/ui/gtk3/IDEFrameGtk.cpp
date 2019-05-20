@@ -24,22 +24,22 @@ namespace felide::gtk3 {
         set_border_width(10);
         std::cout << "    Setting up Project Explorer..." << std::endl;
 
-        m_paned.add1(m_projectExplorer);
+        paned.add1(folderBrowser);
         std::cout << "      Added to the Paned Splitter." << std::endl;
 
-        m_projectExplorer.show();
+        folderBrowser.show();
         std::cout << "      Shows to the User." << std::endl;
 
-        m_projectExplorer.signal_item_activated().connect(sigc::mem_fun(*this, &IDEFrameGtk::on_item_activated));
+        folderBrowser.signal_item_activated().connect(sigc::mem_fun(*this, &IDEFrameGtk::on_item_activated));
         std::cout << "      Connected Event Handlers" << std::endl;
 
         std::cout << "    Setting up DocumentGtk Manager..." << std::endl;
-        m_paned.add2(m_editorManager);
-        m_editorManager.show();
+        paned.add2(documentManager);
+        documentManager.show();
 
         std::cout << "    Splitter..." << std::endl;
-        add(m_paned);
-        m_paned.show();
+        add(paned);
+        paned.show();
 
         std::cout << "    Done..." << std::endl;
         maximize();
@@ -89,12 +89,12 @@ namespace felide::gtk3 {
 
         if (result == Gtk::RESPONSE_OK) {
             const std::string folderPath = dialog.get_filename();
-            m_projectExplorer.LoadProject(folderPath);
+            folderBrowser.LoadProject(folderPath);
         }
     }
 
     void IDEFrameGtk::on_action_file_save() {
-        auto &editor = m_editorManager.get_current_editor();
+        auto &editor = documentManager.get_current_editor();
 
         // TODO: Don't always assume that a Key is a Path
         std::string path = editor.get_key();
@@ -106,8 +106,8 @@ namespace felide::gtk3 {
     }
 
     void IDEFrameGtk::on_action_file_close() {
-        auto &editor = m_editorManager.get_current_editor();
-        m_editorManager.close_editor(editor);
+        auto &editor = documentManager.get_current_editor();
+        documentManager.close_editor(editor);
     }
 
     void IDEFrameGtk::on_action_file_open() {
@@ -128,7 +128,7 @@ namespace felide::gtk3 {
             const std::string name = fs::path(path).filename().string();
             const std::string content = felide::FileUtil::load(path);
 
-            m_editorManager.open_editor(path, name, content);
+            documentManager.open_editor(path, name, content);
         }
     }
 
@@ -163,6 +163,6 @@ namespace felide::gtk3 {
         const std::string name = fs::path(path).filename().string();
         const std::string content = felide::FileUtil::load(path);
 
-        m_editorManager.open_editor(path, name, content);
+        documentManager.open_editor(path, name, content);
     }
 }

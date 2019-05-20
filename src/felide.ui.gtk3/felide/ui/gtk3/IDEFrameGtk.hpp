@@ -49,12 +49,12 @@ namespace felide::gtk3 {
         std::string m_path;
 
         DialogManagerGtk dialogManager;
-        DocumentManagerGtk m_editorManager;
-        FolderBrowserGtk m_projectExplorer;
-        Glib::RefPtr<Gio::Menu> m_mainMenu;
+        DocumentManagerGtk documentManager;
+        FolderBrowserGtk folderBrowser;
+        // Glib::RefPtr<Gio::Menu> m_mainMenu;
 
         // AKA Splitter
-        Gtk::Paned m_paned;
+        Gtk::Paned paned;
     };
 }
 

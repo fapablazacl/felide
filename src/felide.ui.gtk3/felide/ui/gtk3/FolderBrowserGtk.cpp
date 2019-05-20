@@ -73,7 +73,7 @@ namespace felide::gtk3 {
             Glib::ustring path = row[m_treeModel.m_itemPath];
 
             const std::string content = felide::FileUtil::load(path);
-            m_editorManager->OpenEditor(name, content);
+            documentManager->OpenEditor(name, content);
         }
         */
     }
