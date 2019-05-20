@@ -38,8 +38,9 @@ namespace felide {
 
         virtual void show() override;
 
+        virtual void setupMenuBar(const Menu &menu) override;
+
     private:
-        void setupMenuBar();
         void setupDocumentManager();
         void setupDockUI();
 

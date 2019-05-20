@@ -87,7 +87,7 @@ namespace felide::gtk3 {
 
         if (result == Gtk::RESPONSE_OK) {
             const std::string folderPath = dialog.get_filename();
-            folderBrowser.LoadProject(folderPath);
+            folderBrowser.displayFolder(folderPath);
         }
     }
 

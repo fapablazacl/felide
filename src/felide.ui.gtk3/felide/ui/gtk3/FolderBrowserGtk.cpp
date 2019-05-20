@@ -25,19 +25,7 @@ namespace felide::gtk3 {
 
     FolderBrowserGtk::~FolderBrowserGtk() {}
 
-    void FolderBrowserGtk::displayFolder(const std::string &folder) {
-
-    }
-
-    boost::optional<std::string> FolderBrowserGtk::getSelectedPath() const {
-        return {};
-    }
-
-    void FolderBrowserGtk::displayContextualMenu(const Point &point, const Menu &menu) {
-        
-    }
-
-    void FolderBrowserGtk::LoadProject(const std::string &projectPath) {
+    void FolderBrowserGtk::displayFolder(const std::string &projectPath) {
         // internal variable cleanup
         m_projectPath = projectPath;
         m_refTreeStore->clear();
@@ -55,6 +43,18 @@ namespace felide::gtk3 {
         treePath.push_back(0);
 
         m_treeView.expand_row(treePath, false);
+    }
+
+    boost::optional<std::string> FolderBrowserGtk::getSelectedPath() const {
+        if (m_projectPath != "") {
+            return m_projectPath;
+        }
+
+        return {};
+    }
+
+    void FolderBrowserGtk::displayContextualMenu(const Point &point, const Menu &menu) {
+        // TODO: Add implementation   
     }
 
     signal_item_activated_t FolderBrowserGtk::signal_item_activated() {

@@ -26,6 +26,46 @@ namespace felide {
         
         this->view = view;
         this->dialogView = dialogView;
+
+        const auto menu = Menu{Menu::menuBar({
+            Menu::menu("&File", {
+                Menu::action([this] () { this->onFileNew(); }, "&New", {Modifier::Ctrl, Key::N}),
+                Menu::separator(),
+                Menu::action([this] () { this->onFileOpen(); }, "&Open ...", {Modifier::Ctrl, Key::O}),
+                Menu::action([this] () { this->onFileOpenFolder(); }, "Open &Folder ...", {Modifier::CtrlShift, Key::O}),
+                Menu::separator(),
+                Menu::action([this] () { this->onFileSave(); }, "&Save", {Modifier::Ctrl, Key::S}),
+                Menu::action([this] () { this->onFileSaveAs(); }, "Sa&ve As ..."),
+                Menu::action([this] () { this->onFileSaveAll(); }, "Save &All"),
+                Menu::separator(),
+                Menu::action([this] () { this->onFileClose(); }, "&Close"),
+                Menu::separator(),
+                Menu::action([this] () { this->onFileExit(); }, "&Exit")
+            }),
+            Menu::menu("&Edit", {
+                Menu::action([this] () { this->onEditUndo(); }, "&Undo", {Modifier::Ctrl, Key::Z}),
+                Menu::action([this] () { this->onEditRedo(); }, "&Redo", {Modifier::CtrlShift, Key::Z}),
+                Menu::separator(),
+                Menu::action([this] () { this->onEditCut(); }, "&Cut", {Modifier::Ctrl, Key::X}),
+                Menu::action([this] () { this->onEditCopy(); }, "C&opy", {Modifier::Ctrl, Key::C}),
+                Menu::action([this] () { this->onEditPaste(); }, "&Paste", {Modifier::Ctrl, Key::V}),
+                Menu::separator(),
+                Menu::action([] () {}, "Find ..."),
+                Menu::action([] () {}, "Replace ..."),
+            }),
+            Menu::menu("&View", {
+                Menu::action([this] () { this->onViewFolderBrowser(); }, "&Folder Browser")
+            }),
+            Menu::menu("&Build", {
+                Menu::action([] () {}, "&Clean"),
+                Menu::action([] () {}, "&Execute")
+            }),
+            Menu::menu("&Help", {
+                Menu::action([] () {}, "&About", {Key::F1})
+            }),
+        })};
+
+        view->setupMenuBar(menu);
     }
 
     void IDEFramePresenter::onFileNew() {

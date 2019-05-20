@@ -17,7 +17,6 @@ namespace felide {
     IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         m_dialogManager = std::make_unique<DialogManagerQt>(this);
 
-        this->setupMenuBar();
         this->setupDocumentManager();
         this->setupDockUI();
 
@@ -31,8 +30,8 @@ namespace felide {
         m_presenter->onInitialized(this, m_dialogManager.get());
     }
 
-    void IDEFrameQt::setupMenuBar() {
-        this->setMenuBar(createMenuBar(this, *m_menu));
+    void IDEFrameQt::setupMenuBar(const Menu &menu) {
+        this->setMenuBar(createMenuBar(this, menu));
     }
 
     void IDEFrameQt::setupDocumentManager() {

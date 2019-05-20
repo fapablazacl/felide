@@ -28,13 +28,14 @@ namespace felide {
         
         virtual FolderBrowser* getFolderBrowser() = 0;
 
+        virtual void setupMenuBar(const Menu &menu) = 0;
+
         virtual void close() = 0;
 
         virtual void show() = 0;
 
     protected:
         IDEFramePresenter *m_presenter;
-        Menu *m_menu;
     };
 }
 

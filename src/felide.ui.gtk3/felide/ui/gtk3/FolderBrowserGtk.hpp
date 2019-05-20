@@ -42,8 +42,6 @@ namespace felide::gtk3 {
         virtual void displayContextualMenu(const Point &point, const Menu &menu) override;
 
     public:
-        void LoadProject(const std::string &projectPath);
-
         signal_item_activated_t signal_item_activated();
 
     private:
