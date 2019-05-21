@@ -4,6 +4,7 @@
 #include "IDEFrameModel.hpp"
 
 #include <boost/filesystem.hpp>
+#include <felide/ui/MenuPanel.hpp>
 #include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
 #include <felide/util/FileUtil.hpp>
 
@@ -21,7 +22,7 @@ namespace felide {
 
     IDEFramePresenter::~IDEFramePresenter() {}
 
-    void IDEFramePresenter::onInitialized(IDEFrame *view, DialogManager *dialogView) {
+    void IDEFramePresenter::onInitialized(IDEFrame *view, DialogManager *dialogView, MenuPanel *menuView) {
         assert(view);
         
         this->view = view;
@@ -65,7 +66,7 @@ namespace felide {
             }),
         })};
 
-        view->setupMenuBar(menu);
+        menuView->setupMenuBar(menu);
     }
 
     void IDEFramePresenter::onFileNew() {

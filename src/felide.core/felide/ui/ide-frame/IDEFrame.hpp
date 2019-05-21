@@ -14,8 +14,6 @@ namespace felide {
 
     class FELIDE_API IDEFramePresenter;
 
-    struct Menu;
-
     class FELIDE_API IDEFrame {
     public:
         explicit IDEFrame(IDEFramePresenter *presenter);
@@ -27,8 +25,6 @@ namespace felide {
         virtual DialogManager* getDialogManager() = 0;
         
         virtual FolderBrowser* getFolderBrowser() = 0;
-
-        virtual void setupMenuBar(const Menu &menu) = 0;
 
         virtual void close() = 0;
 

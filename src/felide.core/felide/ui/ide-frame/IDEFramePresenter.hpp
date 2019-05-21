@@ -20,6 +20,7 @@ namespace felide {
     class FELIDE_API Document;
     class FELIDE_API IDEFrame;
     class FELIDE_API DialogManager;
+    class FELIDE_API MenuPanel;
     
     class FELIDE_API IDEFramePresenter {
     public:
@@ -27,7 +28,7 @@ namespace felide {
 
         virtual ~IDEFramePresenter();
 
-        void onInitialized(IDEFrame *view, DialogManager *dialogView);
+        void onInitialized(IDEFrame *view, DialogManager *dialogView, MenuPanel *menuView);
 
     public:
         void onFileNew();

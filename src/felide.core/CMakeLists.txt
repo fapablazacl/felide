@@ -127,6 +127,8 @@ set (sources_felide_ui
     "felide/ui/DialogManager.cpp"
     "felide/ui/Menu.hpp"
     "felide/ui/Menu.cpp"
+    "felide/ui/MenuPanel.hpp"
+    "felide/ui/MenuPanel.cpp"
     "felide/ui/FileFilter.hpp"
     "felide/ui/FileFilter.cpp"
     "felide/ui/UIToolkit.hpp"
