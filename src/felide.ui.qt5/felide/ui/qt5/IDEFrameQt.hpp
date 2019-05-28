@@ -15,13 +15,14 @@
 #include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
 #include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
 #include <felide/ui/Menu.hpp>
+#include <felide/ui/MenuPanel.hpp>
 
 #include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"
 
 namespace felide {
     class FolderBrowserQt;
-    class IDEFrameQt : public QMainWindow, public IDEFrame {
+    class IDEFrameQt : public QMainWindow, public IDEFrame, public MenuPanel {
         Q_OBJECT;
 
     public:

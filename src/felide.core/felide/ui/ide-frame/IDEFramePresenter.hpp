@@ -73,9 +73,10 @@ namespace felide {
 
     private:
         DialogManager *dialogView = nullptr;
+        MenuPanel *menuView = nullptr;
         IDEFrame *view = nullptr;
         IDEFrameModel *model = nullptr;
-
+        
         std::unique_ptr<DocumentManagerPresenter> documentManagerPresenter;
         std::unique_ptr<FolderBrowserPresenter> folderBrowserPresenter;
     };

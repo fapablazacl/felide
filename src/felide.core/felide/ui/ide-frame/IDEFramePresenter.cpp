@@ -27,6 +27,7 @@ namespace felide {
         
         this->view = view;
         this->dialogView = dialogView;
+        this->menuView = menuView;
 
         const auto menu = Menu{Menu::menuBar({
             Menu::menu("&File", {
@@ -66,7 +67,7 @@ namespace felide {
             }),
         })};
 
-        menuView->setupMenuBar(menu);
+        this->menuView->setupMenuBar(menu);
     }
 
     void IDEFramePresenter::onFileNew() {
