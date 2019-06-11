@@ -21,7 +21,6 @@ class GCCConfiguration:
     def __parseVersion(self, rawVersion):
         return rawVersion.split(" ")[2]
 
-
 def main():
     if len(sys.argv) < 2:
         print ("Borc Build System 0.0")
@@ -90,6 +89,7 @@ def main():
         print ("Available subcommands:")
         print ("    build: Builds all the modules for the current project")
         print ("    setup: Setup a specific toolchain for use in the current project")
+        print ("    run: Run an executable, optionally debugging it")
         print ("")
         print ("For specific use for a subcommand, use the --help switch, like:")
         print ("    borc setup --help")
