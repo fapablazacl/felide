@@ -21,16 +21,21 @@ class GCCConfiguration:
     def __parseVersion(self, rawVersion):
         return rawVersion.split(" ")[2]
 
-def main():
-    if len(sys.argv) < 2:
-        print ("Borc Build System 0.0")
-        print ("Error: No options specified. Use borc --help for help.")
 
-        return
+class ProjectConfiguration:
+    def __init__(self, compiler):
+        self.__compiler = compiler
+        self.__baseBuildPath = 
 
-    subcommand = sys.argv[1]
+    def getBuildDirectory(self, buildConfiguration):
+        pass
 
-    if subcommand == "setup":
+
+class Borc:
+    def __init__(self):
+        pass
+    
+    def setup(self):
         os.makedirs(".borc", exist_ok=True)
 
         # detect compiler information
@@ -72,17 +77,13 @@ def main():
         
         print ("Build scripts generation was successful.")
 
-    if subcommand == "build":
+    def build(self):
         print ("Triggering CMake Build ...")
 
-        return
-
-    if subcommand == "run":
+    def run(self):
         print ("Usage: borc run target")
-
-        return
-
-    if subcommand == "--help":
+    
+    def showHelp(self):
         print ("Syntax:")
         print ("    borc subcommand --options")
         print ("")
@@ -94,6 +95,32 @@ def main():
         print ("For specific use for a subcommand, use the --help switch, like:")
         print ("    borc setup --help")
 
-        return
 
-main()
+class BorcDriver:
+    def __init__(self, borc):
+        self.__borc = borc
+
+    def drive(self, argv):
+        if len(sys.argv) < 2:
+            print ("Borc Build System 0.0")
+            print ("Error: No options specified. Use borc --help for help.")
+
+            return
+
+        subcommand = sys.argv[1]
+
+        if subcommand == "setup":
+            self.__borc.setup()
+
+        if subcommand == "build":
+            self.__borc.build()
+
+        if subcommand == "run":
+            self.__borc.run()
+
+        if subcommand == "--help":
+            self.__borc.showHelp()
+
+borc = Borc()
+driver = BorcDriver(borc)
+driver.drive(sys.argv)
