@@ -7,7 +7,8 @@ import sys
 import os
 import subprocess
 
-class GCCConfiguration:
+
+class Compiler:
     def __init__(self, specs):
         self.key = "gcc"
         self.name = "GNU Compiler Collection"
@@ -22,14 +23,46 @@ class GCCConfiguration:
         return rawVersion.split(" ")[2]
 
 
-class ProjectConfiguration:
+class Project:
     def __init__(self, compiler):
         self.__compiler = compiler
-        self.__baseBuildPath = 
+        self.__baseBuildPath = f".borc/{compiler.key}({compiler.target})/{compiler.version}"
 
-    def getBuildDirectory(self, buildConfiguration):
-        pass
+    def setup(self):
+        # generate CMake build scripts ...
+        print(f"Using the '{self.__compiler.name}' toolchain, version {self.__compiler.version}")
+        print("Bootstraping CMake build scripts ...")
+        os.makedirs(self.__baseBuildPath, exist_ok=True)
 
+        buildConfigs = ["Debug", "Release"]
+
+        for buildConfig in buildConfigs:
+            print (f"    -> Generating {buildConfig} build configuration")
+
+            buildDir = f"{self.__baseBuildPath}/{buildConfig}"
+            os.makedirs(buildDir, exist_ok=True)
+
+            process = subprocess.Popen(
+                ["cmake", "../../../../", f"-DCMAKE_BUILD_TYPE={buildConfig}"], 
+                cwd=buildDir, 
+                stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE
+            )
+
+            if process.wait() != 0:
+                print (f"    Error while generating build configuration:")
+                print(process.stderr.read().decode("utf-8"))
+
+                return
+
+    def getBaseBuildDirectory(self):
+        return self.__baseBuildPath
+
+    def getBuildDirectory(self, buildConfiguration, module):
+        return self.__baseBuildPath + ("/" + buildConfiguration) + "/src" + ("/" + module)
+
+    def getBuildDirectory(self, buildConfiguration, module):
+        return self.__baseBuildPath + ("/" + buildConfiguration) + "/src" + ("/" + module)
 
 class Borc:
     def __init__(self):
@@ -42,7 +75,7 @@ class Borc:
         print("Detecting compiler ...")
         process = subprocess.Popen(["gcc", "-v"], stderr=subprocess.PIPE)
         specs = process.stderr.read().decode("utf-8").split("\n")
-        config = GCCConfiguration(specs)
+        config = Compiler(specs)
 
         compilerKey = config.key
         compilerName = config.name
