@@ -10,11 +10,15 @@ set (sources
 
 add_executable (${target} ${sources})
 
+if (UNIX)
+    set (DL_LIBRARY dl pthread)
+endif ()
+
 target_link_libraries (
     ${target} 
     felide.core
-    fmt
-    stdc++fs
+    ${Boost_LIBRARIES}
+    ${DL_LIBRARY}
 )
 
 install(TARGETS ${target} DESTINATION "bin")
