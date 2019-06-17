@@ -93,16 +93,15 @@ public:
     }
 
     void configure(const boost::filesystem::path &buildFolder, const CMakeBuildConfiguration &configuration) {
-        boost::filesystem::path cmakePath = boost::process::search_path("cmake");
-
-        boost::process::start_dir = buildFolder;
-
         boost::filesystem::create_directories(buildFolder);
+        boost::filesystem::path cmakePath = boost::process::search_path("cmake");
         boost::process::ipstream pipeStream;
         boost::process::child childProcess {
             cmakePath, 
             sourceDirectory,
             "-DCMAKE_BUILD_TYPE=" + configuration.buildType, 
+            // boost::process::start_dir = (buildFolder / "lala"),
+            boost::process::start_dir = ("/dev/asdasdad"),
             boost::process::std_out > boost::process::null
         };
 
@@ -174,7 +173,7 @@ public:
             config.generator = "Unix Makefiles";
             config.buildType = buildType;
 
-            const boost::filesystem::path buildFolder = projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString());
+            const boost::filesystem::path buildFolder = projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString()) / buildType;
 
             project.configure(buildFolder, config);
         }
