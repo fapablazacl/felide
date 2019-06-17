@@ -6,5 +6,5 @@ build-clang/*
 .DS_Store
 .kdev4/
 .build
-.borc
+.borc*
 /.vs
