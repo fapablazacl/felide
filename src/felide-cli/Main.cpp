@@ -97,11 +97,11 @@ public:
         boost::filesystem::path cmakePath = boost::process::search_path("cmake");
         boost::process::ipstream pipeStream;
         boost::process::child childProcess {
+            boost::process::start_dir (buildFolder),
             cmakePath, 
             sourceDirectory,
             "-DCMAKE_BUILD_TYPE=" + configuration.buildType, 
             // boost::process::start_dir = (buildFolder / "lala"),
-            boost::process::start_dir = ("/dev/asdasdad"),
             boost::process::std_out > boost::process::null
         };
 
