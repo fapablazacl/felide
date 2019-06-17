@@ -92,8 +92,23 @@ public:
         this->sourceDirectory = sourceDirectory;
     }
 
-    void configureBuildDirectory(boost::filesystem::path directory, const CMakeBuildConfiguration &configuration) {
-        buildConfigurationMap[directory] = configuration;
+    void configure(const boost::filesystem::path &buildFolder, const CMakeBuildConfiguration &configuration) {
+        boost::filesystem::path cmakePath = boost::process::search_path("cmake");
+
+        boost::process::start_dir = buildFolder;
+
+        boost::filesystem::create_directories(buildFolder);
+        boost::process::ipstream pipeStream;
+        boost::process::child childProcess {
+            cmakePath, 
+            sourceDirectory,
+            "-DCMAKE_BUILD_TYPE=" + configuration.buildType, 
+            boost::process::std_out > boost::process::null
+        };
+
+        childProcess.wait();
+
+        buildConfigurationMap[buildFolder] = configuration;
     }
 
 public:
@@ -133,6 +148,39 @@ public:
     }
 
     int setup() {
+        const boost::filesystem::path projectFolder = boost::filesystem::current_path();
+
+        if (!boost::filesystem::exists(projectFolder / "CMakeLists.txt")) {
+            std::cout << "Error: No CMake project detected on current folder." << std::endl;
+
+            return 1;
+        }
+
+        const CompilerDescription compilerDesc = compilerDetector->detect();
+
+        const std::vector<std::string> buildTypes = {
+            "Debug", "Release"
+        };
+
+        CMakeProject project {projectFolder};
+
+        std::cout << "Configuring build" << std::endl;
+
+        for (const std::string &buildType : buildTypes) {
+            std::cout << "   " << buildType << " ..." << std::endl;
+
+            CMakeBuildConfiguration config;
+
+            config.generator = "Unix Makefiles";
+            config.buildType = buildType;
+
+            const boost::filesystem::path buildFolder = projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString());
+
+            project.configure(buildFolder, config);
+        }
+
+        std::cout << "Build folder configuration done." << std::endl;
+
         return 0;
     }
 
@@ -152,14 +200,6 @@ private:
 };
 
 int main(int argc, char *argv[]) {
-    if (!boost::filesystem::exists(boost::filesystem::current_path() / "CMakeLists.txt")) {
-        std::cout << "Error: No CMake project detected on current folder." << std::endl;
-
-        return 1;
-    }
-
-    CMakeProject project {boost::filesystem::current_path()};
-
     if (argc < 2) {
         std::cout << "Error: No options specified. Use borc --help for help." << std::endl;
 
@@ -173,7 +213,13 @@ int main(int argc, char *argv[]) {
 
     if (subcommand == "--help") {
         return controller.showHelp();
+    } 
+    
+    if (subcommand == "setup") {
+        return controller.setup();
     }
 
-    return 0;
+    std::cout << "Error: Unknown command '" << subcommand << "' specified." << std::endl;
+
+    return 1;
 }
