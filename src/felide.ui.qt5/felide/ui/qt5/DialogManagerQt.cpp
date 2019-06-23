@@ -6,6 +6,8 @@
 #include <QInputDialog>
 #include <boost/algorithm/string/join.hpp>
 
+#include "FileSearchDialogQt.hpp"
+
 namespace felide {
     DialogManagerQt::DialogManagerQt(QWidget *parent) {
         m_parent = parent;
@@ -162,5 +164,14 @@ namespace felide {
         } else {
             return {};
         }
+    }
+
+    boost::optional<boost::filesystem::path> DialogManagerQt::showFileSearchDialog(const FileSearchDialogData &data) const {
+        FileSearchDialogQt fileSearchDialog {m_parent, nullptr};
+
+        fileSearchDialog.setWindowTitle(data.title.c_str());
+        fileSearchDialog.exec();
+
+        return {};
     }
 }

@@ -69,6 +69,11 @@ namespace felide {
         std::string defaultText;
     };
 
+    struct FileSearchDialogData {
+        std::string title;
+        boost::filesystem::path defaultPath;
+    };
+
     class FELIDE_API DialogManager {
     public:
         virtual ~DialogManager();
@@ -76,6 +81,7 @@ namespace felide {
         virtual boost::optional<std::string> showInputDialog(const InputDialogData &data) const = 0;
         virtual boost::optional<boost::filesystem::path> showFileDialog(const FileDialogData &data) const = 0;
         virtual boost::optional<boost::filesystem::path> showFolderDialog(const FolderDialogData &data) = 0;
+        virtual boost::optional<boost::filesystem::path> showFileSearchDialog(const FileSearchDialogData &data) const = 0;
     };
 }
 

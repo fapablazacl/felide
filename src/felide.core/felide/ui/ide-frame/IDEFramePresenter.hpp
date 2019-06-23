@@ -61,6 +61,8 @@ namespace felide {
 
         void onViewFolderBrowser();
 
+        void onToolsFileSearch();
+
         bool onCloseRequested();
 
     public:

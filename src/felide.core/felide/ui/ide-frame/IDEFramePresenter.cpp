@@ -58,6 +58,9 @@ namespace felide {
             Menu::menu("&View", {
                 Menu::action([this] () { this->onViewFolderBrowser(); }, "&Folder Browser")
             }),
+            Menu::menu("&Tools", {
+                Menu::action([this] () { this->onToolsFileSearch(); }, "File &Search ...")
+            }),
             Menu::menu("&Build", {
                 Menu::action([] () {}, "&Clean"),
                 Menu::action([] () {}, "&Execute")
@@ -95,6 +98,18 @@ namespace felide {
 
         if (auto folderPath = dialogView->showFolderDialog(folderDialog)) {
             folderBrowserPresenter->onDisplayFolder(folderPath.get());
+        }
+    }
+
+    void IDEFramePresenter::onToolsFileSearch() {
+        std::cout << "fileSearchDialog.title = File Search;" << std::endl;
+        auto fileSearchDialog = FileSearchDialogData{};
+
+        fileSearchDialog.title = "File Search";
+        // fileSearchDialog.defaultPath = 
+
+        if (auto filePath = dialogView->showFileSearchDialog(fileSearchDialog)) {
+            documentManagerPresenter->onOpenDocument(filePath.get());
         }
     }
 
