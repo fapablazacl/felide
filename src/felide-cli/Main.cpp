@@ -107,7 +107,14 @@ public:
 
         childProcess.wait();
 
-        buildConfigurationMap[buildFolder] = configuration;
+        if (childProcess.exit_code() == 0) {
+            buildConfigurationMap[buildFolder] = configuration;
+		} else {
+            throw std::runtime_error(
+                "Some error(s) ocurred during the configuration of the build type '" + 
+                 configuration.buildType + "'"
+            );
+        }
     }
 
 public:
@@ -199,26 +206,28 @@ private:
 };
 
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        std::cout << "Error: No options specified. Use borc --help for help." << std::endl;
+    try {
+		if (argc < 2) {
+			throw std::runtime_error("Error: No options specified. Use borc --help for help.");
+		}
 
-        return 1;
+		GnuCompilerDetector compilerDetector;
+		CliCMakeController controller {&compilerDetector};
+
+		const std::string subcommand = argv[1];
+
+		if (subcommand == "--help") {
+			return controller.showHelp();
+		} else if (subcommand == "setup") {
+			return controller.setup();
+		} else {
+			throw std::runtime_error("Error: Unknown command '" + subcommand + "' specified.");
+		}	
+
+		return 0;
+    } catch (const std::exception &exp) {
+        std::cerr << exp.what() << std::endl;
+
+        return 1;    
     }
-
-    GnuCompilerDetector compilerDetector;
-    CliCMakeController controller {&compilerDetector};
-
-    const std::string subcommand = argv[1];
-
-    if (subcommand == "--help") {
-        return controller.showHelp();
-    } 
-    
-    if (subcommand == "setup") {
-        return controller.setup();
-    }
-
-    std::cout << "Error: Unknown command '" << subcommand << "' specified." << std::endl;
-
-    return 1;
 }
