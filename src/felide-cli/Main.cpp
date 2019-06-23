@@ -136,30 +136,37 @@ public:
         this->compilerDetector = compilerDetector;
     }
 
-    int showHelp() {
-        std::cout << "Syntax:" << std::endl;
-        std::cout << "    borc subcommand --options" << std::endl;
-        std::cout << "" << std::endl;
-        std::cout << "Available subcommands:" << std::endl;
-
-        for (const SubcommandDesc &sd : subcommands) {
-            std::cout << "    " << sd.switch_ << ": " << sd.description << std::endl;
+    void dispatch(const std::string &subcommand) {
+		if (subcommand == "--help") {
+			this->showHelp();
+		} else if (subcommand == "setup") {
+			this->setup();
+		} else {
+            throw std::runtime_error("Unknown command '" + subcommand + "' specified.");
         }
-
-        std::cout << std::endl;
-        std::cout << "For specific use for a subcommand, use the --help switch, like:" << std::endl;
-        std::cout << "    borc setup --help" << std::endl;
-
-        return 0;
     }
 
-    int setup() {
+private:
+    void showHelp() {
+        const std::string helpString = R"(
+Syntax:
+    felcli subcommand --options
+
+Available subcommands:
+    setup Setup a specific toolchain for use in the current project
+    run   Run an executable, optionally debugging it
+
+For specific use for a subcommand, use the --help switch. For example:
+    felcli setup --help
+)";
+        std::cout << helpString;
+    }
+
+    void setup() {
         const boost::filesystem::path projectFolder = boost::filesystem::current_path();
 
         if (!boost::filesystem::exists(projectFolder / "CMakeLists.txt")) {
-            std::cout << "Error: No CMake project detected on current folder." << std::endl;
-
-            return 1;
+            throw std::runtime_error("Error: No CMake project detected on current folder.");
         }
 
         const CompilerDescription compilerDesc = compilerDetector->detect();
@@ -186,29 +193,16 @@ public:
         }
 
         std::cout << "Build folder configuration done." << std::endl;
-
-        return 0;
     }
 
 private:
-    struct SubcommandDesc {
-        std::string switch_;
-        std::string description;
-    };
-
-    const std::vector<SubcommandDesc> subcommands = {
-        {"build", "Builds all the modules for the current project"},
-        {"setup", "Setup a specific toolchain for use in the current project"},
-        {"run", "Run an executable, optionally debugging it"}
-    };
-
     CompilerDetector *compilerDetector = nullptr;
 };
 
 int main(int argc, char *argv[]) {
     try {
 		if (argc < 2) {
-			throw std::runtime_error("Error: No options specified. Use borc --help for help.");
+			throw std::runtime_error("No options specified. Use borc --help for help.");
 		}
 
 		GnuCompilerDetector compilerDetector;
@@ -216,17 +210,11 @@ int main(int argc, char *argv[]) {
 
 		const std::string subcommand = argv[1];
 
-		if (subcommand == "--help") {
-			return controller.showHelp();
-		} else if (subcommand == "setup") {
-			return controller.setup();
-		} else {
-			throw std::runtime_error("Error: Unknown command '" + subcommand + "' specified.");
-		}	
+        controller.dispatch(subcommand);
 
 		return 0;
     } catch (const std::exception &exp) {
-        std::cerr << exp.what() << std::endl;
+        std::cerr << "Error: " << exp.what() << std::endl;
 
         return 1;    
     }
