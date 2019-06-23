@@ -122,6 +122,15 @@ set (sources_felide_ui_ideframe
     "felide/ui/ide-frame/IDEFrame.cpp"
 )
 
+set (sources_felide_ui_filesearchdialog
+    "felide/ui/file-search-dialog/FileSearchDialogModel.hpp"
+    "felide/ui/file-search-dialog/FileSearchDialogModel.cpp"
+    "felide/ui/file-search-dialog/FileSearchDialogPresenter.hpp"
+    "felide/ui/file-search-dialog/FileSearchDialogPresenter.cpp"
+    "felide/ui/file-search-dialog/FileSearchDialog.hpp"
+    "felide/ui/file-search-dialog/FileSearchDialog.cpp"
+)
+
 set (sources_felide_ui
 	"felide/ui/DialogManager.hpp"
     "felide/ui/DialogManager.cpp"
@@ -157,6 +166,8 @@ source_group ("felide\\ui\\document"  			FILES ${sources_felide_ui_document})
 source_group ("felide\\ui\\document-manager"	FILES ${sources_felide_ui_documentmanager})
 source_group ("felide\\ui\\folder-browser"		FILES ${sources_felide_ui_folderbrowser})
 source_group ("felide\\ui\\ide-frame"  			FILES ${sources_felide_ui_ideframe})
+source_group ("felide\\ui\\file-search-dialog"  			FILES ${sources_felide_ui_filesearchdialog})
+
 source_group ("felide\\system" FILES ${sources_felide_system})
 
 set (sources
@@ -170,6 +181,7 @@ set (sources
 	${sources_felide_ui_document}
 	${sources_felide_ui_documentmanager}
 	${sources_felide_ui_folderbrowser}
+    ${sources_felide_ui_filesearchdialog}
 	${sources_felide_ui_ideframe}
     ${sources_felide_system}
 )

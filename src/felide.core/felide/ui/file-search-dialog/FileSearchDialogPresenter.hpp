@@ -12,7 +12,7 @@ namespace felide {
     public:
         FileSearchDialogPresenter(FileSearchDialogModel *model);
 
-        void onInitialized(FileSearchDialog *view)
+        void onInitialized(FileSearchDialog *view);
 
         void onAccepted(const std::string &filePath);
 
