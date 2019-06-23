@@ -1,5 +1,5 @@
 
-set (target "felide-cli")
+set (target "felcli")
 set (sources 
 	"Main.cpp"
     "felide/cli/CliApplication.hpp"
