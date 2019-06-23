@@ -58,8 +58,8 @@ include_directories ("src/felide.core")
 add_subdirectory ("src/felide.core")
 
 # CLI Tool
-include_directories ("src/felide-cli")
-add_subdirectory ("src/felide-cli")
+include_directories ("src/felcli")
+add_subdirectory ("src/felcli")
 
 # IDE GUI
 #add_subdirectory ("src/felide")
