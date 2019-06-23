@@ -6,7 +6,7 @@
 #include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 #include <boost/filesystem.hpp>
 
-int main(int argc, char **argv) {
+int felide_main(int argc, char **argv) {
     using namespace felide;
 
     QApplication app(argc, argv);

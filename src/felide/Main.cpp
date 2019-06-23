@@ -6,7 +6,12 @@
 
 #include <iostream>
 
+extern int felide_main(int argc, char **argv);
+
 int main(int argc, char **argv) {
+    return felide_main(argc, argv);
+
+    /*
     auto core = std::make_unique<felide::Core>();
     auto pluginManager = core->getPluginManager();
 
@@ -20,4 +25,5 @@ int main(int argc, char **argv) {
         std::cout << "felide: No UI Toolkit found" << std::endl;
         return 0;
     }
+    */
 }
