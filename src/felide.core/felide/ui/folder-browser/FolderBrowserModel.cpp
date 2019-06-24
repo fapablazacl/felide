@@ -14,8 +14,6 @@ namespace felide {
         }
 
         virtual void setCurrentFolderPath(const boost::filesystem::path &folderPath) override {
-            std::cout << folderPath.string() << std::endl;
-
             currentFolderPath = folderPath;
         }
 

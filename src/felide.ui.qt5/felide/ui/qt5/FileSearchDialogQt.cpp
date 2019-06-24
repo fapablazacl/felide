@@ -32,6 +32,10 @@ namespace felide  {
     FileSearchDialogQt::~FileSearchDialogQt() {}
 
     QString FileSearchDialogQt::selectedFile() const {
+        if (this->filesListWidget->currentItem()) {
+            return this->filesListWidget->currentItem()->text();
+        }
+
         return "";
     }
 
