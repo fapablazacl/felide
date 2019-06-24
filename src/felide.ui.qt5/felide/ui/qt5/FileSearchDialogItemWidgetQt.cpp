@@ -1,0 +1,2 @@
+
+#include "FileSearchDialogItemWidgetQt.hpp"

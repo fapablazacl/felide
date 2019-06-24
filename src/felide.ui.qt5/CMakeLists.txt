@@ -25,6 +25,8 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/FolderBrowserQt.cpp"
 	"felide/ui/qt5/FileSearchDialogQt.hpp"
     "felide/ui/qt5/FileSearchDialogQt.cpp"
+	"felide/ui/qt5/FileSearchDialogItemWidgetQt.hpp"
+    "felide/ui/qt5/FileSearchDialogItemWidgetQt.cpp"
 	"felide/ui/qt5/UtilitiesQt.hpp"
     "felide/ui/qt5/UtilitiesQt.cpp"
 )
