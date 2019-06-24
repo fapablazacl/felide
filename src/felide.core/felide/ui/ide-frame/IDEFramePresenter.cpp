@@ -60,7 +60,7 @@ namespace felide {
                 Menu::action([this] () { this->onViewFolderBrowser(); }, "&Folder Browser")
             }),
             Menu::menu("&Tools", {
-                Menu::action([this] () { this->onToolsFileSearch(); }, "File &Search ...")
+                Menu::action([this] () { this->onToolsFileSearch(); }, "File &Search ...", {Modifier::CtrlShift, Key::P})
             }),
             Menu::menu("&Build", {
                 Menu::action([] () {}, "&Clean"),

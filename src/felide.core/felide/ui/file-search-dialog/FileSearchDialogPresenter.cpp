@@ -32,10 +32,16 @@ namespace felide {
 
         const std::vector<boost::filesystem::path> files = model->searchFilePattern(filePattern);
 
-        std::vector<std::string> fileList;
+        std::vector<FileSearchDialog::FileViewData> fileList;
 
         for (const auto &file : files) {
-            fileList.push_back(file.string());
+			FileSearchDialog::FileViewData fileViewData;
+
+			fileViewData.fileTitle = file.filename().string();
+			fileViewData.fileFolder = file.parent_path().string();
+			fileViewData.filePath = file.string();
+
+            fileList.push_back(fileViewData);
         }
 
         view->displayFileList(fileList);

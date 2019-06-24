@@ -39,11 +39,11 @@ namespace felide  {
         return "";
     }
 
-    void FileSearchDialogQt::displayFileList(const std::vector<std::string> &files) {
+    void FileSearchDialogQt::displayFileList(const std::vector<FileSearchDialog::FileViewData> &files) {
         this->filesListWidget->clear();
 
-        for (const std::string &file : files) {
-            this->filesListWidget->addItem(file.c_str());
+        for (const FileSearchDialog::FileViewData &fileViewData : files) {
+            this->filesListWidget->addItem(fileViewData.filePath.c_str());
         }
     }
 

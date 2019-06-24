@@ -21,7 +21,7 @@ namespace felide {
         QString selectedFile() const;
 
     public:
-        virtual void displayFileList(const std::vector<std::string> &files) override;
+        virtual void displayFileList(const std::vector<FileViewData> &files) override;
 
         virtual void hide() override;
 
