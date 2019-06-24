@@ -23,6 +23,10 @@ namespace felide  {
 
     FileSearchDialogQt::~FileSearchDialogQt() {}
 
+    QString FileSearchDialogQt::selectedFile() const {
+        return "";
+    }
+
     void FileSearchDialogQt::displayFileList(const std::vector<std::string> &files) {
 
     }

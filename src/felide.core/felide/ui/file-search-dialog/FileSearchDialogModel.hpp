@@ -3,6 +3,7 @@
 #define __FELIDE_UI_FILESEARCHDIALOGMODEL_HPP__
 
 #include <vector>
+#include <memory>
 #include <boost/filesystem/path.hpp>
 
 namespace felide {
@@ -10,7 +11,12 @@ namespace felide {
     public:
         virtual ~FileSearchDialogModel();
 
-        virtual std::vector<boost::filesystem::path> getFileList(const std::string &filePart) = 0;
+        virtual void scanFolder() = 0;
+
+        virtual std::vector<boost::filesystem::path> searchFilePattern(const std::string &filePattern) = 0;
+
+    public:
+        static std::unique_ptr<FileSearchDialogModel> create(const boost::filesystem::path &basePath);
     };
 }
 

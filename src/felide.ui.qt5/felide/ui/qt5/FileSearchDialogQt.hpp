@@ -18,6 +18,9 @@ namespace felide {
 
         virtual ~FileSearchDialogQt();
 
+        QString selectedFile() const;
+
+    public:
         virtual void displayFileList(const std::vector<std::string> &files) override;
 
         virtual void hide() override;

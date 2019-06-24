@@ -102,11 +102,10 @@ namespace felide {
     }
 
     void IDEFramePresenter::onToolsFileSearch() {
-        std::cout << "fileSearchDialog.title = File Search;" << std::endl;
         auto fileSearchDialog = FileSearchDialogData{};
 
         fileSearchDialog.title = "File Search";
-        // fileSearchDialog.defaultPath = 
+        fileSearchDialog.defaultPath = boost::filesystem::current_path();
 
         if (auto filePath = dialogView->showFileSearchDialog(fileSearchDialog)) {
             documentManagerPresenter->onOpenDocument(filePath.get());

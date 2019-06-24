@@ -8,6 +8,9 @@
 
 #include "FileSearchDialogQt.hpp"
 
+#include <felide/ui/file-search-dialog/FileSearchDialogPresenter.hpp>
+#include <felide/ui/file-search-dialog/FileSearchDialogModel.hpp>
+
 namespace felide {
     DialogManagerQt::DialogManagerQt(QWidget *parent) {
         m_parent = parent;
@@ -161,16 +164,23 @@ namespace felide {
 
         if (ok) {
             return text.toStdString();
-        } else {
-            return {};
-        }
+        } 
+        
+        return {};
     }
 
     boost::optional<boost::filesystem::path> DialogManagerQt::showFileSearchDialog(const FileSearchDialogData &data) const {
-        FileSearchDialogQt fileSearchDialog {m_parent, nullptr};
+        auto fileSearchDialogModel = FileSearchDialogModel::create(data.defaultPath);
+        auto fileSearchDialogPresenter = FileSearchDialogPresenter{fileSearchDialogModel.get()};
+        auto fileSearchDialog = FileSearchDialogQt{m_parent, &fileSearchDialogPresenter};
 
         fileSearchDialog.setWindowTitle(data.title.c_str());
-        fileSearchDialog.exec();
+        
+        if (fileSearchDialog.exec()) {
+            const boost::filesystem::path selectedFilePath = fileSearchDialog.selectedFile().toStdString();
+
+            return selectedFilePath;
+        }
 
         return {};
     }
