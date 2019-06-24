@@ -6,6 +6,7 @@
 #include <boost/filesystem.hpp>
 #include <felide/ui/MenuPanel.hpp>
 #include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/ui/folder-browser/FolderBrowserModel.hpp>
 #include <felide/util/FileUtil.hpp>
 
 #include <iostream>
@@ -105,7 +106,7 @@ namespace felide {
         auto fileSearchDialog = FileSearchDialogData{};
 
         fileSearchDialog.title = "File Search";
-        fileSearchDialog.defaultPath = boost::filesystem::current_path();
+        fileSearchDialog.defaultPath = model->getFolderBrowserModel()->getCurrentFolderPath();
 
         if (auto filePath = dialogView->showFileSearchDialog(fileSearchDialog)) {
             documentManagerPresenter->onOpenDocument(filePath.get());

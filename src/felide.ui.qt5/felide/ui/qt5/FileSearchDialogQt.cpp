@@ -8,7 +8,7 @@
 namespace felide  {
     FileSearchDialogQt::FileSearchDialogQt(QWidget *parent, FileSearchDialogPresenter *presenter) : QDialog(parent), FileSearchDialog(presenter) {
         this->filePatternLineEdit = new QLineEdit();
-        this->filesListView = new QListView();
+        this->filesListWidget = new QListWidget();
         this->okCancelButtonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
         QObject::connect(this->okCancelButtonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
@@ -17,7 +17,7 @@ namespace felide  {
         auto layout = new QVBoxLayout();
 
         layout->addWidget(this->filePatternLineEdit);
-        layout->addWidget(this->filesListView);
+        layout->addWidget(this->filesListWidget);
         layout->addWidget(this->okCancelButtonBox);
 
         this->setLayout(layout);
@@ -36,10 +36,14 @@ namespace felide  {
     }
 
     void FileSearchDialogQt::displayFileList(const std::vector<std::string> &files) {
-        std::cout << "Filtered " << files.size() << " files." << std::endl;
+        this->filesListWidget->clear();
+
+        for (const std::string &file : files) {
+            this->filesListWidget->addItem(file.c_str());
+        }
     }
 
     void FileSearchDialogQt::hide() {
-
+        
     }
 }

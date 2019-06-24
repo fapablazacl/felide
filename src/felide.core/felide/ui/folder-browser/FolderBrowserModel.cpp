@@ -1,6 +1,7 @@
 
 #include "FolderBrowserModel.hpp"
 
+#include <iostream>
 #include <boost/filesystem/operations.hpp>
 #include <felide/util/FolderService.hpp>
 
@@ -13,6 +14,8 @@ namespace felide {
         }
 
         virtual void setCurrentFolderPath(const boost::filesystem::path &folderPath) override {
+            std::cout << folderPath.string() << std::endl;
+
             currentFolderPath = folderPath;
         }
 

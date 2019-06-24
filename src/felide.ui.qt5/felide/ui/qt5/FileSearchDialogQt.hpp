@@ -4,7 +4,7 @@
 
 #include <QDialog>
 #include <QLineEdit>
-#include <QListView>
+#include <QListWidget>
 #include <QDialogButtonBox>
 #include <felide/ui/file-search-dialog/FileSearchDialog.hpp>
 #include "DialogManagerQt.hpp"
@@ -27,7 +27,7 @@ namespace felide {
 
     private:
         QLineEdit *filePatternLineEdit = nullptr;
-        QListView *filesListView = nullptr;
+        QListWidget *filesListWidget = nullptr;
         QDialogButtonBox *okCancelButtonBox = nullptr;
     };
 }

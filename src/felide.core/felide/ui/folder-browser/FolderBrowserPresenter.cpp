@@ -9,6 +9,7 @@
 #include <felide/ui/ide-frame/IDEFramePresenter.hpp>
 
 #include "FolderBrowser.hpp"
+#include "FolderBrowserModel.hpp"
 
 namespace felide {
     static std::string describePathKind(const boost::filesystem::path &path) {
@@ -33,6 +34,7 @@ namespace felide {
 
     void FolderBrowserPresenter::onBrowseFolder() {
         if (auto folderPath = dialogView->showFolderDialog({"Open Folder", ""})) {
+            model->setCurrentFolderPath(folderPath.get());
             view->displayFolder(folderPath.get().string());
         }
     }
@@ -262,6 +264,7 @@ namespace felide {
     }
 
     void FolderBrowserPresenter::onDisplayFolder(const boost::filesystem::path &folderPath) {
+        model->setCurrentFolderPath(folderPath);
         view->displayFolder(folderPath.string());
     }
 
