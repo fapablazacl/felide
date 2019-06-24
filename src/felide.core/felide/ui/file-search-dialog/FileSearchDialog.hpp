@@ -17,8 +17,8 @@ namespace felide {
 
         virtual void hide() = 0;
         
-    private:
-        FileSearchDialogPresenter *presenter;
+    protected:
+        FileSearchDialogPresenter *presenter = nullptr;
     };
 }
 
