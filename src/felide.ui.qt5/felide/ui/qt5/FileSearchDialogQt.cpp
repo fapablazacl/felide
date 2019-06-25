@@ -5,6 +5,8 @@
 #include <QVBoxLayout>
 #include <felide/ui/file-search-dialog/FileSearchDialogPresenter.hpp>
 
+#include "FileSearchDialogItemWidgetQt.hpp"
+
 namespace felide  {
     FileSearchDialogQt::FileSearchDialogQt(QWidget *parent, FileSearchDialogPresenter *presenter) : QDialog(parent), FileSearchDialog(presenter) {
         this->filePatternLineEdit = new QLineEdit();
@@ -43,7 +45,16 @@ namespace felide  {
         this->filesListWidget->clear();
 
         for (const FileSearchDialog::FileViewData &fileViewData : files) {
-            this->filesListWidget->addItem(fileViewData.filePath.c_str());
+            auto fileItem = new QListWidgetItem();
+            this->filesListWidget->addItem(fileItem);
+
+            auto fileItemWidget = new FileSearchDialogItemWidgetQt(
+                nullptr, 
+                fileViewData.fileTitle.c_str(), 
+                fileViewData.fileFolder.c_str()
+            );
+
+            this->filesListWidget->setItemWidget(fileItem, fileItemWidget);
         }
     }
 

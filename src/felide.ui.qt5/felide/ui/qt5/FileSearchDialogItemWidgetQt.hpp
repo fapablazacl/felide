@@ -4,15 +4,14 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QListWidgetItem>
 
 namespace felide {
 	class FileSearchDialogItemWidgetQt : public QWidget {
 		Q_OBJECT
-
+		
 	public:
-		// FileSearchDialogItemWidgetQt()
-	
-
+		FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder);
 	};
 }
 
