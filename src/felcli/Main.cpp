@@ -101,7 +101,6 @@ public:
             cmakePath, 
             sourceDirectory,
             "-DCMAKE_BUILD_TYPE=" + configuration.buildType, 
-            // boost::process::start_dir = (buildFolder / "lala"),
             boost::process::std_out > boost::process::null
         };
 
@@ -162,10 +161,32 @@ For specific use for a subcommand, use the --help switch. For example:
         std::cout << helpString;
     }
 
-    void setup() {
-        const boost::filesystem::path projectFolder = boost::filesystem::current_path();
+    void build(const std::string &buildType) {
+        const boost::filesystem::path projectFolder = this->getProjectFolder();
+        const CompilerDescription compilerDesc = compilerDetector->detect();
+        const boost::filesystem::path buildFolder = this->makeBuildFolder(projectFolder, compilerDesc, buildType);
 
-        if (!boost::filesystem::exists(projectFolder / "CMakeLists.txt")) {
+        boost::filesystem::path cmakePath = boost::process::search_path("cmake");
+
+        boost::process::child childProcess {
+            boost::process::start_dir (buildFolder),
+            cmakePath, 
+            boost::process::std_out > boost::process::null
+        };
+
+        childProcess.wait();
+
+        if (childProcess.exit_code() != 0) {
+            throw std::runtime_error(
+                "Some error(s) ocurred during the build of the build type '" + buildType + "'"
+            );
+        }
+    }
+
+    void setup() {
+        const boost::filesystem::path projectFolder = this->getProjectFolder();
+
+        if (! this->isCMakeProject(projectFolder)) {
             throw std::runtime_error("Error: No CMake project detected on current folder.");
         }
 
@@ -187,12 +208,25 @@ For specific use for a subcommand, use the --help switch. For example:
             config.generator = "Unix Makefiles";
             config.buildType = buildType;
 
-            const boost::filesystem::path buildFolder = projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString()) / buildType;
+            const boost::filesystem::path buildFolder = this->makeBuildFolder(projectFolder, compilerDesc, buildType);
 
             project.configure(buildFolder, config);
         }
 
         std::cout << "Build folder configuration done." << std::endl;
+    }
+
+private:
+    boost::filesystem::path getProjectFolder() const {
+        return boost::filesystem::current_path();
+    }
+
+    const boost::filesystem::path makeBuildFolder(const boost::filesystem::path &projectFolder, const CompilerDescription &compilerDesc, const std::string &buildType) const {
+        return projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString()) / buildType;
+    }
+
+    bool isCMakeProject(const boost::filesystem::path &projectFolder) const {
+        return boost::filesystem::exists(projectFolder / "CMakeLists.txt");
     }
 
 private:
