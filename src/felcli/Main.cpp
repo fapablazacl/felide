@@ -52,7 +52,6 @@ private:
         boost::process::child childProcess {"gcc -v", boost::process::std_err > pipeStream};
 
         std::string line;
-
         std::vector<std::string> specs;
 
         while (pipeStream && std::getline(pipeStream, line) && !line.empty()) {
@@ -83,32 +82,72 @@ struct CMakeBuildConfiguration {
     std::map<std::string, std::string> variables;
 };
 
+static bool isCMakeProject(const boost::filesystem::path &projectFolder) {
+    return boost::filesystem::exists(projectFolder / "CMakeLists.txt");
+}
+
 /**
  * @brief Handles a CMake project with a collection of associated Build configuration
  */
 class CMakeProject {
 public:
-    CMakeProject(const boost::filesystem::path &sourceDirectory) {
-        this->sourceDirectory = sourceDirectory;
+    CMakeProject(const boost::filesystem::path &projectFolder, CompilerDetector *compilerDetector)
+        : projectFolder(projectFolder), compilerDetector(compilerDetector) {}
+
+    void build(const std::string &buildType) {
+        const boost::filesystem::path projectFolder = this->getProjectFolder();
+        const CompilerDescription compilerDesc = compilerDetector->detect();
+        const boost::filesystem::path buildFolder = this->makeBuildFolder(compilerDesc, buildType);
+
+        boost::filesystem::path makePath = boost::process::search_path("make");
+
+        boost::process::child childProcess {
+            boost::process::start_dir (buildFolder),
+            makePath, 
+            boost::process::std_out > boost::process::null
+        };
+
+        childProcess.wait();
+
+        if (childProcess.exit_code() != 0) {
+            throw std::runtime_error(
+                "Some error(s) ocurred during the build of the build type '" + buildType + "'"
+            );
+        }
     }
 
-    void configure(const boost::filesystem::path &buildFolder, const CMakeBuildConfiguration &configuration) {
+    void configure(const std::string &buildType) {
+        const CompilerDescription compilerDesc = compilerDetector->detect();
+
+        std::cout << "Configuring build    " << buildType << " ..." << std::endl;
+        CMakeBuildConfiguration config;
+
+        config.generator = "Unix Makefiles";
+        config.buildType = buildType;
+
+        const boost::filesystem::path buildFolder = this->makeBuildFolder(compilerDesc, buildType);
+
+        this->configureImpl(buildFolder, config);
+        
+        std::cout << "Build folder configuration done." << std::endl;
+    }
+
+private:
+    void configureImpl(const boost::filesystem::path &buildFolder, const CMakeBuildConfiguration &configuration) {
         boost::filesystem::create_directories(buildFolder);
         boost::filesystem::path cmakePath = boost::process::search_path("cmake");
         boost::process::ipstream pipeStream;
         boost::process::child childProcess {
             boost::process::start_dir (buildFolder),
             cmakePath, 
-            sourceDirectory,
+            projectFolder,
             "-DCMAKE_BUILD_TYPE=" + configuration.buildType, 
             boost::process::std_out > boost::process::null
         };
 
         childProcess.wait();
 
-        if (childProcess.exit_code() == 0) {
-            buildConfigurationMap[buildFolder] = configuration;
-		} else {
+        if (childProcess.exit_code() != 0) {
             throw std::runtime_error(
                 "Some error(s) ocurred during the configuration of the build type '" + 
                  configuration.buildType + "'"
@@ -116,14 +155,17 @@ public:
         }
     }
 
-public:
-    static std::unique_ptr<CMakeProject> create(const boost::filesystem::path &sourceDirectory) {
-        return std::make_unique<CMakeProject>(sourceDirectory);
+    boost::filesystem::path getProjectFolder() const {
+        return projectFolder;
+    }
+
+    const boost::filesystem::path makeBuildFolder(const CompilerDescription &compilerDesc, const std::string &buildType) const {
+        return projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString()) / buildType;
     }
 
 private:
-    boost::filesystem::path sourceDirectory;
-    std::map<boost::filesystem::path, CMakeBuildConfiguration> buildConfigurationMap;
+    boost::filesystem::path projectFolder;
+    CompilerDetector *compilerDetector = nullptr;
 };
 
 /**
@@ -135,11 +177,11 @@ public:
         this->compilerDetector = compilerDetector;
     }
 
-    void dispatch(const std::string &subcommand) {
+    void dispatch(const std::string &subcommand, const std::vector<std::string> &params) {
 		if (subcommand == "--help") {
 			this->showHelp();
 		} else if (subcommand == "setup") {
-			this->setup();
+			this->configure(params);
 		} else {
             throw std::runtime_error("Unknown command '" + subcommand + "' specified.");
         }
@@ -161,72 +203,14 @@ For specific use for a subcommand, use the --help switch. For example:
         std::cout << helpString;
     }
 
-    void build(const std::string &buildType) {
-        const boost::filesystem::path projectFolder = this->getProjectFolder();
-        const CompilerDescription compilerDesc = compilerDetector->detect();
-        const boost::filesystem::path buildFolder = this->makeBuildFolder(projectFolder, compilerDesc, buildType);
-
-        boost::filesystem::path cmakePath = boost::process::search_path("cmake");
-
-        boost::process::child childProcess {
-            boost::process::start_dir (buildFolder),
-            cmakePath, 
-            boost::process::std_out > boost::process::null
-        };
-
-        childProcess.wait();
-
-        if (childProcess.exit_code() != 0) {
-            throw std::runtime_error(
-                "Some error(s) ocurred during the build of the build type '" + buildType + "'"
-            );
-        }
-    }
-
-    void setup() {
-        const boost::filesystem::path projectFolder = this->getProjectFolder();
-
-        if (! this->isCMakeProject(projectFolder)) {
-            throw std::runtime_error("Error: No CMake project detected on current folder.");
+    void configure(const std::vector<std::string> &params) {
+        if (! isCMakeProject(boost::filesystem::current_path())) {
+            throw std::runtime_error("Only CMake projects are supported for now");
         }
 
-        const CompilerDescription compilerDesc = compilerDetector->detect();
+        CMakeProject project {boost::filesystem::current_path(), compilerDetector};
 
-        const std::vector<std::string> buildTypes = {
-            "Debug", "Release"
-        };
-
-        CMakeProject project {projectFolder};
-
-        std::cout << "Configuring build" << std::endl;
-
-        for (const std::string &buildType : buildTypes) {
-            std::cout << "   " << buildType << " ..." << std::endl;
-
-            CMakeBuildConfiguration config;
-
-            config.generator = "Unix Makefiles";
-            config.buildType = buildType;
-
-            const boost::filesystem::path buildFolder = this->makeBuildFolder(projectFolder, compilerDesc, buildType);
-
-            project.configure(buildFolder, config);
-        }
-
-        std::cout << "Build folder configuration done." << std::endl;
-    }
-
-private:
-    boost::filesystem::path getProjectFolder() const {
-        return boost::filesystem::current_path();
-    }
-
-    const boost::filesystem::path makeBuildFolder(const boost::filesystem::path &projectFolder, const CompilerDescription &compilerDesc, const std::string &buildType) const {
-        return projectFolder / ".borc-cmake" / (compilerDesc.key + "-" + compilerDesc.version.toString()) / buildType;
-    }
-
-    bool isCMakeProject(const boost::filesystem::path &projectFolder) const {
-        return boost::filesystem::exists(projectFolder / "CMakeLists.txt");
+        project.configure(params[0]);
     }
 
 private:
@@ -244,7 +228,12 @@ int main(int argc, char *argv[]) {
 
 		const std::string subcommand = argv[1];
 
-        controller.dispatch(subcommand);
+        std::vector<std::string> params;
+        for (int i=2; i<argc; i++) {
+            params.push_back(argv[i]);
+        }
+        
+        controller.dispatch(subcommand, params);
 
 		return 0;
     } catch (const std::exception &exp) {
