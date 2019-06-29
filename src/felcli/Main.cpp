@@ -103,8 +103,7 @@ public:
 
         boost::process::child childProcess {
             boost::process::start_dir (buildFolder),
-            makePath, 
-            boost::process::std_out > boost::process::null
+            makePath
         };
 
         childProcess.wait();
@@ -180,9 +179,11 @@ public:
     void dispatch(const std::string &subcommand, const std::vector<std::string> &params) {
 		if (subcommand == "--help") {
 			this->showHelp();
-		} else if (subcommand == "setup") {
+		} else if (subcommand == "configure") {
 			this->configure(params);
-		} else {
+		} else if (subcommand == "build") {
+			this->build(params);
+		}else {
             throw std::runtime_error("Unknown command '" + subcommand + "' specified.");
         }
     }
@@ -208,9 +209,27 @@ For specific use for a subcommand, use the --help switch. For example:
             throw std::runtime_error("Only CMake projects are supported for now");
         }
 
+        if (params.size() == 0) {
+            throw std::runtime_error("Missing build configuration (Debug, Release)");
+        }
+
         CMakeProject project {boost::filesystem::current_path(), compilerDetector};
 
         project.configure(params[0]);
+    }
+
+    void build(const std::vector<std::string> &params) {
+        if (! isCMakeProject(boost::filesystem::current_path())) {
+            throw std::runtime_error("Only CMake projects are supported for now");
+        }
+
+        if (params.size() == 0) {
+            throw std::runtime_error("Missing build configuration (Debug, Release)");
+        }
+
+        CMakeProject project {boost::filesystem::current_path(), compilerDetector};
+
+        project.build(params[0]);
     }
 
 private:
