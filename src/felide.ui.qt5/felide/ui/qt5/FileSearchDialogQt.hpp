@@ -25,6 +25,8 @@ namespace felide {
 
         virtual void hide() override;
 
+        virtual void clearFileList() override;
+
     private:
         QLineEdit *filePatternLineEdit = nullptr;
         QListWidget *filesListWidget = nullptr;

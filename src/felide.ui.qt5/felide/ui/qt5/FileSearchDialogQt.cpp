@@ -42,8 +42,6 @@ namespace felide  {
     }
 
     void FileSearchDialogQt::displayFileList(const std::vector<FileSearchDialog::FileViewData> &files) {
-        this->filesListWidget->clear();
-
         for (const FileSearchDialog::FileViewData &fileViewData : files) {
             auto fileItem = new QListWidgetItem();
             this->filesListWidget->addItem(fileItem);
@@ -56,6 +54,10 @@ namespace felide  {
 
             this->filesListWidget->setItemWidget(fileItem, fileItemWidget);
         }
+    }
+
+    void FileSearchDialogQt::clearFileList() {
+        this->filesListWidget->clear();
     }
 
     void FileSearchDialogQt::hide() {

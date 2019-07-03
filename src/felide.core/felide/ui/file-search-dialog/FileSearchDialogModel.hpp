@@ -11,9 +11,7 @@ namespace felide {
     public:
         virtual ~FileSearchDialogModel();
 
-        virtual void scanFolder() = 0;
-
-        virtual std::vector<boost::filesystem::path> searchFilePattern(const std::string &filePattern) = 0;
+        virtual std::vector<boost::filesystem::path> searchFilePattern(const std::string &filePattern, const int maxResults) = 0;
 
     public:
         static std::unique_ptr<FileSearchDialogModel> create(const boost::filesystem::path &basePath);

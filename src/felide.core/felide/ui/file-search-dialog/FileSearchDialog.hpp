@@ -25,6 +25,8 @@ namespace felide {
 
         virtual ~FileSearchDialog();
 
+        virtual void clearFileList() = 0;
+
         virtual void displayFileList(const std::vector<FileViewData> &files) = 0;
 
         virtual void hide() = 0;

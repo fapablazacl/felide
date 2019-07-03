@@ -4,7 +4,17 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 
+#include <iostream>
+
 namespace felide {
+    static bool is_logically_hidden(const boost::filesystem::path &path) {
+        const std::string title = path.filename().string();
+
+        std::cout << path.filename() << " isHidden: " << (title[0] == '.') << std::endl;
+
+        return title[0] == '.';
+    }
+
     class FileSearchDialogModelImpl : public FileSearchDialogModel {
     public:
         FileSearchDialogModelImpl(const boost::filesystem::path &basePath) {
@@ -13,39 +23,37 @@ namespace felide {
 
         virtual ~FileSearchDialogModelImpl() {}
 
-        virtual void scanFolder() {
-            this->files = this->getFileList();
-        }
-
-        virtual std::vector<boost::filesystem::path> searchFilePattern(const std::string &filePattern) override {
-            std::vector<boost::filesystem::path> filteredFiles;
-
+        virtual std::vector<boost::filesystem::path> searchFilePattern(const std::string &filePattern, const int maxResults) override {
             std::string filePatternUppercased = filePattern;
             boost::to_upper(filePatternUppercased);
 
-            for (const boost::filesystem::path &filePath : this->files) {
-                std::string testAgaint = filePath.string();
-                boost::to_upper(testAgaint);
-
-                if (testAgaint.find(filePatternUppercased) != std::string::npos) {
-                    filteredFiles.push_back(filePath);
-                }
-            }
-
-            return filteredFiles;
+            return this->search(filePatternUppercased, maxResults);
         }
 
     private:
-        std::vector<boost::filesystem::path> getFileList() const {
+        bool testFile(const boost::filesystem::path &filePath, const std::string &filePattern) const {
+            std::string testAgaint = filePath.string();
+            boost::to_upper(testAgaint);
+
+            return testAgaint.find(filePattern) != std::string::npos;
+        }
+
+        std::vector<boost::filesystem::path> search(const std::string &filePattern, const int maxResults) const {
             std::vector<boost::filesystem::path> files;
 
-            this->populateFileList(basePath, files);
-            
+            this->searchImpl(files, basePath, filePattern, maxResults);
+
             return files;
         }
 
-        void populateFileList(const boost::filesystem::path &folder, std::vector<boost::filesystem::path> &files) const {
+        void searchImpl(std::vector<boost::filesystem::path> &files, const boost::filesystem::path &folder, const std::string &filePattern, const int maxResults) const {
+            // skips search inside files ...
             if (! boost::filesystem::is_directory(folder)) {
+                return;
+            }
+
+            // skips hidden directories
+            if ( boost::filesystem::is_directory(folder) && is_logically_hidden(folder)) {
                 return;
             }
 
@@ -55,8 +63,17 @@ namespace felide {
             while (subPathIterator != end) {
                 boost::filesystem::path subPath = subPathIterator->path();
 
+                if (this->testFile(subPath, filePattern)) {
+                    files.push_back(subPath);
+                }
+
                 files.push_back(subPath);
-                this->populateFileList(subPath, files);
+
+                if (files.size() + 1 >= maxResults) {
+                    return;
+                }
+
+                this->searchImpl(files, subPath, filePattern, maxResults);
 
                 subPathIterator++;
             }

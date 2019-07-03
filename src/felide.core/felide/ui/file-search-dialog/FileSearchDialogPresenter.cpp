@@ -12,7 +12,6 @@ namespace felide {
 
     void FileSearchDialogPresenter::onInitialized(FileSearchDialog *view) {
         this->view = view;
-        this->model->scanFolder();
     }
 
     void FileSearchDialogPresenter::onAccepted(const std::string &filePath) {
@@ -30,7 +29,13 @@ namespace felide {
     void FileSearchDialogPresenter::onFilenameFilterRequested(const std::string &filePattern) {
         assert(view);
 
-        const std::vector<boost::filesystem::path> files = model->searchFilePattern(filePattern);
+        view->clearFileList();
+
+        if (filePattern.size() < 3) {
+            return;
+        }
+
+        const std::vector<boost::filesystem::path> files = model->searchFilePattern(filePattern, 20);
 
         std::vector<FileSearchDialog::FileViewData> fileList;
 
