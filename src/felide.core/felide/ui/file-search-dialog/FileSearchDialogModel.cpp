@@ -10,7 +10,7 @@ namespace felide {
     static bool is_logically_hidden(const boost::filesystem::path &path) {
         const std::string title = path.filename().string();
 
-        std::cout << path.filename() << " isHidden: " << (title[0] == '.') << std::endl;
+        std::cout << path.string() << " isHidden: " << (title[0] == '.') << std::endl;
 
         return title[0] == '.';
     }
@@ -32,7 +32,7 @@ namespace felide {
 
     private:
         bool testFile(const boost::filesystem::path &filePath, const std::string &filePattern) const {
-            std::string testAgaint = filePath.string();
+            std::string testAgaint = filePath.filename().string();
             boost::to_upper(testAgaint);
 
             return testAgaint.find(filePattern) != std::string::npos;
@@ -66,8 +66,6 @@ namespace felide {
                 if (this->testFile(subPath, filePattern)) {
                     files.push_back(subPath);
                 }
-
-                files.push_back(subPath);
 
                 if (files.size() + 1 >= maxResults) {
                     return;

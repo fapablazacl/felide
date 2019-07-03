@@ -1,6 +1,7 @@
 
 #include "IDEFrameModel.hpp" 
 
+#include <iostream>
 #include <felide/ui/document-manager/DocumentManagerModel.hpp>
 #include <felide/ui/folder-browser/FolderBrowserModel.hpp>
 #include <felide/util/FolderService.hpp>
@@ -30,10 +31,20 @@ namespace felide {
             return folderBrowserModel.get();
         }
 
+        virtual boost::optional<boost::filesystem::path> getWorkspaceFolder() const override {
+            return this->workspaceFolder;
+        }
+
+        virtual void setWorkspaceFolder(boost::filesystem::path workspaceFolder) override {
+            std::cout << "setWorkspaceFolder(" << workspaceFolder.string() << ")" << std::endl;
+            this->workspaceFolder = workspaceFolder;
+        }
+
     private:
         std::unique_ptr<FolderService> folderService;
         std::unique_ptr<DocumentManagerModel> documentManagerModel;
         std::unique_ptr<FolderBrowserModel> folderBrowserModel;
+        boost::optional<boost::filesystem::path> workspaceFolder;
     };
 }
 

@@ -4,6 +4,9 @@
 
 #include <memory>
 #include <vector>
+#include <boost/filesystem/path.hpp>
+#include <boost/optional.hpp>
+
 #include <felide/Predef.hpp>
 #include <felide/ui/FileFilter.hpp>
 
@@ -20,6 +23,10 @@ namespace felide {
         virtual DocumentManagerModel *getDocumentManagerModel() = 0;
 
         virtual FolderBrowserModel *getFolderBrowserModel() = 0;
+
+        virtual boost::optional<boost::filesystem::path> getWorkspaceFolder() const = 0;
+
+        virtual void setWorkspaceFolder(boost::filesystem::path workspaceFolder) = 0;
 
     public:
         static std::unique_ptr<IDEFrameModel> create();

@@ -99,17 +99,20 @@ namespace felide {
 
         if (auto folderPath = dialogView->showFolderDialog(folderDialog)) {
             folderBrowserPresenter->onDisplayFolder(folderPath.get());
+            model->setWorkspaceFolder(folderPath.get());
         }
     }
 
     void IDEFramePresenter::onToolsFileSearch() {
-        auto fileSearchDialog = FileSearchDialogData{};
+        if (auto workspaceFolder = model->getWorkspaceFolder()) {
+            auto fileSearchDialog = FileSearchDialogData{};
 
-        fileSearchDialog.title = "File Search";
-        fileSearchDialog.defaultPath = model->getFolderBrowserModel()->getCurrentFolderPath();
+            fileSearchDialog.title = "File Search";
+            fileSearchDialog.defaultPath = workspaceFolder.get();
 
-        if (auto filePath = dialogView->showFileSearchDialog(fileSearchDialog)) {
-            documentManagerPresenter->onOpenDocument(filePath.get());
+            if (auto filePath = dialogView->showFileSearchDialog(fileSearchDialog)) {
+                documentManagerPresenter->onOpenDocument(filePath.get());
+            }
         }
     }
 
