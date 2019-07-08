@@ -34,11 +34,17 @@ namespace felide  {
     FileSearchDialogQt::~FileSearchDialogQt() {}
 
     QString FileSearchDialogQt::selectedFile() const {
-        if (this->filesListWidget->currentItem()) {
-            return this->filesListWidget->currentItem()->text();
+        QString selectedFile;
+
+        if (auto item = this->filesListWidget->currentItem()) {
+            if (auto widget = dynamic_cast<FileSearchDialogItemWidgetQt*>(filesListWidget->itemWidget(item))) {
+                selectedFile = widget->getFilePath();
+            }
         }
 
-        return "";
+        std::cout << selectedFile.toStdString() << std::endl;
+
+        return selectedFile;
     }
 
     void FileSearchDialogQt::displayFileList(const std::vector<FileSearchDialog::FileViewData> &files) {
@@ -49,7 +55,8 @@ namespace felide  {
             auto fileItemWidget = new FileSearchDialogItemWidgetQt(
                 nullptr, 
                 fileViewData.fileTitle.c_str(), 
-                fileViewData.fileFolder.c_str()
+                fileViewData.fileFolder.c_str(),
+                fileViewData.filePath.c_str()
             );
 
             this->filesListWidget->setItemWidget(fileItem, fileItemWidget);

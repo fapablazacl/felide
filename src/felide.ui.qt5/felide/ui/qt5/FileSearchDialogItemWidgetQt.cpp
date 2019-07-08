@@ -5,7 +5,7 @@
 #include <QHBoxLayout>
 
 namespace felide {
-    FileSearchDialogItemWidgetQt::FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder) : QWidget(parent) {
+    FileSearchDialogItemWidgetQt::FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder, const QString &filePath) : QWidget(parent) {
         auto fileTitleLabel = new QLabel(fileTitle);
         auto filePathLabel = new QLabel(fileFolder);
 
@@ -15,5 +15,7 @@ namespace felide {
         layout->addWidget(filePathLabel);
 
         this->setLayout(layout);
+
+        this->filePath = filePath;
     }
 }

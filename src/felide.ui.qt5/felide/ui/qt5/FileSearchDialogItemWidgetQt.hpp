@@ -11,7 +11,14 @@ namespace felide {
 		Q_OBJECT
 		
 	public:
-		FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder);
+		FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder, const QString &filePath);
+
+		QString getFilePath() const {
+			return filePath;
+		}
+
+	private:
+		QString filePath;
 	};
 }
 
