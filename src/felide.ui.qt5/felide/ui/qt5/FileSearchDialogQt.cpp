@@ -28,6 +28,10 @@ namespace felide  {
             this->presenter->onFilenameFilterRequested(text.toStdString());
         });
 
+        QObject::connect(this->filesListWidget, &QListView::doubleClicked, [this]() {
+            this->accept();
+        });
+
         this->presenter->onInitialized(this);
     }
 
