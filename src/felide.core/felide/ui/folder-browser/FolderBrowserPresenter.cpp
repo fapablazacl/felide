@@ -153,9 +153,20 @@ namespace felide {
             messageDialog.icon = DialogIcon::Warning;
             messageDialog.buttons = DialogButton::YesNo;
 
-            const auto selectedButton = dialogView->showMessageDialog (messageDialog);
+            const auto selectedButton = dialogView->showMessageDialog(messageDialog);
 
             if (selectedButton == DialogButton::No) {
+                return;
+            }
+        } else if (boost::filesystem::is_directory(selectedPath)) {
+            // prompt the user confirmation
+            auto messageDialog = MessageDialogData {};
+            messageDialog.title = "felide";
+            messageDialog.message = "Move the directory \"" + selectedPath.filename().string() + "\"?";
+            messageDialog.icon = DialogIcon::Warning;
+            messageDialog.buttons = DialogButton::OkCancel;
+
+            if (auto selectedButton = dialogView->showMessageDialog(messageDialog) == DialogButton::Cancel) {
                 return;
             }
         }
