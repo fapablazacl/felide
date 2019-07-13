@@ -1,7 +1,0 @@
-target:
-  name: felide.core
-  type: library
-  lang: C++17
-  sources: felide/
-  dependencies:
-    - fmt
