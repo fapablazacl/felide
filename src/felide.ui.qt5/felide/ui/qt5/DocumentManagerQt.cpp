@@ -7,8 +7,8 @@
 #include <QAction>
 #include <QMenu>
 
-#include <felide/ui/document/DocumentPresenter.hpp>
-#include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
+#include <felide/gui/document/DocumentPresenter.hpp>
+#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
 
 #include "DocumentQt.hpp"
 

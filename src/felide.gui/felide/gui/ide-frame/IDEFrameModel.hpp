@@ -8,7 +8,7 @@
 #include <boost/optional.hpp>
 
 #include <felide/Predef.hpp>
-#include <felide/ui/FileFilter.hpp>
+#include <felide/gui/FileFilter.hpp>
 
 namespace felide {
     class FELIDE_API DocumentManagerModel;

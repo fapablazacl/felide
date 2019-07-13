@@ -1,10 +1,10 @@
 
 #include <gtkmm.h>
 
-#include <felide/ui/ide-frame/IDEFrameModel.hpp>
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
-#include <felide/ui/gtk3/IDEFrameGtk.hpp>
-#include <felide/ui/gtk3/MainApplication.hpp>
+#include <felide/gui/ide-frame/IDEFrameModel.hpp>
+#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/gui/gtk3/IDEFrameGtk.hpp>
+#include <felide/gui/gtk3/MainApplication.hpp>
 
 #include <memory>
 #include <iostream>

@@ -6,7 +6,7 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 
-#include <felide/ui/folder-browser/FolderBrowser.hpp>
+#include <felide/gui/folder-browser/FolderBrowser.hpp>
 
 namespace felide {
     class DialogManagerQt;

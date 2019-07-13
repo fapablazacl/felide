@@ -10,12 +10,12 @@
 #include <QMenu>
 #include <QAction>
 
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
-#include <felide/ui/ide-frame/IDEFrame.hpp>
-#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
-#include <felide/ui/Menu.hpp>
-#include <felide/ui/MenuPanel.hpp>
+#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/gui/ide-frame/IDEFrame.hpp>
+#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
+#include <felide/gui/Menu.hpp>
+#include <felide/gui/MenuPanel.hpp>
 
 #include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"

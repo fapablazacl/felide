@@ -6,9 +6,9 @@
 
 #include <algorithm>
 
-#include <felide/ui/DialogManager.hpp>
-#include <felide/ui/document/DocumentModel.hpp>
-#include <felide/ui/document/DocumentPresenter.hpp>
+#include <felide/gui/DialogManager.hpp>
+#include <felide/gui/document/DocumentModel.hpp>
+#include <felide/gui/document/DocumentPresenter.hpp>
 
 namespace felide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {

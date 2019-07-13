@@ -6,7 +6,7 @@
 #include <vector>
 #include <boost/optional.hpp>
 #include <boost/filesystem/path.hpp>
-#include <felide/ui/FileFilter.hpp>
+#include <felide/gui/FileFilter.hpp>
 #include <felide/Predef.hpp>
 
 namespace felide {

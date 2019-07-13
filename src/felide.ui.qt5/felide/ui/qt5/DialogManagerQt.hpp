@@ -2,7 +2,7 @@
 #ifndef __FELIDE_UI_DIALOGMANAGERVIEWIMPL_HPP__
 #define __FELIDE_UI_DIALOGMANAGERVIEWIMPL_HPP__
 
-#include <felide/ui/DialogManager.hpp>
+#include <felide/gui/DialogManager.hpp>
 #include <QWidget>
 
 namespace felide {

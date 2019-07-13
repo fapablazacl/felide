@@ -3,7 +3,7 @@
 
 #include <list>
 #include <algorithm>
-#include <felide/ui/document/DocumentModel.hpp>
+#include <felide/gui/document/DocumentModel.hpp>
 
 namespace felide {
     class DocumentManagerModelImpl : public DocumentManagerModel {

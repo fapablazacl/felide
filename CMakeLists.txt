@@ -66,6 +66,10 @@ add_subdirectory ("src/felcli")
 # IDE GUI
 # add_subdirectory ("src/felide")
 
+# IDE GUI
+include_directories ("src/felide.gui")
+add_subdirectory ("src/felide.gui")
+
 # Windows template library
 if (FELIDE_UI_WINDOWS)
     include_directories ("dep/wtl/Include")

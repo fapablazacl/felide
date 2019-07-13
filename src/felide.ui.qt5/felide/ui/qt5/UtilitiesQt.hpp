@@ -3,7 +3,7 @@
 #define __FELIDE_UI_QT5_UTILITIESQT_HPP__
 
 #include <QMenuBar>
-#include <felide/ui/Menu.hpp>
+#include <felide/gui/Menu.hpp>
 
 namespace felide {
     extern void setupMenu(QMenu *parentMenuPtr, const Menu &menu);

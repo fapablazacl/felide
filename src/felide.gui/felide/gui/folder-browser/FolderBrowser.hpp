@@ -4,7 +4,7 @@
 
 #include <string>
 #include <felide/Predef.hpp>
-#include <felide/ui/Menu.hpp>
+#include <felide/gui/Menu.hpp>
 #include <boost/optional/optional.hpp>
 
 namespace felide {

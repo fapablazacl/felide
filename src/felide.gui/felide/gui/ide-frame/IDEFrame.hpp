@@ -3,7 +3,7 @@
 #define __FELIDE_UI_MAINWINDOWVIEW_HPP__
 
 #include <felide/Predef.hpp>
-#include <felide/ui/FileFilter.hpp>
+#include <felide/gui/FileFilter.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/filesystem/path.hpp>
 

@@ -6,7 +6,7 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QDialogButtonBox>
-#include <felide/ui/file-search-dialog/FileSearchDialog.hpp>
+#include <felide/gui/file-search-dialog/FileSearchDialog.hpp>
 #include "DialogManagerQt.hpp"
 
 namespace felide {

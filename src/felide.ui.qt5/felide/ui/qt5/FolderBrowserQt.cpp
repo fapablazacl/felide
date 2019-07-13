@@ -8,7 +8,7 @@
 #include <QMessageBox>
 #include <QMimeData>
 #include <iostream>
-#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
 
 #include "DialogManagerQt.hpp"
 #include "UtilitiesQt.hpp"

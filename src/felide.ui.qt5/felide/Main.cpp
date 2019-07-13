@@ -1,9 +1,9 @@
 
 #include <QApplication>
 
-#include <felide/ui/qt5/IDEFrameQt.hpp>
-#include <felide/ui/ide-frame/IDEFrameModel.hpp>
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/gui/qt5/IDEFrameQt.hpp>
+#include <felide/gui/ide-frame/IDEFrameModel.hpp>
+#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
 #include <boost/filesystem.hpp>
 
 int felide_main(int argc, char **argv) {

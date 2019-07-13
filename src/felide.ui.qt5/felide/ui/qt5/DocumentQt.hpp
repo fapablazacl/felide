@@ -8,7 +8,7 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include <felide/ui/document/Document.hpp>
+#include <felide/gui/document/Document.hpp>
 
 #include "DialogManagerQt.hpp"
 

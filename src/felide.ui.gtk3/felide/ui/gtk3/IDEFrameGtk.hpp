@@ -5,8 +5,8 @@
 #include <gtkmm.h>
 #include <string>
 
-#include <felide/ui/ide-frame/IDEFrame.hpp>
-#include <felide/ui/gtk3/DocumentManagerGtk.hpp>
+#include <felide/gui/ide-frame/IDEFrame.hpp>
+#include <felide/gui/gtk3/DocumentManagerGtk.hpp>
 #include "FolderBrowserGtk.hpp"
 #include "DialogManagerGtk.hpp"
 

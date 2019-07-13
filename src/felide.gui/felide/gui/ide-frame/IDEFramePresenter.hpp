@@ -3,12 +3,12 @@
 #define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 
 #include <felide/Predef.hpp>
-#include <felide/ui/DialogManager.hpp>
-#include <felide/ui/document/Document.hpp>
-#include <felide/ui/document/DocumentModel.hpp>
-#include <felide/ui/document-manager/DocumentManager.hpp>
-#include <felide/ui/document-manager/DocumentManagerPresenter.hpp>
-#include <felide/ui/folder-browser/FolderBrowser.hpp>
+#include <felide/gui/DialogManager.hpp>
+#include <felide/gui/document/Document.hpp>
+#include <felide/gui/document/DocumentModel.hpp>
+#include <felide/gui/document-manager/DocumentManager.hpp>
+#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
+#include <felide/gui/folder-browser/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
 

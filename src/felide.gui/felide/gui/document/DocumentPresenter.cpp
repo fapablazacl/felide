@@ -6,7 +6,7 @@
 
 #include <boost/filesystem/path.hpp>
 
-#include <felide/ui/DialogManager.hpp>
+#include <felide/gui/DialogManager.hpp>
 #include <felide/util/FileService.hpp>
 
 namespace felide {

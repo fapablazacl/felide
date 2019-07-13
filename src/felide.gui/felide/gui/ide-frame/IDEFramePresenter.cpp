@@ -4,9 +4,9 @@
 #include "IDEFrameModel.hpp"
 
 #include <boost/filesystem.hpp>
-#include <felide/ui/MenuPanel.hpp>
-#include <felide/ui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/ui/folder-browser/FolderBrowserModel.hpp>
+#include <felide/gui/MenuPanel.hpp>
+#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/gui/folder-browser/FolderBrowserModel.hpp>
 #include <felide/util/FileUtil.hpp>
 
 #include <iostream>

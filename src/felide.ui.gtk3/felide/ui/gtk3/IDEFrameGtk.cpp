@@ -5,8 +5,8 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/util/FileUtil.hpp>
-#include <felide/ui/ide-frame/IDEFramePresenter.hpp>
-#include <felide/ui/gtk3/DocumentGtk.hpp>
+#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/gui/gtk3/DocumentGtk.hpp>
 
 namespace fs = boost::filesystem;
 

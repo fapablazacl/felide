@@ -8,8 +8,8 @@
 
 #include "FileSearchDialogQt.hpp"
 
-#include <felide/ui/file-search-dialog/FileSearchDialogPresenter.hpp>
-#include <felide/ui/file-search-dialog/FileSearchDialogModel.hpp>
+#include <felide/gui/file-search-dialog/FileSearchDialogPresenter.hpp>
+#include <felide/gui/file-search-dialog/FileSearchDialogModel.hpp>
 
 namespace felide {
     DialogManagerQt::DialogManagerQt(QWidget *parent) {

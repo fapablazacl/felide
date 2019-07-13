@@ -3,7 +3,7 @@
 #define __FELIDE_UI_DIALOGMANAGERGTK_HPP__
 
 #include <gtkmm.h>
-#include <felide/ui/DialogManager.hpp>
+#include <felide/gui/DialogManager.hpp>
 
 namespace felide {
     class DialogManagerGtk : public DialogManager {

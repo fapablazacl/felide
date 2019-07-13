@@ -1,7 +1,7 @@
 
 #include <cassert>
 #include <felide/Core.hpp>
-#include <felide/ui/UIToolkit.hpp>
+#include <felide/gui/UIToolkit.hpp>
 #include <felide/system/PluginManager.hpp>
 
 #include <iostream>

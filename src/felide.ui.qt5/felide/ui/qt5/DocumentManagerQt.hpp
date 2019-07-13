@@ -6,7 +6,7 @@
 #include <QTabWidget>
 
 #include <boost/optional.hpp>
-#include <felide/ui/document-manager/DocumentManager.hpp>
+#include <felide/gui/document-manager/DocumentManager.hpp>
 
 #include "DialogManagerQt.hpp"
 

@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <QVBoxLayout>
-#include <felide/ui/file-search-dialog/FileSearchDialogPresenter.hpp>
+#include <felide/gui/file-search-dialog/FileSearchDialogPresenter.hpp>
 
 #include "FileSearchDialogItemWidgetQt.hpp"
 

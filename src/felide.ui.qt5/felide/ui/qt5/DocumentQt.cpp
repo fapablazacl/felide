@@ -7,7 +7,7 @@
 #include <QLayout>
 #include <QTabWidget>
 
-#include <felide/ui/document/DocumentPresenter.hpp>
+#include <felide/gui/document/DocumentPresenter.hpp>
 
 namespace felide {
     DocumentQt::DocumentQt(QTabWidget *parentTabWidget, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parentTabWidget), dialogManager(this) {
