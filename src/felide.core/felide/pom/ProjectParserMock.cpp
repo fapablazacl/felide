@@ -10,7 +10,7 @@
 #include <felide/pom/Source.hpp>
 
 namespace felide {
-    std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
+    std::unique_ptr<Project> ProjectParserMock::parse(const boost::filesystem::path &) {
         namespace fs = boost::filesystem;
 
         auto borcProject = felide::Project::create("borc");

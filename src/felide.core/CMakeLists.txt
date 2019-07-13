@@ -62,6 +62,8 @@ set (sources_felide_pom
     "felide/pom/ProjectParser.cpp"
     "felide/pom/ProjectParserMock.hpp"
     "felide/pom/ProjectParserMock.cpp"
+    "felide/pom/ProjectParserJson.hpp"
+    "felide/pom/ProjectParserJson.cpp"
     #"felide/pom/ProjectParserYaml.hpp"
     #"felide/pom/ProjectParserYaml.cpp"
 ) 

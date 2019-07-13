@@ -1,9 +1,10 @@
 
-#ifndef __borc_projectparser_hpp__
-#define __borc_projectparser_hpp__
+#ifndef __FELIDE_CORE_POM_PROJECTPARSER_HPP__
+#define __FELIDE_CORE_POM_PROJECTPARSER_HPP__
 
 #include <memory>
 #include <string>
+#include <boost/filesystem/path.hpp>
 
 namespace felide {
     class Project;
@@ -11,7 +12,7 @@ namespace felide {
     public:
         virtual ~ProjectParser();
 
-        virtual std::unique_ptr<Project> parse(const std::string &file) = 0;
+        virtual std::unique_ptr<Project> parse(const boost::filesystem::path &filePath) = 0;
     };    
 }
 
