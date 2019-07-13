@@ -50,7 +50,7 @@ add_executable (${target}
 	${source_borc} ${sources_borc} ${sources_borc_cli} ${sources_borc_core} ${sources_borc_dag}
 )
 
-if (NOT MSVC)
+if (GCC)
 	set (stdcppfs "stdc++fs")
 else()
 	set (stdcppfs "")

@@ -1,22 +1,38 @@
 
 set (target "felcli")
-set (sources 
+
+set (sources
 	"Main.cpp"
-    "felide/cli/cmake/CMakeProject.hpp"
-	"felide/cli/cmake/CMakeProject.cpp"
-    "felide/cli/cmake/CliCMakeController.hpp"
-	"felide/cli/cmake/CliCMakeController.cpp"
-    "felide/cli/CliApplication.hpp"
-	"felide/cli/CliApplication.cpp"
-	"felide/cli/CliController.hpp"
-	"felide/cli/CliController.cpp"
-    "felide/cli/CompilerDetector.hpp"
-	"felide/cli/CompilerDetector.cpp"
-    "felide/cli/GnuCompilerDetector.hpp"
-	"felide/cli/GnuCompilerDetector.cpp"
 )
 
-add_executable (${target} ${sources})
+set (felide_cli_sources
+    "felide/cli/CliApplication.hpp"
+    "felide/cli/CliApplication.cpp"
+    "felide/cli/CliController.hpp"
+    "felide/cli/CliController.cpp"
+    "felide/cli/CompilerDetector.hpp"
+    "felide/cli/CompilerDetector.cpp"
+    "felide/cli/GnuCompilerDetector.hpp"
+    "felide/cli/GnuCompilerDetector.cpp"
+)
+
+set (felide_cli_cmake_sources
+    "felide/cli/cmake/CMakeProject.hpp"
+    "felide/cli/cmake/CMakeProject.cpp"
+    "felide/cli/cmake/CliCMakeController.hpp"
+    "felide/cli/cmake/CliCMakeController.cpp"
+)
+
+source_group(\\ FILES ${sources})
+source_group(\\felide\\cli FILES ${felide_cli_sources})
+source_group(\\felide\\cli\\cmake FILES ${felide_cli_cmake_sources})
+
+add_executable (
+    ${target}
+    ${sources}
+    ${felide_cli_sources}
+    ${felide_cli_cmake_sources}
+)
 
 if (UNIX)
     set (DL_LIBRARY dl pthread)

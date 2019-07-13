@@ -13,7 +13,7 @@ add_executable(${target} WIN32
 target_link_libraries (
     ${target} 
     felide.core
-    felide.ui.qt5
+    #felide.ui.qt5
 )
 
 source_group ("" FILES ${srcs})

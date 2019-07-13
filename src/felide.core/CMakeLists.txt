@@ -66,6 +66,14 @@ set (sources_felide_pom
     #"felide/pom/ProjectParserYaml.cpp"
 ) 
 
+set (sources_felide_pom_models
+    "felide/pom/models/PropertyImpl.hpp"
+    "felide/pom/models/ProjectModel.hpp"
+    "felide/pom/models/ProjectModel.cpp"
+    "felide/pom/models/ModuleModel.hpp"
+    "felide/pom/models/ModuleModel.cpp"
+)
+
 set (sources_felide_toolsets
     "felide/toolsets/ActionContext.hpp"
     "felide/toolsets/ActionContext.cpp"
@@ -158,6 +166,7 @@ set (sources_felide_system
 source_group ("felide"              FILES ${sources_felide})
 source_group ("felide\\util"        FILES ${sources_felide_util})
 source_group ("felide\\pom"         FILES ${sources_felide_pom})
+source_group ("felide\\pom\\models"         FILES ${sources_felide_pom_models})
 source_group ("felide\\toolsets"    FILES ${sources_felide_toolsets})
 source_group ("felide\\tasks"       FILES ${sources_felide_tasks})
 source_group ("felide\\cpp"         FILES ${sources_felide_cpp})
@@ -174,6 +183,7 @@ set (sources
     ${sources_felide}
     ${sources_felide_util}
     ${sources_felide_pom}
+    ${sources_felide_pom_models}
     ${sources_felide_toolsets}
     ${sources_felide_tasks}
     ${sources_felide_cpp}

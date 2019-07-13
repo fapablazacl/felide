@@ -12,7 +12,7 @@ option (FELIDE_STATIC_LINK  "Uses static linking for all external and internal d
 # option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  ON)
 option (FELIDE_POC_WINDOWS_FORMDESIGNER "Build the Form-Designer POC" OFF)
 
-set (FELIDE_UI_QT5 ON)
+set (FELIDE_UI_QT5 OFF)
 
 if (FELIDE_STATIC_LINK)
     add_definitions (-DFELIDE_STATIC_LINK)
@@ -64,7 +64,7 @@ include_directories ("src/felcli")
 add_subdirectory ("src/felcli")
 
 # IDE GUI
-add_subdirectory ("src/felide")
+# add_subdirectory ("src/felide")
 
 # Windows template library
 if (FELIDE_UI_WINDOWS)
