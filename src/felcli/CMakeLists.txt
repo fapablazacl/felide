@@ -10,10 +10,14 @@ set (felide_cli_sources
     "felide/cli/CliApplication.cpp"
     "felide/cli/CliController.hpp"
     "felide/cli/CliController.cpp"
-    "felide/cli/CompilerDetector.hpp"
-    "felide/cli/CompilerDetector.cpp"
-    "felide/cli/GnuCompilerDetector.hpp"
-    "felide/cli/GnuCompilerDetector.cpp"
+    "felide/cli/CompilerEnumeratorService.hpp"
+    "felide/cli/CompilerEnumeratorService.cpp"
+    "felide/cli/CompilerDetectorService.hpp"
+    "felide/cli/CompilerDetectorService.cpp"
+    "felide/cli/CompilerDetectorServiceGnu.hpp"
+    "felide/cli/CompilerDetectorServiceGnu.cpp"
+    "felide/cli/BuildSystemDetectorService.hpp"
+    "felide/cli/BuildSystemDetectorService.cpp"
 )
 
 set (felide_cli_cmake_sources

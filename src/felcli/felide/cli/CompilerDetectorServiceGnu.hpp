@@ -2,15 +2,15 @@
 #ifndef __FELIDE_CLI_GNUCOMPILERDETECTOR_HPP__
 #define __FELIDE_CLI_GNUCOMPILERDETECTOR_HPP__
 
-#include "CompilerDetector.hpp"
+#include "CompilerDetectorService.hpp"
 
 #include <string>
 #include <vector>
 
 namespace felide {
-    class GnuCompilerDetector : public CompilerDetector {
+    class CompilerDetectorServiceGnu : public CompilerDetectorService {
     public:
-        virtual ~GnuCompilerDetector();
+        virtual ~CompilerDetectorServiceGnu();
 
         virtual CompilerDescription detect() const override;
         

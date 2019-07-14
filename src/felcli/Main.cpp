@@ -5,8 +5,8 @@
 #include <vector>
 #include <map>
 
-#include "felide/cli/GnuCompilerDetector.hpp"
-#include "felide/cli/cmake/CliCMakeController.hpp"
+#include "felide/cli/CompilerEnumeratorService.hpp"
+#include "felide/cli/borc/CliBorcController.hpp"
 
 static std::vector<std::string> makeStringVectorFromArgs(int argc, char *argv[], const int offset) {
     std::vector<std::string> params;
@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
 			throw std::runtime_error("No options specified. Use borc --help for help.");
 		}
 
-		felide::GnuCompilerDetector compilerDetector;
-		felide::CliCMakeController controller {&compilerDetector};
+		felide::CompilerEnumeratorService compilerEnumerator;
+		felide::CliBorcController controller {&compilerEnumerator};
 
 		const std::string subcommand = argv[1];
         const std::vector<std::string> params = makeStringVectorFromArgs(argc, argv, 2);
@@ -36,6 +36,6 @@ int main(int argc, char *argv[]) {
     } catch (const std::exception &exp) {
         std::cerr << "Error: " << exp.what() << std::endl;
 
-        return 1;    
+        return 1;
     }
 }

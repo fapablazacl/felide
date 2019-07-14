@@ -4,6 +4,7 @@
   "lang": "c++17",
   "imports": [
     "boost.filesystem",
+    "boost.process",
     "felide.core"
   ],
   "sources": [

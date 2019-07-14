@@ -3,6 +3,7 @@
 #define __FELIDE_CLI_COMPILERDETECTOR_HPP__
 
 #include <string>
+#include <vector>
 #include <felide/Version.hpp>
 
 namespace felide {
@@ -15,9 +16,9 @@ namespace felide {
     /**
     * @brief Detects some details from a certain compiler
     */
-    class CompilerDetector {
+    class CompilerDetectorService {
     public:    
-        virtual ~CompilerDetector();
+        virtual ~CompilerDetectorService();
 
         virtual CompilerDescription detect() const = 0;
     };

@@ -1,20 +1,20 @@
 
-#include "GnuCompilerDetector.hpp"
+#include "CompilerDetectorServiceGnu.hpp"
 
 #include <boost/process.hpp>
 #include <boost/algorithm/string.hpp>
 
 namespace felide {
-    GnuCompilerDetector::~GnuCompilerDetector() {}
+    CompilerDetectorServiceGnu::~CompilerDetectorServiceGnu() {}
 
-    CompilerDescription GnuCompilerDetector::detect() const {
+    CompilerDescription CompilerDetectorServiceGnu::detect() const {
         const std::vector<std::string> specLines = this->invokeGCCv();
         const CompilerDescription compilerDesc = this->createDescriptionFromSpecLines(specLines);
 
         return compilerDesc;
     }
 
-    CompilerDescription GnuCompilerDetector::createDescriptionFromSpecLines(const std::vector<std::string> &specLines) const {
+    CompilerDescription CompilerDetectorServiceGnu::createDescriptionFromSpecLines(const std::vector<std::string> &specLines) const {
         CompilerDescription compilerDesc;
 
         compilerDesc.key = "gcc";
@@ -24,7 +24,7 @@ namespace felide {
         return compilerDesc;
     }
 
-    std::vector<std::string> GnuCompilerDetector::invokeGCCv() const {
+    std::vector<std::string> CompilerDetectorServiceGnu::invokeGCCv() const {
         boost::process::ipstream pipeStream;
         boost::process::child childProcess {"gcc -v", boost::process::std_err > pipeStream};
 
@@ -40,11 +40,11 @@ namespace felide {
         return specs;
     }
 
-    std::string GnuCompilerDetector::parseProperty(const std::string &propertyLine) const {
+    std::string CompilerDetectorServiceGnu::parseProperty(const std::string &propertyLine) const {
         return propertyLine;
     }
 
-    felide::Version GnuCompilerDetector::parseVersion(const std::string &versionLine) const {
+    felide::Version CompilerDetectorServiceGnu::parseVersion(const std::string &versionLine) const {
         std::vector<std::string> parts;
 
         boost::split(parts, versionLine, boost::is_any_of(" "));
