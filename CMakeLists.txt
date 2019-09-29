@@ -6,13 +6,11 @@ project (felide)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
-option (FELIDE_STATIC_LINK  "Uses static linking for all external and internal dependencies (eases development)" OFF)
-# option (FELIDE_UI_WINDOWS 	"Build the IDE user interface using the Windows API"  OFF)
-# option (FELIDE_UI_GTK3      "Build the IDE user interface using the GTK+ toolkit" OFF)
-# option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  ON)
-option (FELIDE_POC_WINDOWS_FORMDESIGNER "Build the Form-Designer POC" OFF)
-
-set (FELIDE_UI_QT5 OFF)
+option (FELIDE_STATIC_LINK          "Uses static linking for all external and internal dependencies (eases development)" OFF)
+option (FELIDE_UI_WTL 	            "Build the IDE user interface using the Windows API"  OFF)
+option (FELIDE_UI_GTK3              "Build the IDE user interface using the GTK+ toolkit" OFF)
+option (FELIDE_UI_QT5               "Build the IDE user interface using the Qt5 toolkit"  ON)
+option (FELIDE_POC_WTL_FORMDESIGNER "Build the Form-Designer POC" OFF)
 
 if (FELIDE_STATIC_LINK)
     add_definitions (-DFELIDE_STATIC_LINK)
@@ -50,18 +48,9 @@ if (UNIX)
     add_definitions ("-fPIC")
 endif ()
 
-# BORC Core
-add_subdirectory("src/borc.core")
-include_directories("src/borc.core")
-add_subdirectory("src/borc.cli")
-
 # IDE Core
 include_directories ("src/felide.core")
 add_subdirectory ("src/felide.core")
-
-# CLI Tool
-include_directories ("src/felcli")
-add_subdirectory ("src/felcli")
 
 # IDE GUI
 # add_subdirectory ("src/felide")
