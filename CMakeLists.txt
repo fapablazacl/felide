@@ -9,7 +9,7 @@ add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 option (FELIDE_STATIC_LINK          "Uses static linking for all external and internal dependencies (eases development)" OFF)
 option (FELIDE_UI_WTL 	            "Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3              "Build the IDE user interface using the GTK+ toolkit" OFF)
-option (FELIDE_UI_QT5               "Build the IDE user interface using the Qt5 toolkit"  ON)
+option (FELIDE_UI_QT5               "Build the IDE user interface using the Qt5 toolkit"  OFF)
 option (FELIDE_POC_WTL_FORMDESIGNER "Build the Form-Designer POC" OFF)
 
 if (FELIDE_STATIC_LINK)
@@ -62,17 +62,17 @@ add_subdirectory ("src/felide.gui")
 # Windows template library
 if (FELIDE_UI_WINDOWS)
     include_directories ("dep/wtl/Include")
-    add_subdirectory ("src/felide.ui.wtl")
+    add_subdirectory ("src/felide.gui.wtl")
 endif ()
 
 # GTK3 Toolkit
 if (FELIDE_UI_GTK3)
-    add_subdirectory ("src/felide.ui.gtk3")
+    add_subdirectory ("src/felide.gui.gtk3")
 endif ()
 
 # QT5 Toolkit
 if (FELIDE_UI_QT5)
-    add_subdirectory ("src/felide.ui.qt5")
+    add_subdirectory ("src/felide.gui.qt5")
 endif ()
 
 add_subdirectory("src/sandbox")

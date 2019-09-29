@@ -120,4 +120,8 @@ namespace felide {
 
         return {};
     }
+
+    boost::optional<boost::filesystem::path> DialogManagerGtk::showFileSearchDialog(const FileSearchDialogData &data) const {
+        return {};
+    }
 }

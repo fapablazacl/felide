@@ -1,4 +1,4 @@
-set (target "felide.ui.qt5")
+set (target "felide.gui.qt5")
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_AUTOMOC ON)

@@ -1,5 +1,5 @@
 
-#include <gtkmm.h>
+#include <gtkmm/main.h>
 
 #include <felide/gui/ide-frame/IDEFrameModel.hpp>
 #include <felide/gui/ide-frame/IDEFramePresenter.hpp>

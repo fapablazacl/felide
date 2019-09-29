@@ -20,6 +20,8 @@ namespace felide {
 
         virtual boost::optional<boost::filesystem::path> showFolderDialog(const FolderDialogData &data) override;
 
+        virtual boost::optional<boost::filesystem::path> showFileSearchDialog(const FileSearchDialogData &data) const override;
+
     private:
         Gtk::Window &parent;
     };

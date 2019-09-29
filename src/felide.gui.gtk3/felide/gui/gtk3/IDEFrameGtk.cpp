@@ -44,7 +44,7 @@ namespace felide::gtk3 {
         std::cout << "    Done..." << std::endl;
         maximize();
 
-        presenter->onInitialized(this, &dialogManager);
+        presenter->onInitialized(this, &dialogManager, nullptr);
     }
 
     IDEFrameGtk::~IDEFrameGtk() {}
@@ -76,9 +76,11 @@ namespace felide::gtk3 {
         // TODO: Add implementation
     }
 
+    /*
     void IDEFrameGtk::setupMenuBar(const Menu &menu) {
         
     }
+    */
 
     void IDEFrameGtk::on_action_file_open_project() {
         Gtk::FileChooserDialog dialog("Please choose a Folder", Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER);

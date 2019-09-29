@@ -1,5 +1,5 @@
 
-set (target felide.ui.wtl)
+set (target felide.gui.wtl)
 
 set (src
     "Main.cpp"
@@ -13,9 +13,9 @@ set (felide_ui_wtl_src
 )
 
 source_group ("\\" FILES ${src})
-source_group ("\\Felide\\UI\\WTL" FILES ${felide_ui_wtl_src})
+source_group ("\\felide\\gui\\wtl" FILES ${felide_ui_wtl_src})
 
-add_executable (${target} WIN32
+add_library (${target} WIN32
     ${src} 
     ${felide_ui_wtl_src}
 )
