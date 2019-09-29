@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <vector>
+#include <boost/algorithm/string.hpp>
 
 namespace felide {
     Version::Version(const int major) {
@@ -116,20 +117,11 @@ namespace felide {
     std::string Version::toString() const {
         return std::to_string(m_major) + "." + std::to_string(m_minor) + "." + std::to_string(m_revision);
     }
-
-    static std::vector<std::string> split(const std::string &s, char delim) {
-        std::stringstream ss(s);
-        std::string item;
-        std::vector<std::string> elems;
-
-        while (std::getline(ss, item, delim)) {
-            elems.push_back(std::move(item)); 
-        }
-        return elems;
-    }
-
+    
     Version Version::parse(const std::string &str) {
-        const auto results = split(str, '.');
+        std::vector<std::string> results;
+
+        boost::split(results, str, boost::is_any_of("."));
 
         if (results.size() > 3 || results.size() < 1) {
             throw std::runtime_error("Invalid version format");

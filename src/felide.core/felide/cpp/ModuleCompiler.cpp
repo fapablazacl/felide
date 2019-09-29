@@ -5,8 +5,7 @@
 #include <cassert>
 #include <memory>
 #include <boost/filesystem.hpp>
-
-#include <felide/util/Strings.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include <felide/TreeNode.hpp>
 #include <felide/tasks/CommandTask.hpp>
@@ -55,15 +54,15 @@ namespace felide {
         const fs::path targetFile = outputPath /  source->computeOutputFileName(m_description.outputExtension);
         
         std::string command = m_description.compileTemplate;
-        command = replace(command, FELIDE_INPUT_FILE, sourceFile.string());
-        command = replace(command, FELIDE_OUTPUT_FILE, targetFile.string());
+        command = boost::replace_all_copy(command, FELIDE_INPUT_FILE, sourceFile.string());
+        command = boost::replace_all_copy(command, FELIDE_OUTPUT_FILE, targetFile.string());
 
         for (const auto &pair : context) {
             const std::string &key = pair.first;
             const std::string &value = pair.second;
             const std::string &option = m_description.keyOptionMap[key];
 
-            command = replace(command, key, option + " " + value);
+            command = boost::replace_all_copy(command, key, option + " " + value);
         }
 
         auto taskNode = TreeNode<Task>::create();

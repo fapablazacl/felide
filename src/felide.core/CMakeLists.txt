@@ -24,8 +24,6 @@ set (sources_felide_util
     "felide/util/FileService.hpp"
     "felide/util/FolderService.cpp"
     "felide/util/FolderService.hpp"
-    "felide/util/Strings.hpp"
-    "felide/util/Strings.cpp"
     "felide/util/OS.hpp"
     "felide/util/OS.cpp"
 ) 

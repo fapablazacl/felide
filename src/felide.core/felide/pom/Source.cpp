@@ -3,8 +3,8 @@
 
 #include <felide/pom/Target.hpp>
 #include <felide/pom/Project.hpp>
-#include <felide/util/Strings.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -44,7 +44,7 @@ namespace felide {
     std::string Source::computeOutputDirectory(const std::string &relativePrefix) const {
         const fs::path sourcePath = fs::path(this->getFilePath()).parent_path();
         const fs::path projectPath = this->getTarget()->getProject()->getPath();
-        const fs::path sourceRelPath = replace(sourcePath.string(), projectPath.string(), "");
+        const fs::path sourceRelPath = boost::replace_all_copy(sourcePath.string(), projectPath.string(), "");
         const fs::path buildPath = relativePrefix;
 
         const fs::path result = projectPath / buildPath / sourceRelPath;
