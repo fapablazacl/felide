@@ -40,11 +40,11 @@ namespace felide {
         std::vector<FileSearchDialog::FileViewData> fileList;
 
         for (const auto &file : files) {
-			FileSearchDialog::FileViewData fileViewData;
+            FileSearchDialog::FileViewData fileViewData;
 
-			fileViewData.fileTitle = file.filename().string();
-			fileViewData.fileFolder = file.parent_path().string();
-			fileViewData.filePath = file.string();
+            fileViewData.fileTitle = file.filename().string();
+            fileViewData.fileFolder = file.parent_path().string();
+            fileViewData.filePath = file.string();
 
             fileList.push_back(fileViewData);
         }

@@ -8,17 +8,17 @@
 namespace felide {
     class FileSearchDialogPresenter;
     class FileSearchDialog {
-	public:
-		struct FileViewData {
-			//! File to be shown to the User
-			std::string fileTitle;
-			
-			//! Parent folder
-			std::string fileFolder;
+    public:
+        struct FileViewData {
+            //! File to be shown to the User
+            std::string fileTitle;
+            
+            //! Parent folder
+            std::string fileFolder;
 
-			//! Full file path
-			std::string filePath;
-		};
+            //! Full file path
+            std::string filePath;
+        };
 
     public:
         explicit FileSearchDialog(FileSearchDialogPresenter *presenter);

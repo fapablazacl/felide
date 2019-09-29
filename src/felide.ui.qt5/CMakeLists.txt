@@ -23,11 +23,11 @@ set (src_felide_ui_qt5
     "felide/ui/qt5/DialogManagerQt.cpp"
     "felide/ui/qt5/FolderBrowserQt.hpp"
     "felide/ui/qt5/FolderBrowserQt.cpp"
-	"felide/ui/qt5/FileSearchDialogQt.hpp"
+    "felide/ui/qt5/FileSearchDialogQt.hpp"
     "felide/ui/qt5/FileSearchDialogQt.cpp"
-	"felide/ui/qt5/FileSearchDialogItemWidgetQt.hpp"
+    "felide/ui/qt5/FileSearchDialogItemWidgetQt.hpp"
     "felide/ui/qt5/FileSearchDialogItemWidgetQt.cpp"
-	"felide/ui/qt5/UtilitiesQt.hpp"
+    "felide/ui/qt5/UtilitiesQt.hpp"
     "felide/ui/qt5/UtilitiesQt.cpp"
 )
 
@@ -47,20 +47,20 @@ target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 # TODO: Parametrize QScintilla for Windows Builds
 
 if (WIN32)
-	target_link_libraries (
-		${target} 
-		Qt5::Widgets
-		debug qscintilla2_qt5d
-		optimized qscintilla2_qt5
-		felide.core
-	)
+    target_link_libraries (
+        ${target} 
+        Qt5::Widgets
+        debug qscintilla2_qt5d
+        optimized qscintilla2_qt5
+        felide.core
+    )
 else()
-	target_link_libraries (
-		${target} 
-		Qt5::Widgets
-		qscintilla2_qt5
-		felide.core
-	)
+    target_link_libraries (
+        ${target} 
+        Qt5::Widgets
+        qscintilla2_qt5
+        felide.core
+    )
 endif()
 
 install (TARGETS ${target} DESTINATION "lib")

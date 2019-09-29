@@ -20,9 +20,9 @@ set (sources_felide
 set (sources_felide_util
     "felide/util/FileUtil.cpp"
     "felide/util/FileUtil.hpp"
-	"felide/util/FileService.cpp"
+    "felide/util/FileService.cpp"
     "felide/util/FileService.hpp"
-	"felide/util/FolderService.cpp"
+    "felide/util/FolderService.cpp"
     "felide/util/FolderService.hpp"
     "felide/util/Strings.hpp"
     "felide/util/Strings.cpp"
@@ -101,9 +101,9 @@ set (sources_felide_system
     "felide/system/Plugin.cpp"
     "felide/system/PluginManager.hpp"
     "felide/system/PluginManager.cpp"
-	"felide/system/MessageBus.hpp"
+    "felide/system/MessageBus.hpp"
     "felide/system/MessageBus.cpp"
-	"felide/system/Component.hpp"
+    "felide/system/Component.hpp"
     "felide/system/Component.cpp"
 )
 

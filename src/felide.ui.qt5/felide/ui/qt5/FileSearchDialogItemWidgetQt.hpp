@@ -7,19 +7,19 @@
 #include <QListWidgetItem>
 
 namespace felide {
-	class FileSearchDialogItemWidgetQt : public QWidget {
-		Q_OBJECT
-		
-	public:
-		FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder, const QString &filePath);
+    class FileSearchDialogItemWidgetQt : public QWidget {
+        Q_OBJECT
+        
+    public:
+        FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder, const QString &filePath);
 
-		QString getFilePath() const {
-			return filePath;
-		}
+        QString getFilePath() const {
+            return filePath;
+        }
 
-	private:
-		QString filePath;
-	};
+    private:
+        QString filePath;
+    };
 }
 
 #endif
