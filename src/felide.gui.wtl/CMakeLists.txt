@@ -6,10 +6,10 @@ set (src
 )
 
 set (felide_ui_wtl_src
-    "felide/ui/wtl/CEditor.hpp"
-    "felide/ui/wtl/CEditor.cpp"
-    "felide/ui/wtl/CMainFrame.hpp"
-    "felide/ui/wtl/CMainFrame.cpp"
+    "felide/gui/wtl/CEditor.hpp"
+    "felide/gui/wtl/CEditor.cpp"
+    "felide/gui/wtl/CMainFrame.hpp"
+    "felide/gui/wtl/CMainFrame.cpp"
 )
 
 source_group ("\\" FILES ${src})
