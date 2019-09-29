@@ -3,11 +3,11 @@
 
 #include <boost/filesystem.hpp>
 
-#include <felide/pom/Project.hpp>
-#include <felide/pom/Target.hpp>
-#include <felide/pom/ModuleTargetType.hpp>
-#include <felide/pom/ModuleTarget.hpp>
-#include <felide/pom/Source.hpp>
+#include <felide/core/pom/Project.hpp>
+#include <felide/core/pom/Target.hpp>
+#include <felide/core/pom/ModuleTargetType.hpp>
+#include <felide/core/pom/ModuleTarget.hpp>
+#include <felide/core/pom/Source.hpp>
 
 namespace felide {
     std::unique_ptr<Project> ProjectParserMock::parse(const boost::filesystem::path &) {

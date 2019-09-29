@@ -2,7 +2,7 @@
 #include "Core.hpp"
 
 #include <iostream>
-#include <felide/system/PluginManager.hpp>
+#include <felide/core/system/PluginManager.hpp>
 
 namespace felide {
     Core::Core() {

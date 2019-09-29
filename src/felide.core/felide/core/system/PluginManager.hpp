@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     class FELIDE_API Plugin;

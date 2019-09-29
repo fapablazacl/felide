@@ -7,11 +7,11 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 
-#include <felide/TreeNode.hpp>
-#include <felide/pom/Source.hpp>
-#include <felide/pom/Target.hpp>
-#include <felide/tasks/LogTask.hpp>
-#include <felide/tasks/CommandTask.hpp>
+#include <felide/core/TreeNode.hpp>
+#include <felide/core/pom/Source.hpp>
+#include <felide/core/pom/Target.hpp>
+#include <felide/core/tasks/LogTask.hpp>
+#include <felide/core/tasks/CommandTask.hpp>
 
 namespace felide {
     const std::string FELIDE_OBJECT_FILES = "${ObjectFiles}";

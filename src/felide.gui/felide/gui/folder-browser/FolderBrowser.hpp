@@ -3,7 +3,7 @@
 #define __FELIDE_UI_FOLDEREXPLORERVIEW_HPP_
 
 #include <string>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 #include <felide/gui/Menu.hpp>
 #include <boost/optional/optional.hpp>
 

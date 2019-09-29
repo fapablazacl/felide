@@ -7,7 +7,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/optional.hpp>
 
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 #include <felide/gui/FileFilter.hpp>
 
 namespace felide {

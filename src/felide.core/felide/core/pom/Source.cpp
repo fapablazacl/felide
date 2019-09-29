@@ -1,8 +1,8 @@
 
 #include "Source.hpp"
 
-#include <felide/pom/Target.hpp>
-#include <felide/pom/Project.hpp>
+#include <felide/core/pom/Target.hpp>
+#include <felide/core/pom/Project.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>
 

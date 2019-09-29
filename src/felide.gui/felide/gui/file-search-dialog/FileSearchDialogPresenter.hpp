@@ -3,7 +3,7 @@
 #define __FELIDE_UI_FILESEARCHDIALOGPRESENTER_HPP__
 
 #include <string>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     class FELIDE_API FileSearchDialog;

@@ -2,7 +2,7 @@
 #ifndef __FELIDE_UI_MENUPANEL_HPP__
 #define __FELIDE_UI_MENUPANEL_HPP__
 
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     struct Menu;

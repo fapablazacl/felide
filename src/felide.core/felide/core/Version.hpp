@@ -3,10 +3,9 @@
 #define __FELIDE_VERSION_HPP__
 
 #include <string>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
-
     enum class VersionComparisonResult {
         Unknown = 255,
         Lesser = -1, 

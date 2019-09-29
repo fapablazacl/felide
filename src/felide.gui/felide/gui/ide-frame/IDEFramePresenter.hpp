@@ -2,7 +2,7 @@
 #ifndef __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 #define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 #include <felide/gui/DialogManager.hpp>
 #include <felide/gui/document/Document.hpp>
 #include <felide/gui/document/DocumentModel.hpp>

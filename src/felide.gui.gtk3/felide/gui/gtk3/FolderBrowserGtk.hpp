@@ -8,7 +8,7 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/gui/folder-browser/FolderBrowser.hpp>
-#include <felide/util/FileUtil.hpp>
+#include <felide/core/util/FileUtil.hpp>
 
 namespace fs = boost::filesystem;
 

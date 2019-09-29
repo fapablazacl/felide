@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <boost/filesystem/operations.hpp>
-#include <felide/util/FolderService.hpp>
+#include <felide/core/util/FolderService.hpp>
 
 namespace felide {
     class FolderBrowserModelImpl : public FolderBrowserModel {

@@ -7,7 +7,7 @@
 #include <boost/optional.hpp>
 #include <boost/filesystem/path.hpp>
 #include <felide/gui/FileFilter.hpp>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     enum class FileDialogType {

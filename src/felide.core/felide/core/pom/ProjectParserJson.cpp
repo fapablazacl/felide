@@ -4,10 +4,10 @@
 #include <stdexcept>
 #include <boost/filesystem.hpp>
 #include <nlohmann/json.hpp>
-#include <felide/util/FileUtil.hpp>
+#include <felide/core/util/FileUtil.hpp>
 
-#include <felide/pom/models/ProjectModel.hpp>
-#include <felide/pom/models/ModuleModel.hpp>
+#include <felide/core/pom/models/ProjectModel.hpp>
+#include <felide/core/pom/models/ModuleModel.hpp>
 
 namespace felide {
     static nlohmann::json jsonFromFile(const std::string &filePath) {

@@ -8,7 +8,7 @@
 #include <list>
 
 #include <boost/filesystem/path.hpp>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     class FELIDE_API DialogManager;

@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <felide/toolsets/Toolset.hpp>
+#include <felide/core/toolsets/Toolset.hpp>
 
 namespace felide {
     struct CompilerDescription;

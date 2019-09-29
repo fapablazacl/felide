@@ -4,7 +4,7 @@
 
 #include <string>
 #include <boost/filesystem/path.hpp>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     class FELIDE_API Document;

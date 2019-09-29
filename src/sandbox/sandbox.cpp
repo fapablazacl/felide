@@ -4,20 +4,20 @@
 //#include <vector>
 //#include <algorithm>
 //
-//#include <felide/TreeNode.hpp>
-//#include <felide/pom/Project.hpp>
-//#include <felide/pom/ModuleTarget.hpp>
-//#include <felide/pom/ModuleTargetType.hpp>
-//#include <felide/pom/TargetAction.hpp>
+//#include <felide/core/TreeNode.hpp>
+//#include <felide/core/pom/Project.hpp>
+//#include <felide/core/pom/ModuleTarget.hpp>
+//#include <felide/core/pom/ModuleTargetType.hpp>
+//#include <felide/core/pom/TargetAction.hpp>
 //
-//#include <felide/tasks/Task.hpp>
-//#include <felide/tasks/TaskNodeVisitor.hpp>
+//#include <felide/core/tasks/Task.hpp>
+//#include <felide/core/tasks/TaskNodeVisitor.hpp>
 //
-//#include <felide/cpp/ModuleCompiler.hpp>
-//#include <felide/cpp/ModuleLinker.hpp>
-//#include <felide/cpp/ModuleToolset.hpp>
+//#include <felide/core/cpp/ModuleCompiler.hpp>
+//#include <felide/core/cpp/ModuleLinker.hpp>
+//#include <felide/core/cpp/ModuleToolset.hpp>
 //
-//#include <felide/FileTypeRegistry.hpp>
+//#include <felide/core/FileTypeRegistry.hpp>
 //
 //#define XSTR(a) STR(a)
 //#define STR(a) #a

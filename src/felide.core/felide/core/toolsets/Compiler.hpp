@@ -6,7 +6,7 @@
 #include <map>
 #include <memory>
 
-#include <felide/FileTypeRegistry.hpp>
+#include <felide/core/FileTypeRegistry.hpp>
 
 #include "ActionContext.hpp"
 

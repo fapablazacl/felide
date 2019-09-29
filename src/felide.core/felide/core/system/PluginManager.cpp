@@ -7,7 +7,7 @@
 #include <map>
 #include <boost/dll.hpp>
 #include <boost/filesystem/path.hpp>
-#include <felide/util/OS.hpp>
+#include <felide/core/util/OS.hpp>
 #include "Plugin.hpp"
 
 #if defined(FELIDE_STATIC_LINK)

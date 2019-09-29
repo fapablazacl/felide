@@ -4,14 +4,14 @@
 #include <algorithm>
 #include <boost/filesystem.hpp>
 
-#include <felide/TreeNode.hpp>
-#include <felide/Language.hpp>
-#include <felide/pom/ModuleTargetType.hpp>
-#include <felide/pom/Project.hpp>
-#include <felide/pom/Source.hpp>
-#include <felide/pom/TargetAction.hpp>
-#include <felide/toolsets/Toolset.hpp>
-#include <felide/tasks/Task.hpp>
+#include <felide/core/TreeNode.hpp>
+#include <felide/core/Language.hpp>
+#include <felide/core/pom/ModuleTargetType.hpp>
+#include <felide/core/pom/Project.hpp>
+#include <felide/core/pom/Source.hpp>
+#include <felide/core/pom/TargetAction.hpp>
+#include <felide/core/toolsets/Toolset.hpp>
+#include <felide/core/tasks/Task.hpp>
 
 namespace fs = boost::filesystem;
 

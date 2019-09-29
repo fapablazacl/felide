@@ -9,13 +9,13 @@
 #include <stdexcept>
 #include <boost/filesystem.hpp>
 
-#include <felide/FileTypeRegistry.hpp>
-#include <felide/TreeNode.hpp>
-#include <felide/tasks/Task.hpp>
-#include <felide/pom/Project.hpp>
-#include <felide/pom/ModuleTarget.hpp>
-#include <felide/pom/Source.hpp>
-#include <felide/pom/TargetAction.hpp>
+#include <felide/core/FileTypeRegistry.hpp>
+#include <felide/core/TreeNode.hpp>
+#include <felide/core/tasks/Task.hpp>
+#include <felide/core/pom/Project.hpp>
+#include <felide/core/pom/ModuleTarget.hpp>
+#include <felide/core/pom/Source.hpp>
+#include <felide/core/pom/TargetAction.hpp>
 
 namespace fs = boost::filesystem;
 

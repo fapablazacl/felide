@@ -2,8 +2,8 @@
 #ifndef __borc_linkerimpl_hpp__
 #define __borc_linkerimpl_hpp__
 
-#include <felide/toolsets/Linker.hpp>
-#include <felide/toolsets/ActionContext.hpp>
+#include <felide/core/toolsets/Linker.hpp>
+#include <felide/core/toolsets/ActionContext.hpp>
 
 #include <string>
 #include <memory>

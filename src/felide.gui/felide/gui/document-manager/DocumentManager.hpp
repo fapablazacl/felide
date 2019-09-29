@@ -3,7 +3,7 @@
 #define __FELIDE_UI_DOCUMENTMANAGER_HPP__
 
 #include <cstddef>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 #include <vector>
 
 namespace felide {

@@ -1,8 +1,8 @@
 
 #include <cassert>
-#include <felide/TreeNode.hpp>
-#include <felide/tasks/TaskNodeVisitorSerial.hpp>
-#include <felide/tasks/Task.hpp>
+#include <felide/core/TreeNode.hpp>
+#include <felide/core/tasks/TaskNodeVisitorSerial.hpp>
+#include <felide/core/tasks/Task.hpp>
 
 namespace felide {
     TaskNodeVisitorSerial::~TaskNodeVisitorSerial() {}

@@ -2,117 +2,117 @@
 set (target "felide.core")
 
 set (sources_felide
-    "felide/Predef.hpp"
-    "felide/Core.hpp"
-    "felide/Core.cpp"
-    "felide/Version.hpp"
-    "felide/Version.cpp"
-    "felide/Language.hpp"
-    "felide/Language.cpp"
-    "felide/FileType.hpp"
-    "felide/FileType.cpp"
-    "felide/FileTypeRegistry.hpp"
-    "felide/FileTypeRegistry.cpp"
-    "felide/TreeNode.hpp"
-    "felide/TreeNode.cpp"
+    "felide/core/Predef.hpp"
+    "felide/core/Core.hpp"
+    "felide/core/Core.cpp"
+    "felide/core/Version.hpp"
+    "felide/core/Version.cpp"
+    "felide/core/Language.hpp"
+    "felide/core/Language.cpp"
+    "felide/core/FileType.hpp"
+    "felide/core/FileType.cpp"
+    "felide/core/FileTypeRegistry.hpp"
+    "felide/core/FileTypeRegistry.cpp"
+    "felide/core/TreeNode.hpp"
+    "felide/core/TreeNode.cpp"
 ) 
 
 set (sources_felide_util
-    "felide/util/FileUtil.cpp"
-    "felide/util/FileUtil.hpp"
-    "felide/util/FileService.cpp"
-    "felide/util/FileService.hpp"
-    "felide/util/FolderService.cpp"
-    "felide/util/FolderService.hpp"
-    "felide/util/OS.hpp"
-    "felide/util/OS.cpp"
+    "felide/core/util/FileUtil.cpp"
+    "felide/core/util/FileUtil.hpp"
+    "felide/core/util/FileService.cpp"
+    "felide/core/util/FileService.hpp"
+    "felide/core/util/FolderService.cpp"
+    "felide/core/util/FolderService.hpp"
+    "felide/core/util/OS.hpp"
+    "felide/core/util/OS.cpp"
 ) 
 
 set (sources_felide_tasks
-    "felide/tasks/Task.hpp"
-    "felide/tasks/Task.cpp"
-    "felide/tasks/DirectoryTask.hpp"
-    "felide/tasks/DirectoryTask.cpp"
-    "felide/tasks/TaskNodeVisitor.hpp"
-    "felide/tasks/TaskNodeVisitor.cpp"
-    "felide/tasks/TaskNodeVisitorSerial.hpp"
-    "felide/tasks/TaskNodeVisitorSerial.cpp"
-    "felide/tasks/LogTask.hpp"
-    "felide/tasks/LogTask.cpp"
-    "felide/tasks/CommandTask.hpp"
-    "felide/tasks/CommandTask.cpp"
+    "felide/core/tasks/Task.hpp"
+    "felide/core/tasks/Task.cpp"
+    "felide/core/tasks/DirectoryTask.hpp"
+    "felide/core/tasks/DirectoryTask.cpp"
+    "felide/core/tasks/TaskNodeVisitor.hpp"
+    "felide/core/tasks/TaskNodeVisitor.cpp"
+    "felide/core/tasks/TaskNodeVisitorSerial.hpp"
+    "felide/core/tasks/TaskNodeVisitorSerial.cpp"
+    "felide/core/tasks/LogTask.hpp"
+    "felide/core/tasks/LogTask.cpp"
+    "felide/core/tasks/CommandTask.hpp"
+    "felide/core/tasks/CommandTask.cpp"
 ) 
 
 set (sources_felide_pom
-    "felide/pom/TargetAction.hpp"
-    "felide/pom/TargetAction.cpp"
-    "felide/pom/Target.hpp"
-    "felide/pom/Target.cpp"
-    "felide/pom/ModuleTarget.hpp"
-    "felide/pom/ModuleTarget.cpp"
-    "felide/pom/ModuleTargetType.hpp"
-    "felide/pom/ModuleTargetType.cpp"
-    "felide/pom/Project.hpp"
-    "felide/pom/Project.cpp"
-    "felide/pom/Source.hpp"
-    "felide/pom/Source.cpp"
-    "felide/pom/ProjectParser.hpp"
-    "felide/pom/ProjectParser.cpp"
-    "felide/pom/ProjectParserMock.hpp"
-    "felide/pom/ProjectParserMock.cpp"
-    "felide/pom/ProjectParserJson.hpp"
-    "felide/pom/ProjectParserJson.cpp"
-    #"felide/pom/ProjectParserYaml.hpp"
-    #"felide/pom/ProjectParserYaml.cpp"
+    "felide/core/pom/TargetAction.hpp"
+    "felide/core/pom/TargetAction.cpp"
+    "felide/core/pom/Target.hpp"
+    "felide/core/pom/Target.cpp"
+    "felide/core/pom/ModuleTarget.hpp"
+    "felide/core/pom/ModuleTarget.cpp"
+    "felide/core/pom/ModuleTargetType.hpp"
+    "felide/core/pom/ModuleTargetType.cpp"
+    "felide/core/pom/Project.hpp"
+    "felide/core/pom/Project.cpp"
+    "felide/core/pom/Source.hpp"
+    "felide/core/pom/Source.cpp"
+    "felide/core/pom/ProjectParser.hpp"
+    "felide/core/pom/ProjectParser.cpp"
+    "felide/core/pom/ProjectParserMock.hpp"
+    "felide/core/pom/ProjectParserMock.cpp"
+    "felide/core/pom/ProjectParserJson.hpp"
+    "felide/core/pom/ProjectParserJson.cpp"
+    #"felide/core/pom/ProjectParserYaml.hpp"
+    #"felide/core/pom/ProjectParserYaml.cpp"
 ) 
 
 set (sources_felide_pom_models
-    "felide/pom/models/PropertyImpl.hpp"
-    "felide/pom/models/ProjectModel.hpp"
-    "felide/pom/models/ProjectModel.cpp"
-    "felide/pom/models/ModuleModel.hpp"
-    "felide/pom/models/ModuleModel.cpp"
+    "felide/core/pom/models/PropertyImpl.hpp"
+    "felide/core/pom/models/ProjectModel.hpp"
+    "felide/core/pom/models/ProjectModel.cpp"
+    "felide/core/pom/models/ModuleModel.hpp"
+    "felide/core/pom/models/ModuleModel.cpp"
 )
 
 set (sources_felide_toolsets
-    "felide/toolsets/ActionContext.hpp"
-    "felide/toolsets/ActionContext.cpp"
-    "felide/toolsets/Compiler.hpp"
-    "felide/toolsets/Compiler.cpp"
-    "felide/toolsets/Linker.hpp"
-    "felide/toolsets/Linker.cpp"
-    "felide/toolsets/Toolset.hpp"
-    "felide/toolsets/Toolset.cpp"
+    "felide/core/toolsets/ActionContext.hpp"
+    "felide/core/toolsets/ActionContext.cpp"
+    "felide/core/toolsets/Compiler.hpp"
+    "felide/core/toolsets/Compiler.cpp"
+    "felide/core/toolsets/Linker.hpp"
+    "felide/core/toolsets/Linker.cpp"
+    "felide/core/toolsets/Toolset.hpp"
+    "felide/core/toolsets/Toolset.cpp"
 ) 
 
 set (sources_felide_cpp
-    "felide/cpp/ModuleCompiler.hpp"
-    "felide/cpp/ModuleCompiler.cpp"
-    "felide/cpp/ModuleLinker.hpp"
-    "felide/cpp/ModuleLinker.cpp"
-    "felide/cpp/ModuleToolset.hpp"
-    "felide/cpp/ModuleToolset.cpp"
+    "felide/core/cpp/ModuleCompiler.hpp"
+    "felide/core/cpp/ModuleCompiler.cpp"
+    "felide/core/cpp/ModuleLinker.hpp"
+    "felide/core/cpp/ModuleLinker.cpp"
+    "felide/core/cpp/ModuleToolset.hpp"
+    "felide/core/cpp/ModuleToolset.cpp"
 ) 
 
 set (sources_felide_system
-    "felide/system/Plugin.hpp"
-    "felide/system/Plugin.cpp"
-    "felide/system/PluginManager.hpp"
-    "felide/system/PluginManager.cpp"
-    "felide/system/MessageBus.hpp"
-    "felide/system/MessageBus.cpp"
-    "felide/system/Component.hpp"
-    "felide/system/Component.cpp"
+    "felide/core/system/Plugin.hpp"
+    "felide/core/system/Plugin.cpp"
+    "felide/core/system/PluginManager.hpp"
+    "felide/core/system/PluginManager.cpp"
+    "felide/core/system/MessageBus.hpp"
+    "felide/core/system/MessageBus.cpp"
+    "felide/core/system/Component.hpp"
+    "felide/core/system/Component.cpp"
 )
 
-source_group ("felide"              FILES ${sources_felide})
-source_group ("felide\\util"        FILES ${sources_felide_util})
-source_group ("felide\\pom"         FILES ${sources_felide_pom})
-source_group ("felide\\pom\\models"         FILES ${sources_felide_pom_models})
-source_group ("felide\\toolsets"    FILES ${sources_felide_toolsets})
-source_group ("felide\\tasks"       FILES ${sources_felide_tasks})
-source_group ("felide\\cpp"         FILES ${sources_felide_cpp})
-source_group ("felide\\system" FILES ${sources_felide_system})
+source_group ("felide\\core"              FILES ${sources_felide})
+source_group ("felide\\core\\util"        FILES ${sources_felide_util})
+source_group ("felide\\core\\pom"         FILES ${sources_felide_pom})
+source_group ("felide\\core\\pom\\models" FILES ${sources_felide_pom_models})
+source_group ("felide\\core\\toolsets"    FILES ${sources_felide_toolsets})
+source_group ("felide\\core\\tasks"       FILES ${sources_felide_tasks})
+source_group ("felide\\core\\cpp"         FILES ${sources_felide_cpp})
+source_group ("felide\\core\\system"      FILES ${sources_felide_system})
 
 set (sources
     ${sources_felide}

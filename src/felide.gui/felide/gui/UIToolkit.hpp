@@ -3,7 +3,7 @@
 #define __FELIDE_UI_UITOOLKIT_HPP__
 
 #include <memory>
-#include <felide/Predef.hpp>
+#include <felide/core/Predef.hpp>
 
 namespace felide {
     class FELIDE_API IDEFramePresenter;

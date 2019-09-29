@@ -4,8 +4,8 @@
 #include <vector>
 #include <cassert>
 #include <algorithm>
-#include <felide/FileType.hpp>
-#include <felide/pom/Source.hpp>
+#include <felide/core/FileType.hpp>
+#include <felide/core/pom/Source.hpp>
 
 namespace felide {
     class FileTypeRegistryImpl : public FileTypeRegistry {

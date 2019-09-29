@@ -2,9 +2,9 @@
 #ifndef __borc_compilerimpl_hpp__
 #define __borc_compilerimpl_hpp__
 
-#include <felide/toolsets/Compiler.hpp>
-#include <felide/FileTypeRegistry.hpp>
-#include <felide/toolsets/CompilerDescription.hpp>
+#include <felide/core/toolsets/Compiler.hpp>
+#include <felide/core/FileTypeRegistry.hpp>
+#include <felide/core/toolsets/CompilerDescription.hpp>
 
 #include <set>
 #include <vector>
