@@ -10,6 +10,7 @@ option (FELIDE_STATIC_LINK          "Uses static linking for all external and in
 option (FELIDE_UI_WTL 	            "Build the IDE user interface using the Windows API"  OFF)
 option (FELIDE_UI_GTK3              "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5               "Build the IDE user interface using the Qt5 toolkit"  OFF)
+option (FELIDE_UI_COCOA             "Build the IDE user interface using the Cocoa toolkit"  OFF)
 option (FELIDE_POC_WTL_FORMDESIGNER "Build the Form-Designer POC" OFF)
 
 if (FELIDE_STATIC_LINK)
@@ -73,6 +74,11 @@ endif ()
 # QT5 Toolkit
 if (FELIDE_UI_QT5)
     add_subdirectory ("src/felide.gui.qt5")
+endif ()
+
+# Cocoa Toolkit
+if (FELIDE_UI_COCOA)
+    add_subdirectory ("src/felide.gui.cocoa")
 endif ()
 
 add_subdirectory("src/sandbox")
