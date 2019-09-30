@@ -1,5 +1,6 @@
 
-int main() {
+#import <Cocoa/Cocoa.h>
 
-    return 0;
+int main(int argc, const char * argv[]) {
+    return NSApplicationMain(argc, argv);
 }
