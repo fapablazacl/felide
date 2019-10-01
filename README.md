@@ -2,4 +2,8 @@
 
 "felide" a integrated development environment
 
-README.md in progress ...
+# Features:
+* Lightweight.
+* Cross-platform.
+* Extensible via plugins.
+* Uses the native Toolkit for each windowing system.
