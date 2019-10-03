@@ -30,6 +30,6 @@ set (felide_ui_gtk3_src
     "felide/gui/gtk3/DocumentHeader.cpp"
 )
 
-add_library (${target} ${src} ${felide_ui_gtk3_src})
+add_executable (${target} ${src} ${felide_ui_gtk3_src})
 
 target_link_libraries (${target} ${GTKMM_LIBRARIES} felide.core felide.gui stdc++fs)
