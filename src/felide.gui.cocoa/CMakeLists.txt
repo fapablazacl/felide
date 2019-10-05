@@ -1,7 +1,11 @@
 
 set (target felide.gui.cocoa)
 
-set (sources Main.mm)
+set (sources 
+    Main.mm
+    AppDelegate.h
+    AppDelegate.m
+)
 
 add_executable(${target} MACOSX_BUNDLE ${sources})
 
