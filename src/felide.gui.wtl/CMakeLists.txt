@@ -15,9 +15,9 @@ set (felide_ui_wtl_src
 source_group ("\\" FILES ${src})
 source_group ("\\felide\\gui\\wtl" FILES ${felide_ui_wtl_src})
 
-add_library (${target} WIN32
+add_executable (${target} WIN32
     ${src} 
     ${felide_ui_wtl_src}
 )
 
-target_link_libraries (${target} Felide.Core)
+target_link_libraries (${target} felide.core felide.gui)

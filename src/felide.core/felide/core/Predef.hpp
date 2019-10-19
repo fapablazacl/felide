@@ -2,17 +2,18 @@
 #ifndef __FELIDE_PREDEF_HPP__
 #define __FELIDE_PREDEF_HPP__
 
-#if defined(FELIDE_STATIC_LINK)
-  #define FELIDE_API_EXPORT
-  #define FELIDE_API_IMPORT
-#else
+#if defined(FELIDE_DYNAMIC_LINK)
   #if defined(_WINDOWS)
+    #error Explicit dynamic linking on Windows isn't supported yet
     #define FELIDE_API_EXPORT __declspec(dllexport)
     #define FELIDE_API_IMPORT __declspec(dllimport)
   #else
     #define FELIDE_API_EXPORT
     #define FELIDE_API_IMPORT
   #endif
+#else
+  #define FELIDE_API_EXPORT
+  #define FELIDE_API_IMPORT  
 #endif
 
 #if defined(FELIDE_BUILD)

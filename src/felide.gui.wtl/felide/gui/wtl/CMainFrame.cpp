@@ -1,7 +1,7 @@
 
 #include "CMainFrame.hpp"
 
-#include <felide/FileUtil.hpp>
+#include <felide/core/util/FileUtil.hpp>
 #include <atldlgs.h>
 
 namespace felide::view::win {

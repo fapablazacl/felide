@@ -61,7 +61,7 @@ include_directories ("src/felide.gui")
 add_subdirectory ("src/felide.gui")
 
 # Windows template library
-if (FELIDE_UI_WINDOWS)
+if (FELIDE_UI_WTL)
     include_directories ("dep/wtl/Include")
     add_subdirectory ("src/felide.gui.wtl")
 endif ()

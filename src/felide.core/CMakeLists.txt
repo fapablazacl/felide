@@ -125,10 +125,10 @@ set (sources
     ${sources_felide_system}
 )
 
-if (FELIDE_STATIC_LINK)
-    add_library (${target} ${sources})
+if (FELIDE_DYNAMIC_LINK)
+	add_library (${target} SHARED ${sources})
 else ()
-    add_library (${target} SHARED ${sources})
+    add_library (${target} ${sources})
 endif()
 
 target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")

@@ -6,15 +6,13 @@
 #include <nlohmann/json.hpp>
 #include <felide/core/util/FileUtil.hpp>
 
+#include <felide/core/pom/Project.hpp>
 #include <felide/core/pom/models/ProjectModel.hpp>
 #include <felide/core/pom/models/ModuleModel.hpp>
 
 namespace felide {
     static nlohmann::json jsonFromFile(const std::string &filePath) {
-        const std::string jsonContent = FileUtil::load(filePath);
-        const nlohmann::json json = nlohmann::json::parse(jsonContent);
-
-        return json;
+        return {};
     }
 
     static boost::filesystem::path computeProjectBasePath(const std::string &projectPath) {
@@ -31,8 +29,6 @@ namespace felide {
 
         const boost::filesystem::path parentPath = filePath.parent_path();
         const nlohmann::json json = jsonFromFile(parentPath.string());
-
-        const auto projectModel = deserialize<ProjectModel>(json);
 
         return {};
     }
