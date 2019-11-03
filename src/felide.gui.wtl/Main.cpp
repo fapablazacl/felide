@@ -1,14 +1,14 @@
 
-#include "felide/gui/wtl/CMainFrame.hpp"
+#include "felide/gui/wtl/CIdeMainFrame.hpp"
 
 CAppModule _Module;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    using felide::view::win::CMainFrame;
+    using felide::CIdeMainFrame;
 
     _Module.Init(NULL, hInstance);
 
-    CMainFrame mainFrame;
+    CIdeMainFrame mainFrame;
     MSG msg;
 
     if (NULL == mainFrame.Create(NULL, CWindow::rcDefault, _T("felide"))) {

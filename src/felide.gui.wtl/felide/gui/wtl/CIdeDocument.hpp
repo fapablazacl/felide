@@ -8,16 +8,16 @@
 #include <atlmisc.h>
 #include <atlcrack.h>
 
-namespace felide::view::win {
+namespace felide {
 
     /**
      * @brief Source code editor window
      */
-    class CEditor : public CWindowImpl<CEditor> {
+    class CIdeDocument : public CWindowImpl<CIdeDocument> {
     public:
-        DECLARE_WND_CLASS(_T("CEditor"))
+        DECLARE_WND_CLASS(_T("CIdeDocument"))
         
-        BEGIN_MSG_MAP(CEditor)
+        BEGIN_MSG_MAP(CIdeDocument)
             MSG_WM_CREATE(OnCreate)
             MSG_WM_SIZE(OnSize)
         END_MSG_MAP()

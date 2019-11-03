@@ -1,24 +1,26 @@
 
-#include "CMainFrame.hpp"
+#include "CIdeMainFrame.hpp"
 
-#include <felide/core/util/FileUtil.hpp>
+#include <felide/core/util/FileService.hpp>
 #include <atldlgs.h>
 
-namespace felide::view::win {
-    int CMainFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+namespace felide {
+    int CIdeMainFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CMainFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeMainFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
         CFileDialog dialog(TRUE, _T("All Files\0*.*"));
 
         if (dialog.DoModal() == IDOK) {
+            auto fileService = FileService::create();
+
             CString filename = dialog.m_szFileName;
 
-            auto content2 = FileUtil::load(dialog.m_szFileName).c_str();
+            auto content2 = fileService->load(dialog.m_szFileName).c_str();
 
-            CString content = FileUtil::load((LPCSTR)filename).c_str();
+            CString content = fileService->load((LPCSTR)filename).c_str();
 
             m_editor.SetText(content);
         }
@@ -26,34 +28,34 @@ namespace felide::view::win {
         return 0;
     }
 
-    int CMainFrame::OnFileSave(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeMainFrame::OnFileSave(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CMainFrame::OnFileSaveAs(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeMainFrame::OnFileSaveAs(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CMainFrame::OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeMainFrame::OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CMainFrame::OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeMainFrame::OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+    int CIdeMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         this->InitFrame();
         this->InitMenuBar();
 
         return 0;
     }
 
-    void CMainFrame::InitFrame() {
+    void CIdeMainFrame::InitFrame() {
         // set the main view
         RECT rcClient;
         this->GetClientRect(&rcClient);
@@ -63,7 +65,7 @@ namespace felide::view::win {
         m_editor.Create(m_hWnd, rcClient, "", dwStyle);
     }
 
-    void CMainFrame::InitMenuBar() {
+    void CIdeMainFrame::InitMenuBar() {
         // create the menu 
         m_menu.CreateMenu();
 
@@ -90,15 +92,15 @@ namespace felide::view::win {
         this->SetMenu(m_menu);
     }
 
-    void CMainFrame::OnClose() {
+    void CIdeMainFrame::OnClose() {
         DestroyWindow();
     }
 
-    void CMainFrame::OnDestroy() {
+    void CIdeMainFrame::OnDestroy() {
         PostQuitMessage(0);
     }
 
-    void CMainFrame::OnSize(UINT nType, CSize size) {
+    void CIdeMainFrame::OnSize(UINT nType, CSize size) {
         m_editor.ResizeClient(size.cx, size.cy, TRUE);
     }
 }

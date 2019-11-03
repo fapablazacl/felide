@@ -1,8 +1,8 @@
 
-#include "CEditor.hpp"
+#include "CIdeDocument.hpp"
 
-namespace felide::view::win {
-    int CEditor::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+namespace felide {
+    int CIdeDocument::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         RECT rcClient;
         this->GetClientRect(&rcClient);
 
@@ -13,15 +13,15 @@ namespace felide::view::win {
         return 0;
     }
 
-    void CEditor::OnSize(UINT nType, CSize size) {
+    void CIdeDocument::OnSize(UINT nType, CSize size) {
         m_edit.ResizeClient(size.cx, size.cy, TRUE);
     }
 
-    void CEditor::SetText(const CString &string) {
+    void CIdeDocument::SetText(const CString &string) {
         m_edit.SetWindowText(string);
     }
 
-    CString CEditor::GetText() const {
+    CString CIdeDocument::GetText() const {
         return "";
     }
 }

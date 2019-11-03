@@ -8,11 +8,11 @@
 #include <atluser.h>
 #include <atlcrack.h>
 
-#include "CEditor.hpp"
+#include "CIdeDocument.hpp"
 
-namespace felide::view::win {
+namespace felide {
     
-    class CMainFrame : public CWindowImpl<CMainFrame, CWindow, CFrameWinTraits> {
+    class CIdeMainFrame : public CWindowImpl<CIdeMainFrame, CWindow, CFrameWinTraits> {
     public:
         enum {
             FID_FILE_NEW = 1000, 
@@ -32,9 +32,9 @@ namespace felide::view::win {
         };
 
     public:
-        DECLARE_WND_CLASS(_T("CMainFrame Class"))
+        DECLARE_WND_CLASS(_T("CIdeMainFrame Class"))
 
-        BEGIN_MSG_MAP(CMainFrame)
+        BEGIN_MSG_MAP(CIdeMainFrame)
             COMMAND_ID_HANDLER(FID_FILE_NEW, OnFileNew)
             COMMAND_ID_HANDLER(FID_FILE_OPEN, OnFileOpen)
             COMMAND_ID_HANDLER(FID_FILE_SAVE, OnFileSave)
@@ -86,7 +86,7 @@ namespace felide::view::win {
         void InitMenuBar();
 
     private:
-        CEditor m_editor;
+        CIdeDocument m_editor;
         CMenu m_menu;
     };
 }
