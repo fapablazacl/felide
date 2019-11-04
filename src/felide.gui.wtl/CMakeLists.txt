@@ -3,6 +3,8 @@ set (target felide.gui.wtl)
 
 set (src
     "Main.cpp"
+	"Resource.rc"
+	"resource.h"
 )
 
 set (felide_ui_wtl_src

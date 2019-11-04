@@ -1,6 +1,8 @@
 
 #include "CIdeMainFrame.hpp"
 
+#include "../../../resource.h"
+
 #include <felide/core/util/FileService.hpp>
 #include <atldlgs.h>
 
@@ -49,23 +51,67 @@ namespace felide {
     }
 
     int CIdeMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
-        this->InitFrame();
-        this->InitMenuBar();
+        imageList.Create(16, 16, ILC_COLOR24, 0, 1);
+
+        this->SetupClassView();
+        this->SetupMenuBar();
 
         return 0;
     }
 
-    void CIdeMainFrame::InitFrame() {
+    void CIdeMainFrame::SetupDocumentManager() {
         // set the main view
         RECT rcClient;
         this->GetClientRect(&rcClient);
 
-        const DWORD dwStyle = WS_CHILD | WS_VISIBLE;
-
-        m_editor.Create(m_hWnd, rcClient, "", dwStyle);
+        m_editor.Create(m_hWnd, rcClient, "", WS_CHILD | WS_VISIBLE);
     }
 
-    void CIdeMainFrame::InitMenuBar() {
+    void CIdeMainFrame::SetupClassView()
+    {
+        // setup image list 
+        HBITMAP b1 = bitmap1.LoadBitmapA(IDB_BITMAP3);
+        HBITMAP b2 = bitmap2.LoadBitmapA(IDB_BITMAP2);
+        HBITMAP b3 = bitmap3.LoadBitmapA(IDB_BITMAP4);
+
+        int image1 = imageList.Add(bitmap1);
+        int image2 = imageList.Add(bitmap2);
+        int image3 = imageList.Add(bitmap3);
+
+        // set the main view
+        RECT rcClient;
+        this->GetClientRect(&rcClient);
+
+        classView.Create(m_hWnd, rcClient, "", TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | WS_VISIBLE | WS_CHILD);
+        classView.SetImageList(imageList, TVSIL_NORMAL);
+
+        HTREEITEM rootItem = classView.InsertItem("namespace", 0, 0, nullptr, nullptr);
+         
+        TVINSERTSTRUCT insertStruct = {};
+
+        insertStruct.hParent = rootItem;
+        insertStruct.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+        insertStruct.item.pszText = "Class1";
+        insertStruct.item.iImage = 1;
+        insertStruct.item.iSelectedImage = 1;
+        classView.InsertItem(&insertStruct);
+
+        insertStruct.hParent = rootItem;
+        insertStruct.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+        insertStruct.item.pszText = "Class2";
+        insertStruct.item.iImage = 1;
+        insertStruct.item.iSelectedImage = 1;
+        classView.InsertItem(&insertStruct);
+
+        insertStruct.hParent = rootItem;
+        insertStruct.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+        insertStruct.item.pszText = "Function1";
+        insertStruct.item.iImage = 2;
+        insertStruct.item.iSelectedImage = 2;
+        classView.InsertItem(&insertStruct);
+    }
+
+    void CIdeMainFrame::SetupMenuBar() {
         // create the menu 
         m_menu.CreateMenu();
 
@@ -101,6 +147,7 @@ namespace felide {
     }
 
     void CIdeMainFrame::OnSize(UINT nType, CSize size) {
-        m_editor.ResizeClient(size.cx, size.cy, TRUE);
+        // m_editor.ResizeClient(size.cx, size.cy, TRUE);
+        classView.ResizeClient(size.cx, size.cy, TRUE);
     }
 }

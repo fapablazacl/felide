@@ -1,10 +1,16 @@
 
 #include "felide/gui/wtl/CIdeMainFrame.hpp"
 
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
 CAppModule _Module;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     using felide::CIdeMainFrame;
+
+    ::CoInitialize(NULL);
+
+    AtlInitCommonControls(ICC_COOL_CLASSES | ICC_TREEVIEW_CLASSES | ICC_BAR_CLASSES);
 
     _Module.Init(NULL, hInstance);
 
@@ -24,6 +30,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     _Module.Term();
+
+    ::CoUninitialize();
 
     return static_cast<int>(msg.wParam);
 }

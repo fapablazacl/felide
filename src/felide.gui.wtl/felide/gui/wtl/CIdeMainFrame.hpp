@@ -81,12 +81,18 @@ namespace felide {
         void OnSize(UINT nType, CSize size);
 
     private:
-        void InitFrame();
+        void SetupDocumentManager();
 
-        void InitMenuBar();
+        void SetupClassView();
+
+        void SetupMenuBar();
 
     private:
         CIdeDocument m_editor;
+        CTreeViewCtrl classView;
         CMenu m_menu;
+
+        CImageListManaged imageList;
+        CBitmap bitmap1, bitmap2, bitmap3;
     };
 }
