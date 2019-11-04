@@ -8,6 +8,8 @@ set (src
 )
 
 set (felide_ui_wtl_src
+	"felide/gui/wtl/CIdeDocumentManager.hpp"
+    "felide/gui/wtl/CIdeDocumentManager.cpp"
     "felide/gui/wtl/CIdeDocument.hpp"
     "felide/gui/wtl/CIdeDocument.cpp"
     "felide/gui/wtl/CIdeMainFrame.hpp"
