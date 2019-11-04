@@ -113,15 +113,17 @@ namespace felide {
         auto dialogResult = dialogView->showMessageDialog(messageDialog);
 
         switch (dialogResult) {
-        case DialogButton::Cancel:
-            return DocumentPresenter::UserResponse::Cancel;
+            case DialogButton::Cancel:
+                return DocumentPresenter::UserResponse::Cancel;
 
-        case DialogButton::Yes:
-            return this->onSave();
+            case DialogButton::Yes:
+                return this->onSave();
 
-        case DialogButton::No:
-            return DocumentPresenter::UserResponse::Accept;
+            case DialogButton::No:
+                return DocumentPresenter::UserResponse::Accept;
         }
+
+        return DocumentPresenter::UserResponse::Cancel;
     }
 
     void DocumentPresenter::onTitleChanged() {

@@ -18,8 +18,6 @@ set (sources_felide
 ) 
 
 set (sources_felide_util
-    "felide/core/util/FileUtil.cpp"
-    "felide/core/util/FileUtil.hpp"
     "felide/core/util/FileService.cpp"
     "felide/core/util/FileService.hpp"
     "felide/core/util/FolderService.cpp"
