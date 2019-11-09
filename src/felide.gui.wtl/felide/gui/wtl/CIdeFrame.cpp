@@ -5,6 +5,7 @@
 
 #include <felide/core/util/FileService.hpp>
 #include <felide/core/util/FolderService.hpp>
+#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
 #include <felide/gui/folder-browser/FolderBrowserModel.hpp>
 #include <felide/gui/document-manager/DocumentManagerModel.hpp>
 #include <atldlgs.h>
@@ -52,6 +53,46 @@ namespace felide {
 
     void CIdeFrame::show() {
 
+    }
+}
+
+
+namespace felide {
+    void CIdeFrame::setupMenuBar(const Menu &menu) {
+        // create the menu 
+        m_menu.CreateMenu();
+
+        for (const Menu &menuItem : menu.childs) {
+            CMenuHandle menuItemHandle;
+
+            menuItemHandle.CreateMenu();
+
+            m_menu.AppendMenu(MF_STRING, menuItemHandle, menuItem.text.c_str());
+        }
+
+        /*
+        // file menu
+        CMenuHandle fileMenu;
+        fileMenu.CreateMenu();
+        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_NEW, "New");
+        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_OPEN, "Open");
+        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_SAVE, "Save");
+        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_SAVE_AS, "Save As");
+        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_CLOSE, "Close");
+        m_menu.AppendMenu(MF_STRING, fileMenu, "File");
+
+        // edit menu
+        CMenuHandle editMenu;
+        editMenu.CreateMenu();
+        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_UNDO, "Undo");
+        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_REDO, "Redo");
+        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_CUT, "Cut");
+        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_COPY, "Copy");
+        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_PASTE, "Paste");
+        m_menu.AppendMenu(MF_STRING, editMenu, "Edit");
+        */
+
+        this->SetMenu(m_menu);
     }
 }
 
@@ -116,7 +157,7 @@ namespace felide {
         splitterWindow.m_cxyMin = 35; // minimum size
         splitterWindow.SetSplitterPos(85); // from left
 
-        this->SetupMenuBar();
+        m_presenter->onInitialized(this, dialogManager.get(), this);
 
         return 0;
     }
@@ -137,32 +178,6 @@ namespace felide {
         folderBrowser->Create(splitterWindow, clientRect, "", WS_VISIBLE | WS_CHILD);
     }
 
-    void CIdeFrame::SetupMenuBar() {
-        // create the menu 
-        m_menu.CreateMenu();
-
-        // file menu
-        CMenuHandle fileMenu;
-        fileMenu.CreateMenu();
-        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_NEW, "New");
-        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_OPEN, "Open");
-        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_SAVE, "Save");
-        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_SAVE_AS, "Save As");
-        fileMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_FILE_CLOSE, "Close");
-        m_menu.AppendMenu(MF_STRING, fileMenu, "File");
-
-        // edit menu
-        CMenuHandle editMenu;
-        editMenu.CreateMenu();
-        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_UNDO, "Undo");
-        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_REDO, "Redo");
-        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_CUT, "Cut");
-        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_COPY, "Copy");
-        editMenu.AppendMenu(MF_STRING | MF_ENABLED, FID_EDIT_PASTE, "Paste");
-        m_menu.AppendMenu(MF_STRING, editMenu, "Edit");
-
-        this->SetMenu(m_menu);
-    }
 
     void CIdeFrame::OnClose() {
         DestroyWindow();

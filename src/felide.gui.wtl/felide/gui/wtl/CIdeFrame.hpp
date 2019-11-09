@@ -1,6 +1,7 @@
 
 #pragma once 
 
+#include <felide/gui/MenuPanel.hpp>
 #include <felide/gui/ide-frame/IDEFrame.hpp>
 #include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
 #include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
@@ -22,7 +23,7 @@
 
 namespace felide {
     
-    class CIdeFrame : public CWindowImpl<CIdeFrame, CWindow, CFrameWinTraits>, public IDEFrame {
+    class CIdeFrame : public CWindowImpl<CIdeFrame, CWindow, CFrameWinTraits>, public IDEFrame, public MenuPanel {
     public:
         CIdeFrame(IDEFramePresenter *presenter);
 
@@ -37,6 +38,9 @@ namespace felide {
         virtual void close() override;
 
         virtual void show() override;
+
+    public:
+        virtual void setupMenuBar(const Menu &menu) override;
 
     public:
         enum {
