@@ -14,6 +14,12 @@ set (felide_ui_wtl_src
     "felide/gui/wtl/CIdeDocument.cpp"
     "felide/gui/wtl/CIdeMainFrame.hpp"
     "felide/gui/wtl/CIdeMainFrame.cpp"
+	"felide/gui/wtl/CClassView.hpp"
+    "felide/gui/wtl/CClassView.cpp"
+	"felide/gui/wtl/CFolderBrowser.hpp"
+    "felide/gui/wtl/CFolderBrowser.cpp"
+	"felide/gui/wtl/CDialogManager.hpp"
+    "felide/gui/wtl/CDialogManager.cpp"
 )
 
 source_group ("\\" FILES ${src})

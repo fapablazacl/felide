@@ -1,18 +1,43 @@
 
 #pragma once 
 
+#include <felide/gui/ide-frame/IDEFrame.hpp>
+#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
+#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/core/util/FolderService.hpp>
+
 #include <atlbase.h>
 #include <atlapp.h>
 #include <atlframe.h>
 #include <atlctrls.h>
+#include <atlctrlx.h>
 #include <atluser.h>
 #include <atlcrack.h>
+#include <atlsplit.h>
 
 #include "CIdeDocument.hpp"
+#include "CFolderBrowser.hpp"
+#include "CIdeDocumentManager.hpp"
+#include "CDialogManager.hpp"
 
 namespace felide {
     
-    class CIdeMainFrame : public CWindowImpl<CIdeMainFrame, CWindow, CFrameWinTraits> {
+    class CIdeMainFrame : public CWindowImpl<CIdeMainFrame, CWindow, CFrameWinTraits>, public IDEFrame {
+    public:
+        CIdeMainFrame(IDEFramePresenter *presenter);
+
+        virtual ~CIdeMainFrame();
+
+        virtual DocumentManager* getDocumentManager() override;
+
+        virtual DialogManager* getDialogManager() override;
+        
+        virtual FolderBrowser* getFolderBrowser() override;
+
+        virtual void close() override;
+
+        virtual void show() override;
+
     public:
         enum {
             FID_FILE_NEW = 1000, 
@@ -71,7 +96,6 @@ namespace felide {
 
         int OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled);
 
-    public:
         int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
         void OnClose();
@@ -88,11 +112,20 @@ namespace felide {
         void SetupMenuBar();
 
     private:
+        CSplitterWindow splitterWindow;
         CIdeDocument m_editor;
-        CTreeViewCtrl classView;
         CMenu m_menu;
+        
+        std::unique_ptr<FolderService> folderService;
 
-        CImageListManaged imageList;
-        CBitmap bitmap1, bitmap2, bitmap3;
+        std::unique_ptr<FolderBrowserModel> folderBrowserModel;
+        std::unique_ptr<DocumentManagerModel> documentManagerModel;
+
+        std::unique_ptr<FolderBrowserPresenter> folderBrowserPresenter;
+        std::unique_ptr<DocumentManagerPresenter> documentManagerPresenter;
+
+        std::unique_ptr<CFolderBrowser> folderBrowser;
+        std::unique_ptr<CDialogManager> dialogManager;
+        std::unique_ptr<CIdeDocumentManager> documentManager;
     };
 }

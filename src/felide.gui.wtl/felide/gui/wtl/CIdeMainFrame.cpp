@@ -4,7 +4,57 @@
 #include "../../../resource.h"
 
 #include <felide/core/util/FileService.hpp>
+#include <felide/core/util/FolderService.hpp>
+#include <felide/gui/folder-browser/FolderBrowserModel.hpp>
+#include <felide/gui/document-manager/DocumentManagerModel.hpp>
 #include <atldlgs.h>
+
+#include "CFolderBrowser.hpp"
+
+namespace felide {
+    CIdeMainFrame::CIdeMainFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {
+        folderService = FolderService::create();
+        folderBrowserModel = FolderBrowserModel::create(folderService.get());
+        documentManagerModel = DocumentManagerModel::create();
+
+        folderBrowserPresenter = std::make_unique<FolderBrowserPresenter>(folderBrowserModel.get(), presenter);
+        documentManagerPresenter = std::make_unique<DocumentManagerPresenter>(documentManagerModel.get());
+
+        folderBrowser = std::make_unique<CFolderBrowser>(folderBrowserPresenter.get());
+        dialogManager = std::make_unique<CDialogManager>();
+        documentManager = std::make_unique<CIdeDocumentManager>(documentManagerPresenter.get());
+    }
+
+
+    CIdeMainFrame::~CIdeMainFrame() {
+
+    }
+
+
+    DocumentManager* CIdeMainFrame::getDocumentManager() {
+        return documentManager.get();
+    }
+
+
+    DialogManager* CIdeMainFrame::getDialogManager() {
+        return dialogManager.get();
+    }
+    
+
+    FolderBrowser* CIdeMainFrame::getFolderBrowser() {
+        return folderBrowser.get();
+    }
+
+
+    void CIdeMainFrame::close() {
+
+    }
+
+    void CIdeMainFrame::show() {
+
+    }
+}
+
 
 namespace felide {
     int CIdeMainFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
@@ -51,64 +101,40 @@ namespace felide {
     }
 
     int CIdeMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
-        imageList.Create(16, 16, ILC_COLOR24, 0, 1);
+        CRect clientRect;
+        this->GetClientRect(&clientRect);
+
+        splitterWindow.Create(m_hWnd, &clientRect, NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN);
 
         this->SetupClassView();
+        this->SetupDocumentManager();
+
+        splitterWindow.SetSplitterPane(SPLIT_PANE_LEFT, folderBrowser->m_hWnd);
+        splitterWindow.SetSplitterPane(SPLIT_PANE_RIGHT, m_editor);
+        
+        // set the vertical splitter parameters
+        splitterWindow.m_cxyMin = 35; // minimum size
+        splitterWindow.SetSplitterPos(85); // from left
+
         this->SetupMenuBar();
 
         return 0;
     }
 
+
     void CIdeMainFrame::SetupDocumentManager() {
         // set the main view
         RECT rcClient;
-        this->GetClientRect(&rcClient);
+        splitterWindow.GetClientRect(&rcClient);
 
-        m_editor.Create(m_hWnd, rcClient, "", WS_CHILD | WS_VISIBLE);
+        m_editor.Create(splitterWindow, rcClient, "", WS_CHILD | WS_VISIBLE);
     }
 
-    void CIdeMainFrame::SetupClassView()
-    {
-        // setup image list 
-        HBITMAP b1 = bitmap1.LoadBitmapA(IDB_BITMAP3);
-        HBITMAP b2 = bitmap2.LoadBitmapA(IDB_BITMAP2);
-        HBITMAP b3 = bitmap3.LoadBitmapA(IDB_BITMAP4);
-
-        int image1 = imageList.Add(bitmap1);
-        int image2 = imageList.Add(bitmap2);
-        int image3 = imageList.Add(bitmap3);
-
-        // set the main view
-        RECT rcClient;
-        this->GetClientRect(&rcClient);
-
-        classView.Create(m_hWnd, rcClient, "", TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | WS_VISIBLE | WS_CHILD);
-        classView.SetImageList(imageList, TVSIL_NORMAL);
-
-        HTREEITEM rootItem = classView.InsertItem("namespace", 0, 0, nullptr, nullptr);
-         
-        TVINSERTSTRUCT insertStruct = {};
-
-        insertStruct.hParent = rootItem;
-        insertStruct.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-        insertStruct.item.pszText = "Class1";
-        insertStruct.item.iImage = 1;
-        insertStruct.item.iSelectedImage = 1;
-        classView.InsertItem(&insertStruct);
-
-        insertStruct.hParent = rootItem;
-        insertStruct.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-        insertStruct.item.pszText = "Class2";
-        insertStruct.item.iImage = 1;
-        insertStruct.item.iSelectedImage = 1;
-        classView.InsertItem(&insertStruct);
-
-        insertStruct.hParent = rootItem;
-        insertStruct.item.mask = TVIF_TEXT | TVIF_IMAGE | TVIF_SELECTEDIMAGE;
-        insertStruct.item.pszText = "Function1";
-        insertStruct.item.iImage = 2;
-        insertStruct.item.iSelectedImage = 2;
-        classView.InsertItem(&insertStruct);
+    void CIdeMainFrame::SetupClassView() {
+        RECT clientRect;
+        splitterWindow.GetClientRect(&clientRect);
+        
+        folderBrowser->Create(splitterWindow, clientRect, "", WS_VISIBLE | WS_CHILD);
     }
 
     void CIdeMainFrame::SetupMenuBar() {
@@ -148,6 +174,6 @@ namespace felide {
 
     void CIdeMainFrame::OnSize(UINT nType, CSize size) {
         // m_editor.ResizeClient(size.cx, size.cy, TRUE);
-        classView.ResizeClient(size.cx, size.cy, TRUE);
+        splitterWindow.ResizeClient(size.cx, size.cy, TRUE);
     }
 }
