@@ -8,12 +8,12 @@ set (src
 )
 
 set (felide_ui_wtl_src
-	"felide/gui/wtl/CIdeDocumentManager.hpp"
-    "felide/gui/wtl/CIdeDocumentManager.cpp"
-    "felide/gui/wtl/CIdeDocument.hpp"
-    "felide/gui/wtl/CIdeDocument.cpp"
-    "felide/gui/wtl/CIdeMainFrame.hpp"
-    "felide/gui/wtl/CIdeMainFrame.cpp"
+	"felide/gui/wtl/CDocumentManager.hpp"
+    "felide/gui/wtl/CDocumentManager.cpp"
+    "felide/gui/wtl/CDocument.hpp"
+    "felide/gui/wtl/CDocument.cpp"
+    "felide/gui/wtl/CIdeFrame.hpp"
+    "felide/gui/wtl/CIdeFrame.cpp"
 	"felide/gui/wtl/CClassView.hpp"
     "felide/gui/wtl/CClassView.cpp"
 	"felide/gui/wtl/CFolderBrowser.hpp"

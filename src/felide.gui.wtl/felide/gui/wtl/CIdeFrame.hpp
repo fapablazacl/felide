@@ -15,18 +15,18 @@
 #include <atlcrack.h>
 #include <atlsplit.h>
 
-#include "CIdeDocument.hpp"
+#include "CDocument.hpp"
+#include "CDocumentManager.hpp"
 #include "CFolderBrowser.hpp"
-#include "CIdeDocumentManager.hpp"
 #include "CDialogManager.hpp"
 
 namespace felide {
     
-    class CIdeMainFrame : public CWindowImpl<CIdeMainFrame, CWindow, CFrameWinTraits>, public IDEFrame {
+    class CIdeFrame : public CWindowImpl<CIdeFrame, CWindow, CFrameWinTraits>, public IDEFrame {
     public:
-        CIdeMainFrame(IDEFramePresenter *presenter);
+        CIdeFrame(IDEFramePresenter *presenter);
 
-        virtual ~CIdeMainFrame();
+        virtual ~CIdeFrame();
 
         virtual DocumentManager* getDocumentManager() override;
 
@@ -57,9 +57,9 @@ namespace felide {
         };
 
     public:
-        DECLARE_WND_CLASS(_T("CIdeMainFrame Class"))
+        DECLARE_WND_CLASS(_T("CIdeFrame Class"))
 
-        BEGIN_MSG_MAP(CIdeMainFrame)
+        BEGIN_MSG_MAP(CIdeFrame)
             COMMAND_ID_HANDLER(FID_FILE_NEW, OnFileNew)
             COMMAND_ID_HANDLER(FID_FILE_OPEN, OnFileOpen)
             COMMAND_ID_HANDLER(FID_FILE_SAVE, OnFileSave)
@@ -113,7 +113,7 @@ namespace felide {
 
     private:
         CSplitterWindow splitterWindow;
-        CIdeDocument m_editor;
+        CDocument m_editor;
         CMenu m_menu;
         
         std::unique_ptr<FolderService> folderService;
@@ -126,6 +126,6 @@ namespace felide {
 
         std::unique_ptr<CFolderBrowser> folderBrowser;
         std::unique_ptr<CDialogManager> dialogManager;
-        std::unique_ptr<CIdeDocumentManager> documentManager;
+        std::unique_ptr<CDocumentManager> documentManager;
     };
 }

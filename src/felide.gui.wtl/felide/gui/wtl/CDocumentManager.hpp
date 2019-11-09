@@ -15,18 +15,18 @@ namespace felide {
     /**
      * @brief Source code editor window
      */
-    class CIdeDocumentManager : public CWindowImpl<CIdeDocumentManager>, public DocumentManager {
+    class CDocumentManager : public CWindowImpl<CDocumentManager>, public DocumentManager {
     public:
-        DECLARE_WND_CLASS(_T("CIdeDocumentManager"))
+        DECLARE_WND_CLASS(_T("CDocumentManager"))
         
-        BEGIN_MSG_MAP(CIdeDocument)
+        BEGIN_MSG_MAP(CDocument)
             MSG_WM_CREATE(OnCreate)
             MSG_WM_SIZE(OnSize)
         END_MSG_MAP()
 
-        CIdeDocumentManager(DocumentManagerPresenter *presenter);
+        CDocumentManager(DocumentManagerPresenter *presenter);
 
-        virtual ~CIdeDocumentManager();
+        virtual ~CDocumentManager();
 
         virtual Document* appendDocument(DocumentPresenter *presenter) override;
 

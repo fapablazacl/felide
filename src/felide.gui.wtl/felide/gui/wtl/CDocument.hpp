@@ -13,11 +13,11 @@ namespace felide {
     /**
      * @brief Source code editor window
      */
-    class CIdeDocument : public CWindowImpl<CIdeDocument> {
+    class CDocument : public CWindowImpl<CDocument> {
     public:
-        DECLARE_WND_CLASS(_T("CIdeDocument"))
+        DECLARE_WND_CLASS(_T("CDocument"))
         
-        BEGIN_MSG_MAP(CIdeDocument)
+        BEGIN_MSG_MAP(CDocument)
             MSG_WM_CREATE(OnCreate)
             MSG_WM_SIZE(OnSize)
         END_MSG_MAP()

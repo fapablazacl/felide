@@ -1,5 +1,5 @@
 
-#include "CIdeMainFrame.hpp"
+#include "CIdeFrame.hpp"
 
 #include "../../../resource.h"
 
@@ -12,7 +12,7 @@
 #include "CFolderBrowser.hpp"
 
 namespace felide {
-    CIdeMainFrame::CIdeMainFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {
+    CIdeFrame::CIdeFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         folderService = FolderService::create();
         folderBrowserModel = FolderBrowserModel::create(folderService.get());
         documentManagerModel = DocumentManagerModel::create();
@@ -22,47 +22,47 @@ namespace felide {
 
         folderBrowser = std::make_unique<CFolderBrowser>(folderBrowserPresenter.get());
         dialogManager = std::make_unique<CDialogManager>();
-        documentManager = std::make_unique<CIdeDocumentManager>(documentManagerPresenter.get());
+        documentManager = std::make_unique<CDocumentManager>(documentManagerPresenter.get());
     }
 
 
-    CIdeMainFrame::~CIdeMainFrame() {
+    CIdeFrame::~CIdeFrame() {
 
     }
 
 
-    DocumentManager* CIdeMainFrame::getDocumentManager() {
+    DocumentManager* CIdeFrame::getDocumentManager() {
         return documentManager.get();
     }
 
 
-    DialogManager* CIdeMainFrame::getDialogManager() {
+    DialogManager* CIdeFrame::getDialogManager() {
         return dialogManager.get();
     }
     
 
-    FolderBrowser* CIdeMainFrame::getFolderBrowser() {
+    FolderBrowser* CIdeFrame::getFolderBrowser() {
         return folderBrowser.get();
     }
 
 
-    void CIdeMainFrame::close() {
+    void CIdeFrame::close() {
 
     }
 
-    void CIdeMainFrame::show() {
+    void CIdeFrame::show() {
 
     }
 }
 
 
 namespace felide {
-    int CIdeMainFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CIdeMainFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
         CFileDialog dialog(TRUE, _T("All Files\0*.*"));
 
         if (dialog.DoModal() == IDOK) {
@@ -80,27 +80,27 @@ namespace felide {
         return 0;
     }
 
-    int CIdeMainFrame::OnFileSave(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnFileSave(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CIdeMainFrame::OnFileSaveAs(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnFileSaveAs(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CIdeMainFrame::OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CIdeMainFrame::OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
     }
 
-    int CIdeMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+    int CIdeFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         CRect clientRect;
         this->GetClientRect(&clientRect);
 
@@ -122,7 +122,7 @@ namespace felide {
     }
 
 
-    void CIdeMainFrame::SetupDocumentManager() {
+    void CIdeFrame::SetupDocumentManager() {
         // set the main view
         RECT rcClient;
         splitterWindow.GetClientRect(&rcClient);
@@ -130,14 +130,14 @@ namespace felide {
         m_editor.Create(splitterWindow, rcClient, "", WS_CHILD | WS_VISIBLE);
     }
 
-    void CIdeMainFrame::SetupClassView() {
+    void CIdeFrame::SetupClassView() {
         RECT clientRect;
         splitterWindow.GetClientRect(&clientRect);
         
         folderBrowser->Create(splitterWindow, clientRect, "", WS_VISIBLE | WS_CHILD);
     }
 
-    void CIdeMainFrame::SetupMenuBar() {
+    void CIdeFrame::SetupMenuBar() {
         // create the menu 
         m_menu.CreateMenu();
 
@@ -164,15 +164,15 @@ namespace felide {
         this->SetMenu(m_menu);
     }
 
-    void CIdeMainFrame::OnClose() {
+    void CIdeFrame::OnClose() {
         DestroyWindow();
     }
 
-    void CIdeMainFrame::OnDestroy() {
+    void CIdeFrame::OnDestroy() {
         PostQuitMessage(0);
     }
 
-    void CIdeMainFrame::OnSize(UINT nType, CSize size) {
+    void CIdeFrame::OnSize(UINT nType, CSize size) {
         // m_editor.ResizeClient(size.cx, size.cy, TRUE);
         splitterWindow.ResizeClient(size.cx, size.cy, TRUE);
     }
