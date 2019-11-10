@@ -182,11 +182,6 @@ namespace felide {
 
 namespace felide {
     /*
-    int CIdeFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
-
-        return 0;
-    }
-
     int CIdeFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
         CFileDialog dialog(TRUE, _T("All Files\0*.*"));
 
@@ -223,11 +218,11 @@ namespace felide {
 
         splitterWindow.Create(m_hWnd, &clientRect, NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN);
 
-        this->SetupClassView();
+        this->SetupFolderBrowser();
         this->SetupDocumentManager();
 
         splitterWindow.SetSplitterPane(SPLIT_PANE_LEFT, folderBrowser->m_hWnd);
-        splitterWindow.SetSplitterPane(SPLIT_PANE_RIGHT, m_editor);
+        splitterWindow.SetSplitterPane(SPLIT_PANE_RIGHT, documentManager->m_hWnd);
         
         // set the vertical splitter parameters
         splitterWindow.m_cxyMin = 35; // minimum size
@@ -244,10 +239,10 @@ namespace felide {
         RECT rcClient;
         splitterWindow.GetClientRect(&rcClient);
 
-        m_editor.Create(splitterWindow, rcClient, "", WS_CHILD | WS_VISIBLE);
+        documentManager->Create(splitterWindow, rcClient, "", WS_CHILD | WS_VISIBLE);
     }
 
-    void CIdeFrame::SetupClassView() {
+    void CIdeFrame::SetupFolderBrowser() {
         RECT clientRect;
         splitterWindow.GetClientRect(&clientRect);
         

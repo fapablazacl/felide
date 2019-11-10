@@ -25,3 +25,73 @@ namespace felide {
         return "";
     }
 }
+
+
+namespace felide {
+    void CDocument::setTitle(const std::string &title)
+    {
+    }
+
+
+    std::string CDocument::getTitle() const
+    {
+        return "";
+    }
+
+
+    void CDocument::setContent(const std ::string &content)
+    {
+    }
+
+
+    std::string CDocument::getContent() const
+    {
+        return "";
+    }
+
+
+    void CDocument::setConfig(const DocumentConfig &config)
+    {
+    }
+
+
+    DocumentConfig CDocument::getConfig() const
+    {
+        return {};
+    }
+
+
+    void CDocument::clearAll()
+    {
+    }
+
+
+    void CDocument::clearUndoBuffer()
+    {
+    }
+
+
+    void CDocument::undo()
+    {
+    }
+
+
+    void CDocument::redo()
+    {
+    }
+
+
+    void CDocument::cut()
+    {
+    }
+
+
+    void CDocument::copy()
+    {
+    }
+
+
+    void CDocument::paste() {
+
+    }
+}

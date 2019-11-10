@@ -52,5 +52,6 @@ namespace felide {
         void OnSize(UINT nType, CSize size);
 
     private:
+        CTabCtrl tabControl;
     };
 }

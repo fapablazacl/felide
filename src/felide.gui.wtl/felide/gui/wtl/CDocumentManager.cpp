@@ -3,6 +3,16 @@
 
 namespace felide {
     int CDocumentManager::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+        const DWORD dwStyle = WS_CHILD | WS_VISIBLE;
+
+        RECT clientRect = {};
+        this->GetClientRect(&clientRect);
+
+        tabControl.Create(m_hWnd, clientRect, "", dwStyle);
+
+        tabControl.AddItem("Test1");
+        tabControl.AddItem("Test2");
+        tabControl.AddItem("Test3");
 
         return 0;
     }
@@ -10,9 +20,10 @@ namespace felide {
     void CDocumentManager::OnSize(UINT nType, CSize size) {
         
     }
+}
 
 
-
+namespace felide {
     Document* CDocumentManager::getDocument(const std::size_t index)
     {
         return nullptr;

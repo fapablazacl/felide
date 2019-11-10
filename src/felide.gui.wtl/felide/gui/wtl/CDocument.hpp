@@ -1,6 +1,8 @@
 
 #pragma once 
 
+#include <felide/gui/document/Document.hpp>
+
 #include <atlbase.h>
 #include <atlwin.h>
 #include <atlapp.h>
@@ -13,7 +15,7 @@ namespace felide {
     /**
      * @brief Source code editor window
      */
-    class CDocument : public CWindowImpl<CDocument> {
+    class CDocument : public CWindowImpl<CDocument>, public Document {
     public:
         DECLARE_WND_CLASS(_T("CDocument"))
         
@@ -30,6 +32,28 @@ namespace felide {
         void SetText(const CString &string);
 
         CString GetText() const;
+
+
+    public:
+        virtual void setTitle(const std::string &title) override;
+        virtual std::string getTitle() const override;
+
+        virtual void setContent(const std::string &content) override;
+        virtual std::string getContent() const override;
+
+        virtual void setConfig(const DocumentConfig &config) override;
+        virtual DocumentConfig getConfig() const override;
+
+        virtual void clearAll() override;
+
+        virtual void clearUndoBuffer() override;
+
+        virtual void undo() override;
+        virtual void redo() override;
+
+        virtual void cut() override;
+        virtual void copy() override;
+        virtual void paste() override;
 
     private:
         CEdit m_edit;

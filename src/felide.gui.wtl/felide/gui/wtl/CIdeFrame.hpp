@@ -74,13 +74,12 @@ namespace felide {
     private:
         void SetupDocumentManager();
 
-        void SetupClassView();
+        void SetupFolderBrowser();
 
         void SetupMenuBar();
 
     private:
         CSplitterWindow splitterWindow;
-        CDocument m_editor;
         CMenu menuBar;
         
         std::unique_ptr<FolderService> folderService;
