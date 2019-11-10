@@ -23,6 +23,10 @@ namespace felide {
         ShiftAlt = Shift + Alt
     };
 
+    inline bool operator& (const Modifier &modifiers, const Modifier &modifier) {
+        return static_cast<int>(modifiers) & static_cast<int>(modifier);
+    }
+
     enum class Key {
         None = 0,
         F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,

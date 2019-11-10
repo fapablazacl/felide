@@ -40,6 +40,10 @@ namespace felide {
         virtual void show() override;
 
     public:
+        void fillMenuItem(CMenuHandle parent, const Menu &menu);
+
+        std::string mapMenuTitle(const Menu& menu) const;
+
         virtual void setupMenuBar(const Menu &menu) override;
 
     public:
