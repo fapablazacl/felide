@@ -1,11 +1,7 @@
 
 #pragma once 
 
-#include <felide/gui/MenuPanel.hpp>
-#include <felide/gui/ide-frame/IDEFrame.hpp>
-#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
-#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/core/util/FolderService.hpp>
+#include <map>
 
 #include <atlbase.h>
 #include <atlapp.h>
@@ -15,6 +11,12 @@
 #include <atluser.h>
 #include <atlcrack.h>
 #include <atlsplit.h>
+
+#include <felide/gui/MenuPanel.hpp>
+#include <felide/gui/ide-frame/IDEFrame.hpp>
+#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
+#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
+#include <felide/core/util/FolderService.hpp>
 
 #include "CDocument.hpp"
 #include "CDocumentManager.hpp"
@@ -47,43 +49,10 @@ namespace felide {
         virtual void setupMenuBar(const Menu &menu) override;
 
     public:
-        enum {
-            FID_FILE_NEW = 1000, 
-            FID_FILE_OPEN,
-            FID_FILE_SAVE,
-            FID_FILE_SAVE_AS,
-            FID_FILE_CLOSE,
-            FID_FILE_EXIT, 
-
-            FID_EDIT_UNDO = 2000,
-            FID_EDIT_REDO,
-            FID_EDIT_CUT,
-            FID_EDIT_COPY,
-            FID_EDIT_PASTE,
-
-            FID_HELP_ABOUT = 3000,
-        };
-
-    public:
         DECLARE_WND_CLASS(_T("CIdeFrame Class"))
 
         BEGIN_MSG_MAP(CIdeFrame)
-            COMMAND_ID_HANDLER(FID_FILE_NEW, OnFileNew)
-            COMMAND_ID_HANDLER(FID_FILE_OPEN, OnFileOpen)
-            COMMAND_ID_HANDLER(FID_FILE_SAVE, OnFileSave)
-            COMMAND_ID_HANDLER(FID_FILE_SAVE_AS, OnFileSaveAs)
-            COMMAND_ID_HANDLER(FID_FILE_CLOSE, OnFileClose)
-            COMMAND_ID_HANDLER(FID_FILE_EXIT, OnFileExit)
-            
-            /*
-            COMMAND_ID_HANDLER(FID_EDIT_UNDO, OnEditUndo)
-            COMMAND_ID_HANDLER(FID_EDIT_REDO, OnEditRedo)
-            COMMAND_ID_HANDLER(FID_EDIT_CUT, OnEditCut)
-            COMMAND_ID_HANDLER(FID_EDIT_COPY, OnEditCopy)
-            COMMAND_ID_HANDLER(FID_EDIT_PASTE, OnEditPaste)
-            
-            COMMAND_ID_HANDLER(FID_HELP_ABOUT, OnHelpAbout)
-            */
+            COMMAND_CODE_HANDLER(0, OnCommand)
 
             MSG_WM_CREATE(OnCreate)
             MSG_WM_CLOSE(OnClose)
@@ -92,17 +61,7 @@ namespace felide {
         END_MSG_MAP()
 
     public:
-        int OnFileNew(WORD wNotifyCode  , WORD wID, HWND hWndCtrl, BOOL &bHandled);
-
-        int OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled);
-
-        int OnFileSave(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled);
-
-        int OnFileSaveAs(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled);
-
-        int OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled);
-
-        int OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled);
+        int OnCommand(WORD wNotifyCode  , WORD wID, HWND hWndCtrl, BOOL &bHandled);
 
         int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
@@ -122,7 +81,7 @@ namespace felide {
     private:
         CSplitterWindow splitterWindow;
         CDocument m_editor;
-        CMenu m_menu;
+        CMenu menuBar;
         
         std::unique_ptr<FolderService> folderService;
 
@@ -135,5 +94,7 @@ namespace felide {
         std::unique_ptr<CFolderBrowser> folderBrowser;
         std::unique_ptr<CDialogManager> dialogManager;
         std::unique_ptr<CDocumentManager> documentManager;
+
+        std::map<int, std::function<void()>> commandMap;
     };
 }

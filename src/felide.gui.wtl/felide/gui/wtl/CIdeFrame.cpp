@@ -59,11 +59,18 @@ namespace felide {
 
 
 namespace felide {
+    const int commandIdBase = 1000;
+
     void CIdeFrame::fillMenuItem(CMenuHandle parent, const Menu &menu) {
         switch (menu.kind) {
             case MenuKind::Action: {
+                const int commandId = commandIdBase + static_cast<int>(commandMap.size());
+
                 const std::string title = this->mapMenuTitle(menu);
-                parent.AppendMenu(MF_STRING, 1000, title.c_str());
+                parent.AppendMenu(MF_STRING, commandId, title.c_str());
+
+                commandMap[commandId] = menu.callback;
+
                 break;
             }
             
@@ -162,18 +169,19 @@ namespace felide {
 
     void CIdeFrame::setupMenuBar(const Menu &menu) {
         // create the menu 
-        m_menu.CreateMenu();
+        menuBar.CreateMenu();
 
         for (const Menu &menuItem : menu.childs) {
-            this->fillMenuItem(m_menu.m_hMenu, menuItem);
+            this->fillMenuItem(menuBar.m_hMenu, menuItem);
         }
 
-        this->SetMenu(m_menu);
+        this->SetMenu(menuBar);
     }
 }
 
 
 namespace felide {
+    /*
     int CIdeFrame::OnFileNew(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
 
         return 0;
@@ -196,26 +204,18 @@ namespace felide {
         
         return 0;
     }
+    */
 
-    int CIdeFrame::OnFileSave(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+    int CIdeFrame::OnCommand(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+        const int commandId = static_cast<int>(wID);
 
-        return 0;
-    }
-
-    int CIdeFrame::OnFileSaveAs(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
-
-        return 0;
-    }
-
-    int CIdeFrame::OnFileClose(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
+        if (auto commandIt = commandMap.find(commandId); commandIt != commandMap.end()) {
+            commandIt->second();
+        }
 
         return 0;
     }
 
-    int CIdeFrame::OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
-
-        return 0;
-    }
 
     int CIdeFrame::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         CRect clientRect;
