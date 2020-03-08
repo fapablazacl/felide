@@ -3,10 +3,11 @@
 #import <AppKit/AppKit.h>
 
 @interface AppDelegate()
-@property (weak) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
+
 - (void) applicationDidFinishLaunching: (NSNotification *) notification {
 
 }

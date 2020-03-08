@@ -3,6 +3,7 @@
 #import "AppDelegate.h"
 
 int main(int argc, const char *argv[]) {
+    /*
     NSArray *topLevelObjects = nil;
 
     NSApplication *app = [NSApplication sharedApplication];
@@ -14,4 +15,9 @@ int main(int argc, const char *argv[]) {
     [app run];
 
     return 0;
+    */
+    
+    @autoreleasepool {}
+    
+    return NSApplicationMain(argc, argv);
 }
