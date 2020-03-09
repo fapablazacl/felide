@@ -14,10 +14,16 @@ set (xibs
     MainMenu
 )
 
+set (resources)
+
+foreach(xib ${xibs})
+    list(APPEND resources ${xib}.xib)
+endforeach()
+
 # message("CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}")
 # message("CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}")
 
-add_executable(${target} MACOSX_BUNDLE ${sources})
+add_executable(${target} MACOSX_BUNDLE ${sources} ${resources})
 set_target_properties(${target} PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST                "${CMAKE_SOURCE_DIR}/src/felide.gui.cocoa/Info.plist.in"
     XCODE_ATTRIBUTE_INFOPLIST_PREPROCESS    YES
