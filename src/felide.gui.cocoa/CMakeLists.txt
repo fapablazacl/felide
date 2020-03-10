@@ -8,13 +8,13 @@ set (sources
     main.m
     AppDelegate.h
     AppDelegate.m
-    MainWindowViewController.h
-    MainWindowViewController.m
+    MainWindowController.h
+    MainWindowController.m
 )
 
 set (xibs
     MainMenu
-    MainWindowViewController
+    MainWindowController
 )
 
 set (resources)

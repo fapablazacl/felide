@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainWindowViewController : NSWindowController
+@interface MainWindowController : NSWindowController
 
 @end
 

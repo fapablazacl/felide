@@ -5,13 +5,13 @@
 //  Created by dev-fapablaza on 3/9/20.
 //
 
-#import "MainWindowViewController.h"
+#import "MainWindowController.h"
 
-@interface MainWindowViewController ()
+@interface MainWindowController ()
 
 @end
 
-@implementation MainWindowViewController
+@implementation MainWindowController
 
 - (void)windowDidLoad {
     [super windowDidLoad];
