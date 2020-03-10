@@ -8,10 +8,13 @@ set (sources
     main.m
     AppDelegate.h
     AppDelegate.m
+    MainWindowViewController.h
+    MainWindowViewController.m
 )
 
 set (xibs
     MainMenu
+    MainWindowViewController
 )
 
 set (resources)
@@ -22,6 +25,8 @@ endforeach()
 
 # message("CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}")
 # message("CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}")
+
+source_group("\\" FILES ${sources} ${resources})
 
 add_executable(${target} MACOSX_BUNDLE ${sources} ${resources})
 set_target_properties(${target} PROPERTIES
