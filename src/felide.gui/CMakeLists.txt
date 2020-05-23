@@ -87,6 +87,7 @@ target_link_libraries (
     ${target} 
     ${DL_LIBRARY}
     ${Boost_LIBRARIES}
+    felide.core
 )
 
 install(TARGETS ${target} DESTINATION "lib")

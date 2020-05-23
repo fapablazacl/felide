@@ -53,6 +53,7 @@ if (WIN32)
         debug qscintilla2_qt5d
         optimized qscintilla2_qt5
         felide.core
+        felide.gui
     )
 else()
     target_link_libraries (
@@ -60,6 +61,7 @@ else()
         Qt5::Widgets
         qscintilla2_qt5
         felide.core
+        felide.gui
     )
 endif()
 
