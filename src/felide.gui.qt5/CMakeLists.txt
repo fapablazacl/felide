@@ -13,22 +13,22 @@ link_directories("${Qt5_DIR}/../../")
 set (src_felide "felide/Main.cpp")
 
 set (src_felide_ui_qt5
-    "felide/ui/qt5/DocumentQt.hpp"
-    "felide/ui/qt5/DocumentQt.cpp"
-    "felide/ui/qt5/IDEFrameQt.hpp"
-    "felide/ui/qt5/IDEFrameQt.cpp"
-    "felide/ui/qt5/DocumentManagerQt.hpp"
-    "felide/ui/qt5/DocumentManagerQt.cpp"
-    "felide/ui/qt5/DialogManagerQt.hpp"
-    "felide/ui/qt5/DialogManagerQt.cpp"
-    "felide/ui/qt5/FolderBrowserQt.hpp"
-    "felide/ui/qt5/FolderBrowserQt.cpp"
-    "felide/ui/qt5/FileSearchDialogQt.hpp"
-    "felide/ui/qt5/FileSearchDialogQt.cpp"
-    "felide/ui/qt5/FileSearchDialogItemWidgetQt.hpp"
-    "felide/ui/qt5/FileSearchDialogItemWidgetQt.cpp"
-    "felide/ui/qt5/UtilitiesQt.hpp"
-    "felide/ui/qt5/UtilitiesQt.cpp"
+    "felide/gui/qt5/DocumentQt.hpp"
+    "felide/gui/qt5/DocumentQt.cpp"
+    "felide/gui/qt5/IDEFrameQt.hpp"
+    "felide/gui/qt5/IDEFrameQt.cpp"
+    "felide/gui/qt5/DocumentManagerQt.hpp"
+    "felide/gui/qt5/DocumentManagerQt.cpp"
+    "felide/gui/qt5/DialogManagerQt.hpp"
+    "felide/gui/qt5/DialogManagerQt.cpp"
+    "felide/gui/qt5/FolderBrowserQt.hpp"
+    "felide/gui/qt5/FolderBrowserQt.cpp"
+    "felide/gui/qt5/FileSearchDialogQt.hpp"
+    "felide/gui/qt5/FileSearchDialogQt.cpp"
+    "felide/gui/qt5/FileSearchDialogItemWidgetQt.hpp"
+    "felide/gui/qt5/FileSearchDialogItemWidgetQt.cpp"
+    "felide/gui/qt5/UtilitiesQt.hpp"
+    "felide/gui/qt5/UtilitiesQt.cpp"
 )
 
 set (sources
@@ -37,7 +37,7 @@ set (sources
 )
 
 add_definitions (-DFELIDE_TARGET_NAME=${target})
-add_library (${target} ${sources})
+add_executable(${target} ${sources})
 
 source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
 

@@ -5,6 +5,7 @@
 #include <functional>
 #include <QMessageBox>
 #include <QDesktopWidget>
+#include <QCloseEvent>
 #include <iostream>
 #include <felide/gui/ide-frame/IDEFramePresenter.hpp>
 
