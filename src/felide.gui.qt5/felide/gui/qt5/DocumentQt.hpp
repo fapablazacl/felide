@@ -50,6 +50,14 @@ namespace felide {
 
         virtual void clearUndoBuffer() override;
 
+        virtual void setSelection(const TextSelection &selection) override;
+
+        virtual void selectAll() override;
+
+        virtual void clearSelection() override;
+
+        virtual TextSelection getSelection() const override;
+
     private:
         DialogManagerQt dialogManager;
         DocumentManagerQt *documentManager = nullptr;

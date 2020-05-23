@@ -114,4 +114,22 @@ namespace felide {
     void DocumentQt::clearUndoBuffer()  {
         // TODO: Add implementation
     }
+
+    void DocumentQt::setSelection(const TextSelection &selection) {
+        
+        // pending
+    }
+
+    void DocumentQt::selectAll() {
+        // pending
+    }
+
+    void DocumentQt::clearSelection() {
+        // pending
+    }
+
+    TextSelection DocumentQt::getSelection() const {
+        // pending
+        return TextSelection::all();
+    }
 }

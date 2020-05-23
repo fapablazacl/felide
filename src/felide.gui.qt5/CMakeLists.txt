@@ -10,9 +10,11 @@ find_library(QScintilla REQUIRED)
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
 
-set (src_felide "felide/Main.cpp")
+set (src_felide "felide/main.cpp")
 
 set (src_felide_ui_qt5
+    "felide/gui/qt5/FindReplaceDialogQt.hpp"
+    "felide/gui/qt5/FindReplaceDialogQt.cpp"
     "felide/gui/qt5/DocumentQt.hpp"
     "felide/gui/qt5/DocumentQt.cpp"
     "felide/gui/qt5/IDEFrameQt.hpp"

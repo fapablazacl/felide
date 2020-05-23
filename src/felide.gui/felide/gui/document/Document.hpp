@@ -16,6 +16,15 @@ namespace felide {
         static DocumentConfig Default();
     };
 
+    struct TextSelection {
+        int start;
+        int end;
+
+        static TextSelection all() {
+            return {-1, -1};
+        }
+    };
+
     class FELIDE_API Document {
     public:
         virtual ~Document();
@@ -39,6 +48,15 @@ namespace felide {
         virtual void cut() = 0;
         virtual void copy() = 0;
         virtual void paste() = 0;
+        
+        virtual void setSelection(const TextSelection &selection) = 0;
+
+        virtual void selectAll() = 0;
+
+        virtual void clearSelection() = 0;
+
+        virtual TextSelection getSelection() const = 0;
+
     };    
 }
 
