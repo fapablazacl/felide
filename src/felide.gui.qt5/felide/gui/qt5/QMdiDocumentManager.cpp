@@ -91,17 +91,38 @@ namespace felide {
 
     QMdiDocumentManager::~QMdiDocumentManager() {}
     
-    boost::optional<int> QMdiDocumentManager::getDocumentIndex(const DocumentQt *editor) {
+    boost::optional<int> QMdiDocumentManager::getDocumentIndex(const DocumentQt *document) {
+        assert(mdiArea);
+        assert(document);
+
+        auto list = mdiArea->subWindowList();
+
+        for (int i = 0; i < list.count(); i++) {
+            const QMdiSubWindow *subWindow = list[i];
+
+            if (subWindow->widget() == document) {
+                return i;
+            }
+        }
+
         return {};
     }
     
-    void QMdiDocumentManager::changeDocumentTitle(DocumentQt *editor, const std::string &title) {
+    void QMdiDocumentManager::changeDocumentTitle(DocumentQt *document, const std::string &title) {
+        assert(document);
 
+        auto subWindowIt = documentSubWindowMap.find(document);
+        assert(subWindowIt != documentSubWindowMap.end());
+
+        subWindowIt->second->setWindowTitle(title.c_str());
     }
 }
 
 namespace felide {
     Document* QMdiDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
+        assert(mdiArea);
+        assert(documentPresenter);
+
         auto subWindow = new QMdiSubWindow();
         auto document = new DocumentQt(subWindow, documentPresenter);
 
@@ -110,30 +131,69 @@ namespace felide {
 
         mdiArea->addSubWindow(subWindow);
 
+        documentSubWindowMap.insert({document, subWindow});
+
         return document;
     }
 
     void QMdiDocumentManager::setCurrentDocument(Document *document) {
+        assert(mdiArea);
+        assert(document);
+        
+        auto documentQt = static_cast<DocumentQt*>(document);
+        auto subWindowIt = documentSubWindowMap.find(documentQt);
+        assert(subWindowIt != documentSubWindowMap.end());
+        assert(subWindowIt->second);
 
+        mdiArea->setActiveSubWindow(subWindowIt->second);
     }
 
     Document* QMdiDocumentManager::getCurrentDocument() {
+        assert(mdiArea);
+
+        if (auto subWindow = mdiArea->activeSubWindow(); subWindow) {
+            return static_cast<DocumentQt*>(subWindow->widget());
+        }
+
         return nullptr;
     }
 
     std::size_t QMdiDocumentManager::getDocumentCount() const {
-        return 0;
+        assert(mdiArea);
+
+        return mdiArea->subWindowList().count();
     }
 
     Document* QMdiDocumentManager::getDocument(const std::size_t index) {
-        return nullptr;
+        assert(mdiArea);
+
+        auto list = mdiArea->subWindowList();
+        auto subWindow = list[index];
+
+        assert(subWindow);
+        
+        return static_cast<DocumentQt*>(subWindow->widget());
     }
     
-    void QMdiDocumentManager::closeDocument(Document *editorView) {
-        
+    void QMdiDocumentManager::closeDocument(Document *document) {
+        assert(mdiArea);
+        assert(document);
+
+        auto documentQt = static_cast<DocumentQt*>(document);
+        auto subWindowIt = documentSubWindowMap.find(documentQt);
+        assert(subWindowIt != documentSubWindowMap.end());
+
+        subWindowIt->second->hide();
     }
 
-    void QMdiDocumentManager::showDocument(Document *editorView) {
+    void QMdiDocumentManager::showDocument(Document *document) {
+        assert(mdiArea);
+        assert(document);
 
+        auto documentQt = static_cast<DocumentQt*>(document);
+        auto subWindowIt = documentSubWindowMap.find(documentQt);
+        assert(subWindowIt != documentSubWindowMap.end());
+
+        subWindowIt->second->show();
     }
 }

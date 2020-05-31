@@ -1,8 +1,10 @@
 
 #pragma once
 
+#include <map>
 #include <QWidget>
 #include <QMdiArea>
+#include <QMdiSubWindow>
 
 #include <boost/optional.hpp>
 #include <felide/gui/document-manager/DocumentManager.hpp>
@@ -43,5 +45,6 @@ namespace felide {
     private:
         QMdiArea *mdiArea = nullptr;
         DialogManagerQt dialogManager;
+        std::map<DocumentQt*, QMdiSubWindow*> documentSubWindowMap;
     };
 } 
