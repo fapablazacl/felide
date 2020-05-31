@@ -15,12 +15,11 @@
 namespace felide {
     class DocumentPresenter;
 
-    class DocumentManagerQt;
     class DocumentQt : public QWidget, public Document {
         Q_OBJECT
 
     public:
-        explicit DocumentQt(QTabWidget *parentTabWidget, DocumentPresenter *presenter, DocumentManagerQt *documentManager);
+        explicit DocumentQt(QWidget *parent, DocumentPresenter *presenter);
 
         virtual ~DocumentQt();
 
@@ -60,7 +59,6 @@ namespace felide {
 
     private:
         DialogManagerQt dialogManager;
-        DocumentManagerQt *documentManager = nullptr;
         DocumentPresenter *presenter = nullptr;
         QsciScintilla *m_scintilla = nullptr;
         std::string m_title;

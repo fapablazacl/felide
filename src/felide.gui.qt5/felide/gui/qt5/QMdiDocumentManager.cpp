@@ -103,13 +103,14 @@ namespace felide {
 namespace felide {
     Document* QMdiDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
         auto subWindow = new QMdiSubWindow();
+        auto document = new DocumentQt(subWindow, documentPresenter);
 
-        subWindow->setWidget(new QWidget(subWindow));
+        subWindow->setWidget(document);
         subWindow->setAttribute(Qt::WA_DeleteOnClose);
 
         mdiArea->addSubWindow(subWindow);
 
-        return nullptr;
+        return document;
     }
 
     void QMdiDocumentManager::setCurrentDocument(Document *document) {

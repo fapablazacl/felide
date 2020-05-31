@@ -10,17 +10,13 @@
 #include <felide/gui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QTabWidget *parentTabWidget, DocumentPresenter *presenter, DocumentManagerQt *documentManager) : QWidget(parentTabWidget), dialogManager(this) {
-        this->documentManager = documentManager;
+    DocumentQt::DocumentQt(QWidget *parent, DocumentPresenter *presenter) : QWidget(parent), dialogManager(this) {
         this->presenter = presenter;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
         m_scintilla->setMarginWidth(1, QString("1000"));
 
         this->setupLayout();
-
-        parentTabWidget->addTab(this, "");
-        parentTabWidget->setCurrentWidget(this);
 
         presenter->onInitialized(this, &dialogManager);
 
@@ -45,7 +41,7 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        documentManager->changeDocumentTitle(this, title);
+        // TODO: Add implementation
     }
 
     std::string DocumentQt::getTitle() const {
@@ -116,20 +112,19 @@ namespace felide {
     }
 
     void DocumentQt::setSelection(const TextSelection &selection) {
-        
-        // pending
+        // TODO: Add implementation
     }
 
     void DocumentQt::selectAll() {
-        // pending
+        // TODO: Add implementation
     }
 
     void DocumentQt::clearSelection() {
-        // pending
+        // TODO: Add implementation
     }
 
     TextSelection DocumentQt::getSelection() const {
-        // pending
+        // TODO: Add implementation
         return TextSelection::all();
     }
 }
