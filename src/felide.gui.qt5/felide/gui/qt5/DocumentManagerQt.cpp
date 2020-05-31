@@ -42,7 +42,7 @@ namespace felide {
                 }
             }
 
-            // TODO: Generate menu Dinamically
+            // TODO: Generate menu Dnamically
             // trigger context menu on that tab
             if (found) {
                 Document *editor = this->getDocument(index);

@@ -6,6 +6,8 @@
 #include <QMessageBox>
 #include <QDesktopWidget>
 #include <QCloseEvent>
+#include <QMdiArea>
+#include <QMdiSubWindow>
 #include <iostream>
 #include <felide/gui/ide-frame/IDEFramePresenter.hpp>
 
@@ -36,8 +38,24 @@ namespace felide {
     }
 
     void IDEFrameQt::setupDocumentManager() {
-        documentManager = new DocumentManagerQt(this, m_presenter->getDocumentManagerPresenter());
-        this->setCentralWidget(documentManager);
+        // documentManager = new DocumentManagerQt(this, m_presenter->getDocumentManagerPresenter());
+        // this->setCentralWidget(documentManager);
+
+        auto area = new QMdiArea(this);
+        area->setViewMode(QMdiArea::TabbedView);
+        area->setTabsClosable(true);
+        area->setTabsMovable(true);
+        this->setCentralWidget(area);
+
+        auto subWindow = new QMdiSubWindow();
+        subWindow->setWidget(new QWidget(subWindow));
+        subWindow->setAttribute(Qt::WA_DeleteOnClose);
+        area->addSubWindow(subWindow);
+
+        auto subWindow2 = new QMdiSubWindow();
+        subWindow2->setWidget(new QWidget(subWindow));
+        subWindow2->setAttribute(Qt::WA_DeleteOnClose);
+        area->addSubWindow(subWindow2);
     }
     
     void IDEFrameQt::setupDockUI() {
