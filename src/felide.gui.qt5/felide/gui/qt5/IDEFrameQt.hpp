@@ -19,6 +19,7 @@
 
 #include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"
+#include "QMdiDocumentManager.hpp"
 
 namespace felide {
     class FolderBrowserQt;
@@ -49,7 +50,7 @@ namespace felide {
         virtual void closeEvent(QCloseEvent *evt) override;
         
     private:
-        DocumentManagerQt *documentManager = nullptr;
+        QMdiDocumentManager *documentManager = nullptr;
         std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
         
     private:

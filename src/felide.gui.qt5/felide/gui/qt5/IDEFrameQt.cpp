@@ -16,6 +16,7 @@
 #include "FolderBrowserQt.hpp"
 #include "UtilitiesQt.hpp"
 
+
 namespace felide {
     IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         m_dialogManager = std::make_unique<DialogManagerQt>(this);
@@ -38,24 +39,8 @@ namespace felide {
     }
 
     void IDEFrameQt::setupDocumentManager() {
-        // documentManager = new DocumentManagerQt(this, m_presenter->getDocumentManagerPresenter());
-        // this->setCentralWidget(documentManager);
-
-        auto area = new QMdiArea(this);
-        area->setViewMode(QMdiArea::TabbedView);
-        area->setTabsClosable(true);
-        area->setTabsMovable(true);
-        this->setCentralWidget(area);
-
-        auto subWindow = new QMdiSubWindow();
-        subWindow->setWidget(new QWidget(subWindow));
-        subWindow->setAttribute(Qt::WA_DeleteOnClose);
-        area->addSubWindow(subWindow);
-
-        auto subWindow2 = new QMdiSubWindow();
-        subWindow2->setWidget(new QWidget(subWindow));
-        subWindow2->setAttribute(Qt::WA_DeleteOnClose);
-        area->addSubWindow(subWindow2);
+        documentManager = new QMdiDocumentManager(this, m_presenter->getDocumentManagerPresenter());
+        this->setCentralWidget(documentManager);
     }
     
     void IDEFrameQt::setupDockUI() {

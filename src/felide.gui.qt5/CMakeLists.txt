@@ -31,8 +31,10 @@ set (src_felide_ui_qt5
     "felide/gui/qt5/FileSearchDialogItemWidgetQt.cpp"
     "felide/gui/qt5/UtilitiesQt.hpp"
     "felide/gui/qt5/UtilitiesQt.cpp"
-    "felide/gui/qt5/QDocumentManagerMdi.hpp"
-    "felide/gui/qt5/QDocumentManagerMdi.cpp"
+    "felide/gui/qt5/QMdiDocumentManager.hpp"
+    "felide/gui/qt5/QMdiDocumentManager.cpp"
+    "felide/gui/qt5/QMdiSubWindowDocument.hpp"
+    "felide/gui/qt5/QMdiSubWindowDocument.cpp"
 )
 
 set (sources

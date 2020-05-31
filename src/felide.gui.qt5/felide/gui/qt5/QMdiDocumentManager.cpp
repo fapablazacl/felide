@@ -1,12 +1,12 @@
 
-#include "QDocumentManagerMdi.hpp"
+#include "QMdiDocumentManager.hpp"
 
 
 #include <iostream>
 #include <QGridLayout>
-#include <QTabBar>
 #include <QAction>
 #include <QMenu>
+#include <QMdiSubWindow>
 
 #include <felide/gui/document/DocumentPresenter.hpp>
 #include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
@@ -14,11 +14,13 @@
 #include "DocumentQt.hpp"
 
 namespace felide {
-    QDocumentManagerMdi::QDocumentManagerMdi(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
-        m_tabWidget = new QTabWidget(this);
-        m_tabWidget->setTabsClosable(true);
-        m_tabWidget->setDocumentMode(true);
-        
+    QMdiDocumentManager::QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
+        mdiArea = new QMdiArea(this);
+        mdiArea->setViewMode(QMdiArea::TabbedView);
+        mdiArea->setTabsClosable(true);
+        mdiArea->setTabsMovable(true);
+
+        /*
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, [=] (int tabIndex) {
             QWidget *widget = m_tabWidget->widget(tabIndex);
             
@@ -26,7 +28,9 @@ namespace felide {
                 presenter->onCloseDocument(editor);
             }
         });
+        */
 
+        /*
         m_tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(m_tabWidget, &QTabWidget::customContextMenuRequested, [this](const QPoint &pos) {
             bool found = false;
@@ -76,77 +80,59 @@ namespace felide {
                 contextMenu.exec(this->mapToGlobal(pos));
             }
         });
+        */
 
         QGridLayout *layout = new QGridLayout(this);
-        layout->addWidget(m_tabWidget);
+        layout->addWidget(mdiArea);
         this->setLayout(layout);
 
         presenter->onInitialized(this, &dialogManager);
     }
 
-    QDocumentManagerMdi::~QDocumentManagerMdi() {}
+    QMdiDocumentManager::~QMdiDocumentManager() {}
     
-    boost::optional<int> QDocumentManagerMdi::getDocumentIndex(const DocumentQt *editor) {
-        for (int i=0; i<m_tabWidget->count(); i++) {
-            if (m_tabWidget->widget(i) == editor) {
-                return i;
-            }
-        }
-        
+    boost::optional<int> QMdiDocumentManager::getDocumentIndex(const DocumentQt *editor) {
         return {};
     }
     
-    void QDocumentManagerMdi::changeDocumentTitle(DocumentQt *editor, const std::string &title) {
-        if (auto index = this->getDocumentIndex(editor)) {
-            m_tabWidget->setTabText(index.get(), title.c_str());
-        }
+    void QMdiDocumentManager::changeDocumentTitle(DocumentQt *editor, const std::string &title) {
+
     }
 }
 
 namespace felide {
-    Document* QDocumentManagerMdi::appendDocument(DocumentPresenter *documentPresenter) {
-        auto document = new DocumentQt(m_tabWidget, documentPresenter, this);
+    Document* QMdiDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
+        auto subWindow = new QMdiSubWindow();
 
-        return document;
-    }
+        subWindow->setWidget(new QWidget(subWindow));
+        subWindow->setAttribute(Qt::WA_DeleteOnClose);
 
-    void QDocumentManagerMdi::setCurrentDocument(Document *document) {
-        if (const auto editor = dynamic_cast<DocumentQt*>(document)) {
-            if (const auto index = this->getDocumentIndex(editor)) {
-                m_tabWidget->setCurrentIndex(index.get());
-            }
-        }
-    }
-
-    Document* QDocumentManagerMdi::getCurrentDocument() {
-        if (QWidget *widget = m_tabWidget->currentWidget()) {
-            return dynamic_cast<Document*>(widget);
-        }
+        mdiArea->addSubWindow(subWindow);
 
         return nullptr;
     }
 
-    std::size_t QDocumentManagerMdi::getDocumentCount() const {
-        return static_cast<std::size_t>(m_tabWidget->count());
+    void QMdiDocumentManager::setCurrentDocument(Document *document) {
+
     }
 
-    Document* QDocumentManagerMdi::getDocument(const std::size_t index) {
-        return dynamic_cast<Document*>(m_tabWidget->widget(static_cast<int>(index)));
+    Document* QMdiDocumentManager::getCurrentDocument() {
+        return nullptr;
+    }
+
+    std::size_t QMdiDocumentManager::getDocumentCount() const {
+        return 0;
+    }
+
+    Document* QMdiDocumentManager::getDocument(const std::size_t index) {
+        return nullptr;
     }
     
-    void QDocumentManagerMdi::closeDocument(Document *editorView) {
-        if (const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
-            if (const auto index = this->getDocumentIndex(editor)) {
-                m_tabWidget->removeTab(index.get());
-            }
-        }
+    void QMdiDocumentManager::closeDocument(Document *editorView) {
+        
     }
 
-    void QDocumentManagerMdi::showDocument(Document *editorView) {
-        if (const auto editor = dynamic_cast<DocumentQt*>(editorView)) {
-            if (const auto index = this->getDocumentIndex(editor)) {
-                m_tabWidget->setCurrentIndex(index.get());
-            }
-        }
+    void QMdiDocumentManager::showDocument(Document *editorView) {
+
     }
 }

@@ -2,7 +2,7 @@
 #pragma once
 
 #include <QWidget>
-#include <QTabWidget>
+#include <QMdiArea>
 
 #include <boost/optional.hpp>
 #include <felide/gui/document-manager/DocumentManager.hpp>
@@ -12,13 +12,13 @@
 namespace felide {
     class DocumentQt;
     class Document;
-    class QDocumentManagerMdi : public QWidget, public DocumentManager {
+    class QMdiDocumentManager : public QWidget, public DocumentManager {
         Q_OBJECT
 
     public:
-        explicit QDocumentManagerMdi(QWidget *parent, DocumentManagerPresenter *presenter);
+        explicit QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter);
 
-        virtual ~QDocumentManagerMdi();
+        virtual ~QMdiDocumentManager();
         
     public:
         boost::optional<int> getDocumentIndex(const DocumentQt *editor);
@@ -41,7 +41,7 @@ namespace felide {
         virtual void showDocument(Document *document) override;
 
     private:
-        QTabWidget *m_tabWidget = nullptr;
+        QMdiArea *mdiArea = nullptr;
         DialogManagerQt dialogManager;
     };
 } 
