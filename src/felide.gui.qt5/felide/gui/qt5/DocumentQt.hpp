@@ -3,7 +3,7 @@
 #define __FELIDE_UI_QT5_EDITOR_HPP_
 
 #include <QWidget>
-#include <QTabWidget>
+#include <QMdiSubWindow>
 #include <Qsci/qsciscintilla.h>
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
@@ -19,7 +19,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit DocumentQt(QWidget *parent, DocumentPresenter *presenter);
+        explicit DocumentQt(QMdiSubWindow *parent, DocumentPresenter *presenter);
 
         virtual ~DocumentQt();
 
@@ -58,6 +58,7 @@ namespace felide {
         virtual TextSelection getSelection() const override;
 
     private:
+        QMdiSubWindow *subWindowParent = nullptr;
         DialogManagerQt dialogManager;
         DocumentPresenter *presenter = nullptr;
         QsciScintilla *m_scintilla = nullptr;

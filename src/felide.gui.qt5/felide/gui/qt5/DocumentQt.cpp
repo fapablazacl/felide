@@ -10,7 +10,7 @@
 #include <felide/gui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QWidget *parent, DocumentPresenter *presenter) : QWidget(parent), dialogManager(this) {
+    DocumentQt::DocumentQt(QMdiSubWindow *parent, DocumentPresenter *presenter) : QWidget(parent), subWindowParent(parent), dialogManager(this) {
         this->presenter = presenter;
         m_scintilla = new QsciScintilla(this);
         m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
@@ -41,7 +41,9 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        // TODO: Add implementation
+        this->subWindowParent->setWindowTitle(title.c_str());
+
+        m_title = title;
     }
 
     std::string DocumentQt::getTitle() const {
