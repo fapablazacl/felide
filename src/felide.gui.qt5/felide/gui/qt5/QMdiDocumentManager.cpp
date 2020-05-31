@@ -12,6 +12,7 @@
 #include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
 
 #include "DocumentQt.hpp"
+#include "QMdiSubWindowEventFilter.hpp"
 
 namespace felide {
     QMdiDocumentManager::QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
@@ -19,25 +20,19 @@ namespace felide {
         mdiArea->setViewMode(QMdiArea::TabbedView);
         mdiArea->setTabsClosable(true);
         mdiArea->setTabsMovable(true);
+        // mdiArea->setDocumentMode(true);
 
-        /*
-        connect(m_tabWidget, &QTabWidget::tabCloseRequested, [=] (int tabIndex) {
-            QWidget *widget = m_tabWidget->widget(tabIndex);
-            
-            if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
-                presenter->onCloseDocument(editor);
-            }
-        });
-        */
-
-        /*
-        m_tabWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(m_tabWidget, &QTabWidget::customContextMenuRequested, [this](const QPoint &pos) {
-            bool found = false;
+        mdiArea->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(mdiArea, &QMdiArea::customContextMenuRequested, [this](const QPoint &pos) {
+            std::cout << "asdasdasd" << std::endl;
+            bool found = true;
             int index = 0;
 
             // determine the tab
-            for (int i=0; i<m_tabWidget->count(); i++) {
+            auto list = mdiArea->subWindowList();
+
+            /*
+            for (int i=0; i<list.count(); i++) {
                 const auto rect = m_tabWidget->tabBar()->tabRect(i);
 
                 if (rect.contains(pos)) {
@@ -46,6 +41,7 @@ namespace felide {
                     break;
                 }
             }
+            */
 
             // TODO: Generate menu Dnamically
             // trigger context menu on that tab
@@ -80,7 +76,6 @@ namespace felide {
                 contextMenu.exec(this->mapToGlobal(pos));
             }
         });
-        */
 
         QGridLayout *layout = new QGridLayout(this);
         layout->addWidget(mdiArea);
@@ -127,11 +122,21 @@ namespace felide {
         auto document = new DocumentQt(subWindow, documentPresenter);
 
         subWindow->setWidget(document);
-        subWindow->setAttribute(Qt::WA_DeleteOnClose);
+        subWindow->setAttribute(Qt::WA_DeleteOnClose, true); // Prevents memory leak
 
         mdiArea->addSubWindow(subWindow);
 
         documentSubWindowMap.insert({document, subWindow});
+
+        /*
+        connect(mdiArea, &QMdiArea::tabCloseRequested, [=] (int tabIndex) {
+            QWidget *widget = m_tabWidget->widget(tabIndex);
+            
+            if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
+                presenter->onCloseDocument(editor);
+            }
+        });
+        */
 
         return document;
     }
@@ -183,7 +188,7 @@ namespace felide {
         auto subWindowIt = documentSubWindowMap.find(documentQt);
         assert(subWindowIt != documentSubWindowMap.end());
 
-        subWindowIt->second->hide();
+        subWindowIt->second->close();
     }
 
     void QMdiDocumentManager::showDocument(Document *document) {

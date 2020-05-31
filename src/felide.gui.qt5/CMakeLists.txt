@@ -33,8 +33,8 @@ set (src_felide_ui_qt5
     "felide/gui/qt5/UtilitiesQt.cpp"
     "felide/gui/qt5/QMdiDocumentManager.hpp"
     "felide/gui/qt5/QMdiDocumentManager.cpp"
-    "felide/gui/qt5/QMdiSubWindowDocument.hpp"
-    "felide/gui/qt5/QMdiSubWindowDocument.cpp"
+    "felide/gui/qt5/QMdiSubWindowEventFilter.hpp"
+    "felide/gui/qt5/QMdiSubWindowEventFilter.cpp"
 )
 
 set (sources
