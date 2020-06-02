@@ -12,7 +12,7 @@
 #include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
 
 #include "DocumentQt.hpp"
-#include "QMdiSubWindowEventFilter.hpp"
+#include "QMdiSubWindowDocument.hpp"
 
 namespace felide {
     QMdiDocumentManager::QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {

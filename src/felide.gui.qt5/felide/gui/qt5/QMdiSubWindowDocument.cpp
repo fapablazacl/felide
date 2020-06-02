@@ -1,11 +1,14 @@
 
-#include "QMdiSubWindowEventFilter.hpp"
+#include "QMdiSubWindowDocument.hpp"
 
 #include <cassert>
 #include <QMdiSubWindow>
 #include <QEvent>
 
 namespace felide {
+    QMdiSubWindowDocument::QMdiSubWindowDocument(QWidget *parent, Qt::WindowFlags flags) : QMdiSubWindow(parent, flags) {}
+
+    /*
     QMdiSubWindowEventFilter::QMdiSubWindowEventFilter(QObject *parent, DocumentManagerPresenter *documentManagerPresenter) 
             : QObject(parent), documentManagerPresenter(documentManagerPresenter) {
         assert(documentManagerPresenter);
@@ -28,4 +31,5 @@ namespace felide {
 
         return QObject::eventFilter(obj, event);
     }
+    */
 }
