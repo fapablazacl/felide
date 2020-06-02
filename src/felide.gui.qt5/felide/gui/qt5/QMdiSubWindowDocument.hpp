@@ -3,16 +3,21 @@
 
 #include <QMdiSubWindow>
 
+#include "DocumentQt.hpp"
+
 namespace felide {
     class DocumentManagerPresenter;
 
-    class DocumentQt;
     class QMdiSubWindowDocument : public QMdiSubWindow {
         Q_OBJECT
 
     public:
-        QMdiSubWindowDocument(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
+        QMdiSubWindowDocument(QWidget *parent = nullptr, DocumentQt *widget = nullptr);
 
-        void closeEvent() override;
+        void setWidget(DocumentQt *widget);
+
+        DocumentQt* widget() const;
+
+        void closeEvent(QCloseEvent *event) override;
     };
 }

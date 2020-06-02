@@ -6,30 +6,19 @@
 #include <QEvent>
 
 namespace felide {
-    QMdiSubWindowDocument::QMdiSubWindowDocument(QWidget *parent, Qt::WindowFlags flags) : QMdiSubWindow(parent, flags) {}
-
-    /*
-    QMdiSubWindowEventFilter::QMdiSubWindowEventFilter(QObject *parent, DocumentManagerPresenter *documentManagerPresenter) 
-            : QObject(parent), documentManagerPresenter(documentManagerPresenter) {
-        assert(documentManagerPresenter);
+    QMdiSubWindowDocument::QMdiSubWindowDocument(QWidget *parent, DocumentQt *widget): QMdiSubWindow(parent, {}) {
+        this->setWidget(widget);
     }
 
-
-    bool QMdiSubWindowEventFilter::eventFilter(QObject *obj, QEvent *event) {
-        switch (event->type()) {
-            case QEvent::Close: {
-                auto subWindow = dynamic_cast<QMdiSubWindow*>(obj);
-                assert(subWindow);
-                
-                break;
-            }
-
-            default: {
-                qt_noop();
-            }
-        }
-
-        return QObject::eventFilter(obj, event);
+    void QMdiSubWindowDocument::setWidget(DocumentQt *widget) {
+         QMdiSubWindow::setWidget(widget);
     }
-    */
+
+    DocumentQt* QMdiSubWindowDocument::widget() const {
+        return static_cast<DocumentQt*>(QMdiSubWindow::widget());
+    }
+
+    void QMdiSubWindowDocument::closeEvent(QCloseEvent *event) {
+        QMdiSubWindow::closeEvent(event);
+    }
 }

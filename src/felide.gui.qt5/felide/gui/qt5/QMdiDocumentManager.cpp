@@ -118,7 +118,7 @@ namespace felide {
         assert(mdiArea);
         assert(documentPresenter);
 
-        auto subWindow = new QMdiSubWindow();
+        auto subWindow = new QMdiSubWindowDocument();
         auto document = new DocumentQt(subWindow, documentPresenter);
 
         subWindow->setWidget(document);
