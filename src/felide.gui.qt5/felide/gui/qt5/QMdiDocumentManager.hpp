@@ -14,11 +14,11 @@
 namespace felide {
     class DocumentQt;
     class Document;
-    class QMdiDocumentManager : public QMdiArea, public DocumentManager {
+    class QMdiDocumentManager : public QWidget, public DocumentManager {
         Q_OBJECT
 
     public:
-        explicit QMdiDocumentManager(DocumentManagerPresenter *presenter);
+        explicit QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter);
 
         virtual ~QMdiDocumentManager();
         
@@ -43,6 +43,7 @@ namespace felide {
         void showDocument(Document *document) override;
 
     private:
+        QMdiArea *mdiArea = nullptr;
         DialogManagerQt dialogManager;
         std::map<DocumentQt*, QMdiSubWindow*> documentSubWindowMap;
     };

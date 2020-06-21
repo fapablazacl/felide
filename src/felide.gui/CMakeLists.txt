@@ -54,6 +54,9 @@ set (sources
     "felide/gui/FileFilter.cpp"
     "felide/gui/UIToolkit.hpp"
     "felide/gui/UIToolkit.cpp"
+
+    "felide/gui/mvp/MainFrame.hpp"
+    "felide/gui/mvp/MainFrame.cpp"
 )
 
 add_library (${target} ${sources})
