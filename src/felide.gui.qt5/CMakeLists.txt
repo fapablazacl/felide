@@ -45,13 +45,13 @@ set (sources
 add_definitions (-DFELIDE_TARGET_NAME=${target})
 add_executable(${target} ${sources})
 
+source_group ("felide" FILES ${src_felide})
 source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
 
 # TODO: Determine if wee need a static linking library for QScintilla
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
 # TODO: Parametrize QScintilla for Windows Builds
-
 if (WIN32)
     target_link_libraries (
         ${target} 

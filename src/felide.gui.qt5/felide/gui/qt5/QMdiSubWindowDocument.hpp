@@ -6,7 +6,7 @@
 #include "DocumentQt.hpp"
 
 namespace felide {
-    class DocumentManagerPresenter;
+    class DocumentPresenter;
 
     class QMdiSubWindowDocument : public QMdiSubWindow {
         Q_OBJECT
