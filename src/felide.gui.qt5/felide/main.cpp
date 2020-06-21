@@ -1,6 +1,35 @@
 
 #include <QApplication>
 
+#include <felide/gui/mvp/MainFrame.hpp>
+#include <felide/gui/qt5/QMainFrame.hpp>
+
+using felide::MainFrame;
+using felide::QMainFrame;
+
+class MainFrameModelMock : public MainFrame::Model {
+public:
+    std::string getTitle() const override {
+        return "XenoIde";
+    }
+
+    bool hasModifiedFiles() const override {
+        return true;
+    }
+};
+
+int main(int argc, char **argv) {
+    QApplication app(argc, argv);
+
+    MainFrameModelMock model;
+    MainFrame::Presenter presenter{&model};
+    QMainFrame view{&presenter};
+
+    return app.exec();
+}
+
+
+/*
 #include <felide/gui/qt5/IDEFrameQt.hpp>
 #include <felide/gui/ide-frame/IDEFrameModel.hpp>
 #include <felide/gui/ide-frame/IDEFramePresenter.hpp>
@@ -25,3 +54,4 @@ int main(int argc, char **argv) {
 
     return app.exec();
 }
+*/

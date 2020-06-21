@@ -13,6 +13,9 @@ link_directories("${Qt5_DIR}/../../")
 set (src_felide "felide/main.cpp")
 
 set (src_felide_ui_qt5
+    "felide/gui/qt5/QMainFrame.hpp"
+    "felide/gui/qt5/QMainFrame.cpp"
+
     "felide/gui/qt5/FindReplaceDialogQt.hpp"
     "felide/gui/qt5/FindReplaceDialogQt.cpp"
     "felide/gui/qt5/DocumentQt.hpp"

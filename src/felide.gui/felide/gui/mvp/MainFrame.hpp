@@ -4,7 +4,7 @@
 #include <string>
 
 namespace felide {
-    class MainFrame {
+    class MainFrame final {
     public:
         MainFrame() = delete;
 
@@ -18,9 +18,17 @@ namespace felide {
             VS_HIDE
         };
 
+        enum AskResult {
+            AR_OK,
+            AR_CANCEL
+        };
+
+        class Presenter;
         class View {
         public:
-            virtual ~View() = 0;
+            explicit View(Presenter *presenter);
+
+            virtual ~View() {}
 
             virtual void changeTitle(const std::string &value) = 0;
 
@@ -28,18 +36,24 @@ namespace felide {
 
             virtual void show() = 0;
 
-            virtual void close() = 0;
+            virtual AskResult askCloseConfirmation(const std::string &title, const std::string &prompt) = 0;
 
-            virtual bool askCloseConfirmation(const std::string &title, const std::string &prompt);
+        protected:
+            Presenter *presenter = nullptr;
         };
 
         class Model {
         public:
-            virtual ~Model() = 0;
+            virtual ~Model() {}
 
             virtual std::string getTitle() const = 0;
 
             virtual bool hasModifiedFiles() const = 0;
+        };
+
+        enum CloseRequestAction {
+            CRA_CLOSE,
+            CRA_IGNORE
         };
 
         class Presenter {
@@ -48,7 +62,7 @@ namespace felide {
 
             void handleInitializedView(MainFrame::View *view);
 
-            void handleCloseRequest();
+            CloseRequestAction handleCloseRequest();
 
         private:
             View *view = nullptr;
