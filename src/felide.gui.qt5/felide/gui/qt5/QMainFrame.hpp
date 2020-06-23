@@ -1,8 +1,8 @@
 
 #pragma once 
 
-#include <felide/gui/mvp/MainFrame.hpp>
 #include <QMainWindow>
+#include <felide/gui/mvp/MainFrame.hpp>
 
 namespace felide {
     class QMainFrame : public QMainWindow, public MainFrame::View {
