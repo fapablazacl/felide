@@ -65,7 +65,6 @@ namespace felide {
             virtual VisualConfig getDefaultConfig() const = 0;
         };
 
-        
 
         class Presenter {
         public:

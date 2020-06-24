@@ -54,15 +54,6 @@ set (sources
     "felide/gui/FileFilter.cpp"
     "felide/gui/UIToolkit.hpp"
     "felide/gui/UIToolkit.cpp"
-
-    "felide/gui/mvp/MainFrame.hpp"
-    "felide/gui/mvp/MainFrame.cpp"
-    "felide/gui/mvp/DocumentManager.hpp"
-    "felide/gui/mvp/DocumentManager.cpp"
-    "felide/gui/mvp/Document.hpp"
-    "felide/gui/mvp/Document.cpp"
-    "felide/gui/mvp/FindReplace.hpp"
-    "felide/gui/mvp/FindReplace.cpp"
 )
 
 add_library (${target} ${sources})

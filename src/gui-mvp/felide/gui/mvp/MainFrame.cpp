@@ -19,7 +19,7 @@ namespace felide {
         assert(view);
         assert(model);
 
-        view->changeTitle(model->getTitle());
+        view->displayTitle(model->getTitle());
         view->changeWindowState(MainFrame::W_FOLDERBROWSER, MainFrame::VS_HIDE);
         view->changeWindowState(MainFrame::W_OUTPUT, MainFrame::VS_SHOW);
         view->show();

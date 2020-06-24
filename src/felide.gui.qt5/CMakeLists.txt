@@ -63,6 +63,7 @@ if (WIN32)
         optimized qscintilla2_qt5
         felide.core
         felide.gui
+		gui-mvp
     )
 else()
     target_link_libraries (
@@ -71,6 +72,7 @@ else()
         qscintilla2_qt5
         felide.core
         felide.gui
+		gui-mvp
     )
 endif()
 

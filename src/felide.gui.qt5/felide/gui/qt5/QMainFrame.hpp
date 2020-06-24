@@ -2,6 +2,9 @@
 #pragma once 
 
 #include <QMainWindow>
+#include <QDockWidget>
+#include <QTextEdit>
+#include <QTreeView>
 #include <felide/gui/mvp/MainFrame.hpp>
 
 namespace felide {
@@ -13,7 +16,7 @@ namespace felide {
         
         virtual ~QMainFrame();
 
-        void changeTitle(const std::string &value) override;
+        void displayTitle(const std::string &value) override;
 
         void changeWindowState(const MainFrame::Window window, const MainFrame::VisibleState state) override;
 
@@ -25,5 +28,12 @@ namespace felide {
         void closeEvent(QCloseEvent *event) override;
 
         QSize computeFrameSize() const;
+
+    private:
+        QDockWidget *outputWindowDockWidget = nullptr;
+        QTextEdit *outputWindowTextEdit = nullptr;
+
+        QDockWidget *folderBrowserDockWidget = nullptr;
+        QTreeView *folderBrowserTreeView = nullptr;
     };
 }

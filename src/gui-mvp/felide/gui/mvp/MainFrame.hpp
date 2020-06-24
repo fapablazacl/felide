@@ -30,7 +30,7 @@ namespace felide {
 
             virtual ~View() {}
 
-            virtual void changeTitle(const std::string &value) = 0;
+            virtual void displayTitle(const std::string &value) = 0;
 
             virtual void changeWindowState(const Window window, const VisibleState state) = 0;
 

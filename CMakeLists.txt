@@ -56,9 +56,12 @@ add_subdirectory ("src/felide.core")
 # IDE GUI
 # add_subdirectory ("src/felide")
 
-# IDE GUI
 include_directories ("src/felide.gui")
 add_subdirectory ("src/felide.gui")
+
+# IDE GUI
+include_directories ("src/gui-mvp")
+add_subdirectory ("src/gui-mvp")
 
 # Windows template library
 if (FELIDE_UI_WTL)
