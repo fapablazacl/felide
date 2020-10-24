@@ -19,7 +19,7 @@
 
 namespace felide {
     IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {
-        m_dialogManager = std::make_unique<DialogManagerQt>(this);
+        mDialogManager = std::make_unique<DialogManagerQt>(this);
 
         this->setupDocumentManager();
         this->setupDockUI();
@@ -31,33 +31,35 @@ namespace felide {
         this->setMinimumSize(screenSize.size() * 0.4);
         this->resize(screenSize.size() * 0.7);
 
-        m_presenter->onInitialized(this, m_dialogManager.get(), this);
+        mPresenter->onInitialized(this, mDialogManager.get(), this);
     }
 
     void IDEFrameQt::setupMenuBar(const Menu &menu) {
-        this->setMenuBar(createMenuBar(this, menu));
+        auto menuBar = createMenuBar(this, menu);
+
+        this->setMenuBar(menuBar);
     }
 
     void IDEFrameQt::setupDocumentManager() {
-        // documentManager = new QMdiDocumentManager(this, m_presenter->getDocumentManagerPresenter());
-        this->setCentralWidget(documentManager);
+        mDocumentManager = new QMdiDocumentManager(this, mPresenter->getDocumentManagerPresenter());
+        this->setCentralWidget(mDocumentManager);
     }
     
     void IDEFrameQt::setupDockUI() {
         const auto areas = QFlags<Qt::DockWidgetArea>(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
         
         // setup folder browser dock widget
-        m_folderBrowserDock = new QDockWidget("Folder Browser", this);
+        mFolderBrowserDock = new QDockWidget("Folder Browser", this);
         
-        m_folderBrowser = new FolderBrowserQt(m_folderBrowserDock, m_presenter->getFolderBrowserPresenter(), m_dialogManager.get());
-        m_folderBrowserDock->setAllowedAreas(areas);
-        m_folderBrowserDock->setWidget(m_folderBrowser);
+        mFolderBrowser = new FolderBrowserQt(mFolderBrowserDock, mPresenter->getFolderBrowserPresenter(), mDialogManager.get());
+        mFolderBrowserDock->setAllowedAreas(areas);
+        mFolderBrowserDock->setWidget(mFolderBrowser);
 
-        this->addDockWidget(Qt::LeftDockWidgetArea, m_folderBrowserDock);
+        this->addDockWidget(Qt::LeftDockWidgetArea, mFolderBrowserDock);
     }
     
     void IDEFrameQt::closeEvent(QCloseEvent *evt) {
-        if (m_presenter->onCloseRequested()) {
+        if (mPresenter->onCloseRequested()) {
             evt->accept();
         } else {
             evt->ignore();
@@ -67,15 +69,15 @@ namespace felide {
 
 namespace felide {
     DocumentManager* IDEFrameQt::getDocumentManager() {
-        return documentManager;
+        return mDocumentManager;
     }
 
     DialogManager* IDEFrameQt::getDialogManager() {
-        return m_dialogManager.get();
+        return mDialogManager.get();
     }
     
     FolderBrowser* IDEFrameQt::getFolderBrowser() {
-        return m_folderBrowser;
+        return mFolderBrowser;
     }
     
     void IDEFrameQt::close() {

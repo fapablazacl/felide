@@ -7,7 +7,7 @@
 
 namespace felide {
     IDEFrame::IDEFrame(IDEFramePresenter *presenter) {
-        m_presenter = presenter;
+        mPresenter = presenter;
     }
 
     IDEFrame::~IDEFrame() {}

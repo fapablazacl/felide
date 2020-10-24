@@ -3,7 +3,7 @@
 
 namespace felide {
     FolderBrowser::FolderBrowser(FolderBrowserPresenter *presenter) {
-        m_presenter = presenter;
+        mPresenter = presenter;
     }
 
     FolderBrowser::~FolderBrowser() {}

@@ -43,7 +43,7 @@ namespace felide {
         void showDocument(Document *document) override;
 
     private:
-        QMdiArea *mdiArea = nullptr;
+        QMdiArea *mMdiArea = nullptr;
         DialogManagerQt dialogManager;
         std::map<DocumentQt*, QMdiSubWindow*> documentSubWindowMap;
     };

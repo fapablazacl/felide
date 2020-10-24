@@ -66,8 +66,8 @@ namespace felide {
     }
 
     boost::optional<std::string> FolderBrowserQt::getSelectedPath() const {
-        const QModelIndex index = m_treeView->currentIndex();
-        const QString path = m_fileSystemModel->fileInfo(index).absoluteFilePath();
+        const QModelIndex index = mTreeView->currentIndex();
+        const QString path = mFileSystemModel->fileInfo(index).absoluteFilePath();
 
         return path.toStdString();
     }
@@ -75,59 +75,59 @@ namespace felide {
 
 namespace felide {
     FolderBrowserQt::FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager) : QWidget(parent), FolderBrowser(presenter) {
-        m_treeView = new QTreeView(this);
+        mTreeView = new QTreeView(this);
 
         this->setLayout(new QVBoxLayout(this));
-        this->layout()->addWidget(m_treeView);
+        this->layout()->addWidget(mTreeView);
 
         // instance file system model
-        m_fileSystemModel = new FolderBrowserQtTreeModel(this, presenter);
-        m_fileSystemModel->setFilter(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
+        mFileSystemModel = new FolderBrowserQtTreeModel(this, presenter);
+        mFileSystemModel->setFilter(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs);
 
         // enable treeview support
-        m_treeView->setDragDropMode(QAbstractItemView::InternalMove);
+        mTreeView->setDragDropMode(QAbstractItemView::InternalMove);
         // m_treeView->setSelectionMode(QAbstractItemView::ExtendedSelection);
-        m_treeView->setDragEnabled(true);
-        m_treeView->setAcceptDrops(true);
+        mTreeView->setDragEnabled(true);
+        mTreeView->setAcceptDrops(true);
         // m_treeView->setDropIndicatorShown(true);
 
         // bind view and model together
-        m_treeView->setModel(m_fileSystemModel);
-        m_treeView->setVisible(false);
-        m_treeView->setHeaderHidden(true);
-        m_treeView->setContextMenuPolicy(Qt::CustomContextMenu);
+        mTreeView->setModel(mFileSystemModel);
+        mTreeView->setVisible(false);
+        mTreeView->setHeaderHidden(true);
+        mTreeView->setContextMenuPolicy(Qt::CustomContextMenu);
 
-        for (int i=1; i<m_fileSystemModel->columnCount(); ++i) {
-            m_treeView->hideColumn(i);
+        for (int i=1; i<mFileSystemModel->columnCount(); ++i) {
+            mTreeView->hideColumn(i);
         }
 
         // connect signal handlers
-        connect(m_treeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
-            m_presenter->onOpenSelectedFile();
+        connect(mTreeView, &QTreeView::doubleClicked, [this](const QModelIndex index) {
+            mPresenter->onOpenSelectedFile();
         });
 
-        connect(m_treeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
-            m_presenter->onContextMenuRequested({pos.x(), pos.y()});
+        connect(mTreeView, &QTreeView::customContextMenuRequested, [this](const QPoint &pos) {
+            mPresenter->onContextMenuRequested({pos.x(), pos.y()});
         });
 
-        m_presenter->onInitialized(this, dialogManager);
+        mPresenter->onInitialized(this, dialogManager);
     }
 
     FolderBrowserQt::~FolderBrowserQt() {}
 
     void FolderBrowserQt::setProjectFolder(const QString &projectFolder) {
-        m_treeView->setVisible(true);
+        mTreeView->setVisible(true);
 
-        m_projectFolder = projectFolder;
-        m_fileSystemModel->setRootPath(projectFolder);
+        mProjectFolder = projectFolder;
+        mFileSystemModel->setRootPath(projectFolder);
 
-        QModelIndex index = m_fileSystemModel->index(projectFolder);
+        QModelIndex index = mFileSystemModel->index(projectFolder);
 
-        m_treeView->setRootIndex(index);
+        mTreeView->setRootIndex(index);
     }
 
     QString FolderBrowserQt::projectFolder() const {
-        return m_projectFolder;
+        return mProjectFolder;
     }
 
     void FolderBrowserQt::displayContextualMenu(const Point &point, const Menu &menu) {

@@ -50,12 +50,12 @@ namespace felide {
         virtual void closeEvent(QCloseEvent *evt) override;
         
     private:
-        QMdiDocumentManager *documentManager = nullptr;
-        std::unique_ptr<DialogManagerQt> m_dialogManager = nullptr;
+        QMdiDocumentManager *mDocumentManager = nullptr;
+        std::unique_ptr<DialogManagerQt> mDialogManager = nullptr;
         
     private:
-        FolderBrowserQt *m_folderBrowser;
-        QDockWidget *m_folderBrowserDock;
+        FolderBrowserQt *mFolderBrowser;
+        QDockWidget *mFolderBrowserDock;
     };
 }
 

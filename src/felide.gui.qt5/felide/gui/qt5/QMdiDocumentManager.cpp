@@ -1,7 +1,6 @@
 
 #include "QMdiDocumentManager.hpp"
 
-
 #include <iostream>
 #include <QGridLayout>
 #include <QAction>
@@ -16,20 +15,20 @@
 
 namespace felide {
     QMdiDocumentManager::QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
-        mdiArea = new QMdiArea(this);
-        mdiArea->setViewMode(QMdiArea::TabbedView);
-        mdiArea->setTabsClosable(true);
-        mdiArea->setTabsMovable(true);
-        // mdiArea->setDocumentMode(true);
+        mMdiArea = new QMdiArea(this);
+        mMdiArea->setViewMode(QMdiArea::TabbedView);
+        mMdiArea->setTabsClosable(true);
+        mMdiArea->setTabsMovable(true);
+        // mMdiArea->setDocumentMode(true);
 
-        mdiArea->setContextMenuPolicy(Qt::CustomContextMenu);
-        connect(mdiArea, &QMdiArea::customContextMenuRequested, [this](const QPoint &pos) {
+        mMdiArea->setContextMenuPolicy(Qt::CustomContextMenu);
+        connect(mMdiArea, &QMdiArea::customContextMenuRequested, [this](const QPoint &pos) {
             std::cout << "asdasdasd" << std::endl;
             bool found = true;
             int index = 0;
 
             // determine the tab
-            auto list = mdiArea->subWindowList();
+            auto list = mMdiArea->subWindowList();
 
             /*
             for (int i=0; i<list.count(); i++) {
@@ -78,7 +77,7 @@ namespace felide {
         });
 
         QGridLayout *layout = new QGridLayout(this);
-        layout->addWidget(mdiArea);
+        layout->addWidget(mMdiArea);
         this->setLayout(layout);
 
         presenter->onInitialized(this, &dialogManager);
@@ -87,10 +86,10 @@ namespace felide {
     QMdiDocumentManager::~QMdiDocumentManager() {}
     
     boost::optional<int> QMdiDocumentManager::getDocumentIndex(const DocumentQt *document) {
-        assert(mdiArea);
+        assert(mMdiArea);
         assert(document);
 
-        auto list = mdiArea->subWindowList();
+        auto list = mMdiArea->subWindowList();
 
         for (int i = 0; i < list.count(); i++) {
             const QMdiSubWindow *subWindow = list[i];
@@ -115,7 +114,7 @@ namespace felide {
 
 namespace felide {
     Document* QMdiDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
-        assert(mdiArea);
+        assert(mMdiArea);
         assert(documentPresenter);
 
         auto subWindow = new QMdiSubWindowDocument();
@@ -124,7 +123,7 @@ namespace felide {
         subWindow->setWidget(document);
         subWindow->setAttribute(Qt::WA_DeleteOnClose, true); // Prevents memory leak
 
-        mdiArea->addSubWindow(subWindow);
+        mMdiArea->addSubWindow(subWindow);
 
         documentSubWindowMap.insert({document, subWindow});
 
@@ -142,7 +141,7 @@ namespace felide {
     }
 
     void QMdiDocumentManager::setCurrentDocument(Document *document) {
-        assert(mdiArea);
+        assert(mMdiArea);
         assert(document);
         
         auto documentQt = static_cast<DocumentQt*>(document);
@@ -150,13 +149,13 @@ namespace felide {
         assert(subWindowIt != documentSubWindowMap.end());
         assert(subWindowIt->second);
 
-        mdiArea->setActiveSubWindow(subWindowIt->second);
+        mMdiArea->setActiveSubWindow(subWindowIt->second);
     }
 
     Document* QMdiDocumentManager::getCurrentDocument() {
-        assert(mdiArea);
+        assert(mMdiArea);
 
-        if (auto subWindow = mdiArea->activeSubWindow(); subWindow) {
+        if (auto subWindow = mMdiArea->activeSubWindow(); subWindow) {
             return static_cast<DocumentQt*>(subWindow->widget());
         }
 
@@ -164,15 +163,15 @@ namespace felide {
     }
 
     std::size_t QMdiDocumentManager::getDocumentCount() const {
-        assert(mdiArea);
+        assert(mMdiArea);
 
-        return mdiArea->subWindowList().count();
+        return mMdiArea->subWindowList().count();
     }
 
     Document* QMdiDocumentManager::getDocument(const std::size_t index) {
-        assert(mdiArea);
+        assert(mMdiArea);
 
-        auto list = mdiArea->subWindowList();
+        auto list = mMdiArea->subWindowList();
         auto subWindow = list[index];
 
         assert(subWindow);
@@ -181,7 +180,7 @@ namespace felide {
     }
     
     void QMdiDocumentManager::closeDocument(Document *document) {
-        assert(mdiArea);
+        assert(mMdiArea);
         assert(document);
 
         auto documentQt = static_cast<DocumentQt*>(document);
@@ -192,7 +191,7 @@ namespace felide {
     }
 
     void QMdiDocumentManager::showDocument(Document *document) {
-        assert(mdiArea);
+        assert(mMdiArea);
         assert(document);
 
         auto documentQt = static_cast<DocumentQt*>(document);

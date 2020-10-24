@@ -38,9 +38,9 @@ namespace felide {
         void projectFolderChanged(const QString &projectFolder);
 
     private:
-        QString m_projectFolder;
-        QTreeView *m_treeView = nullptr;
-        QFileSystemModel *m_fileSystemModel = nullptr;
+        QString mProjectFolder;
+        QTreeView *mTreeView = nullptr;
+        QFileSystemModel *mFileSystemModel = nullptr;
     };
 }
 

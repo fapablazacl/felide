@@ -25,7 +25,7 @@ namespace felide {
         virtual void displayContextualMenu(const Point &point, const Menu &menu) = 0;
 
     protected:
-        FolderBrowserPresenter *m_presenter;
+        FolderBrowserPresenter *mPresenter;
     };
 } 
 

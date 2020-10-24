@@ -31,7 +31,7 @@ namespace felide {
         virtual void show() = 0;
 
     protected:
-        IDEFramePresenter *m_presenter;
+        IDEFramePresenter *mPresenter;
     };
 }
 
