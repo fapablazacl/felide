@@ -2,6 +2,10 @@
 #include "MainFrame.h"
 
 MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Hello, World") {
+    auto panel = new wxPanel{this};
+
+    mTextCtrlCode = new wxStyledTextCtrl{this};
+
     auto menuFile = new wxMenu{};
     menuFile->Append(ID_GREET, "&Hello...\tCtrl-H", "Some asdasdsa");
     menuFile->AppendSeparator();

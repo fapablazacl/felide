@@ -7,6 +7,8 @@
     #include <wx/wx.h>
 #endif
 
+#include <wx/stc/stc.h>
+
 enum {
     ID_GREET
 };
@@ -19,4 +21,8 @@ private:
     void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+
+private:
+    // wxAuiNotebook *mNotebook = nullptr;
+    wxStyledTextCtrl *mTextCtrlCode;
 };

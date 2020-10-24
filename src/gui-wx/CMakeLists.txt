@@ -2,7 +2,10 @@
 
 find_package(wxWidgets
     COMPONENTS
-        core base 
+        core base
+
+    OPTIONAL_COMPONENTS
+        stc
 
     REQUIRED
 )
