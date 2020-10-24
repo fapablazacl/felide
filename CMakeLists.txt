@@ -11,6 +11,7 @@ option (FELIDE_UI_WTL 	            "Build the IDE user interface using the Windo
 option (FELIDE_UI_GTK3              "Build the IDE user interface using the GTK+ toolkit" OFF)
 option (FELIDE_UI_QT5               "Build the IDE user interface using the Qt5 toolkit"  OFF)
 option (FELIDE_UI_COCOA             "Build the IDE user interface using the Cocoa toolkit"  OFF)
+option (FELIDE_UI_WX                "Build the IDE user interface using the wxWidgets"  OFF)
 option (FELIDE_POC_WTL_FORMDESIGNER "Build the Form-Designer POC" OFF)
 
 if (FELIDE_STATIC_LINK)
@@ -88,4 +89,8 @@ add_subdirectory("src/sandbox")
 
 if (FELIDE_POC_WINDOWS_FORMDESIGNER)
 	add_subdirectory ("pocs/form-designer")
+endif()
+
+if (FELIDE_UI_WX)
+    add_subdirectory ("src/gui-wx")
 endif()
