@@ -20,8 +20,6 @@ namespace felide {
 
         presenter->onInitialized(this, &mDialogManager);
 
-        mScintilla->setFocus();
-
         // HACK: This prevents the raise of the textChanged signal, just only for the 1st time.
         this->setupSignals();
     }
@@ -41,8 +39,8 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        if (auto subWindow = dynamic_cast<QMdiSubWindow *>(parentWidget())) {
-            subWindow->setWindowTitle(title.c_str());
+        if (mMdiSubWindow) {
+            mMdiSubWindow->setWindowTitle(title.c_str());
             mTitle = title;
         }
     }

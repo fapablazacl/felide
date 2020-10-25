@@ -23,6 +23,14 @@ namespace felide {
 
         virtual ~DocumentQt();
 
+        void setMdiSubWindow(QMdiSubWindow *mdiSubWindow) {
+            mMdiSubWindow = mdiSubWindow;
+        }
+
+        QMdiSubWindow* mdiSubWindow() const {
+            return mMdiSubWindow;
+        }
+
     private:
         void setupSignals();
 
@@ -58,6 +66,7 @@ namespace felide {
         virtual TextSelection getSelection() const override;
 
     private:
+        QMdiSubWindow *mMdiSubWindow = nullptr;
         DialogManagerQt mDialogManager;
         DocumentPresenter *mPresenter = nullptr;
         QsciScintilla *mScintilla = nullptr;

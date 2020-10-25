@@ -118,37 +118,8 @@ namespace felide {
         assert(mMdiArea);
         assert(documentPresenter);
 
-        // auto document = new DocumentQt(documentPresenter);
-        auto document = new QWidget();
-        
-        {
-            auto scintilla = new QsciScintilla(document);
-            auto layout = new QGridLayout();
-
-            layout->addWidget(scintilla);
-
-            document->setLayout(layout);
-        }
-
-        auto subWindow = mMdiArea->addSubWindow(document);
-
-        subWindow->show();
-
-        return nullptr;
-    }
-
-
-    /*
-    Document* QDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
-        assert(mMdiArea);
-        assert(documentPresenter);
-
         auto document = new DocumentQt(documentPresenter);
         auto subWindow = mMdiArea->addSubWindow(document);
-
-        subWindow->show();
-
-        mDocumentSubWindowMap.insert({document, subWindow});
 
         //connect(mdiArea, &QMdiArea::tabCloseRequested, [=] (int tabIndex) {
         //    QWidget *widget = m_tabWidget->widget(tabIndex);
@@ -157,10 +128,15 @@ namespace felide {
         //        presenter->onCloseDocument(editor);
         //    }
         //});
-        
+
+        document->setMdiSubWindow(subWindow);
+
+        mDocumentSubWindowMap.insert({document, subWindow});
+
+        subWindow->show();
+
         return document;
     }
-    */
 
 
     void QDocumentManager::setCurrentDocument(Document *document) {
