@@ -104,7 +104,7 @@ namespace felide {
 
 namespace felide {
     Document* DocumentManagerQt::appendDocument(DocumentPresenter *documentPresenter) {
-        auto document = new DocumentQt(nullptr, documentPresenter);
+        auto document = new DocumentQt(documentPresenter);
 
         return document;
     }

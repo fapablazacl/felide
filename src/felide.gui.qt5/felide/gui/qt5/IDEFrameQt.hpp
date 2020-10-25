@@ -50,7 +50,7 @@ namespace felide {
         virtual void closeEvent(QCloseEvent *evt) override;
         
     private:
-        QMdiDocumentManager *mDocumentManager = nullptr;
+        QDocumentManager *mDocumentManager = nullptr;
         std::unique_ptr<DialogManagerQt> mDialogManager = nullptr;
         
     private:

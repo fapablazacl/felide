@@ -10,17 +10,17 @@
 #include <felide/gui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(QMdiSubWindow *parent, DocumentPresenter *presenter) : QWidget(parent), subWindowParent(parent), dialogManager(this) {
-        this->presenter = presenter;
-        m_scintilla = new QsciScintilla(this);
-        m_scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
-        m_scintilla->setMarginWidth(1, QString("1000"));
+    DocumentQt::DocumentQt(DocumentPresenter *presenter) : mDialogManager(this) {
+        this->mPresenter = presenter;
+        mScintilla = new QsciScintilla(this);
+        mScintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
+        mScintilla->setMarginWidth(1, QString("1000"));
 
         this->setupLayout();
 
-        presenter->onInitialized(this, &dialogManager);
+        presenter->onInitialized(this, &mDialogManager);
 
-        m_scintilla->setFocus();
+        mScintilla->setFocus();
 
         // HACK: This prevents the raise of the textChanged signal, just only for the 1st time.
         this->setupSignals();
@@ -29,80 +29,81 @@ namespace felide {
     DocumentQt::~DocumentQt() {}
 
     void DocumentQt::setupSignals() {
-        connect(m_scintilla, &QsciScintilla::textChanged, [this]() {
-            this->presenter->onContentChanged();
+        connect(mScintilla, &QsciScintilla::textChanged, [this]() {
+            this->mPresenter->onContentChanged();
         });
     }
 
     void DocumentQt::setupLayout() {
         QGridLayout *layout = new QGridLayout(this);
-        layout->addWidget(m_scintilla);
+        layout->addWidget(mScintilla);
         this->setLayout(layout);
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        this->subWindowParent->setWindowTitle(title.c_str());
-
-        m_title = title;
+        if (auto subWindow = dynamic_cast<QMdiSubWindow *>(parentWidget())) {
+            subWindow->setWindowTitle(title.c_str());
+            mTitle = title;
+        }
     }
 
     std::string DocumentQt::getTitle() const {
-        return m_title;
+        return mTitle;
     }
 
     void DocumentQt::setContent(const std::string &content)  {
-        m_scintilla->setText(content.c_str());
+        mScintilla->setText(content.c_str());
     }
 
     std::string DocumentQt::getContent() const  {
-        return m_scintilla->text().toStdString();
+        return mScintilla->text().toStdString();
     }
 
     void DocumentQt::setConfig(const DocumentConfig &config)  {
-        assert(m_scintilla);
+        assert(mScintilla);
 
         auto font = QFont{config.fontName.c_str(), config.fontSize};
 
-        m_scintilla->setFont(font);
-        m_scintilla->setCaretLineVisible(config.caretLineVisible);
-        m_scintilla->setTabWidth(config.tabWidth);
+        mScintilla->setFont(font);
+        mScintilla->setCaretLineVisible(config.caretLineVisible);
+        mScintilla->setTabWidth(config.tabWidth);
 
         if (config.showLineNumbers) {
-            m_scintilla->setMarginType(1, QsciScintilla::NumberMargin);
+            mScintilla->setMarginType(1, QsciScintilla::NumberMargin);
         }
 
-        m_config = config;
+        mConfig = config;
     }
 
     DocumentConfig DocumentQt::getConfig() const  {
-        assert(m_scintilla);
+        assert(mScintilla);
 
-        return m_config;
+        return mConfig;
     }
 
     void DocumentQt::undo()  {
-        assert(m_scintilla);
-        m_scintilla->undo();
+        assert(mScintilla);
+        mScintilla->undo();
     }
 
     void DocumentQt::redo()  {
-        assert(m_scintilla);
-        m_scintilla->redo();
+        assert(mScintilla);
+        mScintilla->redo();
     }
 
     void DocumentQt::cut()  {
-        assert(m_scintilla);
-        m_scintilla->cut();
+        assert(mScintilla);
+        mScintilla->cut();
     }
 
     void DocumentQt::copy()  {
-        assert(m_scintilla);
-        m_scintilla->copy();
+        assert(mScintilla);
+        mScintilla->copy();
     }
 
     void DocumentQt::paste()  {
-        assert(m_scintilla);
-        m_scintilla->paste();
+        assert(mScintilla);
+        mScintilla->paste();
     }
 
     void DocumentQt::clearAll()  {

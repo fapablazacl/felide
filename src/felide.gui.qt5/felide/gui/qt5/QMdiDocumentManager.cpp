@@ -6,6 +6,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QMdiSubWindow>
+#include <QTextEdit>
 
 #include <felide/gui/document/DocumentPresenter.hpp>
 #include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
@@ -14,12 +15,12 @@
 #include "QMdiSubWindowDocument.hpp"
 
 namespace felide {
-    QMdiDocumentManager::QMdiDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
+    QDocumentManager::QDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
         mMdiArea = new QMdiArea(this);
         mMdiArea->setViewMode(QMdiArea::TabbedView);
         mMdiArea->setTabsClosable(true);
         mMdiArea->setTabsMovable(true);
-        // mMdiArea->setDocumentMode(true);
+        mMdiArea->setDocumentMode(true);
 
         mMdiArea->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(mMdiArea, &QMdiArea::customContextMenuRequested, [this](const QPoint &pos) {
@@ -83,9 +84,9 @@ namespace felide {
         presenter->onInitialized(this, &dialogManager);
     }
 
-    QMdiDocumentManager::~QMdiDocumentManager() {}
+    QDocumentManager::~QDocumentManager() {}
     
-    boost::optional<int> QMdiDocumentManager::getDocumentIndex(const DocumentQt *document) {
+    boost::optional<int> QDocumentManager::getDocumentIndex(const DocumentQt *document) {
         assert(mMdiArea);
         assert(document);
 
@@ -102,57 +103,79 @@ namespace felide {
         return {};
     }
     
-    void QMdiDocumentManager::changeDocumentTitle(DocumentQt *document, const std::string &title) {
+    void QDocumentManager::changeDocumentTitle(DocumentQt *document, const std::string &title) {
         assert(document);
 
-        auto subWindowIt = documentSubWindowMap.find(document);
-        assert(subWindowIt != documentSubWindowMap.end());
+        auto subWindowIt = mDocumentSubWindowMap.find(document);
+        assert(subWindowIt != mDocumentSubWindowMap.end());
 
         subWindowIt->second->setWindowTitle(title.c_str());
     }
 }
 
 namespace felide {
-    Document* QMdiDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
+    Document* QDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
         assert(mMdiArea);
         assert(documentPresenter);
 
-        auto subWindow = new QMdiSubWindowDocument();
-        auto document = new DocumentQt(subWindow, documentPresenter);
+        // auto document = new DocumentQt(documentPresenter);
+        auto document = new QWidget();
+        
+        {
+            auto scintilla = new QsciScintilla(document);
+            auto layout = new QGridLayout();
 
-        subWindow->setWidget(document);
-        subWindow->setAttribute(Qt::WA_DeleteOnClose, true); // Prevents memory leak
+            layout->addWidget(scintilla);
 
-        mMdiArea->addSubWindow(subWindow);
+            document->setLayout(layout);
+        }
 
-        documentSubWindowMap.insert({document, subWindow});
+        auto subWindow = mMdiArea->addSubWindow(document);
 
-        /*
-        connect(mdiArea, &QMdiArea::tabCloseRequested, [=] (int tabIndex) {
-            QWidget *widget = m_tabWidget->widget(tabIndex);
-            
-            if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
-                presenter->onCloseDocument(editor);
-            }
-        });
-        */
+        subWindow->show();
 
-        return document;
+        return nullptr;
     }
 
-    void QMdiDocumentManager::setCurrentDocument(Document *document) {
+
+    /*
+    Document* QDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
+        assert(mMdiArea);
+        assert(documentPresenter);
+
+        auto document = new DocumentQt(documentPresenter);
+        auto subWindow = mMdiArea->addSubWindow(document);
+
+        subWindow->show();
+
+        mDocumentSubWindowMap.insert({document, subWindow});
+
+        //connect(mdiArea, &QMdiArea::tabCloseRequested, [=] (int tabIndex) {
+        //    QWidget *widget = m_tabWidget->widget(tabIndex);
+        //    
+        //    if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
+        //        presenter->onCloseDocument(editor);
+        //    }
+        //});
+        
+        return document;
+    }
+    */
+
+
+    void QDocumentManager::setCurrentDocument(Document *document) {
         assert(mMdiArea);
         assert(document);
         
         auto documentQt = static_cast<DocumentQt*>(document);
-        auto subWindowIt = documentSubWindowMap.find(documentQt);
-        assert(subWindowIt != documentSubWindowMap.end());
+        auto subWindowIt = mDocumentSubWindowMap.find(documentQt);
+        assert(subWindowIt != mDocumentSubWindowMap.end());
         assert(subWindowIt->second);
 
         mMdiArea->setActiveSubWindow(subWindowIt->second);
     }
 
-    Document* QMdiDocumentManager::getCurrentDocument() {
+    Document* QDocumentManager::getCurrentDocument() {
         assert(mMdiArea);
 
         if (auto subWindow = mMdiArea->activeSubWindow(); subWindow) {
@@ -162,13 +185,13 @@ namespace felide {
         return nullptr;
     }
 
-    std::size_t QMdiDocumentManager::getDocumentCount() const {
+    std::size_t QDocumentManager::getDocumentCount() const {
         assert(mMdiArea);
 
         return mMdiArea->subWindowList().count();
     }
 
-    Document* QMdiDocumentManager::getDocument(const std::size_t index) {
+    Document* QDocumentManager::getDocument(const std::size_t index) {
         assert(mMdiArea);
 
         auto list = mMdiArea->subWindowList();
@@ -179,24 +202,24 @@ namespace felide {
         return static_cast<DocumentQt*>(subWindow->widget());
     }
     
-    void QMdiDocumentManager::closeDocument(Document *document) {
+    void QDocumentManager::closeDocument(Document *document) {
         assert(mMdiArea);
         assert(document);
 
         auto documentQt = static_cast<DocumentQt*>(document);
-        auto subWindowIt = documentSubWindowMap.find(documentQt);
-        assert(subWindowIt != documentSubWindowMap.end());
+        auto subWindowIt = mDocumentSubWindowMap.find(documentQt);
+        assert(subWindowIt != mDocumentSubWindowMap.end());
 
         subWindowIt->second->close();
     }
 
-    void QMdiDocumentManager::showDocument(Document *document) {
+    void QDocumentManager::showDocument(Document *document) {
         assert(mMdiArea);
         assert(document);
 
         auto documentQt = static_cast<DocumentQt*>(document);
-        auto subWindowIt = documentSubWindowMap.find(documentQt);
-        assert(subWindowIt != documentSubWindowMap.end());
+        auto subWindowIt = mDocumentSubWindowMap.find(documentQt);
+        assert(subWindowIt != mDocumentSubWindowMap.end());
 
         subWindowIt->second->show();
     }

@@ -19,7 +19,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit DocumentQt(QMdiSubWindow *parent, DocumentPresenter *presenter);
+        explicit DocumentQt(DocumentPresenter *presenter);
 
         virtual ~DocumentQt();
 
@@ -58,12 +58,11 @@ namespace felide {
         virtual TextSelection getSelection() const override;
 
     private:
-        QMdiSubWindow *subWindowParent = nullptr;
-        DialogManagerQt dialogManager;
-        DocumentPresenter *presenter = nullptr;
-        QsciScintilla *m_scintilla = nullptr;
-        std::string m_title;
-        DocumentConfig m_config;
+        DialogManagerQt mDialogManager;
+        DocumentPresenter *mPresenter = nullptr;
+        QsciScintilla *mScintilla = nullptr;
+        std::string mTitle;
+        DocumentConfig mConfig;
     };
 }
 
