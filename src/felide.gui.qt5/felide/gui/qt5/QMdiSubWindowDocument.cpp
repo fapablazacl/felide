@@ -2,23 +2,29 @@
 #include "QMdiSubWindowDocument.hpp"
 
 #include <cassert>
-#include <QMdiSubWindow>
 #include <QEvent>
+#include <iostream>
 
 namespace felide {
-    QMdiSubWindowDocument::QMdiSubWindowDocument(QWidget *parent, DocumentQt *widget): QMdiSubWindow(parent, {}) {
-        this->setWidget(widget);
-    }
+    MdiSubWindowEventFilter::MdiSubWindowEventFilter(QObject *parent) 
+        : QObject(parent) {}
 
-    void QMdiSubWindowDocument::setWidget(DocumentQt *widget) {
-         QMdiSubWindow::setWidget(widget);
-    }
+    bool MdiSubWindowEventFilter::eventFilter(QObject *obj, QEvent *evt) {
+        switch (evt->type()) {
+        case QEvent::Close:
+            if (auto subWindow = dynamic_cast<QMdiSubWindow*>(obj); subWindow) {
+                // notify that we want to close the SubWindow
+                std::cout << "asdasda" << std::endl;
+                evt->ignore();
+                return true;
+            }
 
-    DocumentQt* QMdiSubWindowDocument::widget() const {
-        return static_cast<DocumentQt*>(QMdiSubWindow::widget());
-    }
+            break;
 
-    void QMdiSubWindowDocument::closeEvent(QCloseEvent *event) {
-        QMdiSubWindow::closeEvent(event);
+        default:
+            qt_noop();
+        }
+
+        return QObject::eventFilter(obj, evt);
     }
 }

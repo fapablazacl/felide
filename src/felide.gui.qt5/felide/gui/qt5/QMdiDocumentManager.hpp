@@ -10,6 +10,7 @@
 #include <felide/gui/document-manager/DocumentManager.hpp>
 
 #include "DialogManagerQt.hpp"
+#include "QMdiSubWindowDocument.hpp"
 
 namespace felide {
     class DocumentQt;
@@ -44,6 +45,7 @@ namespace felide {
 
     private:
         QMdiArea *mMdiArea = nullptr;
+        MdiSubWindowEventFilter *mSubWindowEventFilter = nullptr;
         DialogManagerQt dialogManager;
         std::map<DocumentQt*, QMdiSubWindow*> mDocumentSubWindowMap;
     };

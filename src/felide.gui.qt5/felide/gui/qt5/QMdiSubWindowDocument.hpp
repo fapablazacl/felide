@@ -1,23 +1,18 @@
 
 #pragma once
 
+#include <QObject>
 #include <QMdiSubWindow>
 
-#include "DocumentQt.hpp"
-
 namespace felide {
-    class DocumentPresenter;
-
-    class QMdiSubWindowDocument : public QMdiSubWindow {
+    class MdiSubWindowEventFilter : public QObject {
         Q_OBJECT
 
+    signals:
+
     public:
-        QMdiSubWindowDocument(QWidget *parent = nullptr, DocumentQt *widget = nullptr);
+        MdiSubWindowEventFilter(QObject *parent);
 
-        void setWidget(DocumentQt *widget);
-
-        DocumentQt* widget() const;
-
-        void closeEvent(QCloseEvent *event) override;
+        bool eventFilter(QObject *obj, QEvent *evt) override;
     };
 }

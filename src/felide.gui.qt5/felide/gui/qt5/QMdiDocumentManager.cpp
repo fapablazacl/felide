@@ -16,6 +16,8 @@
 
 namespace felide {
     QDocumentManager::QDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
+        mSubWindowEventFilter = new MdiSubWindowEventFilter(this);
+
         mMdiArea = new QMdiArea(this);
         mMdiArea->setViewMode(QMdiArea::TabbedView);
         mMdiArea->setTabsClosable(true);
@@ -124,6 +126,7 @@ namespace felide {
 
         subWindow->setWidget(document);
         subWindow->setAttribute(Qt::WA_DeleteOnClose, true);
+        subWindow->installEventFilter(mSubWindowEventFilter);
 
         mMdiArea->addSubWindow(subWindow);
 
