@@ -45,7 +45,6 @@ namespace felide {
 
     private:
         QMdiArea *mMdiArea = nullptr;
-        MdiSubWindowEventFilter *mSubWindowEventFilter = nullptr;
         DialogManagerQt dialogManager;
         std::map<DocumentQt*, QMdiSubWindow*> mDocumentSubWindowMap;
     };

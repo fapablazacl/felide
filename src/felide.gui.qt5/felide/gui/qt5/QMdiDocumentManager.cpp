@@ -16,8 +16,6 @@
 
 namespace felide {
     QDocumentManager::QDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
-        mSubWindowEventFilter = new MdiSubWindowEventFilter(this);
-
         mMdiArea = new QMdiArea(this);
         mMdiArea->setViewMode(QMdiArea::TabbedView);
         mMdiArea->setTabsClosable(true);
@@ -120,13 +118,21 @@ namespace felide {
         assert(mMdiArea);
         assert(documentPresenter);
 
-        auto subWindow = new QMdiSubWindow();
-
+        // TODO: This document-tab initialization logic is private to the CustomMdiSubWindow. Consider refactor it later
+        auto subWindow = new EnhancedMdiSubWindow();
         auto document = new DocumentQt(subWindow, documentPresenter);
 
         subWindow->setWidget(document);
         subWindow->setAttribute(Qt::WA_DeleteOnClose, true);
-        subWindow->installEventFilter(mSubWindowEventFilter);
+
+        // handle the tab close request
+        this->connect(subWindow, &EnhancedMdiSubWindow::closeRequested, [documentPresenter](EnhancedMdiSubWindow *subWindow, QCloseEvent *evt) {
+            if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
+                evt->accept();
+            } else {
+                evt->ignore();
+            }
+        });
 
         mMdiArea->addSubWindow(subWindow);
 
