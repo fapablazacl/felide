@@ -118,18 +118,14 @@ namespace felide {
         assert(mMdiArea);
         assert(documentPresenter);
 
-        auto document = new DocumentQt(documentPresenter);
-        auto subWindow = mMdiArea->addSubWindow(document);
+        auto subWindow = new QMdiSubWindow();
 
-        //connect(mdiArea, &QMdiArea::tabCloseRequested, [=] (int tabIndex) {
-        //    QWidget *widget = m_tabWidget->widget(tabIndex);
-        //    
-        //    if (auto editor = dynamic_cast<DocumentQt*>(widget)) {
-        //        presenter->onCloseDocument(editor);
-        //    }
-        //});
+        auto document = new DocumentQt(subWindow, documentPresenter);
 
-        document->setMdiSubWindow(subWindow);
+        subWindow->setWidget(document);
+        subWindow->setAttribute(Qt::WA_DeleteOnClose, true);
+
+        mMdiArea->addSubWindow(subWindow);
 
         mDocumentSubWindowMap.insert({document, subWindow});
 

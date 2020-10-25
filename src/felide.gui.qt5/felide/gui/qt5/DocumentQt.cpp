@@ -10,8 +10,11 @@
 #include <felide/gui/document/DocumentPresenter.hpp>
 
 namespace felide {
-    DocumentQt::DocumentQt(DocumentPresenter *presenter) : mDialogManager(this) {
-        this->mPresenter = presenter;
+    DocumentQt::DocumentQt(QMdiSubWindow *subWindow, DocumentPresenter *presenter) : mDialogManager(this) {
+        this->setMdiSubWindow(subWindow);
+
+        mPresenter = presenter;
+
         mScintilla = new QsciScintilla(this);
         mScintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
         mScintilla->setMarginWidth(1, QString("1000"));
@@ -39,10 +42,10 @@ namespace felide {
     }
 
     void DocumentQt::setTitle(const std::string &title) {
-        if (mMdiSubWindow) {
-            mMdiSubWindow->setWindowTitle(title.c_str());
-            mTitle = title;
-        }
+        assert(mMdiSubWindow);
+
+        mMdiSubWindow->setWindowTitle(title.c_str());
+        mTitle = title;
     }
 
     std::string DocumentQt::getTitle() const {

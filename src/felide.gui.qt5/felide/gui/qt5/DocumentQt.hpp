@@ -19,7 +19,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit DocumentQt(DocumentPresenter *presenter);
+        explicit DocumentQt(QMdiSubWindow *subWindow, DocumentPresenter *presenter);
 
         virtual ~DocumentQt();
 
