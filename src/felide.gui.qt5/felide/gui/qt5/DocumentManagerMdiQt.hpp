@@ -10,7 +10,7 @@
 #include <felide/gui/document-manager/DocumentManager.hpp>
 
 #include "DialogManagerQt.hpp"
-#include "QMdiSubWindowDocument.hpp"
+#include "DocumentMdiSubWindowQt.hpp"
 
 namespace felide {
     class DocumentQt;

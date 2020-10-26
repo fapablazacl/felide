@@ -19,7 +19,7 @@
 
 #include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"
-#include "QMdiDocumentManager.hpp"
+#include "DocumentManagerMdiQt.hpp"
 
 namespace felide {
     class FolderBrowserQt;

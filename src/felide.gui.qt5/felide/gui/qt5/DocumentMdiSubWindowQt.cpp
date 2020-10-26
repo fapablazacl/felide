@@ -1,5 +1,5 @@
 
-#include "QMdiSubWindowDocument.hpp"
+#include "DocumentMdiSubWindowQt.hpp"
 
 #include <cassert>
 #include <QEvent>
