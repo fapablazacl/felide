@@ -7,11 +7,11 @@
 
 namespace felide {
     // TODO: Consider promote this class to be the Document interface implementation
-    class EnhancedMdiSubWindow : public QMdiSubWindow {
+    class DocumentMdiSubWindowQt : public QMdiSubWindow {
         Q_OBJECT
 
     signals:
-        void closeRequested(EnhancedMdiSubWindow *subWindow, QCloseEvent *evt);
+        void closeRequested(DocumentMdiSubWindowQt *subWindow, QCloseEvent *evt);
 
     public:
         void closeEvent(QCloseEvent *evt) override;

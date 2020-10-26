@@ -41,7 +41,7 @@ namespace felide {
     }
 
     void IDEFrameQt::setupDocumentManager() {
-        mDocumentManager = new QDocumentManager(this, mPresenter->getDocumentManagerPresenter());
+        mDocumentManager = new DocumentManagerMdiQt(this, mPresenter->getDocumentManagerPresenter());
         this->setCentralWidget(mDocumentManager);
     }
     

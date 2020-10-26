@@ -15,13 +15,13 @@
 namespace felide {
     class DocumentQt;
     class Document;
-    class QDocumentManager : public QWidget, public DocumentManager {
+    class DocumentManagerMdiQt : public QWidget, public DocumentManager {
         Q_OBJECT
 
     public:
-        explicit QDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter);
+        explicit DocumentManagerMdiQt(QWidget *parent, DocumentManagerPresenter *presenter);
 
-        virtual ~QDocumentManager();
+        virtual ~DocumentManagerMdiQt();
         
     public:
         boost::optional<int> getDocumentIndex(const DocumentQt *editor);
@@ -45,7 +45,7 @@ namespace felide {
 
     private:
         QMdiArea *mMdiArea = nullptr;
-        DialogManagerQt dialogManager;
+        DialogManagerQt mDialogManager;
         std::map<DocumentQt*, QMdiSubWindow*> mDocumentSubWindowMap;
     };
 } 

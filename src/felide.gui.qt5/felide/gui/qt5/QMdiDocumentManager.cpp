@@ -15,7 +15,7 @@
 #include "QMdiSubWindowDocument.hpp"
 
 namespace felide {
-    QDocumentManager::QDocumentManager(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), dialogManager(this) {
+    DocumentManagerMdiQt::DocumentManagerMdiQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), mDialogManager(this) {
         mMdiArea = new QMdiArea(this);
         mMdiArea->setViewMode(QMdiArea::TabbedView);
         mMdiArea->setTabsClosable(true);
@@ -81,12 +81,12 @@ namespace felide {
         layout->addWidget(mMdiArea);
         this->setLayout(layout);
 
-        presenter->onInitialized(this, &dialogManager);
+        presenter->onInitialized(this, &mDialogManager);
     }
 
-    QDocumentManager::~QDocumentManager() {}
+    DocumentManagerMdiQt::~DocumentManagerMdiQt() {}
     
-    boost::optional<int> QDocumentManager::getDocumentIndex(const DocumentQt *document) {
+    boost::optional<int> DocumentManagerMdiQt::getDocumentIndex(const DocumentQt *document) {
         assert(mMdiArea);
         assert(document);
 
@@ -103,7 +103,7 @@ namespace felide {
         return {};
     }
     
-    void QDocumentManager::changeDocumentTitle(DocumentQt *document, const std::string &title) {
+    void DocumentManagerMdiQt::changeDocumentTitle(DocumentQt *document, const std::string &title) {
         assert(document);
 
         auto subWindowIt = mDocumentSubWindowMap.find(document);
@@ -114,19 +114,19 @@ namespace felide {
 }
 
 namespace felide {
-    Document* QDocumentManager::appendDocument(DocumentPresenter *documentPresenter) {
+    Document* DocumentManagerMdiQt::appendDocument(DocumentPresenter *documentPresenter) {
         assert(mMdiArea);
         assert(documentPresenter);
 
         // TODO: This document-tab initialization logic is private to the CustomMdiSubWindow. Consider refactor it later
-        auto subWindow = new EnhancedMdiSubWindow();
+        auto subWindow = new DocumentMdiSubWindowQt();
         auto document = new DocumentQt(subWindow, documentPresenter);
 
         subWindow->setWidget(document);
         subWindow->setAttribute(Qt::WA_DeleteOnClose, true);
 
         // handle the tab close request
-        this->connect(subWindow, &EnhancedMdiSubWindow::closeRequested, [documentPresenter](EnhancedMdiSubWindow *subWindow, QCloseEvent *evt) {
+        this->connect(subWindow, &DocumentMdiSubWindowQt::closeRequested, [documentPresenter](DocumentMdiSubWindowQt *subWindow, QCloseEvent *evt) {
             if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
                 evt->accept();
             } else {
@@ -144,7 +144,7 @@ namespace felide {
     }
 
 
-    void QDocumentManager::setCurrentDocument(Document *document) {
+    void DocumentManagerMdiQt::setCurrentDocument(Document *document) {
         assert(mMdiArea);
         assert(document);
         
@@ -156,7 +156,7 @@ namespace felide {
         mMdiArea->setActiveSubWindow(subWindowIt->second);
     }
 
-    Document* QDocumentManager::getCurrentDocument() {
+    Document* DocumentManagerMdiQt::getCurrentDocument() {
         assert(mMdiArea);
 
         if (auto subWindow = mMdiArea->activeSubWindow(); subWindow) {
@@ -166,13 +166,13 @@ namespace felide {
         return nullptr;
     }
 
-    std::size_t QDocumentManager::getDocumentCount() const {
+    std::size_t DocumentManagerMdiQt::getDocumentCount() const {
         assert(mMdiArea);
 
         return mMdiArea->subWindowList().count();
     }
 
-    Document* QDocumentManager::getDocument(const std::size_t index) {
+    Document* DocumentManagerMdiQt::getDocument(const std::size_t index) {
         assert(mMdiArea);
 
         auto list = mMdiArea->subWindowList();
@@ -183,7 +183,7 @@ namespace felide {
         return static_cast<DocumentQt*>(subWindow->widget());
     }
     
-    void QDocumentManager::closeDocument(Document *document) {
+    void DocumentManagerMdiQt::closeDocument(Document *document) {
         assert(mMdiArea);
         assert(document);
 
@@ -194,7 +194,7 @@ namespace felide {
         subWindowIt->second->close();
     }
 
-    void QDocumentManager::showDocument(Document *document) {
+    void DocumentManagerMdiQt::showDocument(Document *document) {
         assert(mMdiArea);
         assert(document);
 

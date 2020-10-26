@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace felide {
-    void EnhancedMdiSubWindow::closeEvent(QCloseEvent *evt) {
+    void DocumentMdiSubWindowQt::closeEvent(QCloseEvent *evt) {
         emit closeRequested(this, evt);
     }
 }
