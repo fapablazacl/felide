@@ -1,6 +1,7 @@
 
 #include "IDEFrameQt.hpp"
 
+#include <iostream>
 #include <vector>
 #include <functional>
 #include <QMessageBox>
@@ -8,7 +9,6 @@
 #include <QCloseEvent>
 #include <QMdiArea>
 #include <QMdiSubWindow>
-#include <iostream>
 #include <felide/gui/ide-frame/IDEFramePresenter.hpp>
 
 #include "DialogManagerQt.hpp"

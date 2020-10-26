@@ -50,11 +50,9 @@ namespace felide {
         
     private:
         DocumentManagerMdiQt *mDocumentManager = nullptr;
-        std::unique_ptr<DialogManagerQt> mDialogManager = nullptr;
-        
-    private:
-        FolderBrowserQt *mFolderBrowser;
-        QDockWidget *mFolderBrowserDock;
+        std::unique_ptr<DialogManagerQt> mDialogManager;
+        FolderBrowserQt *mFolderBrowser = nullptr;
+        QDockWidget *mFolderBrowserDock = nullptr;
     };
 }
 
