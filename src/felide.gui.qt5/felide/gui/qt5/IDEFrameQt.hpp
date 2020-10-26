@@ -17,7 +17,6 @@
 #include <felide/gui/Menu.hpp>
 #include <felide/gui/MenuPanel.hpp>
 
-#include "DocumentManagerQt.hpp"
 #include "DialogManagerQt.hpp"
 #include "DocumentManagerMdiQt.hpp"
 

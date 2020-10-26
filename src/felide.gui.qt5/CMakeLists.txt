@@ -18,12 +18,8 @@ set (src_felide_ui_qt5
 
     "felide/gui/qt5/FindReplaceDialogQt.hpp"
     "felide/gui/qt5/FindReplaceDialogQt.cpp"
-    "felide/gui/qt5/DocumentQt.hpp"
-    "felide/gui/qt5/DocumentQt.cpp"
     "felide/gui/qt5/IDEFrameQt.hpp"
     "felide/gui/qt5/IDEFrameQt.cpp"
-    "felide/gui/qt5/DocumentManagerQt.hpp"
-    "felide/gui/qt5/DocumentManagerQt.cpp"
     "felide/gui/qt5/DialogManagerQt.hpp"
     "felide/gui/qt5/DialogManagerQt.cpp"
     "felide/gui/qt5/FolderBrowserQt.hpp"

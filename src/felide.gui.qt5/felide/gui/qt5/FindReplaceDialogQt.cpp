@@ -9,7 +9,7 @@ namespace felide {
     }
 
 
-    FindReplaceDialogQt::FindReplaceDialogQt(QWidget *parent, FindReplaceDialogPresenter *presenter, DocumentQt *document) : QWidget(parent) {
+    FindReplaceDialogQt::FindReplaceDialogQt(QWidget *parent, FindReplaceDialogPresenter *presenter, DocumentMdiSubWindowQt *document) : QWidget(parent) {
         addChildToParent(this, &findReplaceGroupBox,  {10, 10, 270, 80}, "Find/Replace parameters");
         addChildToParent(this, &findWhatLabel,        {30, 30, 100, 20}, "Find what");
         addChildToParent(this, &findWhatEdit,         {150, 30, 100, 20}, "");

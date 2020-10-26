@@ -11,7 +11,6 @@
 #include <iostream>
 #include <felide/gui/ide-frame/IDEFramePresenter.hpp>
 
-#include "DocumentQt.hpp"
 #include "DialogManagerQt.hpp"
 #include "FolderBrowserQt.hpp"
 #include "UtilitiesQt.hpp"

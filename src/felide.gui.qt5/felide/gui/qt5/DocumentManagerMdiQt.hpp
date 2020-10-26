@@ -13,7 +13,7 @@
 #include "DocumentMdiSubWindowQt.hpp"
 
 namespace felide {
-    class DocumentQt;
+    class DocumentMdiSubWindowQt;
     class Document;
     class DocumentManagerMdiQt : public QWidget, public DocumentManager {
         Q_OBJECT
@@ -24,9 +24,9 @@ namespace felide {
         virtual ~DocumentManagerMdiQt();
         
     public:
-        boost::optional<int> getDocumentIndex(const DocumentQt *editor);
+        boost::optional<int> getDocumentIndex(const DocumentMdiSubWindowQt *documentQt);
         
-        void changeDocumentTitle(DocumentQt *editor, const std::string &title);
+        void changeDocumentTitle(DocumentMdiSubWindowQt *documentQt, const std::string &title);
         
     public:
         Document* appendDocument(DocumentPresenter *documentPresenter) override;
@@ -46,6 +46,5 @@ namespace felide {
     private:
         QMdiArea *mMdiArea = nullptr;
         DialogManagerQt mDialogManager;
-        std::map<DocumentQt*, QMdiSubWindow*> mDocumentSubWindowMap;
     };
-} 
+}

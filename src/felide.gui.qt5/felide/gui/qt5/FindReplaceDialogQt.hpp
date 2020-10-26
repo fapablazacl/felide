@@ -10,7 +10,7 @@
 #include <QLabel>
 
 #include <felide/gui/find-replace-dialog/FindReplaceDialog.hpp>
-#include "DocumentQt.hpp"
+#include "DocumentMdiSubWindowQt.hpp"
 
 namespace felide {
     class FindReplaceDialogPresenter;
@@ -19,7 +19,7 @@ namespace felide {
         Q_OBJECT
 
     public:
-        explicit FindReplaceDialogQt(QWidget *parent, FindReplaceDialogPresenter *presenter, DocumentQt *document);
+        explicit FindReplaceDialogQt(QWidget *parent, FindReplaceDialogPresenter *presenter, DocumentMdiSubWindowQt *document);
 
         virtual ~FindReplaceDialogQt();
 
