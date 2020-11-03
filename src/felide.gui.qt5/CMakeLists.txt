@@ -5,7 +5,9 @@ set (CMAKE_AUTOMOC ON)
 set (CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
-find_library(QScintilla REQUIRED)
+
+# this doesn't work on Linux (arch)
+#find_library(QScintilla REQUIRED)
 
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
@@ -48,7 +50,7 @@ add_executable(${target} ${sources})
 source_group ("felide" FILES ${src_felide})
 source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
 
-# TODO: Determine if wee need a static linking library for QScintilla
+# TODO: Determine if we need a static linking library for QScintilla
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
 # TODO: Parametrize QScintilla for Windows Builds
