@@ -1,4 +1,0 @@
-
-XX.1: Generic build orchestration engine
-    This means that, at the core, 'borc' is a generic, customizable and extensible build engine
-    implemented as a graph-based, hierarchical dependency tasks
