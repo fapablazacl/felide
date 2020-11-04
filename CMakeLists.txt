@@ -6,13 +6,8 @@ project (felide)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
-option (FELIDE_STATIC_LINK          "Uses static linking for all external and internal dependencies (eases development)" OFF)
-option (FELIDE_UI_WTL 	            "Build the IDE user interface using the Windows API"  OFF)
-option (FELIDE_UI_GTK3              "Build the IDE user interface using the GTK+ toolkit" OFF)
-option (FELIDE_UI_QT5               "Build the IDE user interface using the Qt5 toolkit"  OFF)
-option (FELIDE_UI_COCOA             "Build the IDE user interface using the Cocoa toolkit"  OFF)
-option (FELIDE_UI_WX                "Build the IDE user interface using the wxWidgets"  OFF)
-option (FELIDE_POC_WTL_FORMDESIGNER "Build the Form-Designer POC" OFF)
+option (FELIDE_STATIC_LINK  "Uses static linking for all external and internal dependencies (eases development)" OFF)
+option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
 
 if (FELIDE_STATIC_LINK)
     add_definitions (-DFELIDE_STATIC_LINK)
@@ -28,16 +23,6 @@ if (UNIX)
     set(CMAKE_INSTALL_RPATH "/usr/local/lib")
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 endif ()
-
-# JSON Library
-include_directories("dep/nlohmann")
-
-# YAML library
-# set (YAML_CPP_BUILD_TESTS OFF CACHE BOOL "Enable parse tools")
-# set (YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "Enable testing")
-# set (YAML_CPP_BUILD_CONTRIB OFF CACHE BOOL "Enable contrib stuff in library")
-# add_subdirectory("dep/yaml-cpp")
-# include_directories("dep/yaml-cpp/include")
 
 # Specify the use of the C++17 standard
 if (MSVC)
@@ -60,37 +45,7 @@ add_subdirectory ("src/felide.core")
 include_directories ("src/felide.gui")
 add_subdirectory ("src/felide.gui")
 
-# IDE GUI
-include_directories ("src/gui-mvp")
-add_subdirectory ("src/gui-mvp")
-
-# Windows template library
-if (FELIDE_UI_WTL)
-    include_directories ("dep/wtl/Include")
-    add_subdirectory ("src/felide.gui.wtl")
-endif ()
-
-# GTK3 Toolkit
-if (FELIDE_UI_GTK3)
-    add_subdirectory ("src/felide.gui.gtk3")
-endif ()
-
 # QT5 Toolkit
 if (FELIDE_UI_QT5)
     add_subdirectory ("src/felide.gui.qt5")
 endif ()
-
-# Cocoa Toolkit
-if (FELIDE_UI_COCOA)
-    add_subdirectory ("src/felide.gui.cocoa")
-endif ()
-
-add_subdirectory("src/sandbox")
-
-if (FELIDE_POC_WINDOWS_FORMDESIGNER)
-	add_subdirectory ("pocs/form-designer")
-endif()
-
-if (FELIDE_UI_WX)
-    add_subdirectory ("src/gui-wx")
-endif()

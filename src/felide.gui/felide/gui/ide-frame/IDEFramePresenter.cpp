@@ -7,7 +7,6 @@
 #include <felide/gui/MenuPanel.hpp>
 #include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
 #include <felide/gui/folder-browser/FolderBrowserModel.hpp>
-#include <felide/core/util/FileUtil.hpp>
 
 #include <iostream>
 #include <cassert>
