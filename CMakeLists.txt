@@ -38,11 +38,10 @@ endif ()
 include_directories ("src/felide.core")
 add_subdirectory ("src/felide.core")
 
-# IDE GUI
-# add_subdirectory ("src/felide")
-
 include_directories ("src/felide.gui")
 add_subdirectory ("src/felide.gui")
+
+add_subdirectory ("src/felide")
 
 # QT5 Toolkit
 if (FELIDE_UI_QT5)

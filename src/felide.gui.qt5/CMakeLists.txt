@@ -12,7 +12,7 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
 
-set (src_felide "felide/main.cpp")
+set (src_felide "felide/main_qt5.cpp")
 
 set (src_felide_ui_qt5
     "felide/gui/qt5/FindReplaceDialogQt.hpp"
@@ -42,7 +42,7 @@ set (sources
 )
 
 add_definitions (-DFELIDE_TARGET_NAME=${target})
-add_executable(${target} ${sources})
+add_library(${target} ${sources})
 
 source_group ("felide" FILES ${src_felide})
 source_group ("felide\\ui\\qt5" FILES ${src_felide_ui_qt5})
