@@ -1,7 +1,7 @@
 
 #include "Document.hpp"
 
-#include <felide/core/util/OS.hpp>
+#include <felide/core/OS.hpp>
 
 namespace felide {
     DocumentConfig DocumentConfig::Default() {

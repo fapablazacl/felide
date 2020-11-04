@@ -4,7 +4,7 @@
 #include <iostream>
 #include <felide/gui/document-manager/DocumentManagerModel.hpp>
 #include <felide/gui/folder-browser/FolderBrowserModel.hpp>
-#include <felide/core/util/FolderService.hpp>
+#include <felide/core/FolderService.hpp>
 
 namespace felide {
     class IDEFrameModelImpl : public IDEFrameModel {

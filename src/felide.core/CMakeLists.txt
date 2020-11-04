@@ -5,23 +5,18 @@ set (sources_felide
     "felide/core/Predef.hpp"
     "felide/core/Version.hpp"
     "felide/core/Version.cpp"
+    "felide/core/FileService.cpp"
+    "felide/core/FileService.hpp"
+    "felide/core/FolderService.cpp"
+    "felide/core/FolderService.hpp"
+    "felide/core/OS.hpp"
+    "felide/core/OS.cpp"
 ) 
 
-set (sources_felide_util
-    "felide/core/util/FileService.cpp"
-    "felide/core/util/FileService.hpp"
-    "felide/core/util/FolderService.cpp"
-    "felide/core/util/FolderService.hpp"
-    "felide/core/util/OS.hpp"
-    "felide/core/util/OS.cpp"
-) 
-
-source_group ("felide\\core"              FILES ${sources_felide})
-source_group ("felide\\core\\util"        FILES ${sources_felide_util})
+source_group ("felide\\core" FILES ${sources_felide})
 
 set (sources
     ${sources_felide}
-    ${sources_felide_util}
 )
 
 if (FELIDE_DYNAMIC_LINK)
