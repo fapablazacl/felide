@@ -39,6 +39,8 @@ namespace felide {
 
         virtual void show() override;
 
+        virtual void showPanel(const Panel panel) override;
+
         virtual void setupMenuBar(const Menu &menu) override;
 
     private:
