@@ -8,13 +8,13 @@
 #include <boost/filesystem/path.hpp>
 
 namespace felide {
-    class FELIDE_API DocumentManager;
-    class FELIDE_API DialogManager;
-    class FELIDE_API FolderBrowser;
+    class DocumentManager;
+    class DialogManager;
+    class FolderBrowser;
 
-    class FELIDE_API IDEFramePresenter;
+    class IDEFramePresenter;
 
-    class FELIDE_API IDEFrame {
+    class IDEFrame {
     public:
         explicit IDEFrame(IDEFramePresenter *presenter);
 

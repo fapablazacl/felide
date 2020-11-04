@@ -11,10 +11,10 @@
 #include <felide/gui/FileFilter.hpp>
 
 namespace felide {
-    class FELIDE_API DocumentManagerModel;
-    class FELIDE_API FolderBrowserModel;
+    class DocumentManagerModel;
+    class FolderBrowserModel;
 
-    class FELIDE_API IDEFrameModel {
+    class IDEFrameModel {
     public:
         virtual ~IDEFrameModel();
 

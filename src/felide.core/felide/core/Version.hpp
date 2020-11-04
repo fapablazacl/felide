@@ -13,7 +13,7 @@ namespace felide {
         Greater = 1
     };
 
-    class FELIDE_API Version {
+    class Version {
     public:
         explicit Version() {}
 

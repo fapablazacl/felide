@@ -10,8 +10,8 @@
 
 namespace felide {
     class DialogManagerQt;
-    class FELIDE_API FolderBrowserPresenter;
-    class FELIDE_API DialogManager;
+    class FolderBrowserPresenter;
+    class DialogManager;
 
     class FolderBrowserQt : public QWidget, public FolderBrowser {
         Q_OBJECT

@@ -12,8 +12,8 @@ namespace felide {
         int x, y;
     };
 
-    class FELIDE_API FolderBrowserPresenter;
-    class FELIDE_API FolderBrowser {
+    class FolderBrowserPresenter;
+    class FolderBrowser {
     public:
         explicit FolderBrowser(FolderBrowserPresenter *presenter);
         virtual ~FolderBrowser();

@@ -7,11 +7,11 @@
 #include <felide/core/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API Document;
-    class FELIDE_API DocumentModel;
-    class FELIDE_API DialogManager;
+    class Document;
+    class DocumentModel;
+    class DialogManager;
 
-    class FELIDE_API DocumentPresenter {
+    class DocumentPresenter {
     public:
         enum class UserResponse {
             Cancel,

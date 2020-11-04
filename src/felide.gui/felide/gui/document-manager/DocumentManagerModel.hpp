@@ -9,8 +9,8 @@
 #include <boost/filesystem/path.hpp>
 
 namespace felide {
-    class FELIDE_API DocumentModel;
-    class FELIDE_API DocumentManagerModel {
+    class DocumentModel;
+    class DocumentManagerModel {
     public:
         virtual ~DocumentManagerModel();
 

@@ -74,7 +74,7 @@ namespace felide {
         boost::filesystem::path defaultPath;
     };
 
-    class FELIDE_API DialogManager {
+    class DialogManager {
     public:
         virtual ~DialogManager();
         virtual DialogButton showMessageDialog(const MessageDialogData &data) const = 0;

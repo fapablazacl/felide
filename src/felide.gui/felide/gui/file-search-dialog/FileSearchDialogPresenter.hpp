@@ -6,9 +6,9 @@
 #include <felide/core/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API FileSearchDialog;
-    class FELIDE_API FileSearchDialogModel;
-    class FELIDE_API FileSearchDialogPresenter {
+    class FileSearchDialog;
+    class FileSearchDialogModel;
+    class FileSearchDialogPresenter {
     public:
         FileSearchDialogPresenter(FileSearchDialogModel *model);
 

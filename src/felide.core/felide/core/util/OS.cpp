@@ -2,7 +2,7 @@
 #include "OS.hpp"
 
 namespace felide {
-    OS FELIDE_API getCurrentOS() {
+    OS getCurrentOS() {
 #if defined(_WINDOWS)
         return OS::Windows;
 #elif defined(__linux__)

@@ -10,7 +10,7 @@ namespace felide {
     /**
      * @brief View that shows to the user a MenuBar.
      */
-    class FELIDE_API MenuPanel {
+    class MenuPanel {
     public:
         virtual ~MenuPanel();
 

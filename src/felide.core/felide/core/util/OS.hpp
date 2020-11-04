@@ -12,7 +12,7 @@ namespace felide {
         Linux
     };
 
-    extern OS FELIDE_API getCurrentOS();
+    extern OS getCurrentOS();
 }
 
 #endif

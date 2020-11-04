@@ -16,13 +16,13 @@
 #include <memory>
 
 namespace felide {
-    class FELIDE_API DocumentModel;
-    class FELIDE_API Document;
-    class FELIDE_API IDEFrame;
-    class FELIDE_API DialogManager;
-    class FELIDE_API MenuPanel;
+    class DocumentModel;
+    class Document;
+    class IDEFrame;
+    class DialogManager;
+    class MenuPanel;
     
-    class FELIDE_API IDEFramePresenter {
+    class IDEFramePresenter {
     public:
         IDEFramePresenter(IDEFrameModel *model);
 

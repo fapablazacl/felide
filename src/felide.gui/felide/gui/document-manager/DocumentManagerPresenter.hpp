@@ -11,15 +11,15 @@
 #include <felide/core/Predef.hpp>
 
 namespace felide {
-    class FELIDE_API DialogManager;
+    class DialogManager;
 
-    class FELIDE_API Document;
-    class FELIDE_API DocumentModel;
-    class FELIDE_API DocumentPresenter;
+    class Document;
+    class DocumentModel;
+    class DocumentPresenter;
 
-    class FELIDE_API DocumentManagerModel;
-    class FELIDE_API DocumentManager;
-    class FELIDE_API DocumentManagerPresenter {
+    class DocumentManagerModel;
+    class DocumentManager;
+    class DocumentManagerPresenter {
     public:
         explicit DocumentManagerPresenter(DocumentManagerModel *model);
 

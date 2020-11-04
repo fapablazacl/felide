@@ -25,7 +25,7 @@ namespace felide {
         }
     };
 
-    class FELIDE_API Document {
+    class Document {
     public:
         virtual ~Document();
 

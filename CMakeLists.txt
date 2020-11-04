@@ -6,7 +6,6 @@ project (felide)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
-option (FELIDE_STATIC_LINK  "Uses static linking for all external and internal dependencies (eases development)" OFF)
 option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
 
 if (FELIDE_STATIC_LINK)

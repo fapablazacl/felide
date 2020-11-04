@@ -7,11 +7,11 @@
 #include <vector>
 
 namespace felide {
-    class FELIDE_API Document;
-    class FELIDE_API DocumentPresenter;
+    class Document;
+    class DocumentPresenter;
 
-    class FELIDE_API DocumentManagerPresenter;
-    class FELIDE_API DocumentManager {
+    class DocumentManagerPresenter;
+    class DocumentManager {
     public:
         explicit DocumentManager(DocumentManagerPresenter *presenter);
 

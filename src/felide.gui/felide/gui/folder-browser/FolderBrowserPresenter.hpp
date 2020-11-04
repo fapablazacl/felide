@@ -10,14 +10,14 @@
 namespace felide {
     struct Point;
 
-    class FELIDE_API IDEModel;
-    class FELIDE_API FolderBrowser;
-    class FELIDE_API DialogManager;
-    class FELIDE_API IDEFramePresenter;
+    class IDEModel;
+    class FolderBrowser;
+    class DialogManager;
+    class IDEFramePresenter;
 
-    class FELIDE_API FolderBrowserModel;
+    class FolderBrowserModel;
 
-    class FELIDE_API FolderBrowserPresenter {
+    class FolderBrowserPresenter {
     public:
         FolderBrowserPresenter(FolderBrowserModel *model, IDEFramePresenter *ideFramePresenter);
 
