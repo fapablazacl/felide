@@ -1,5 +1,5 @@
 
-#include "FolderBrowserModel.hpp"
+#include <felide/gui/FolderBrowserModel.hpp>
 
 #include <iostream>
 #include <boost/filesystem/operations.hpp>

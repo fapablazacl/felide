@@ -1,9 +1,9 @@
 
-#include "DocumentManagerModel.hpp"
+#include <felide/gui/DocumentManagerModel.hpp>
 
 #include <list>
 #include <algorithm>
-#include <felide/gui/document/DocumentModel.hpp>
+#include <felide/gui/DocumentModel.hpp>
 
 namespace felide {
     class DocumentManagerModelImpl : public DocumentManagerModel {

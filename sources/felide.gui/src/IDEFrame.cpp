@@ -1,7 +1,6 @@
 
-#include "IDEFrame.hpp"
-
-#include "IDEFramePresenter.hpp"
+#include <felide/gui/IDEFrame.hpp>
+#include <felide/gui/IDEFramePresenter.hpp>
 
 #include <felide/gui/Menu.hpp>
 

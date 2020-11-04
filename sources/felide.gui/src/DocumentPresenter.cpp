@@ -1,8 +1,7 @@
 
-#include "DocumentPresenter.hpp"
-
-#include "DocumentModel.hpp"
-#include "Document.hpp"
+#include <felide/gui/DocumentPresenter.hpp>
+#include <felide/gui/DocumentModel.hpp>
+#include <felide/gui/Document.hpp>
 
 #include <boost/filesystem/path.hpp>
 

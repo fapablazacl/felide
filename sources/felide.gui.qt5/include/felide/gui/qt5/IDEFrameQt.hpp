@@ -10,15 +10,15 @@
 #include <QMenu>
 #include <QAction>
 
-#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
-#include <felide/gui/ide-frame/IDEFrame.hpp>
-#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
+#include <felide/gui/IDEFramePresenter.hpp>
+#include <felide/gui/IDEFrame.hpp>
+#include <felide/gui/FolderBrowserPresenter.hpp>
+#include <felide/gui/DocumentManagerPresenter.hpp>
 #include <felide/gui/Menu.hpp>
 #include <felide/gui/MenuPanel.hpp>
 
-#include "DialogManagerQt.hpp"
-#include "DocumentManagerMdiQt.hpp"
+#include <felide/gui/qt5/DialogManagerQt.hpp>
+#include <felide/gui/qt5/DocumentManagerMdiQt.hpp>
 
 namespace felide {
     class FolderBrowserQt;

@@ -1,5 +1,5 @@
 
-#include "Version.hpp"
+#include <felide/core/Version.hpp>
 
 #include <cassert>
 #include <stdexcept>

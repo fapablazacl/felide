@@ -4,11 +4,11 @@
 
 #include <felide/core/Predef.hpp>
 #include <felide/gui/DialogManager.hpp>
-#include <felide/gui/document/Document.hpp>
-#include <felide/gui/document/DocumentModel.hpp>
-#include <felide/gui/document-manager/DocumentManager.hpp>
-#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
-#include <felide/gui/folder-browser/FolderBrowser.hpp>
+#include <felide/gui/Document.hpp>
+#include <felide/gui/DocumentModel.hpp>
+#include <felide/gui/DocumentManager.hpp>
+#include <felide/gui/DocumentManagerPresenter.hpp>
+#include <felide/gui/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
 

@@ -38,6 +38,7 @@ add_definitions (-DFELIDE_TARGET_NAME=${target})
 add_library(${target} ${sources})
 
 # TODO: Determine if we need a static linking library for QScintilla
+target_include_directories(${target} PUBLIC "include/")
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
 # TODO: Parametrize QScintilla for Windows Builds

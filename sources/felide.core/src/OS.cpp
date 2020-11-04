@@ -1,5 +1,5 @@
 
-#include "OS.hpp"
+#include <felide/core/OS.hpp>
 
 namespace felide {
     OS getCurrentOS() {

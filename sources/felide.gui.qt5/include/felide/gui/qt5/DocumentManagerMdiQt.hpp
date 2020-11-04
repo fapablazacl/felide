@@ -7,10 +7,10 @@
 #include <QMdiSubWindow>
 
 #include <boost/optional.hpp>
-#include <felide/gui/document-manager/DocumentManager.hpp>
+#include <felide/gui/DocumentManager.hpp>
 
-#include "DialogManagerQt.hpp"
-#include "DocumentMdiSubWindowQt.hpp"
+#include <felide/gui/qt5/DialogManagerQt.hpp>
+#include <felide/gui/qt5/DocumentMdiSubWindowQt.hpp>
 
 namespace felide {
     class DocumentMdiSubWindowQt;

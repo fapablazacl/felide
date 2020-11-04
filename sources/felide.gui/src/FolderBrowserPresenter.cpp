@@ -1,15 +1,15 @@
 
-#include "FolderBrowserPresenter.hpp"
+#include <felide/gui/FolderBrowserPresenter.hpp>
 
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <felide/gui/DialogManager.hpp>
 #include <felide/gui/Menu.hpp>
-#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
+#include <felide/gui/IDEFramePresenter.hpp>
 
-#include "FolderBrowser.hpp"
-#include "FolderBrowserModel.hpp"
+#include <felide/gui/FolderBrowser.hpp>
+#include <felide/gui/FolderBrowserModel.hpp>
 
 namespace felide {
     static std::string describePathKind(const boost::filesystem::path &path) {

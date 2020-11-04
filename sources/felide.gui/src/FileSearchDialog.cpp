@@ -1,5 +1,5 @@
 
-#include "FileSearchDialog.hpp"
+#include <felide/gui/FileSearchDialog.hpp>
 
 namespace felide {
     FileSearchDialog::FileSearchDialog(FileSearchDialogPresenter *presenter) {

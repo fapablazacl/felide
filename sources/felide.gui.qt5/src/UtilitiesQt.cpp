@@ -1,5 +1,5 @@
 
-#include "UtilitiesQt.hpp"
+#include <felide/gui/qt5/UtilitiesQt.hpp>
 
 #include <map>
 

@@ -1,5 +1,5 @@
 
-#include "FindReplaceDialogQt.hpp"
+#include <felide/gui/qt5/FindReplaceDialogQt.hpp>
 
 namespace felide {
     template<typename TWidget>

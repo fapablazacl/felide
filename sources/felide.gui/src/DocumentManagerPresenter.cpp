@@ -1,14 +1,14 @@
 
-#include "DocumentManagerPresenter.hpp"
+#include <felide/gui/DocumentManagerPresenter.hpp>
 
-#include "DocumentManager.hpp"
-#include "DocumentManagerModel.hpp"
+#include <felide/gui/DocumentManager.hpp>
+#include <felide/gui/DocumentManagerModel.hpp>
 
 #include <algorithm>
 
 #include <felide/gui/DialogManager.hpp>
-#include <felide/gui/document/DocumentModel.hpp>
-#include <felide/gui/document/DocumentPresenter.hpp>
+#include <felide/gui/DocumentModel.hpp>
+#include <felide/gui/DocumentPresenter.hpp>
 
 namespace felide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {

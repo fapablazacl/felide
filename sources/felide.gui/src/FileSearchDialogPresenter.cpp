@@ -1,7 +1,7 @@
 
-#include "FileSearchDialogPresenter.hpp"
-#include "FileSearchDialog.hpp"
-#include "FileSearchDialogModel.hpp"
+#include <felide/gui/FileSearchDialogPresenter.hpp>
+#include <felide/gui/FileSearchDialog.hpp>
+#include <felide/gui/FileSearchDialogModel.hpp>
 
 #include <cassert>
 

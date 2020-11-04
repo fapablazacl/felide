@@ -56,6 +56,7 @@ set (sources
 
 add_library (${target} ${sources})
 
+target_include_directories (${target} PUBLIC "include/")
 target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")
 
 if (UNIX)

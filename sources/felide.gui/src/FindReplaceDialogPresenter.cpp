@@ -1,10 +1,10 @@
 
-#include "FindReplaceDialogPresenter.hpp"
-#include "FindReplaceDialog.hpp"
-#include "WindowsUtils.hpp"
-#include <iostream>
+#include <felide/gui/FindReplaceDialogPresenter.hpp>
+#include <felide/gui/FindReplaceDialog.hpp>
+#include <felide/gui/WindowsUtils.hpp>
+#include <felide/gui/Document.hpp>
 
-#include <felide/gui/document/Document.hpp>
+#include <iostream>
 
 namespace felide {
     void FindReplaceDialogPresenter::attachView(FindReplaceDialog *view, Document *documentView) {

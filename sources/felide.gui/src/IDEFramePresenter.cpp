@@ -1,12 +1,12 @@
 
-#include "IDEFramePresenter.hpp"
-#include "IDEFrame.hpp"
-#include "IDEFrameModel.hpp"
+#include <felide/gui/IDEFramePresenter.hpp>
+#include <felide/gui/IDEFrame.hpp>
+#include <felide/gui/IDEFrameModel.hpp>
 
 #include <boost/filesystem.hpp>
 #include <felide/gui/MenuPanel.hpp>
-#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/gui/folder-browser/FolderBrowserModel.hpp>
+#include <felide/gui/FolderBrowserPresenter.hpp>
+#include <felide/gui/FolderBrowserModel.hpp>
 
 #include <iostream>
 #include <cassert>

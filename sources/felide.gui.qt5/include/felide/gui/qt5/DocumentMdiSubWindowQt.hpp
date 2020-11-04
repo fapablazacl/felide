@@ -8,10 +8,10 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include <felide/gui/document/Document.hpp>
-#include <felide/gui/document/DocumentPresenter.hpp>
+#include <felide/gui/Document.hpp>
+#include <felide/gui/DocumentPresenter.hpp>
 
-#include "DialogManagerQt.hpp"
+#include <felide/gui/qt5/DialogManagerQt.hpp>
 
 
 namespace felide {

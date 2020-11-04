@@ -1,9 +1,9 @@
 
-#include "IDEFrameModel.hpp" 
+#include <felide/gui/IDEFrameModel.hpp>
 
 #include <iostream>
-#include <felide/gui/document-manager/DocumentManagerModel.hpp>
-#include <felide/gui/folder-browser/FolderBrowserModel.hpp>
+#include <felide/gui/DocumentManagerModel.hpp>
+#include <felide/gui/FolderBrowserModel.hpp>
 #include <felide/core/FolderService.hpp>
 
 namespace felide {
