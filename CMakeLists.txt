@@ -6,8 +6,6 @@ project (felide)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
-option (FELIDE_UI_QT5       "Build the IDE user interface using the Qt5 toolkit"  OFF)
-
 if (FELIDE_STATIC_LINK)
     add_definitions (-DFELIDE_STATIC_LINK)
 endif ()
@@ -35,15 +33,7 @@ if (UNIX)
 endif ()
 
 # IDE Core
-include_directories ("src/felide.core")
-add_subdirectory ("src/felide.core")
-
-include_directories ("src/felide.gui")
-add_subdirectory ("src/felide.gui")
-
-add_subdirectory ("src/felide")
-
-# QT5 Toolkit
-if (FELIDE_UI_QT5)
-    add_subdirectory ("src/felide.gui.qt5")
-endif ()
+add_subdirectory ("sources/felide.core")
+add_subdirectory ("sources/felide.gui")
+add_subdirectory ("sources/felide")
+add_subdirectory ("sources/felide.gui.qt5")

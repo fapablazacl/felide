@@ -1,23 +1,18 @@
 
 set (target "felide.core")
 
-set (sources_felide
-    "felide/core/Predef.hpp"
-    "felide/core/Version.hpp"
-    "felide/core/Version.cpp"
-    "felide/core/FileService.cpp"
-    "felide/core/FileService.hpp"
-    "felide/core/FolderService.cpp"
-    "felide/core/FolderService.hpp"
-    "felide/core/OS.hpp"
-    "felide/core/OS.cpp"
-) 
-
-source_group ("felide\\core" FILES ${sources_felide})
-
 set (sources
-    ${sources_felide}
-)
+    "include/felide/core/Predef.hpp"
+    "include/felide/core/Version.hpp"
+    "include/felide/core/FileService.hpp"
+    "include/felide/core/FolderService.hpp"
+    "include/felide/core/OS.hpp"
+
+    "src/OS.cpp"
+    "src/FolderService.cpp"
+    "src/Version.cpp"
+    "src/FileService.cpp"
+) 
 
 if (FELIDE_DYNAMIC_LINK)
 	add_library (${target} SHARED ${sources})
