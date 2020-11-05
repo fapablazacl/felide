@@ -30,7 +30,7 @@ namespace felide {
     public:
         void closeEvent(QCloseEvent *evt) override;
 
-        private:
+    private:
         void setupSignals();
 
         void setupLayout();
