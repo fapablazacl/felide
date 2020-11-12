@@ -7,7 +7,9 @@ set (CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 # this doesn't work on Linux (arch)
-#find_library(QScintilla REQUIRED)
+if (WIN32)
+  find_library(QScintilla REQUIRED)
+endif()
 
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
