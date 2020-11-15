@@ -7,6 +7,11 @@
 #include <QTreeView>
 #include <felide/gui/mvp/MainFrame.hpp>
 
+#include <Qsci/qsciscintilla.h>
+#include <Qsci/qscilexer.h>
+#include <Qsci/qscilexercpp.h>
+
+
 namespace felide {
     class QMainFrame : public QMainWindow, public MainFrame::View {
         Q_OBJECT
@@ -23,6 +28,8 @@ namespace felide {
         void show() override;
 
         MainFrame::AskResult askCloseConfirmation(const std::string &title, const std::string &prompt) override;
+
+        QsciScintilla* createCodeEditor();
 
     private:
         void closeEvent(QCloseEvent *event) override;

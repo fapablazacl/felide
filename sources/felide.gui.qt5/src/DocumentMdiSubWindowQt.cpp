@@ -18,8 +18,6 @@ namespace felide {
 
         this->setWidget(mScintilla);
 
-        // this->setupLayout();
-
         presenter->onInitialized(this, &mDialogManager);
 
         // HACK: This prevents the raise of the textChanged signal, just only for the 1st time.

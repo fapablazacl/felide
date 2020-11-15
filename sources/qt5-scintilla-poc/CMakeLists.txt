@@ -23,7 +23,7 @@ set (sources
 )
 
 add_definitions (-DFELIDE_TARGET_NAME=${target})
-add_library(${target} ${sources})
+add_executable(${target} ${sources})
 
 # TODO: Determine if we need a static linking library for QScintilla
 target_include_directories(${target} PUBLIC "include/")
@@ -38,6 +38,7 @@ if (WIN32)
         optimized qscintilla2_qt5
         felide.core
         felide.gui
+        gui-mvp
     )
 else()
     target_link_libraries (
@@ -46,6 +47,7 @@ else()
         qscintilla2_qt5
         felide.core
         felide.gui
+        gui-mvp
     )
 endif()
 

@@ -5,6 +5,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 
+
 namespace felide {
     QMainFrame::QMainFrame(MainFrame::Presenter *presenter) : MainFrame::View(presenter) {
         this->setMinimumSize(this->computeFrameSize());
@@ -21,12 +22,28 @@ namespace felide {
         folderBrowserDockWidget->setWidget(folderBrowserTreeView);
         this->addDockWidget(Qt::LeftDockWidgetArea, folderBrowserDockWidget);
 
-        this->setCentralWidget(new QTextEdit(this));
+        this->setCentralWidget(createCodeEditor());
 
         presenter->handleInitializedView(this);
     }
 
     QMainFrame::~QMainFrame() {}
+
+    QsciScintilla* QMainFrame::createCodeEditor() {
+        QsciScintilla* scintilla = new QsciScintilla(this);
+
+        scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
+        scintilla->setMarginWidth(1, QString("1000"));
+
+        auto font = QFont{"Inconsolata", 12};
+
+        scintilla->setFont(font);
+        scintilla->setCaretLineVisible(true);
+        scintilla->setTabWidth(4);
+        scintilla->setMarginType(1, QsciScintilla::NumberMargin);
+
+        return scintilla;
+    }
 
     void QMainFrame::displayTitle(const std::string &value) {
         this->setWindowTitle(value.c_str());
