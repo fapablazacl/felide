@@ -11,9 +11,6 @@ if (WIN32)
   find_library(QScintilla REQUIRED)
 endif()
 
-include_directories("${Qt5_DIR}/../../../include")
-link_directories("${Qt5_DIR}/../../")
-
 set (sources 
     "src/main_qt5.cpp"
     "include/felide/gui/qt5/FindReplaceDialogQt.hpp"
@@ -39,11 +36,12 @@ set (sources
 add_definitions (-DFELIDE_TARGET_NAME=${target})
 add_library(${target} ${sources})
 
-# TODO: Determine if we need a static linking library for QScintilla
+target_include_directories(${target} PRIVATE "${Qt5_DIR}/../../../include")
+target_link_directories(${target} PUBLIC "${Qt5_DIR}/../../")
+
 target_include_directories(${target} PUBLIC "include/")
 target_compile_definitions (${target} PRIVATE "QSCINTILLA_DLL")
 
-# TODO: Parametrize QScintilla for Windows Builds
 if (WIN32)
     target_link_libraries (
         ${target} 
