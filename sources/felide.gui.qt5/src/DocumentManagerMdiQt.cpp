@@ -22,29 +22,26 @@ namespace felide {
 
         mMdiArea->setContextMenuPolicy(Qt::CustomContextMenu);
         connect(mMdiArea, &QMdiArea::customContextMenuRequested, [this](const QPoint &pos) {
-            std::cout << "asdasdasd" << std::endl;
             bool found = true;
             int index = 0;
 
             // determine the tab
             auto list = mMdiArea->subWindowList();
 
-            /*
             for (int i=0; i<list.count(); i++) {
-                const auto rect = m_tabWidget->tabBar()->tabRect(i);
-
+                const auto rect = list[i]->rect();
                 if (rect.contains(pos)) {
                     found = true;
                     index = i;
                     break;
                 }
             }
-            */
+            
+            
 
             // TODO: Generate menu Dnamically
             // trigger context menu on that tab
-            if (found) {
-                Document *editor = this->getDocument(index);
+            if (Document *editor = this->getDocument(index); found && editor) {
                 QMenu contextMenu("Context Menu", this);
 
                 QAction closeAction("Close", this);

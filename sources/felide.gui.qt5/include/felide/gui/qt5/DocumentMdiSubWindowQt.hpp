@@ -30,10 +30,12 @@ namespace felide {
     public:
         void closeEvent(QCloseEvent *evt) override;
 
-        private:
+    private:
         void setupSignals();
 
         void setupLayout();
+
+        void setupContextMenu();
 
     public:
         virtual void setTitle(const std::string &title) override;
