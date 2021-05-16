@@ -37,5 +37,7 @@ add_subdirectory ("modules/Xenoide.Core")
 add_subdirectory ("modules/Xenoide.GUI")
 add_subdirectory ("modules/Xenoide")
 add_subdirectory ("modules/Xenoide.GUI.Qt5")
-add_subdirectory ("modules/gui-mvp")
-add_subdirectory ("modules/qt5-scintilla-poc")
+
+# Experimental programs and libraries for development testing purposes
+add_subdirectory ("tests/gui-mvp")
+add_subdirectory ("tests/qt5-scintilla-poc")
