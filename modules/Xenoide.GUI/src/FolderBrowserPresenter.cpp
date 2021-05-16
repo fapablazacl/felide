@@ -49,7 +49,7 @@ namespace felide {
 
         // ask for the new filename
         const auto newFileName = this->askValidPath(
-            "felide", 
+            "Xenoide",
             "Please, enter the new file name", 
             "Previous name was invalid. Enter the new file name", 
             "Newfile"
@@ -86,7 +86,7 @@ namespace felide {
 
         // ask the new folder name
         const auto newFolderName = this->askValidPath(
-            "felide", 
+            "Xenoide",
             "Please, enter the new folder name", 
             "Previous name was invalid. Enter the new folder name", 
             "Newfolder"
@@ -148,7 +148,7 @@ namespace felide {
         // existence check!
         if (fs::exists(destinationPath)) {
             auto messageDialog = MessageDialogData {};
-            messageDialog.title = "felide";
+            messageDialog.title = "Xenoide";
             messageDialog.message = "File/Directory already exists. Replace it?";
             messageDialog.icon = DialogIcon::Warning;
             messageDialog.buttons = DialogButton::YesNo;
@@ -161,7 +161,7 @@ namespace felide {
         } else if (boost::filesystem::is_directory(selectedPath)) {
             // prompt the user confirmation
             auto messageDialog = MessageDialogData {};
-            messageDialog.title = "felide";
+            messageDialog.title = "Xenoide";
             messageDialog.message = "Move the directory \"" + selectedPath.filename().string() + "\"?";
             messageDialog.icon = DialogIcon::Warning;
             messageDialog.buttons = DialogButton::OkCancel;
@@ -190,7 +190,7 @@ namespace felide {
         
         // prompt the user for a new path
         boost::optional<std::string> newFilenameOptional = this->askValidPath (
-            "felide", prompt, prefix + prompt, selectedPath.filename().string()
+            "Xenoide", prompt, prefix + prompt, selectedPath.filename().string()
         );
 
         if (!newFilenameOptional) {
@@ -203,7 +203,7 @@ namespace felide {
 
         if (boost::filesystem::exists(newPath)) {
             auto messageDialog = MessageDialogData {};
-            messageDialog.title = "felide";
+            messageDialog.title = "Xenoide";
             messageDialog.message = "Another file already exists.";
             messageDialog.icon = DialogIcon::Error;
             messageDialog.buttons = DialogButton::Ok;
@@ -231,7 +231,7 @@ namespace felide {
         
         // prompt the user confirmation
         auto messageDialog = MessageDialogData {};
-        messageDialog.title = "felide";
+        messageDialog.title = "Xenoide";
         messageDialog.message = "Delete the \"" + selectedPath.filename().string() + "\" " + describePathKind(selectedPath) + "?";
         messageDialog.icon = DialogIcon::Warning;
         messageDialog.buttons = DialogButton::OkCancel;

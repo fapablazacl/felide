@@ -160,7 +160,7 @@ namespace felide {
         assert(view->getDialogManager());
 
         auto messageDialog = MessageDialogData {};
-        messageDialog.title = "felide";
+        messageDialog.title = "Xenoide";
         messageDialog.message = "Exit?";
         messageDialog.icon = DialogIcon::Question;
         messageDialog.buttons = DialogButton::YesNo;

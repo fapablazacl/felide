@@ -104,7 +104,7 @@ namespace felide {
         }
 
         auto messageDialog = MessageDialogData{};
-        messageDialog.title = "felide";
+        messageDialog.title = "Xenoide";
         messageDialog.message = "The file has unsaved changes. Save them before closing?";
         messageDialog.icon = DialogIcon::Question;
         messageDialog.buttons = DialogButton::YesNoCancel;

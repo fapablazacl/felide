@@ -1,7 +1,7 @@
 
 cmake_minimum_required (VERSION 3.5)
 
-project (felide)
+project (Xenoide)
 
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
@@ -33,9 +33,9 @@ if (UNIX)
 endif ()
 
 # IDE Core
-add_subdirectory ("modules/felide.core")
-add_subdirectory ("modules/felide.gui")
-add_subdirectory ("modules/felide")
-add_subdirectory ("modules/felide.gui.qt5")
+add_subdirectory ("modules/Xenoide.Core")
+add_subdirectory ("modules/Xenoide.GUI")
+add_subdirectory ("modules/Xenoide")
+add_subdirectory ("modules/Xenoide.GUI.Qt5")
 add_subdirectory ("modules/gui-mvp")
 add_subdirectory ("modules/qt5-scintilla-poc")
