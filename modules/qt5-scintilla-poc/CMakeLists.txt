@@ -6,11 +6,13 @@ set (CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
-# this doesn't work on Linux (arch)
+
 if (WIN32)
-  find_library(QScintilla REQUIRED)
+    # this doesn't work on Linux (arch)
+    find_library(QScintilla REQUIRED)
 endif()
 
+# required for QScintilla
 include_directories("${Qt5_DIR}/../../../include")
 link_directories("${Qt5_DIR}/../../")
 
@@ -40,7 +42,7 @@ if (WIN32)
         Xenoide.GUI
         gui-mvp
     )
-else()
+else ()
     target_link_libraries (
         ${target} 
         Qt5::Widgets
@@ -49,6 +51,6 @@ else()
         Xenoide.GUI
         gui-mvp
     )
-endif()
+endif ()
 
 install (TARGETS ${target} DESTINATION "lib")

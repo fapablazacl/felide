@@ -1,17 +1,20 @@
 
 set (target "gui-mvp")
 set (sources
-    "Xenoide/GUI/mvp/MainFrame.hpp"
-    "Xenoide/GUI/mvp/MainFrame.cpp"
-    "Xenoide/GUI/mvp/DocumentManager.hpp"
-    "Xenoide/GUI/mvp/DocumentManager.cpp"
-    "Xenoide/GUI/mvp/Document.hpp"
-    "Xenoide/GUI/mvp/Document.cpp"
-    "Xenoide/GUI/mvp/FindReplace.hpp"
-    "Xenoide/GUI/mvp/FindReplace.cpp"
+    "include/Xenoide/GUI/mvp/MainFrame.hpp"
+	"include/Xenoide/GUI/mvp/DocumentManager.hpp"
+	"include/Xenoide/GUI/mvp/Document.hpp"
+	"include/Xenoide/GUI/mvp/FindReplace.hpp"
+
+    "src/MainFrame.cpp"
+    "src/DocumentManager.cpp"
+    "src/Document.cpp"
+    "src/FindReplace.cpp"
 )
 
 add_library (${target} ${sources})
+
+target_include_directories(${target} PUBLIC "include")
 
 target_link_libraries (
     ${target} 

@@ -1,5 +1,5 @@
 
-#include "DocumentManager.hpp"
+#include <Xenoide/GUI/mvp/DocumentManager.hpp>
 
 #include <cassert>
 

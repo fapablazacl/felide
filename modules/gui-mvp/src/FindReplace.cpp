@@ -1,5 +1,5 @@
 
-#include "FindReplace.hpp"
+#include <Xenoide/GUI/mvp/FindReplace.hpp>
 
 #include <cassert>
 
