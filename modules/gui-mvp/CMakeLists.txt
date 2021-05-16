@@ -11,14 +11,12 @@ set (sources
     "felide/gui/mvp/FindReplace.cpp"
 )
 
-source_group (\\felide\\gui\\mvp FILES ${sources})
-
 add_library (${target} ${sources})
 
 target_link_libraries (
     ${target} 
     ${DL_LIBRARY}
     ${Boost_LIBRARIES}
-    felide.core
-	felide.gui
+    Xenoide.Core
+	Xenoide.GUI
 )

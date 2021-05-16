@@ -1,5 +1,5 @@
 
-set (target "felide.core")
+set (target "Xenoide.Core")
 
 set (sources
     "include/felide/core/Predef.hpp"

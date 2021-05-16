@@ -36,8 +36,8 @@ if (WIN32)
         Qt5::Widgets
         debug qscintilla2_qt5d
         optimized qscintilla2_qt5
-        felide.core
-        felide.gui
+        Xenoide.Core
+        Xenoide.GUI
         gui-mvp
     )
 else()
@@ -45,8 +45,8 @@ else()
         ${target} 
         Qt5::Widgets
         qscintilla2_qt5
-        felide.core
-        felide.gui
+        Xenoide.Core
+        Xenoide.GUI
         gui-mvp
     )
 endif()

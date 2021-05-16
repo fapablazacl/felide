@@ -1,5 +1,5 @@
 
-set (target felide.gui)
+set (target Xenoide.GUI)
 
 set (sources
     "include/felide/gui/WindowsUtils.hpp"
@@ -67,7 +67,7 @@ target_link_libraries (
     ${target} 
     ${DL_LIBRARY}
     ${Boost_LIBRARIES}
-    felide.core
+    Xenoide.Core
 )
 
 install(TARGETS ${target} DESTINATION "lib")

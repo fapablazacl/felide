@@ -1,4 +1,4 @@
-set (target "felide.gui.qt5")
+set (target "Xenoide.GUI.Qt5")
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_AUTOMOC ON)
@@ -48,16 +48,16 @@ if (WIN32)
         Qt5::Widgets
         debug qscintilla2_qt5d
         optimized qscintilla2_qt5
-        felide.core
-        felide.gui
+        Xenoide.Core
+        Xenoide.GUI
     )
 else()
     target_link_libraries (
         ${target} 
         Qt5::Widgets
         qscintilla2_qt5
-        felide.core
-        felide.gui
+        Xenoide.Core
+        Xenoide.GUI
     )
 endif()
 
