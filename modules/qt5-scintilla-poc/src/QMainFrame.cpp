@@ -5,8 +5,23 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 
-
 namespace felide {
+    static const char *keywords = {
+        "alignas alignof and and_eq asm atomic_cancel atomic_commit" " "
+        "atomic_noexcept auto bitand bitor bool break case catch char" " "
+        "char16_t char32_t class compl concept const constexpr const_cast" " "
+        "continue decltype default delete do" " "
+        "double dynamic_cast else enum explicit export extern false float" " "
+        "for friend goto if inline int import long" " "
+        "module mutable namespace new noexcept not not_eq nullptr operator" " "
+        "or or_eq private protected public" " "
+        "register reinterpret_cast requires return short signed sizeof static" " "
+        "static_assert static_cast struct" " "
+        "switch synchronized template this thread_local" " "
+        "throw true try typedef typeid typename union unsigned" " "
+        "using virtual void volatile wchar_t while xor xor_eq"
+    };
+
     QMainFrame::QMainFrame(MainFrame::Presenter *presenter) : MainFrame::View(presenter) {
         this->setMinimumSize(this->computeFrameSize());
 
@@ -35,12 +50,20 @@ namespace felide {
         scintilla->SendScintilla(QsciScintilla::SCI_SETBUFFEREDDRAW, false);
         scintilla->setMarginWidth(1, QString("1000"));
 
-        auto font = QFont{"Inconsolata", 12};
-
-        scintilla->setFont(font);
+        // auto font = QFont{"Monospace", 24};
+        // scintilla->setFont(font);
         scintilla->setCaretLineVisible(true);
         scintilla->setTabWidth(4);
+        // scintilla->setIndentationsUseTabs(false);
         scintilla->setMarginType(1, QsciScintilla::NumberMargin);
+
+        // setup C++
+        scintilla->setLexer(new QsciLexerCPP{});
+
+        scintilla->SendScintilla(QsciScintilla::SCI_STYLECLEARALL);
+        scintilla->SendScintilla(QsciScintilla::SCI_SETKEYWORDS, 0, (void*)keywords);
+        scintilla->SendScintilla(QsciScintilla::SCI_STYLESETFORE, QsciLexerCPP::Comment, QColor(0, 255, 0));
+        scintilla->SendScintilla(QsciScintilla::SCI_STYLESETFORE, QsciLexerCPP::Keyword, QColor(0, 0, 255));
 
         return scintilla;
     }
