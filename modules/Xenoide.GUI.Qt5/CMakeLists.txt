@@ -33,7 +33,7 @@ set (sources
     "src//DocumentMdiSubWindowQt.cpp"
 )
 
-add_definitions (-DFELIDE_TARGET_NAME=${target})
+add_definitions (-DXENOIDE_TARGET_NAME=${target})
 add_library(${target} ${sources})
 
 target_include_directories(${target} PRIVATE "${Qt5_DIR}/../../../include")

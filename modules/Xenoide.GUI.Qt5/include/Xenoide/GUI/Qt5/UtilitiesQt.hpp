@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_QT5_UTILITIESQT_HPP__
-#define __FELIDE_UI_QT5_UTILITIESQT_HPP__
+#ifndef __XENOIDE_UI_QT5_UTILITIESQT_HPP__
+#define __XENOIDE_UI_QT5_UTILITIESQT_HPP__
 
 #include <QMenuBar>
 #include <Xenoide/GUI/Menu.hpp>

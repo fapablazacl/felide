@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_POINT_HPP__
-#define __FELIDE_UI_POINT_HPP__
+#ifndef __XENOIDE_UI_POINT_HPP__
+#define __XENOIDE_UI_POINT_HPP__
 
 namespace felide {
     struct Point {

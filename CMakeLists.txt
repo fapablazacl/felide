@@ -6,8 +6,8 @@ project (Xenoide)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 add_definitions (-DPROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
 
-if (FELIDE_STATIC_LINK)
-    add_definitions (-DFELIDE_STATIC_LINK)
+if (XENOIDE_STATIC_LINK)
+    add_definitions (-DXENOIDE_STATIC_LINK)
 endif ()
 
 # we will require Boost ...
@@ -33,9 +33,9 @@ if (UNIX)
 endif ()
 
 # IDE Core
+add_subdirectory ("modules/Xenoide")
 add_subdirectory ("modules/Xenoide.Core")
 add_subdirectory ("modules/Xenoide.GUI")
-add_subdirectory ("modules/Xenoide")
 add_subdirectory ("modules/Xenoide.GUI.Qt5")
 
 # Experimental programs and libraries for development testing purposes

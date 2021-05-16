@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_DIALOGMANAGER_HPP__
-#define __FELIDE_UI_DIALOGMANAGER_HPP__
+#ifndef __XENOIDE_UI_DIALOGMANAGER_HPP__
+#define __XENOIDE_UI_DIALOGMANAGER_HPP__
 
 #include <string>
 #include <vector>

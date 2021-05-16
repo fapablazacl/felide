@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_FOLDEREXPLORERVIEW_HPP_
-#define __FELIDE_UI_FOLDEREXPLORERVIEW_HPP_
+#ifndef __XENOIDE_UI_FOLDEREXPLORERVIEW_HPP_
+#define __XENOIDE_UI_FOLDEREXPLORERVIEW_HPP_
 
 #include <string>
 #include <Xenoide/Core/Predef.hpp>

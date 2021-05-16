@@ -14,14 +14,14 @@ set (sources
     "src/FileService.cpp"
 ) 
 
-if (FELIDE_DYNAMIC_LINK)
+if (XENOIDE_DYNAMIC_LINK)
 	add_library (${target} SHARED ${sources})
 else ()
     add_library (${target} ${sources})
 endif()
 
 target_include_directories( ${target} PUBLIC "include/")
-target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")
+target_compile_definitions (${target} PRIVATE "XENOIDE_BUILD")
 
 if (UNIX)
     set (DL_LIBRARY dl)

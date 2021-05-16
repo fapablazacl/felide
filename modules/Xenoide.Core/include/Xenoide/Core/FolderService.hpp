@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_FOLDERSERVICE_HPP__
-#define __FELIDE_UI_FOLDERSERVICE_HPP__
+#ifndef __XENOIDE_UI_FOLDERSERVICE_HPP__
+#define __XENOIDE_UI_FOLDERSERVICE_HPP__
 
 #include <memory>
 #include <string>

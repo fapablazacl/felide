@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_VERSION_HPP__
-#define __FELIDE_VERSION_HPP__
+#ifndef __XENOIDE_VERSION_HPP__
+#define __XENOIDE_VERSION_HPP__
 
 #include <string>
 #include <Xenoide/Core/Predef.hpp>

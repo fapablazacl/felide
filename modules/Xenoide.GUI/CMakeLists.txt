@@ -57,7 +57,7 @@ set (sources
 add_library (${target} ${sources})
 
 target_include_directories (${target} PUBLIC "include/")
-target_compile_definitions (${target} PRIVATE "FELIDE_BUILD")
+target_compile_definitions (${target} PRIVATE "XENOIDE_BUILD")
 
 if (UNIX)
     set (DL_LIBRARY dl)

@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_QT5_FOLDERBROWSER_HPP__
-#define __FELIDE_UI_QT5_FOLDERBROWSER_HPP__
+#ifndef __XENOIDE_UI_QT5_FOLDERBROWSER_HPP__
+#define __XENOIDE_UI_QT5_FOLDERBROWSER_HPP__
 
 #include <QWidget>
 #include <QTreeView>

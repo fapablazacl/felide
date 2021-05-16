@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_DOCUMENTMANAGER_HPP__
-#define __FELIDE_UI_DOCUMENTMANAGER_HPP__
+#ifndef __XENOIDE_UI_DOCUMENTMANAGER_HPP__
+#define __XENOIDE_UI_DOCUMENTMANAGER_HPP__
 
 #include <cstddef>
 #include <Xenoide/Core/Predef.hpp>

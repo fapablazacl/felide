@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
-#define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
+#ifndef __XENOIDE_UI_MAINWINDOWPRESENTER_HPP__
+#define __XENOIDE_UI_MAINWINDOWPRESENTER_HPP__
 
 #include <Xenoide/Core/Predef.hpp>
 #include <Xenoide/GUI/DialogManager.hpp>

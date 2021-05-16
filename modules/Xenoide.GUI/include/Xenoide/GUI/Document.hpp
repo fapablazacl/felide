@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_DOCUMENT_HPP__
-#define __FELIDE_UI_DOCUMENT_HPP__
+#ifndef __XENOIDE_UI_DOCUMENT_HPP__
+#define __XENOIDE_UI_DOCUMENT_HPP__
 
 #include <string>
 #include <Xenoide/Core/Predef.hpp>

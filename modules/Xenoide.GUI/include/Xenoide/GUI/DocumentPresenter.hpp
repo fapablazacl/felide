@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_DOCUMENTPRESENTER_HPP__
-#define __FELIDE_UI_DOCUMENTPRESENTER_HPP__
+#ifndef __XENOIDE_UI_DOCUMENTPRESENTER_HPP__
+#define __XENOIDE_UI_DOCUMENTPRESENTER_HPP__
 
 #include <string>
 #include <boost/filesystem/path.hpp>

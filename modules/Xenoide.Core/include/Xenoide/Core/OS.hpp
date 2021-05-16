@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UTIL_OS_HPP__
-#define __FELIDE_UTIL_OS_HPP__
+#ifndef __XENOIDE_UTIL_OS_HPP__
+#define __XENOIDE_UTIL_OS_HPP__
 
 #include <Xenoide/Core/Predef.hpp>
 

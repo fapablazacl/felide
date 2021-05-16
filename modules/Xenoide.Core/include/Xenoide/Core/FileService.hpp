@@ -1,6 +1,6 @@
 
-#ifndef __FELIDE_UI_FILESERVICE_HPP__
-#define __FELIDE_UI_FILESERVICE_HPP__
+#ifndef __XENOIDE_UI_FILESERVICE_HPP__
+#define __XENOIDE_UI_FILESERVICE_HPP__
 
 #include <memory>
 #include <string>

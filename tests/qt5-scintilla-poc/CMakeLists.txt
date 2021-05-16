@@ -24,7 +24,7 @@ set (sources
     "src/QMainFrame.hpp"
 )
 
-add_definitions (-DFELIDE_TARGET_NAME=${target})
+add_definitions (-DXENOIDE_TARGET_NAME=${target})
 add_executable(${target} ${sources})
 
 # TODO: Determine if we need a static linking library for QScintilla
