@@ -3,8 +3,8 @@
 #define __FELIDE_UI_FOLDEREXPLORERVIEW_HPP_
 
 #include <string>
-#include <felide/core/Predef.hpp>
-#include <felide/gui/Menu.hpp>
+#include <Xenoide/Core/Predef.hpp>
+#include <Xenoide/GUI/Menu.hpp>
 #include <boost/optional/optional.hpp>
 
 namespace felide {

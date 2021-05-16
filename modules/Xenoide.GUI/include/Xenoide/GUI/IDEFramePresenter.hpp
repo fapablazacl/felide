@@ -2,13 +2,13 @@
 #ifndef __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 #define __FELIDE_UI_MAINWINDOWPRESENTER_HPP__
 
-#include <felide/core/Predef.hpp>
-#include <felide/gui/DialogManager.hpp>
-#include <felide/gui/Document.hpp>
-#include <felide/gui/DocumentModel.hpp>
-#include <felide/gui/DocumentManager.hpp>
-#include <felide/gui/DocumentManagerPresenter.hpp>
-#include <felide/gui/FolderBrowser.hpp>
+#include <Xenoide/Core/Predef.hpp>
+#include <Xenoide/GUI/DialogManager.hpp>
+#include <Xenoide/GUI/Document.hpp>
+#include <Xenoide/GUI/DocumentModel.hpp>
+#include <Xenoide/GUI/DocumentManager.hpp>
+#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
+#include <Xenoide/GUI/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
 

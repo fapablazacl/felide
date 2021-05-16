@@ -3,7 +3,7 @@
 #define __FELIDE_VERSION_HPP__
 
 #include <string>
-#include <felide/core/Predef.hpp>
+#include <Xenoide/Core/Predef.hpp>
 
 namespace felide {
     enum class VersionComparisonResult {

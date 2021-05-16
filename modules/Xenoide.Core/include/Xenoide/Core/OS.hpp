@@ -2,7 +2,7 @@
 #ifndef __FELIDE_UTIL_OS_HPP__
 #define __FELIDE_UTIL_OS_HPP__
 
-#include <felide/core/Predef.hpp>
+#include <Xenoide/Core/Predef.hpp>
 
 namespace felide {
     enum OS {

@@ -1,9 +1,9 @@
 
-#include <felide/gui/FolderBrowserModel.hpp>
+#include <Xenoide/GUI/FolderBrowserModel.hpp>
 
 #include <iostream>
 #include <boost/filesystem/operations.hpp>
-#include <felide/core/FolderService.hpp>
+#include <Xenoide/Core/FolderService.hpp>
 
 namespace felide {
     class FolderBrowserModelImpl : public FolderBrowserModel {

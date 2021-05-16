@@ -1,5 +1,5 @@
 
-#include <felide/gui/MenuPanel.hpp>
+#include <Xenoide/GUI/MenuPanel.hpp>
 
 namespace felide {
     MenuPanel::~MenuPanel() {}

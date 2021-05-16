@@ -1,5 +1,5 @@
 
-#include <felide/gui/DocumentModel.hpp>
+#include <Xenoide/GUI/DocumentModel.hpp>
 
 namespace felide {
     class DocumentModelImpl : public DocumentModel {

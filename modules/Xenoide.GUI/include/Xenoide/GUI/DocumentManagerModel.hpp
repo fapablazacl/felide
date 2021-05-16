@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <felide/core/Predef.hpp>
+#include <Xenoide/Core/Predef.hpp>
 #include <boost/filesystem/path.hpp>
 
 namespace felide {

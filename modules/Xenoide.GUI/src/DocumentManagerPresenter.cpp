@@ -1,15 +1,15 @@
 
-#include <felide/gui/DocumentManagerPresenter.hpp>
+#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
 
 
 #include <algorithm>
 #include <iostream>
 
-#include <felide/gui/DialogManager.hpp>
-#include <felide/gui/DocumentModel.hpp>
-#include <felide/gui/DocumentPresenter.hpp>
-#include <felide/gui/DocumentManager.hpp>
-#include <felide/gui/DocumentManagerModel.hpp>
+#include <Xenoide/GUI/DialogManager.hpp>
+#include <Xenoide/GUI/DocumentModel.hpp>
+#include <Xenoide/GUI/DocumentPresenter.hpp>
+#include <Xenoide/GUI/DocumentManager.hpp>
+#include <Xenoide/GUI/DocumentManagerModel.hpp>
 
 
 namespace felide {

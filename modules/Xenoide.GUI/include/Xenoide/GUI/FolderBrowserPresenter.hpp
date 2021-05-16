@@ -3,7 +3,7 @@
 #define __FELIDE_UI_FOLDERBROWSERCONTROLLER_HPP_
 
 #include <string>
-#include <felide/core/Predef.hpp>
+#include <Xenoide/Core/Predef.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/optional/optional_fwd.hpp>
 

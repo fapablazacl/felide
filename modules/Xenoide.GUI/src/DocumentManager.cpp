@@ -1,5 +1,5 @@
 
-#include <felide/gui/DocumentManager.hpp>
+#include <Xenoide/GUI/DocumentManager.hpp>
 
 namespace felide {
     DocumentManager::DocumentManager(DocumentManagerPresenter *presenter) {

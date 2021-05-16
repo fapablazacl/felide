@@ -1,15 +1,15 @@
 
-#include <felide/gui/qt5/DialogManagerQt.hpp>
+#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
 
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <boost/algorithm/string/join.hpp>
 
-#include <felide/gui/qt5/FileSearchDialogQt.hpp>
+#include <Xenoide/GUI/Qt5/FileSearchDialogQt.hpp>
 
-#include <felide/gui/FileSearchDialogPresenter.hpp>
-#include <felide/gui/FileSearchDialogModel.hpp>
+#include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
+#include <Xenoide/GUI/FileSearchDialogModel.hpp>
 
 namespace felide {
     DialogManagerQt::DialogManagerQt(QWidget *parent) {

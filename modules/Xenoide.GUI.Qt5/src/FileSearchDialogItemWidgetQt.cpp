@@ -1,5 +1,5 @@
 
-#include <felide/gui/qt5/FileSearchDialogItemWidgetQt.hpp>
+#include <Xenoide/GUI/Qt5/FileSearchDialogItemWidgetQt.hpp>
 
 #include <QLabel>
 #include <QHBoxLayout>

@@ -1,5 +1,5 @@
 
-#include <felide/gui/FileSearchDialogModel.hpp>
+#include <Xenoide/GUI/FileSearchDialogModel.hpp>
 
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string.hpp>

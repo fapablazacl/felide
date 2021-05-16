@@ -1,7 +1,7 @@
 
 #include <QApplication>
 
-#include "felide/gui/mvp/MainFrame.hpp"
+#include "Xenoide/GUI/mvp/MainFrame.hpp"
 #include "QMainFrame.hpp"
 
 

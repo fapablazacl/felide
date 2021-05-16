@@ -1,8 +1,8 @@
 
-#include <felide/gui/FindReplaceDialogPresenter.hpp>
-#include <felide/gui/FindReplaceDialog.hpp>
-#include <felide/gui/WindowsUtils.hpp>
-#include <felide/gui/Document.hpp>
+#include <Xenoide/GUI/FindReplaceDialogPresenter.hpp>
+#include <Xenoide/GUI/FindReplaceDialog.hpp>
+#include <Xenoide/GUI/WindowsUtils.hpp>
+#include <Xenoide/GUI/Document.hpp>
 
 #include <iostream>
 

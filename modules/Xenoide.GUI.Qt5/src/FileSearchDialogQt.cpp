@@ -1,10 +1,10 @@
 
-#include <felide/gui/qt5/FileSearchDialogQt.hpp>
+#include <Xenoide/GUI/Qt5/FileSearchDialogQt.hpp>
 
 #include <iostream>
 #include <QVBoxLayout>
-#include <felide/gui/FileSearchDialogPresenter.hpp>
-#include <felide/gui/qt5/FileSearchDialogItemWidgetQt.hpp>
+#include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
+#include <Xenoide/GUI/Qt5/FileSearchDialogItemWidgetQt.hpp>
 
 namespace felide  {
     FileSearchDialogQt::FileSearchDialogQt(QWidget *parent, FileSearchDialogPresenter *presenter) : QDialog(parent), FileSearchDialog(presenter) {

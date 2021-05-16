@@ -1,8 +1,8 @@
 
-#include <felide/gui/IDEFrame.hpp>
-#include <felide/gui/IDEFramePresenter.hpp>
+#include <Xenoide/GUI/IDEFrame.hpp>
+#include <Xenoide/GUI/IDEFramePresenter.hpp>
 
-#include <felide/gui/Menu.hpp>
+#include <Xenoide/GUI/Menu.hpp>
 
 namespace felide {
     IDEFrame::IDEFrame(IDEFramePresenter *presenter) {

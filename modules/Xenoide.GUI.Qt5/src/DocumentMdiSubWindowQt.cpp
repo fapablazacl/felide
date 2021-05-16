@@ -1,5 +1,5 @@
 
-#include <felide/gui/qt5/DocumentMdiSubWindowQt.hpp>
+#include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
 
 #include <cassert>
 #include <iostream>

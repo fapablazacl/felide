@@ -1,5 +1,5 @@
 
-#include <felide/gui/qt5/FolderBrowserQt.hpp>
+#include <Xenoide/GUI/Qt5/FolderBrowserQt.hpp>
 
 #include <QVBoxLayout>
 #include <QBoxLayout>
@@ -8,10 +8,10 @@
 #include <QMessageBox>
 #include <QMimeData>
 #include <iostream>
-#include <felide/gui/FolderBrowserPresenter.hpp>
+#include <Xenoide/GUI/FolderBrowserPresenter.hpp>
 
-#include <felide/gui/qt5/DialogManagerQt.hpp>
-#include <felide/gui/qt5/UtilitiesQt.hpp>
+#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/GUI/Qt5/UtilitiesQt.hpp>
 
 #include <boost/filesystem.hpp>
 

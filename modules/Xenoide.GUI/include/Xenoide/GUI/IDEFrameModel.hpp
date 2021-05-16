@@ -7,8 +7,8 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/optional.hpp>
 
-#include <felide/core/Predef.hpp>
-#include <felide/gui/FileFilter.hpp>
+#include <Xenoide/Core/Predef.hpp>
+#include <Xenoide/GUI/FileFilter.hpp>
 
 namespace felide {
     class DocumentManagerModel;

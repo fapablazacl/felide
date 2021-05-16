@@ -1,5 +1,5 @@
 
-#include <felide/gui/Menu.hpp>
+#include <Xenoide/GUI/Menu.hpp>
 
 namespace felide {
     Menu Menu::menuBar(const std::vector<Menu> &childs) {

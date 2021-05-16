@@ -2,11 +2,11 @@
 set (target "Xenoide.Core")
 
 set (sources
-    "include/felide/core/Predef.hpp"
-    "include/felide/core/Version.hpp"
-    "include/felide/core/FileService.hpp"
-    "include/felide/core/FolderService.hpp"
-    "include/felide/core/OS.hpp"
+    "include/Xenoide/Core/Predef.hpp"
+    "include/Xenoide/Core/Version.hpp"
+    "include/Xenoide/Core/FileService.hpp"
+    "include/Xenoide/Core/FolderService.hpp"
+    "include/Xenoide/Core/OS.hpp"
 
     "src/OS.cpp"
     "src/FolderService.cpp"

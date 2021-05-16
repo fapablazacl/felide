@@ -1,5 +1,5 @@
 
-#include <felide/gui/FolderBrowser.hpp>
+#include <Xenoide/GUI/FolderBrowser.hpp>
 
 namespace felide {
     FolderBrowser::FolderBrowser(FolderBrowserPresenter *presenter) {

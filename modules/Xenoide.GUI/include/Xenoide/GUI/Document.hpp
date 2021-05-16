@@ -3,7 +3,7 @@
 #define __FELIDE_UI_DOCUMENT_HPP__
 
 #include <string>
-#include <felide/core/Predef.hpp>
+#include <Xenoide/Core/Predef.hpp>
 
 namespace felide {
     struct DocumentConfig {

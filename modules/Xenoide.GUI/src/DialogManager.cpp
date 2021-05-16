@@ -1,5 +1,5 @@
 
-#include <felide/gui/DialogManager.hpp>
+#include <Xenoide/GUI/DialogManager.hpp>
 
 namespace felide {
     DialogManager::~DialogManager() {}

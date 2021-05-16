@@ -1,5 +1,5 @@
 
-#include <felide/gui/qt5/IDEFrameQt.hpp>
+#include <Xenoide/GUI/Qt5/IDEFrameQt.hpp>
 
 #include <iostream>
 #include <vector>
@@ -9,10 +9,10 @@
 #include <QCloseEvent>
 #include <QMdiArea>
 #include <QMdiSubWindow>
-#include <felide/gui/IDEFramePresenter.hpp>
-#include <felide/gui/qt5/DialogManagerQt.hpp>
-#include <felide/gui/qt5/FolderBrowserQt.hpp>
-#include <felide/gui/qt5/UtilitiesQt.hpp>
+#include <Xenoide/GUI/IDEFramePresenter.hpp>
+#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/GUI/Qt5/FolderBrowserQt.hpp>
+#include <Xenoide/GUI/Qt5/UtilitiesQt.hpp>
 
 namespace felide {
     IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {

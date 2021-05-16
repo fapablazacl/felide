@@ -1,10 +1,10 @@
 
-#include <felide/gui/IDEFrameModel.hpp>
+#include <Xenoide/GUI/IDEFrameModel.hpp>
 
 #include <iostream>
-#include <felide/gui/DocumentManagerModel.hpp>
-#include <felide/gui/FolderBrowserModel.hpp>
-#include <felide/core/FolderService.hpp>
+#include <Xenoide/GUI/DocumentManagerModel.hpp>
+#include <Xenoide/GUI/FolderBrowserModel.hpp>
+#include <Xenoide/Core/FolderService.hpp>
 
 namespace felide {
     class IDEFrameModelImpl : public IDEFrameModel {

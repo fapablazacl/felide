@@ -1,5 +1,5 @@
 
-#include <felide/gui/qt5/DocumentManagerMdiQt.hpp>
+#include <Xenoide/GUI/Qt5/DocumentManagerMdiQt.hpp>
 
 #include <iostream>
 #include <QGridLayout>
@@ -8,9 +8,9 @@
 #include <QMdiSubWindow>
 #include <QTextEdit>
 
-#include <felide/gui/DocumentPresenter.hpp>
-#include <felide/gui/DocumentManagerPresenter.hpp>
-#include <felide/gui/qt5/DocumentMdiSubWindowQt.hpp>
+#include <Xenoide/GUI/DocumentPresenter.hpp>
+#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
+#include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
 
 namespace felide {
     DocumentManagerMdiQt::DocumentManagerMdiQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), mDialogManager(this) {

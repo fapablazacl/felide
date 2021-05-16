@@ -1,12 +1,12 @@
 
-#include <felide/gui/DocumentPresenter.hpp>
-#include <felide/gui/DocumentModel.hpp>
-#include <felide/gui/Document.hpp>
+#include <Xenoide/GUI/DocumentPresenter.hpp>
+#include <Xenoide/GUI/DocumentModel.hpp>
+#include <Xenoide/GUI/Document.hpp>
 
 #include <boost/filesystem/path.hpp>
 
-#include <felide/gui/DialogManager.hpp>
-#include <felide/core/FileService.hpp>
+#include <Xenoide/GUI/DialogManager.hpp>
+#include <Xenoide/Core/FileService.hpp>
 
 namespace felide {
     DocumentPresenter::DocumentPresenter(DocumentModel *model) {

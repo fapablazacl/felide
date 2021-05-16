@@ -2,8 +2,8 @@
 #ifndef __FELIDE_UI_MAINWINDOWVIEW_HPP__
 #define __FELIDE_UI_MAINWINDOWVIEW_HPP__
 
-#include <felide/core/Predef.hpp>
-#include <felide/gui/FileFilter.hpp>
+#include <Xenoide/Core/Predef.hpp>
+#include <Xenoide/GUI/FileFilter.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/filesystem/path.hpp>
 

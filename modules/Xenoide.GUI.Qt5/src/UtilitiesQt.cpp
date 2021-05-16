@@ -1,5 +1,5 @@
 
-#include <felide/gui/qt5/UtilitiesQt.hpp>
+#include <Xenoide/GUI/Qt5/UtilitiesQt.hpp>
 
 #include <map>
 

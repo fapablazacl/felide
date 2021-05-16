@@ -9,8 +9,8 @@
 #include <QPushButton>
 #include <QLabel>
 
-#include <felide/gui/FindReplaceDialog.hpp>
-#include <felide/gui/qt5/DocumentMdiSubWindowQt.hpp>
+#include <Xenoide/GUI/FindReplaceDialog.hpp>
+#include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
 
 namespace felide {
     class FindReplaceDialogPresenter;

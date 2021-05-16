@@ -1,7 +1,7 @@
 
-#include <felide/gui/FileSearchDialogPresenter.hpp>
-#include <felide/gui/FileSearchDialog.hpp>
-#include <felide/gui/FileSearchDialogModel.hpp>
+#include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
+#include <Xenoide/GUI/FileSearchDialog.hpp>
+#include <Xenoide/GUI/FileSearchDialogModel.hpp>
 
 #include <cassert>
 
