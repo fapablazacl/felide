@@ -1,14 +1,14 @@
 
 set (target "gui-mvp")
 set (sources
-    "felide/gui/mvp/MainFrame.hpp"
-    "felide/gui/mvp/MainFrame.cpp"
-    "felide/gui/mvp/DocumentManager.hpp"
-    "felide/gui/mvp/DocumentManager.cpp"
-    "felide/gui/mvp/Document.hpp"
-    "felide/gui/mvp/Document.cpp"
-    "felide/gui/mvp/FindReplace.hpp"
-    "felide/gui/mvp/FindReplace.cpp"
+    "Xenoide/gui/mvp/MainFrame.hpp"
+    "Xenoide/gui/mvp/MainFrame.cpp"
+    "Xenoide/gui/mvp/DocumentManager.hpp"
+    "Xenoide/gui/mvp/DocumentManager.cpp"
+    "Xenoide/gui/mvp/Document.hpp"
+    "Xenoide/gui/mvp/Document.cpp"
+    "Xenoide/gui/mvp/FindReplace.hpp"
+    "Xenoide/gui/mvp/FindReplace.cpp"
 )
 
 add_library (${target} ${sources})
