@@ -84,4 +84,13 @@ namespace felide {
     void IDEFrameQt::show() {
         QMainWindow::show();
     }
+
+    void IDEFrameQt::showPanel(const Panel panel) {
+        switch (panel) {
+        case IDEFrame::FOLDER_BROWSER:
+            const bool visible = !mFolderBrowserDock->isVisible();
+            mFolderBrowserDock->setVisible(visible);
+            break;
+        }
+    }
 }

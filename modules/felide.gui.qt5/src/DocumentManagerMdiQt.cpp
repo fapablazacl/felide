@@ -119,8 +119,12 @@ namespace felide {
         documentSubWindowQt->setAttribute(Qt::WA_DeleteOnClose, true);
 
         // handle the tab close request
-        this->connect(documentSubWindowQt, &DocumentMdiSubWindowQt::closeRequested, [documentPresenter](DocumentMdiSubWindowQt *subWindow, QCloseEvent *evt) {
+        this->connect(documentSubWindowQt, &DocumentMdiSubWindowQt::closeRequested, [=](DocumentMdiSubWindowQt *subWindow, QCloseEvent *evt) {
+            std::cout << "triggered DocumentMdiSubWindowQt::closeRequested" << std::endl;
+
             if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
+                presenter->onCloseDocument(subWindow);
+
                 evt->accept();
             } else {
                 evt->ignore();

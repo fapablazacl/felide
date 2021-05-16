@@ -1,14 +1,16 @@
 
 #include <felide/gui/DocumentManagerPresenter.hpp>
 
-#include <felide/gui/DocumentManager.hpp>
-#include <felide/gui/DocumentManagerModel.hpp>
 
 #include <algorithm>
+#include <iostream>
 
 #include <felide/gui/DialogManager.hpp>
 #include <felide/gui/DocumentModel.hpp>
 #include <felide/gui/DocumentPresenter.hpp>
+#include <felide/gui/DocumentManager.hpp>
+#include <felide/gui/DocumentManagerModel.hpp>
+
 
 namespace felide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {
@@ -69,6 +71,8 @@ namespace felide {
     }
 
     void DocumentManagerPresenter::onCloseDocument(Document *document) {
+        std::cout << "DocumentManagerPresenter::onCloseDocument" << std::endl;
+
         if (auto documentPresenter = this->findDocumentPresenter(document)) {
             if (documentPresenter->onCloseRequested() == DocumentPresenter::UserResponse::Accept) {
                 this->closeDocumentMVP(documentPresenter);
@@ -173,6 +177,8 @@ namespace felide {
     }
 
     void DocumentManagerPresenter::closeDocumentMVP(DocumentPresenter *documentPresenter) {
+        std::cout << "DocumentManagerPresenter::closeDocumentMVP" << std::endl;
+
         view->closeDocument(documentPresenter->getView());
         model->closeDocument(documentPresenter->getModel());
 

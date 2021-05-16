@@ -171,7 +171,7 @@ namespace felide {
     }
     
     void IDEFramePresenter::onViewFolderBrowser() {
-        // TODO: Add implementation
+        view->showPanel(IDEFrame::FOLDER_BROWSER);
     }
 
     void IDEFramePresenter::openFolder(const std::string &fullPath) {

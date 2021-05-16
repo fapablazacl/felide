@@ -16,6 +16,11 @@ namespace felide {
 
     class IDEFrame {
     public:
+        enum Panel {
+            FOLDER_BROWSER
+        };
+
+    public:
         explicit IDEFrame(IDEFramePresenter *presenter);
 
         virtual ~IDEFrame();
@@ -29,6 +34,8 @@ namespace felide {
         virtual void close() = 0;
 
         virtual void show() = 0;
+
+        virtual void showPanel(const Panel panel) = 0;
 
     protected:
         IDEFramePresenter *mPresenter;
