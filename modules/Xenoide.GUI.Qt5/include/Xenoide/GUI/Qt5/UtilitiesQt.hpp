@@ -5,7 +5,7 @@
 #include <QMenuBar>
 #include <Xenoide/GUI/Menu.hpp>
 
-namespace felide {
+namespace Xenoide {
     extern void setupMenu(QMenu *parentMenuPtr, const Menu &menu);
 
     extern QMenuBar* createMenuBar(QWidget *parent, const Menu &menuBar);

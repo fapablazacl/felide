@@ -7,7 +7,7 @@
 #include <boost/optional/optional.hpp>
 #include <boost/filesystem/path.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DocumentManager;
     class DialogManager;
     class FolderBrowser;

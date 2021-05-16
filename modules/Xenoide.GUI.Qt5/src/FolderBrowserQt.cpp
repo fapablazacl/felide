@@ -15,7 +15,7 @@
 
 #include <boost/filesystem.hpp>
 
-namespace felide {
+namespace Xenoide {
     namespace fs = boost::filesystem;
 
     // TODO: Refactor file handling logic into another layer
@@ -60,7 +60,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     void FolderBrowserQt::displayFolder(const std::string &folder) {
         this->setProjectFolder(folder.c_str());
     }
@@ -73,7 +73,7 @@ namespace felide {
     }
 }
 
-namespace felide {
+namespace Xenoide {
     FolderBrowserQt::FolderBrowserQt(QWidget *parent, FolderBrowserPresenter *presenter, DialogManagerQt *dialogManager) : QWidget(parent), FolderBrowser(presenter) {
         mTreeView = new QTreeView(this);
 

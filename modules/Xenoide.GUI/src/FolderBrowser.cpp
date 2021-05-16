@@ -1,7 +1,7 @@
 
 #include <Xenoide/GUI/FolderBrowser.hpp>
 
-namespace felide {
+namespace Xenoide {
     FolderBrowser::FolderBrowser(FolderBrowserPresenter *presenter) {
         mPresenter = presenter;
     }

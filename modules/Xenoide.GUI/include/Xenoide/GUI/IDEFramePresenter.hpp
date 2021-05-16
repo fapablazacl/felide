@@ -15,7 +15,7 @@
 #include <map>
 #include <memory>
 
-namespace felide {
+namespace Xenoide {
     class DocumentModel;
     class Document;
     class IDEFrame;

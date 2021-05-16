@@ -11,7 +11,7 @@
 #include <Xenoide/GUI/FolderBrowser.hpp>
 #include <Xenoide/GUI/FolderBrowserModel.hpp>
 
-namespace felide {
+namespace Xenoide {
     static std::string describePathKind(const boost::filesystem::path &path) {
         if (boost::filesystem::is_directory(path)) {
             return "directory";

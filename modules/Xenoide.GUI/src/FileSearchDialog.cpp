@@ -1,7 +1,7 @@
 
 #include <Xenoide/GUI/FileSearchDialog.hpp>
 
-namespace felide {
+namespace Xenoide {
     FileSearchDialog::FileSearchDialog(FileSearchDialogPresenter *presenter) {
         this->presenter = presenter;
     }

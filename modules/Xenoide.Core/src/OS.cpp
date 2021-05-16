@@ -1,7 +1,7 @@
 
 #include <Xenoide/Core/OS.hpp>
 
-namespace felide {
+namespace Xenoide {
     OS getCurrentOS() {
 #if defined(_WINDOWS)
         return OS::Windows;

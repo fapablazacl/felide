@@ -4,7 +4,7 @@
 
 #include <Xenoide/GUI/Menu.hpp>
 
-namespace felide {
+namespace Xenoide {
     IDEFrame::IDEFrame(IDEFramePresenter *presenter) {
         mPresenter = presenter;
     }

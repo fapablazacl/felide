@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-namespace felide {
+namespace Xenoide {
     /**
      * An abstraction of a Document.
      */

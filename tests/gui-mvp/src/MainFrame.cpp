@@ -3,14 +3,14 @@
 
 #include <cassert>
 
-namespace felide {
+namespace Xenoide {
     MainFrame::View::View(MainFrame::Presenter *presenter) : presenter(presenter) {
         assert(presenter);
     }
 }
 
 
-namespace felide {
+namespace Xenoide {
     MainFrame::Presenter::Presenter(MainFrame::Model *model) : model(model) {
         assert(model);
     }

@@ -5,7 +5,7 @@
 #include <boost/filesystem/operations.hpp>
 #include <Xenoide/Core/FolderService.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FolderBrowserModelImpl : public FolderBrowserModel {
     public:
         FolderBrowserModelImpl(FolderService *folderService) {
@@ -31,7 +31,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     FolderBrowserModel::~FolderBrowserModel() {}
 
     std::unique_ptr<FolderBrowserModel> FolderBrowserModel::create(FolderService *folderService) {

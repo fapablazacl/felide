@@ -7,7 +7,7 @@
 #include <boost/filesystem.hpp>
 
 int felide_main_qt5(int argc, char **argv) {
-    using namespace felide;
+    using namespace Xenoide;
 
     QApplication app(argc, argv);
 

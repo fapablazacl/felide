@@ -3,14 +3,14 @@
 
 #include <cassert>
 
-namespace felide {
+namespace Xenoide {
     Document::View::View(Document::Presenter *presenter) : presenter(presenter) {
         assert(presenter);
     }
 }
 
 
-namespace felide {
+namespace Xenoide {
     Document::Presenter::Presenter(Document::Model *model) : model(model) {
         assert(model);
     }

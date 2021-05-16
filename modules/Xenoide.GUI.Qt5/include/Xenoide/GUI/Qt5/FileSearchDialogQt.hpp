@@ -9,7 +9,7 @@
 #include <Xenoide/GUI/FileSearchDialog.hpp>
 #include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FileSearchDialogQt : public QDialog, public FileSearchDialog {
         Q_OBJECT
 

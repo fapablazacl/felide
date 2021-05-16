@@ -3,7 +3,7 @@
 
 #include <boost/filesystem.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FolderServiceImpl : public FolderService {
     public:
         virtual std::vector<boost::filesystem::path> listChildFolders(const boost::filesystem::path &folderPath) const override {
@@ -26,7 +26,7 @@ namespace felide {
 }
 
 
-namespace felide {
+namespace Xenoide {
     FolderService::~FolderService() {}
 
     std::unique_ptr<FolderService> FolderService::create() {

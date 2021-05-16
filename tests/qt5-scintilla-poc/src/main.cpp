@@ -5,7 +5,7 @@
 #include "QMainFrame.hpp"
 
 
-class MainFrameModel : public felide::MainFrame::Model {
+class MainFrameModel : public Xenoide::MainFrame::Model {
 public:
     std::string getTitle() const override {
         return "test-";
@@ -21,7 +21,7 @@ public:
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
-    using namespace felide;
+    using namespace Xenoide;
 
     MainFrameModel model{};
     MainFrame::Presenter presenter{&model};

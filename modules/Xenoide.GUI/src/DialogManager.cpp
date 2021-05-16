@@ -1,6 +1,6 @@
 
 #include <Xenoide/GUI/DialogManager.hpp>
 
-namespace felide {
+namespace Xenoide {
     DialogManager::~DialogManager() {}
 }

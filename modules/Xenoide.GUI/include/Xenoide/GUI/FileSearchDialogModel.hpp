@@ -6,7 +6,7 @@
 #include <memory>
 #include <boost/filesystem/path.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FileSearchDialogModel {
     public:
         virtual ~FileSearchDialogModel();

@@ -6,7 +6,7 @@
 #include <Xenoide/Core/Predef.hpp>
 #include <vector>
 
-namespace felide {
+namespace Xenoide {
     class Document;
     class DocumentPresenter;
 

@@ -7,7 +7,7 @@
 #include <vector>
 #include <boost/filesystem/path.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FolderService;
 
     class FolderBrowserModel {

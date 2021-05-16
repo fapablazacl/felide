@@ -1,6 +1,6 @@
-# "felide"
+# "Xenoide"
 
-"felide" a integrated development environment
+"Xenoide" a integrated development environment
 
 # Features:
 * Lightweight.

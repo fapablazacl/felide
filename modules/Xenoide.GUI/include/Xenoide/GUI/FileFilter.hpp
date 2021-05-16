@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace felide {
+namespace Xenoide {
     struct FileFilter {
         std::string description;
         std::vector<std::string> wildcards;

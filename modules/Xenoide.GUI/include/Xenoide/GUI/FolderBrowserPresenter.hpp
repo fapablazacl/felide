@@ -7,7 +7,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/optional/optional_fwd.hpp>
 
-namespace felide {
+namespace Xenoide {
     struct Point;
 
     class IDEModel;

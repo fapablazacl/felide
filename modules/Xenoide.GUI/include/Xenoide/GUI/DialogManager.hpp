@@ -9,7 +9,7 @@
 #include <Xenoide/GUI/FileFilter.hpp>
 #include <Xenoide/Core/Predef.hpp>
 
-namespace felide {
+namespace Xenoide {
     enum class FileDialogType {
         OpenFile,
         SaveFile

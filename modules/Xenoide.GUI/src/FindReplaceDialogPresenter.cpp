@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-namespace felide {
+namespace Xenoide {
     void FindReplaceDialogPresenter::attachView(FindReplaceDialog *view, Document *documentView) {
         this->view = view;
         this->documentView = documentView;

@@ -20,7 +20,7 @@
 #include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
 #include <Xenoide/GUI/Qt5/DocumentManagerMdiQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FolderBrowserQt;
     class IDEFrameQt : public QMainWindow, public IDEFrame, public MenuPanel {
         Q_OBJECT;

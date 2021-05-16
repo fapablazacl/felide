@@ -5,7 +5,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 
-namespace felide {
+namespace Xenoide {
     static const char *keywords = {
         "alignas alignof and and_eq asm atomic_cancel atomic_commit" " "
         "atomic_noexcept auto bitand bitor bool break case catch char" " "
@@ -106,7 +106,7 @@ namespace felide {
     }
 }
 
-namespace felide {
+namespace Xenoide {
     void QMainFrame::closeEvent(QCloseEvent *event) {
         assert(presenter);
 

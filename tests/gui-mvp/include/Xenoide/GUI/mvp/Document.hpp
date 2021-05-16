@@ -4,7 +4,7 @@
 #include <string>
 #include <optional>
 
-namespace felide {
+namespace Xenoide {
     class Document final {
     public:
         Document() = delete;

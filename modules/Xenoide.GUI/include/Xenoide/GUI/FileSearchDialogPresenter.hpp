@@ -5,7 +5,7 @@
 #include <string>
 #include <Xenoide/Core/Predef.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FileSearchDialog;
     class FileSearchDialogModel;
     class FileSearchDialogPresenter {

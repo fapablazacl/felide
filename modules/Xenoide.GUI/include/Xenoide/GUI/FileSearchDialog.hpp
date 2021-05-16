@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace felide {
+namespace Xenoide {
     class FileSearchDialogPresenter;
     class FileSearchDialog {
     public:

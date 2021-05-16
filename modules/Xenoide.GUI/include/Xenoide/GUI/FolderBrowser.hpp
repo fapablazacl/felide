@@ -7,7 +7,7 @@
 #include <Xenoide/GUI/Menu.hpp>
 #include <boost/optional/optional.hpp>
 
-namespace felide {
+namespace Xenoide {
     struct Point {
         int x, y;
     };

@@ -1,7 +1,7 @@
 
 #include <Xenoide/GUI/Qt5/FindReplaceDialogQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     template<typename TWidget>
     void addChildToParent(QWidget *parent, TWidget **widget, const QRect &geometry, const QString &title) {
         *widget = new TWidget(title, parent);

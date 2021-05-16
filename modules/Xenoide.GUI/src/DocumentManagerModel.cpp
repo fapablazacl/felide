@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <Xenoide/GUI/DocumentModel.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DocumentManagerModelImpl : public DocumentManagerModel {
     public:
         virtual ~DocumentManagerModelImpl() {}
@@ -54,7 +54,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     DocumentManagerModel::~DocumentManagerModel() {}
 
     std::unique_ptr<DocumentManagerModel> DocumentManagerModel::create() {

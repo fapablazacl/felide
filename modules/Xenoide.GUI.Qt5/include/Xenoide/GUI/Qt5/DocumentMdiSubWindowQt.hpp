@@ -14,7 +14,7 @@
 #include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
 
 
-namespace felide {
+namespace Xenoide {
     // TODO: Consider promote this class to be the Document interface implementation
     class DocumentMdiSubWindowQt : public QMdiSubWindow, public Document {
         Q_OBJECT

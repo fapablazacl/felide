@@ -6,7 +6,7 @@
 #include <boost/filesystem/path.hpp>
 #include <Xenoide/Core/Predef.hpp>
 
-namespace felide {
+namespace Xenoide {
     class Document;
     class DocumentModel;
     class DialogManager;

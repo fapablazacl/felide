@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace felide {
+namespace Xenoide {
     class MainFrame final {
     public:
         MainFrame() = delete;

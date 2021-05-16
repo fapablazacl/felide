@@ -1,6 +1,6 @@
 
 #include <Xenoide/GUI/MenuPanel.hpp>
 
-namespace felide {
+namespace Xenoide {
     MenuPanel::~MenuPanel() {}
 }

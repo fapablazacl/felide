@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-namespace felide {
+namespace Xenoide {
     FileSearchDialogItemWidgetQt::FileSearchDialogItemWidgetQt(QWidget *parent, const QString &fileTitle, const QString &fileFolder, const QString &filePath) : QWidget(parent) {
         auto fileTitleLabel = new QLabel(fileTitle);
         auto filePathLabel = new QLabel(fileFolder);

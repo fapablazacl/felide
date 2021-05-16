@@ -6,7 +6,7 @@
 #include <vector>
 #include <functional>
 
-namespace felide {
+namespace Xenoide {
     enum class MenuKind {
         SubMenu,
         Action,

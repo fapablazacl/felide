@@ -6,7 +6,7 @@
 #include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
 #include <Xenoide/GUI/Qt5/FileSearchDialogItemWidgetQt.hpp>
 
-namespace felide  {
+namespace Xenoide  {
     FileSearchDialogQt::FileSearchDialogQt(QWidget *parent, FileSearchDialogPresenter *presenter) : QDialog(parent), FileSearchDialog(presenter) {
         this->filePatternLineEdit = new QLineEdit();
         this->filesListWidget = new QListWidget();

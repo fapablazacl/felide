@@ -1,6 +1,6 @@
 
 #include <Xenoide/GUI/FileFilter.hpp>
 
-namespace felide {
+namespace Xenoide {
     FileFilter::~FileFilter() {}
 }

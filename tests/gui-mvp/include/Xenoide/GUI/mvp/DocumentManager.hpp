@@ -6,7 +6,7 @@
 
 #include "Document.hpp"
 
-namespace felide {
+namespace Xenoide {
     class DocumentManager final {
     public:
         DocumentManager() = delete;

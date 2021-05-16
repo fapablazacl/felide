@@ -10,7 +10,7 @@
 #include <QMenu>
 
 
-namespace felide {
+namespace Xenoide {
     DocumentMdiSubWindowQt::DocumentMdiSubWindowQt(DocumentPresenter *presenter) : mDialogManager(this) {
         mPresenter = presenter;
 

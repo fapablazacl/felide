@@ -12,7 +12,7 @@
 #include <Qsci/qscilexercpp.h>
 
 
-namespace felide {
+namespace Xenoide {
     class QMainFrame : public QMainWindow, public MainFrame::View {
         Q_OBJECT
 

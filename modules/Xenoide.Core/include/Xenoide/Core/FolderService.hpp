@@ -6,7 +6,7 @@
 #include <string>
 #include <boost/filesystem/path.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FolderService {
     public:
         virtual ~FolderService();

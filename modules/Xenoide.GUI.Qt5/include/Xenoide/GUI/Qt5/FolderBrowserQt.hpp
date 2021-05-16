@@ -8,7 +8,7 @@
 
 #include <Xenoide/GUI/FolderBrowser.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DialogManagerQt;
     class FolderBrowserPresenter;
     class DialogManager;

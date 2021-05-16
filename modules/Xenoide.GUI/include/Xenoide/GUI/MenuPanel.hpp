@@ -4,7 +4,7 @@
 
 #include <Xenoide/Core/Predef.hpp>
 
-namespace felide {
+namespace Xenoide {
     struct Menu;
 
     /**

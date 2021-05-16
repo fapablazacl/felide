@@ -11,7 +11,7 @@
 #include <iostream>
 #include <cassert>
 
-namespace felide {
+namespace Xenoide {
     IDEFramePresenter::IDEFramePresenter(IDEFrameModel *model) {
         this->model = model;
 

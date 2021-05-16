@@ -3,7 +3,7 @@
 
 #include <map>
 
-namespace felide {
+namespace Xenoide {
     static const std::map<Key, std::string> keyMap = {
         { Key::F1, "F1" },
         { Key::F2, "F2" },

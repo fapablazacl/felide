@@ -11,7 +11,7 @@
 #include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
 #include <Xenoide/GUI/FileSearchDialogModel.hpp>
 
-namespace felide {
+namespace Xenoide {
     DialogManagerQt::DialogManagerQt(QWidget *parent) {
         m_parent = parent;
     }

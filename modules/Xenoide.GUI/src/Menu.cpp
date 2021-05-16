@@ -1,7 +1,7 @@
 
 #include <Xenoide/GUI/Menu.hpp>
 
-namespace felide {
+namespace Xenoide {
     Menu Menu::menuBar(const std::vector<Menu> &childs) {
         Menu menu;
 

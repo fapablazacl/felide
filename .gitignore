@@ -2,7 +2,7 @@ build*
 build/*
 build-clang/*
 .vscode/*
-.felide
+.Xenoide
 .DS_Store
 .kdev4/
 .build

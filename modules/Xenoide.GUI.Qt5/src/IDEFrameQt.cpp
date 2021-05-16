@@ -14,7 +14,7 @@
 #include <Xenoide/GUI/Qt5/FolderBrowserQt.hpp>
 #include <Xenoide/GUI/Qt5/UtilitiesQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     IDEFrameQt::IDEFrameQt(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         mDialogManager = std::make_unique<DialogManagerQt>(this);
 
@@ -64,7 +64,7 @@ namespace felide {
     }
 }
 
-namespace felide {
+namespace Xenoide {
     DocumentManager* IDEFrameQt::getDocumentManager() {
         return mDocumentManager;
     }

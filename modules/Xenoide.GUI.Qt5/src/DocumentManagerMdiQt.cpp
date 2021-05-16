@@ -12,7 +12,7 @@
 #include <Xenoide/GUI/DocumentManagerPresenter.hpp>
 #include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     DocumentManagerMdiQt::DocumentManagerMdiQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), mDialogManager(this) {
         mMdiArea = new QMdiArea(this);
         mMdiArea->setViewMode(QMdiArea::TabbedView);
@@ -108,7 +108,7 @@ namespace felide {
     }
 }
 
-namespace felide {
+namespace Xenoide {
     Document* DocumentManagerMdiQt::appendDocument(DocumentPresenter *documentPresenter) {
         assert(mMdiArea);
         assert(documentPresenter);

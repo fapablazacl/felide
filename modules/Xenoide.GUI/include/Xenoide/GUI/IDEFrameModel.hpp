@@ -10,7 +10,7 @@
 #include <Xenoide/Core/Predef.hpp>
 #include <Xenoide/GUI/FileFilter.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DocumentManagerModel;
     class FolderBrowserModel;
 

@@ -6,7 +6,7 @@
 #include <Xenoide/GUI/FolderBrowserModel.hpp>
 #include <Xenoide/Core/FolderService.hpp>
 
-namespace felide {
+namespace Xenoide {
     class IDEFrameModelImpl : public IDEFrameModel {
     public:
         IDEFrameModelImpl() {
@@ -48,7 +48,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     IDEFrameModel::~IDEFrameModel() {}
 
     std::unique_ptr<IDEFrameModel> IDEFrameModel::create() {

@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-namespace felide {
+namespace Xenoide {
     static bool is_logically_hidden(const boost::filesystem::path &path) {
         const std::string title = path.filename().string();
 
@@ -83,7 +83,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     FileSearchDialogModel::~FileSearchDialogModel() {}
 
     std::unique_ptr<FileSearchDialogModel> FileSearchDialogModel::create(const boost::filesystem::path &basePath) {

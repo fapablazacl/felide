@@ -5,7 +5,7 @@
 
 #include <cassert>
 
-namespace felide {
+namespace Xenoide {
     FileSearchDialogPresenter::FileSearchDialogPresenter(FileSearchDialogModel *model) {
         this->model = model;
     }

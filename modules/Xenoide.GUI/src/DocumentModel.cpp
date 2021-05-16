@@ -1,7 +1,7 @@
 
 #include <Xenoide/GUI/DocumentModel.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DocumentModelImpl : public DocumentModel {
     public:
         DocumentModelImpl(int tag) {
@@ -74,7 +74,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     int DocumentModel::count = 0;
 
     DocumentModel::~DocumentModel() {}

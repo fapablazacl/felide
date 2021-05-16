@@ -7,7 +7,7 @@
 #include <string>
 #include <optional>
 
-namespace felide {
+namespace Xenoide {
     class FindReplaceDialogPresenter;
     class FindReplaceDialog {
     public:

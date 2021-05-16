@@ -8,7 +8,7 @@
 #include <Xenoide/GUI/DialogManager.hpp>
 #include <Xenoide/Core/FileService.hpp>
 
-namespace felide {
+namespace Xenoide {
     DocumentPresenter::DocumentPresenter(DocumentModel *model) {
         this->model = model;
     }

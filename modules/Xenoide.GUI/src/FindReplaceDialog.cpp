@@ -1,6 +1,6 @@
 
 #include <Xenoide/GUI/FindReplaceDialog.hpp>
 
-namespace felide {
+namespace Xenoide {
     FindReplaceDialog::~FindReplaceDialog() {}
 }

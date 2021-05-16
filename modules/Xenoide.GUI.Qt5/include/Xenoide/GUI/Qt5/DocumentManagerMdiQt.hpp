@@ -12,7 +12,7 @@
 #include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
 #include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DocumentMdiSubWindowQt;
     class Document;
     class DocumentManagerMdiQt : public QWidget, public DocumentManager {

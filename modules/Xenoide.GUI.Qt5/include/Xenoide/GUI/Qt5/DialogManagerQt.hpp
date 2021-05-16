@@ -5,7 +5,7 @@
 #include <Xenoide/GUI/DialogManager.hpp>
 #include <QWidget>
 
-namespace felide {
+namespace Xenoide {
     class DialogManagerQt : public DialogManager {
     public:
         explicit DialogManagerQt(QWidget *parent);

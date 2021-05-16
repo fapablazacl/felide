@@ -2,7 +2,7 @@
 #include <Xenoide/Core/FileService.hpp>
 #include <fstream>
 
-namespace felide {
+namespace Xenoide {
     class FileServiceImpl : public FileService {
     public:
         FileServiceImpl() {}
@@ -51,7 +51,7 @@ namespace felide {
     };
 }
 
-namespace felide {
+namespace Xenoide {
     FileService::~FileService() {}
 
     std::unique_ptr<FileService> FileService::create() {

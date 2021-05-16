@@ -6,7 +6,7 @@
 #include <QLabel>
 #include <QListWidgetItem>
 
-namespace felide {
+namespace Xenoide {
     class FileSearchDialogItemWidgetQt : public QWidget {
         Q_OBJECT
         

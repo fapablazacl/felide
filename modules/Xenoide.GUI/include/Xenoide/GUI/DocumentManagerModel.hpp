@@ -8,7 +8,7 @@
 #include <Xenoide/Core/Predef.hpp>
 #include <boost/filesystem/path.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DocumentModel;
     class DocumentManagerModel {
     public:

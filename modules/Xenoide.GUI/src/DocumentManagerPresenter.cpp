@@ -12,7 +12,7 @@
 #include <Xenoide/GUI/DocumentManagerModel.hpp>
 
 
-namespace felide {
+namespace Xenoide {
     DocumentManagerPresenter::DocumentManagerPresenter(DocumentManagerModel *model) {
         this->model = model;
     }

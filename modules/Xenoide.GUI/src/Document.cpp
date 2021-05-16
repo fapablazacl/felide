@@ -3,7 +3,7 @@
 
 #include <Xenoide/Core/OS.hpp>
 
-namespace felide {
+namespace Xenoide {
     DocumentConfig DocumentConfig::Default() {
         // TODO: Parametrize this parameters into an external file
         switch (getCurrentOS()) {

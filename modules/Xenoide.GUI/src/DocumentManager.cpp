@@ -1,7 +1,7 @@
 
 #include <Xenoide/GUI/DocumentManager.hpp>
 
-namespace felide {
+namespace Xenoide {
     DocumentManager::DocumentManager(DocumentManagerPresenter *presenter) {
         this->presenter = presenter;
     }

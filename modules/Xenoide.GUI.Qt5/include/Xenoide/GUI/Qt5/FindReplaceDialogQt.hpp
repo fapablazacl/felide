@@ -12,7 +12,7 @@
 #include <Xenoide/GUI/FindReplaceDialog.hpp>
 #include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
 
-namespace felide {
+namespace Xenoide {
     class FindReplaceDialogPresenter;
 
     class FindReplaceDialogQt : public QWidget, public FindReplaceDialog {

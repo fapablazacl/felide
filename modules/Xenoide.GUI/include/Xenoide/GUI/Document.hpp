@@ -5,7 +5,7 @@
 #include <string>
 #include <Xenoide/Core/Predef.hpp>
 
-namespace felide {
+namespace Xenoide {
     struct DocumentConfig {
         std::string fontName;
         int fontSize;

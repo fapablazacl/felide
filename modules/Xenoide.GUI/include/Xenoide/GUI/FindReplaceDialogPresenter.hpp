@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace felide {
+namespace Xenoide {
     class Document;
     class FindReplaceDialog;
     class FindReplaceDialogPresenter {

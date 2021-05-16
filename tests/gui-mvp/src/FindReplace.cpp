@@ -3,14 +3,14 @@
 
 #include <cassert>
 
-namespace felide {
+namespace Xenoide {
     FindReplace::View::View(FindReplace::Presenter *presenter) : presenter(presenter) {
         assert(presenter);
     }
 }
 
 
-namespace felide {
+namespace Xenoide {
     FindReplace::Presenter::Presenter(FindReplace::Model *model, Document::View *document) : model(model), document(document) {
         assert(model);
         assert(document);
