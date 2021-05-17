@@ -4,6 +4,10 @@
 
 #include <Xenoide/Core/Predef.hpp>
 #include <Xenoide/Gui/FileFilter.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
+#include <Xenoide/Gui/Document.hpp>
+#include <Xenoide/Gui/DocumentManager.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/filesystem/path.hpp>
 
@@ -11,17 +15,97 @@ namespace Xenoide {
     class DocumentManager;
     class DialogManager;
     class FolderBrowser;
-
-    class IDEFramePresenter;
+    class MenuPanel;
 
     class IDEFrame {
+    public:
+        class Model {
+        public:
+            virtual ~Model();
+
+            virtual std::vector<FileFilter> getFileFilters() const = 0;
+
+            virtual DocumentManager::Model *getDocumentManagerModel() = 0;
+
+            virtual FolderBrowser::Model *getFolderBrowserModel() = 0;
+
+            virtual boost::optional<boost::filesystem::path> getWorkspaceFolder() const = 0;
+
+            virtual void setWorkspaceFolder(boost::filesystem::path workspaceFolder) = 0;
+
+        public:
+            static std::unique_ptr<Model> create();
+        };
+
+
+        class Presenter {
+        public:
+            Presenter(Model *model);
+
+            virtual ~Presenter();
+
+            void onInitialized(IDEFrame *view, DialogManager *dialogView, MenuPanel *menuView);
+
+        public:
+            void onFileNew();
+
+            void onFileOpen();
+        
+            void onFileOpen(const std::string &fileName);
+
+            void onFileOpenFolder();
+
+            void onFileSave();
+
+            void onFileSaveAs();
+
+            void onFileSaveAll();
+
+            void onFileClose();
+
+            void onFileExit();
+
+            void onEditUndo();
+
+            void onEditRedo();
+
+            void onEditCut();
+
+            void onEditCopy();
+
+            void onEditPaste();
+
+            void onViewFolderBrowser();
+
+            void onToolsFileSearch();
+
+            bool onCloseRequested();
+
+        public:
+            DocumentManager::Presenter* getDocumentManagerPresenter();
+
+            FolderBrowser::Presenter* getFolderBrowserPresenter();
+
+            // TODO: Make it private (used in Main.cpp)
+            void openFolder(const std::string &fullPath);
+
+        private:
+            DialogManager *dialogView = nullptr;
+            MenuPanel *menuView = nullptr;
+            IDEFrame *view = nullptr;
+            Model *model = nullptr;
+        
+            std::unique_ptr<DocumentManager::Presenter> documentManagerPresenter;
+            std::unique_ptr<FolderBrowser::Presenter> folderBrowserPresenter;
+        };
+
     public:
         enum Panel {
             FOLDER_BROWSER
         };
 
     public:
-        explicit IDEFrame(IDEFramePresenter *presenter);
+        explicit IDEFrame(Presenter *presenter);
 
         virtual ~IDEFrame();
 
@@ -38,7 +122,7 @@ namespace Xenoide {
         virtual void showPanel(const Panel panel) = 0;
 
     protected:
-        IDEFramePresenter *mPresenter;
+        Presenter *mPresenter;
     };
 }
 

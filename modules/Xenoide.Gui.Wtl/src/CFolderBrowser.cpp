@@ -2,7 +2,7 @@
 #include "../include/Xenoide/Gui/Wtl/CFolderBrowser.hpp"
 
 namespace Xenoide {
-    CFolderBrowser::CFolderBrowser(FolderBrowserPresenter *presenter) : FolderBrowser(presenter) {
+    CFolderBrowser::CFolderBrowser(FolderBrowser::Presenter *presenter) : FolderBrowser(presenter) {
 
     }
 

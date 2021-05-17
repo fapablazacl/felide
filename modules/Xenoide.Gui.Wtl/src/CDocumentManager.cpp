@@ -51,7 +51,7 @@ namespace Xenoide {
     }
 
 
-    CDocumentManager::CDocumentManager(DocumentManagerPresenter* presenter) : DocumentManager(presenter)
+    CDocumentManager::CDocumentManager(DocumentManager::Presenter* presenter) : DocumentManager(presenter)
     {
     }
 
@@ -61,7 +61,7 @@ namespace Xenoide {
     }
 
 
-    Document* CDocumentManager::appendDocument(DocumentPresenter* presenter)
+    Document* CDocumentManager::appendDocument(Document::Presenter* presenter)
     {
         return nullptr;
     }

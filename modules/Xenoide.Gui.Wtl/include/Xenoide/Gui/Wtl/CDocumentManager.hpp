@@ -23,11 +23,11 @@ namespace Xenoide {
             MSG_WM_SIZE(OnSize)
         END_MSG_MAP()
 
-        CDocumentManager(DocumentManagerPresenter *presenter);
+        CDocumentManager(DocumentManager::Presenter *presenter);
 
         virtual ~CDocumentManager();
 
-        virtual Document* appendDocument(DocumentPresenter *presenter) override;
+        virtual Document* appendDocument(Document::Presenter *presenter) override;
 
         virtual Document* getCurrentDocument() override;
 

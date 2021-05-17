@@ -1,15 +1,63 @@
 
+#pragma once 
+
 #ifndef __XENOIDE_UI_SEARCHREPLACE_DIALOG_HPP__
 #define __XENOIDE_UI_SEARCHREPLACE_DIALOG_HPP__
-
-#pragma once 
 
 #include <string>
 #include <optional>
 
 namespace Xenoide {
-    class FindReplaceDialogPresenter;
+    class Document;
     class FindReplaceDialog {
+    public:
+        class Presenter {
+        public:
+            void attachView(FindReplaceDialog *view, Document *documentView);
+
+            void handleEditFindReplace();
+
+            void handleFindWhatTextBox_Change(const std::string &value);
+
+            void handleReplaceWithCheckBox_Click(const bool checked);
+
+            void handleReplaceWithTextBox_Change(const std::string &value);
+
+            void handleMatchCaseCheckBox_Click(const bool checked);
+
+            void handleMatchWholeWordCheckBox_Click(const bool checked);
+
+            void handleSelectionScopeOptionBox_Click();
+
+            void handleCurrentDocumentScopeOptionBox_Click();
+
+            void handleFindNextButton_Click();
+
+            void handleReplaceNextButton_Click();
+
+            void handleReplaceAllButton_Click();
+
+            void handleCloseButton_Click();
+
+        private:
+            bool findNext(const size_t offset);
+
+        private:
+            FindReplaceDialog *view = nullptr;
+            Document *documentView = nullptr;
+
+            std::string findWhat;
+            std::string replaceWith;
+            bool replaceInsteadOfFind = false;
+            bool matchCase = false;
+            bool matchWholeWord = false;
+
+            enum Scope {
+                Selection, CurrentDocument
+            } scope = CurrentDocument;
+        };
+
+
     public:
         enum SearchScope {
             Selection = 0,
@@ -30,7 +78,7 @@ namespace Xenoide {
     public:
         virtual ~FindReplaceDialog();
 
-        virtual void attachPresenter(FindReplaceDialogPresenter *presenter) = 0;
+        virtual void attachPresenter(Presenter *presenter) = 0;
 
         virtual void show(const ViewData &viewData) = 0;
 

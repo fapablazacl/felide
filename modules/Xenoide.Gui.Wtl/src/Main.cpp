@@ -9,8 +9,7 @@ CAppModule _Module;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     using Xenoide::CIdeFrame;
-    using Xenoide::IDEFramePresenter;
-    using Xenoide::IDEFrameModel;
+    using Xenoide::IDEFrame;
     
     ::CoInitialize(NULL);
 
@@ -18,9 +17,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     _Module.Init(NULL, hInstance);
 
-    auto ideFrameModel = IDEFrameModel::create();
+    auto ideFrameModel = IDEFrame::Model::create();
 
-    IDEFramePresenter ideFramePresenter{ideFrameModel.get()};
+    IDEFrame::Presenter ideFramePresenter{ideFrameModel.get()};
     CIdeFrame mainFrame{&ideFramePresenter};
     MSG msg;
 

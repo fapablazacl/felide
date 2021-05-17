@@ -27,7 +27,7 @@ namespace Xenoide {
     
     class CIdeFrame : public CWindowImpl<CIdeFrame, CWindow, CFrameWinTraits>, public IDEFrame, public MenuPanel {
     public:
-        CIdeFrame(IDEFramePresenter *presenter);
+        CIdeFrame(IDEFrame::Presenter *presenter);
 
         virtual ~CIdeFrame();
 
@@ -86,11 +86,11 @@ namespace Xenoide {
         
         std::unique_ptr<FolderService> folderService;
 
-        std::unique_ptr<FolderBrowserModel> folderBrowserModel;
-        std::unique_ptr<DocumentManagerModel> documentManagerModel;
+        std::unique_ptr<FolderBrowser::Model> folderBrowserModel;
+        std::unique_ptr<DocumentManager::Model> documentManagerModel;
 
-        std::unique_ptr<FolderBrowserPresenter> folderBrowserPresenter;
-        std::unique_ptr<DocumentManagerPresenter> documentManagerPresenter;
+        std::unique_ptr<FolderBrowser::Presenter> folderBrowserPresenter;
+        std::unique_ptr<DocumentManager::Presenter> documentManagerPresenter;
 
         std::unique_ptr<CFolderBrowser> folderBrowser;
         std::unique_ptr<CDialogManager> dialogManager;

@@ -3,6 +3,8 @@
 #define __XENOIDE_UI_DOCUMENT_HPP__
 
 #include <string>
+#include <memory>
+#include <boost/filesystem/path.hpp>
 #include <Xenoide/Core/Predef.hpp>
 
 namespace Xenoide {
@@ -25,7 +27,87 @@ namespace Xenoide {
         }
     };
 
+    class DialogManager;
     class Document {
+    public:
+        class Model {
+        public:
+            virtual ~Model();
+
+            virtual int getTag() const = 0;
+
+            virtual int getId() const = 0;
+
+            virtual void setModifiedFlag(const bool value) = 0;
+
+            virtual bool getModifiedFlag() const = 0;
+
+            virtual void modify() = 0;
+
+            virtual void setFilePath(const std::string &value) = 0;
+
+            virtual std::string getFilePath() const = 0;
+
+            virtual bool hasFilePath() const = 0;
+
+            virtual void setContent(const std::string &value) = 0;
+
+            virtual std::string getContent() const = 0;
+
+        public:
+            static int getCount();
+
+            static std::unique_ptr<Model> create(int tag);
+
+            static std::unique_ptr<Model> create(const std::string &filePath);
+
+            static std::unique_ptr<Model> create(const std::string &filePath, const std::string &content);
+
+        protected:
+            static int count;
+        };
+
+
+        class Presenter {
+        public:
+            enum class UserResponse {
+                Cancel,
+                Accept
+            };
+
+            Presenter(Model *model);
+
+            ~Presenter();
+
+            void onInitialized(Document *view, DialogManager *dialogView);
+
+            void onContentChanged();
+
+            void onTitleChanged();
+
+            UserResponse onSave();
+
+            UserResponse onSaveAs();
+
+            UserResponse onCloseRequested();
+
+            bool hasFilePath(const boost::filesystem::path &filePath) const;
+
+            Document* getView() const;
+
+            Model* getModel() const;
+
+        private:
+            std::string computeFileTitle(Model *model) const;
+
+            std::string computeTitle(Model *model) const;
+
+        private:
+            DialogManager *dialogView = nullptr;
+            Document *view = nullptr;
+            Model *model = nullptr;
+        };
+
     public:
         virtual ~Document();
 
@@ -56,7 +138,6 @@ namespace Xenoide {
         virtual void clearSelection() = 0;
 
         virtual TextSelection getSelection() const = 0;
-
     };    
 }
 

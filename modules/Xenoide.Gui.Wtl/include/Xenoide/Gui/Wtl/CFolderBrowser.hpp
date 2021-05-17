@@ -23,7 +23,7 @@ namespace Xenoide {
         END_MSG_MAP()
 
     public:
-        CFolderBrowser(FolderBrowserPresenter *presenter);
+        CFolderBrowser(FolderBrowser::Presenter *presenter);
 
         ~CFolderBrowser();
 

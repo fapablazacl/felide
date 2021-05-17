@@ -14,13 +14,13 @@
 
 
 namespace Xenoide {
-    CIdeFrame::CIdeFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {
+    CIdeFrame::CIdeFrame(IDEFrame::Presenter *presenter) : IDEFrame(presenter) {
         folderService = FolderService::create();
-        folderBrowserModel = FolderBrowserModel::create(folderService.get());
-        documentManagerModel = DocumentManagerModel::create();
+        folderBrowserModel = FolderBrowser::Model::create(folderService.get());
+        documentManagerModel = DocumentManager::Model::create();
 
-        folderBrowserPresenter = std::make_unique<FolderBrowserPresenter>(folderBrowserModel.get(), presenter);
-        documentManagerPresenter = std::make_unique<DocumentManagerPresenter>(documentManagerModel.get());
+        folderBrowserPresenter = std::make_unique<FolderBrowser::Presenter>(folderBrowserModel.get());
+        documentManagerPresenter = std::make_unique<DocumentManager::Presenter>(documentManagerModel.get());
 
         folderBrowser = std::make_unique<CFolderBrowser>(folderBrowserPresenter.get());
         dialogManager = std::make_unique<CDialogManager>();

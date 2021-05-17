@@ -4,10 +4,42 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+#include <boost/filesystem/path.hpp>
 
 namespace Xenoide {
-    class FileSearchDialogPresenter;
     class FileSearchDialog {
+    public:
+        class Model {
+        public:
+            virtual ~Model();
+
+            virtual std::vector<boost::filesystem::path> searchFilePattern(const std::string &filePattern, const int maxResults) = 0;
+
+        public:
+            static std::unique_ptr<Model> create(const boost::filesystem::path &basePath);
+        };
+
+
+    public:
+        class Presenter {
+        public:
+            Presenter(Model *model);
+
+            void onInitialized(FileSearchDialog *view);
+
+            void onAccepted(const std::string &filePath);
+
+            void onCancelled();
+
+            void onFilenameFilterRequested(const std::string &fileNamePart);
+
+        private:
+            Model *model = nullptr;
+            FileSearchDialog *view = nullptr;
+        };
+
+
     public:
         struct FileViewData {
             //! File to be shown to the User
@@ -21,7 +53,7 @@ namespace Xenoide {
         };
 
     public:
-        explicit FileSearchDialog(FileSearchDialogPresenter *presenter);
+        explicit FileSearchDialog(Presenter *presenter);
 
         virtual ~FileSearchDialog();
 
@@ -32,7 +64,7 @@ namespace Xenoide {
         virtual void hide() = 0;
         
     protected:
-        FileSearchDialogPresenter *presenter = nullptr;
+        Presenter *presenter = nullptr;
     };
 }
 

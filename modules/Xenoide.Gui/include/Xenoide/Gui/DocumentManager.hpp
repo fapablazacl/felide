@@ -3,21 +3,87 @@
 #define __XENOIDE_UI_DOCUMENTMANAGER_HPP__
 
 #include <cstddef>
-#include <Xenoide/Core/Predef.hpp>
 #include <vector>
+#include <map>
+#include <tuple>
+#include <list>
+#include <Xenoide/Gui/Document.hpp>
 
 namespace Xenoide {
-    class Document;
-    class DocumentPresenter;
-
-    class DocumentManagerPresenter;
     class DocumentManager {
     public:
-        explicit DocumentManager(DocumentManagerPresenter *presenter);
+        class Model {
+        public:
+            virtual ~Model();
+
+            virtual Document::Model* createDocument() = 0;
+
+            virtual Document::Model* createDocument(const boost::filesystem::path &filePath) = 0;
+
+            virtual void closeDocument(Document::Model *documentModel) = 0;
+
+            virtual std::vector<Document::Model*> enumerateDocuments() const = 0;
+
+        public:
+            static std::unique_ptr<Model> create();
+        };
+
+        class Presenter {
+        public:
+            explicit Presenter(Model *model);
+
+            ~Presenter();
+
+            void onInitialized(DocumentManager *view, DialogManager *dialogView);
+
+            void onNewDocument();
+
+            void onOpenDocument(const boost::filesystem::path &path);
+
+            void onSaveDocument();
+
+            void onSaveAsDocument();
+
+            void onSaveAllDocuments();
+
+            void onCloseCurrentDocument();
+
+            void onCloseDocument(Document *document);
+
+            void onCloseOtherDocuments(Document *document);
+
+            void onCloseDocumentsToTheRight(Document *document);
+
+            void onCloseAllDocuments();
+
+        private:
+            Document::Presenter* createDocumentMVP();
+
+            Document::Presenter* createDocumentMVP(const boost::filesystem::path &filePath);
+
+            Document::Presenter* findDocumentPresenter(Document *document);
+
+            Document::Presenter* findDocumentPresenter(const boost::filesystem::path &filePath);
+
+            void closeDocumentPresenter(Document::Presenter *documentPresenter);
+
+            void closeDocumentMVP(Document::Presenter *documentPresenter);
+
+        private:
+            DialogManager *dialogView = nullptr;
+            DocumentManager *view = nullptr;
+            DocumentManager::Model *model = nullptr;
+
+            std::list<std::unique_ptr<Document::Presenter>> documentPresenters;
+        };
+
+
+    public:
+        explicit DocumentManager(Presenter *presenter);
 
         virtual ~DocumentManager();
 
-        virtual Document* appendDocument(DocumentPresenter *presenter) = 0;
+        virtual Document* appendDocument(Document::Presenter *presenter) = 0;
 
         virtual Document* getCurrentDocument() = 0;
 
@@ -36,7 +102,7 @@ namespace Xenoide {
         std::vector<Document*> enumerateDocuments();
 
     protected:
-        DocumentManagerPresenter *presenter = nullptr;
+        Presenter *presenter = nullptr;
     };
 } 
 
