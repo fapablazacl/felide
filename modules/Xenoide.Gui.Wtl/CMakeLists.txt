@@ -16,8 +16,9 @@ set (sources
 	"src/CFolderBrowser.cpp"
     "src/CDialogManager.cpp"
 	"src/Main.cpp"
-	"src/Resource.rc"
-	"src/resource.h"
+
+	"res/Resource.rc"
+	"res/resource.h"
 )
 
 add_executable (${target} WIN32 ${sources})

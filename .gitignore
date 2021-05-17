@@ -8,6 +8,5 @@ build-clang/*
 .build
 .borc*
 .vs/*
-.cmake/*
+.cmake*
 .idea/*
-cmake-*
