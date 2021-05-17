@@ -28,7 +28,7 @@ target_link_directories (${target} PRIVATE ${wxWidgets_LIBRARY_DIRS})
 
 target_link_libraries (
     ${target} 
-    felide.core
-    felide.gui
+    Xenoide.Core
+    Xenoide.Gui
     ${wxWidgets_LIBRARIES}
 )

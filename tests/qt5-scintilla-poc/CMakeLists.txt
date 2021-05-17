@@ -39,7 +39,7 @@ if (WIN32)
         debug qscintilla2_qt5d
         optimized qscintilla2_qt5
         Xenoide.Core
-        Xenoide.GUI
+        Xenoide.Gui
         gui-mvp
     )
 else ()
@@ -48,7 +48,7 @@ else ()
         Qt5::Widgets
         qscintilla2_qt5
         Xenoide.Core
-        Xenoide.GUI
+        Xenoide.Gui
         gui-mvp
     )
 endif ()
