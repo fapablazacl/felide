@@ -42,23 +42,23 @@ endif ()
 # IDE Core
 add_subdirectory ("modules/Xenoide")
 add_subdirectory ("modules/Xenoide.Core")
-add_subdirectory ("modules/Xenoide.GUI")
+add_subdirectory ("modules/Xenoide.Gui")
 
 #
 if (XENOIDE_GUI_COCOA)
-    add_subdirectory ("modules/Xenoide.GUI.Cocoa")
+    add_subdirectory ("modules/Xenoide.Gui.Cocoa")
 endif ()
 
 if (XENOIDE_GUI_GTK3)
-    add_subdirectory ("modules/Xenoide.GUI.Gtk3")
+    add_subdirectory ("modules/Xenoide.Gui.Gtk3")
 endif ()
 
 if (XENOIDE_GUI_QT5)
-    add_subdirectory ("modules/Xenoide.GUI.Qt5")
+    add_subdirectory ("modules/Xenoide.Gui.Qt5")
 endif ()
 
 if (XENOIDE_GUI_WTL)
-    add_subdirectory ("modules/Xenoide.GUI.Wtl")
+    add_subdirectory ("modules/Xenoide.Gui.Wtl")
 endif ()
 
 # Experimental programs and libraries for development testing purposes

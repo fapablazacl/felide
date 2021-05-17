@@ -1,6 +1,6 @@
 //
 //  MainWindowViewController.h
-//  Xenoide.GUI.Cocoa
+//  Xenoide.Gui.Cocoa
 //
 //  Created by dev-fapablaza on 3/9/20.
 //
