@@ -7,9 +7,7 @@
 #include <Xenoide/Core/FolderService.hpp>
 #include <Xenoide/Gui/Menu.hpp>
 #include <Xenoide/Gui/MenuPanel.hpp>
-#include <Xenoide/Gui/FolderBrowserModel.hpp>
-#include <Xenoide/Gui/FolderBrowserPresenter.hpp>
-#include <Xenoide/Gui/FolderBrowserModel.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
 
 
 namespace Xenoide {

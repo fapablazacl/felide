@@ -4,9 +4,6 @@
 #include <boost/algorithm/string/join.hpp>
 #include <Xenoide/Core/FileService.hpp>
 #include <Xenoide/Core/FolderService.hpp>
-#include <Xenoide/Gui/IDEFramePresenter.hpp>
-#include <Xenoide/Gui/FolderBrowserModel.hpp>
-#include <Xenoide/Gui/DocumentManagerModel.hpp>
 #include <Xenoide/Gui/Wtl/CFolderBrowser.hpp>
 
 #include <atldlgs.h>

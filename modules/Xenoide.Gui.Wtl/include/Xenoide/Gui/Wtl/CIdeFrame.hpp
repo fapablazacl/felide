@@ -15,8 +15,6 @@
 #include <Xenoide/Core/FolderService.hpp>
 #include <Xenoide/Gui/MenuPanel.hpp>
 #include <Xenoide/Gui/IDEFrame.hpp>
-#include <Xenoide/Gui/DocumentManagerPresenter.hpp>
-#include <Xenoide/Gui/FolderBrowserPresenter.hpp>
 
 #include "CDocument.hpp"
 #include "CDocumentManager.hpp"
