@@ -40,7 +40,6 @@ if (UNIX)
 endif ()
 
 # IDE Core
-add_subdirectory ("modules/Xenoide")
 add_subdirectory ("modules/Xenoide.Core")
 add_subdirectory ("modules/Xenoide.Gui")
 
@@ -54,6 +53,7 @@ if (XENOIDE_GUI_GTK3)
 endif ()
 
 if (XENOIDE_GUI_QT5)
+    add_subdirectory ("modules/Xenoide")
     add_subdirectory ("modules/Xenoide.Gui.Qt5")
 endif ()
 
