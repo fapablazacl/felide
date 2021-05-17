@@ -5,10 +5,12 @@
 
 CAppModule _Module;
 
+using Xenoide::CIdeFrame;
+using Xenoide::IDEFrame;    
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    using Xenoide::CIdeFrame;
-    using Xenoide::IDEFrame;
-    
+    ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+
     ::CoInitialize(NULL);
 
     AtlInitCommonControls(ICC_COOL_CLASSES | ICC_TREEVIEW_CLASSES | ICC_BAR_CLASSES);

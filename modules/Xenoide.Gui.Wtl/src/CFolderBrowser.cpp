@@ -1,5 +1,5 @@
 
-#include "../include/Xenoide/Gui/Wtl/CFolderBrowser.hpp"
+#include <Xenoide/Gui/Wtl/CFolderBrowser.hpp>
 
 namespace Xenoide {
     CFolderBrowser::CFolderBrowser(FolderBrowser::Presenter *presenter) : FolderBrowser(presenter) {
