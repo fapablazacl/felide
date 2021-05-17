@@ -1,7 +1,7 @@
 
-#include "CClassView.hpp"
+#include "../include/Xenoide/Gui/Wtl/CClassView.hpp"
 
-#include "../../../resource.h"
+#include "../resource.h"
 
 namespace Xenoide {
     CClassView::CClassView() {

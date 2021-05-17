@@ -8,7 +8,7 @@
 #include <boost/optional.hpp>
 
 #include <Xenoide/Core/Predef.hpp>
-#include <Xenoide/GUI/FileFilter.hpp>
+#include <Xenoide/Gui/FileFilter.hpp>
 
 namespace Xenoide {
     class DocumentManagerModel;

@@ -3,7 +3,7 @@
 #define __FELIDE_UI_DIALOGMANAGERGTK_HPP__
 
 #include <gtkmm.h>
-#include <Xenoide/GUI/DialogManager.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
 
 namespace Xenoide {
     class DialogManagerGtk : public DialogManager {

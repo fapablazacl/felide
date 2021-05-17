@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/Qt5/FindReplaceDialogQt.hpp>
+#include <Xenoide/Gui/Qt5/FindReplaceDialogQt.hpp>
 
 namespace Xenoide {
     template<typename TWidget>

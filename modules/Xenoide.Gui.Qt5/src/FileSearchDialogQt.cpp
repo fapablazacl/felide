@@ -1,10 +1,10 @@
 
-#include <Xenoide/GUI/Qt5/FileSearchDialogQt.hpp>
+#include <Xenoide/Gui/Qt5/FileSearchDialogQt.hpp>
 
 #include <iostream>
 #include <QVBoxLayout>
-#include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
-#include <Xenoide/GUI/Qt5/FileSearchDialogItemWidgetQt.hpp>
+#include <Xenoide/Gui/FileSearchDialogPresenter.hpp>
+#include <Xenoide/Gui/Qt5/FileSearchDialogItemWidgetQt.hpp>
 
 namespace Xenoide  {
     FileSearchDialogQt::FileSearchDialogQt(QWidget *parent, FileSearchDialogPresenter *presenter) : QDialog(parent), FileSearchDialog(presenter) {

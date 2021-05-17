@@ -6,8 +6,8 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QDialogButtonBox>
-#include <Xenoide/GUI/FileSearchDialog.hpp>
-#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/Gui/FileSearchDialog.hpp>
+#include <Xenoide/Gui/Qt5/DialogManagerQt.hpp>
 
 namespace Xenoide {
     class FileSearchDialogQt : public QDialog, public FileSearchDialog {

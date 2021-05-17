@@ -1,15 +1,15 @@
 
-#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/Gui/Qt5/DialogManagerQt.hpp>
 
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QInputDialog>
 #include <boost/algorithm/string/join.hpp>
 
-#include <Xenoide/GUI/Qt5/FileSearchDialogQt.hpp>
+#include <Xenoide/Gui/Qt5/FileSearchDialogQt.hpp>
 
-#include <Xenoide/GUI/FileSearchDialogPresenter.hpp>
-#include <Xenoide/GUI/FileSearchDialogModel.hpp>
+#include <Xenoide/Gui/FileSearchDialogPresenter.hpp>
+#include <Xenoide/Gui/FileSearchDialogModel.hpp>
 
 namespace Xenoide {
     DialogManagerQt::DialogManagerQt(QWidget *parent) {

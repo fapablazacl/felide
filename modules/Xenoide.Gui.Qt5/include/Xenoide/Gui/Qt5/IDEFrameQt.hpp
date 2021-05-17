@@ -10,15 +10,15 @@
 #include <QMenu>
 #include <QAction>
 
-#include <Xenoide/GUI/IDEFramePresenter.hpp>
-#include <Xenoide/GUI/IDEFrame.hpp>
-#include <Xenoide/GUI/FolderBrowserPresenter.hpp>
-#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
-#include <Xenoide/GUI/Menu.hpp>
-#include <Xenoide/GUI/MenuPanel.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/IDEFrame.hpp>
+#include <Xenoide/Gui/FolderBrowserPresenter.hpp>
+#include <Xenoide/Gui/DocumentManagerPresenter.hpp>
+#include <Xenoide/Gui/Menu.hpp>
+#include <Xenoide/Gui/MenuPanel.hpp>
 
-#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
-#include <Xenoide/GUI/Qt5/DocumentManagerMdiQt.hpp>
+#include <Xenoide/Gui/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/Gui/Qt5/DocumentManagerMdiQt.hpp>
 
 namespace Xenoide {
     class FolderBrowserQt;

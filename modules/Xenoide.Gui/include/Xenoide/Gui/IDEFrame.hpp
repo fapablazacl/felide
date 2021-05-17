@@ -3,7 +3,7 @@
 #define __XENOIDE_UI_MAINWINDOWVIEW_HPP__
 
 #include <Xenoide/Core/Predef.hpp>
-#include <Xenoide/GUI/FileFilter.hpp>
+#include <Xenoide/Gui/FileFilter.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/filesystem/path.hpp>
 

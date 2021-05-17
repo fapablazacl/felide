@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <boost/filesystem.hpp>
-#include <Xenoide/GUI/FolderBrowser.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
 #include <Xenoide/Core/FileService.hpp>
 
 namespace fs = boost::filesystem;

@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/Qt5/DocumentManagerMdiQt.hpp>
+#include <Xenoide/Gui/Qt5/DocumentManagerMdiQt.hpp>
 
 #include <iostream>
 #include <QGridLayout>
@@ -8,9 +8,9 @@
 #include <QMdiSubWindow>
 #include <QTextEdit>
 
-#include <Xenoide/GUI/DocumentPresenter.hpp>
-#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
-#include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
+#include <Xenoide/Gui/DocumentPresenter.hpp>
+#include <Xenoide/Gui/DocumentManagerPresenter.hpp>
+#include <Xenoide/Gui/Qt5/DocumentMdiSubWindowQt.hpp>
 
 namespace Xenoide {
     DocumentManagerMdiQt::DocumentManagerMdiQt(QWidget *parent, DocumentManagerPresenter *presenter) : QWidget(parent), DocumentManager(presenter), mDialogManager(this) {

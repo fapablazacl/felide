@@ -1,5 +1,5 @@
 
-#include "CDialogManager.hpp"
+#include "../include/Xenoide/Gui/Wtl/CDialogManager.hpp"
 
 #include <atldlgs.h>
 

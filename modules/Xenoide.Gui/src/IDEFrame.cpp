@@ -1,8 +1,8 @@
 
-#include <Xenoide/GUI/IDEFrame.hpp>
-#include <Xenoide/GUI/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/IDEFrame.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
 
-#include <Xenoide/GUI/Menu.hpp>
+#include <Xenoide/Gui/Menu.hpp>
 
 namespace Xenoide {
     IDEFrame::IDEFrame(IDEFramePresenter *presenter) {

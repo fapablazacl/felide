@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/DocumentManager.hpp>
+#include <Xenoide/Gui/DocumentManager.hpp>
 
 namespace Xenoide {
     DocumentManager::DocumentManager(DocumentManagerPresenter *presenter) {

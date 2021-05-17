@@ -1,9 +1,9 @@
 
-#include <Xenoide/GUI/IDEFrameModel.hpp>
+#include <Xenoide/Gui/IDEFrameModel.hpp>
 
 #include <iostream>
-#include <Xenoide/GUI/DocumentManagerModel.hpp>
-#include <Xenoide/GUI/FolderBrowserModel.hpp>
+#include <Xenoide/Gui/DocumentManagerModel.hpp>
+#include <Xenoide/Gui/FolderBrowserModel.hpp>
 #include <Xenoide/Core/FolderService.hpp>
 
 namespace Xenoide {

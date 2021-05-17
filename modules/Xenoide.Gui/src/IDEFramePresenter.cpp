@@ -1,12 +1,12 @@
 
-#include <Xenoide/GUI/IDEFramePresenter.hpp>
-#include <Xenoide/GUI/IDEFrame.hpp>
-#include <Xenoide/GUI/IDEFrameModel.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/IDEFrame.hpp>
+#include <Xenoide/Gui/IDEFrameModel.hpp>
 
 #include <boost/filesystem.hpp>
-#include <Xenoide/GUI/MenuPanel.hpp>
-#include <Xenoide/GUI/FolderBrowserPresenter.hpp>
-#include <Xenoide/GUI/FolderBrowserModel.hpp>
+#include <Xenoide/Gui/MenuPanel.hpp>
+#include <Xenoide/Gui/FolderBrowserPresenter.hpp>
+#include <Xenoide/Gui/FolderBrowserModel.hpp>
 
 #include <iostream>
 #include <cassert>

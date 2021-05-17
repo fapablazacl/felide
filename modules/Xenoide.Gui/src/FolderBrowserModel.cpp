@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/FolderBrowserModel.hpp>
+#include <Xenoide/Gui/FolderBrowserModel.hpp>
 
 #include <iostream>
 #include <boost/filesystem/operations.hpp>

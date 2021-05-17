@@ -3,12 +3,12 @@
 #define __XENOIDE_UI_MAINWINDOWPRESENTER_HPP__
 
 #include <Xenoide/Core/Predef.hpp>
-#include <Xenoide/GUI/DialogManager.hpp>
-#include <Xenoide/GUI/Document.hpp>
-#include <Xenoide/GUI/DocumentModel.hpp>
-#include <Xenoide/GUI/DocumentManager.hpp>
-#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
-#include <Xenoide/GUI/FolderBrowser.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
+#include <Xenoide/Gui/Document.hpp>
+#include <Xenoide/Gui/DocumentModel.hpp>
+#include <Xenoide/Gui/DocumentManager.hpp>
+#include <Xenoide/Gui/DocumentManagerPresenter.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
 
 #include "IDEFrameModel.hpp"
 

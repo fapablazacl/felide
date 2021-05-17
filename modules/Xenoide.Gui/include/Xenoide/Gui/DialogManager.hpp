@@ -6,7 +6,7 @@
 #include <vector>
 #include <boost/optional.hpp>
 #include <boost/filesystem/path.hpp>
-#include <Xenoide/GUI/FileFilter.hpp>
+#include <Xenoide/Gui/FileFilter.hpp>
 #include <Xenoide/Core/Predef.hpp>
 
 namespace Xenoide {

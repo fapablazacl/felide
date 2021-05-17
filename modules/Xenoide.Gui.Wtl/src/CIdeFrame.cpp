@@ -1,7 +1,7 @@
 
-#include "CIdeFrame.hpp"
+#include "../include/Xenoide/Gui/Wtl/CIdeFrame.hpp"
 
-#include "../../../resource.h"
+#include "../resource.h"
 
 #include <boost/algorithm/string/join.hpp>
 #include <felide/core/util/FileService.hpp>
@@ -11,7 +11,7 @@
 #include <felide/gui/document-manager/DocumentManagerModel.hpp>
 #include <atldlgs.h>
 
-#include "CFolderBrowser.hpp"
+#include "../include/Xenoide/Gui/Wtl/CFolderBrowser.hpp"
 
 namespace Xenoide {
     CIdeFrame::CIdeFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {

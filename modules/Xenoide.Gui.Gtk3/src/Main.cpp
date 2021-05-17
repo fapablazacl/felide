@@ -1,8 +1,8 @@
 
 #include <gtkmm/main.h>
 
-#include <Xenoide/GUI/IDEFrameModel.hpp>
-#include <Xenoide/GUI/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/IDEFrameModel.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
 #include <Xenoide/Gui/Gtk3/IDEFrameGtk.hpp>
 #include <Xenoide/Gui/Gtk3/MainApplication.hpp>
 

@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/Document.hpp>
+#include <Xenoide/Gui/Document.hpp>
 
 #include <Xenoide/Core/OS.hpp>
 

@@ -9,8 +9,8 @@
 #include <QPushButton>
 #include <QLabel>
 
-#include <Xenoide/GUI/FindReplaceDialog.hpp>
-#include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
+#include <Xenoide/Gui/FindReplaceDialog.hpp>
+#include <Xenoide/Gui/Qt5/DocumentMdiSubWindowQt.hpp>
 
 namespace Xenoide {
     class FindReplaceDialogPresenter;

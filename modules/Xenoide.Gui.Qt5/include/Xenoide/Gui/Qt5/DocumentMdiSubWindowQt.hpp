@@ -8,10 +8,10 @@
 #include <Qsci/qscilexer.h>
 #include <Qsci/qscilexercpp.h>
 
-#include <Xenoide/GUI/Document.hpp>
-#include <Xenoide/GUI/DocumentPresenter.hpp>
+#include <Xenoide/Gui/Document.hpp>
+#include <Xenoide/Gui/DocumentPresenter.hpp>
 
-#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/Gui/Qt5/DialogManagerQt.hpp>
 
 
 namespace Xenoide {

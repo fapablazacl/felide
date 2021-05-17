@@ -13,23 +13,23 @@ endif()
 
 set (sources 
     "src/main_qt5.cpp"
-    "include/Xenoide/GUI/Qt5/FindReplaceDialogQt.hpp"
+    "include/Xenoide/Gui/Qt5/FindReplaceDialogQt.hpp"
     "src//FindReplaceDialogQt.cpp"
-    "include/Xenoide/GUI/Qt5/IDEFrameQt.hpp"
+    "include/Xenoide/Gui/Qt5/IDEFrameQt.hpp"
     "src//IDEFrameQt.cpp"
-    "include/Xenoide/GUI/Qt5/DialogManagerQt.hpp"
+    "include/Xenoide/Gui/Qt5/DialogManagerQt.hpp"
     "src//DialogManagerQt.cpp"
-    "include/Xenoide/GUI/Qt5/FolderBrowserQt.hpp"
+    "include/Xenoide/Gui/Qt5/FolderBrowserQt.hpp"
     "src//FolderBrowserQt.cpp"
-    "include/Xenoide/GUI/Qt5/FileSearchDialogQt.hpp"
+    "include/Xenoide/Gui/Qt5/FileSearchDialogQt.hpp"
     "src//FileSearchDialogQt.cpp"
-    "include/Xenoide/GUI/Qt5/FileSearchDialogItemWidgetQt.hpp"
+    "include/Xenoide/Gui/Qt5/FileSearchDialogItemWidgetQt.hpp"
     "src//FileSearchDialogItemWidgetQt.cpp"
-    "include/Xenoide/GUI/Qt5/UtilitiesQt.hpp"
+    "include/Xenoide/Gui/Qt5/UtilitiesQt.hpp"
     "src//UtilitiesQt.cpp"
-    "include/Xenoide/GUI/Qt5/DocumentManagerMdiQt.hpp"
+    "include/Xenoide/Gui/Qt5/DocumentManagerMdiQt.hpp"
     "src//DocumentManagerMdiQt.cpp"
-    "include/Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp"
+    "include/Xenoide/Gui/Qt5/DocumentMdiSubWindowQt.hpp"
     "src//DocumentMdiSubWindowQt.cpp"
 )
 
@@ -49,7 +49,7 @@ if (WIN32)
         debug qscintilla2_qt5d
         optimized qscintilla2_qt5
         Xenoide.Core
-        Xenoide.GUI
+        Xenoide.Gui
     )
 else()
     target_link_libraries (
@@ -57,7 +57,7 @@ else()
         Qt5::Widgets
         qscintilla2_qt5
         Xenoide.Core
-        Xenoide.GUI
+        Xenoide.Gui
     )
 endif()
 

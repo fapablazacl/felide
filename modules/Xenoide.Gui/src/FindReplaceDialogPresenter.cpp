@@ -1,8 +1,8 @@
 
-#include <Xenoide/GUI/FindReplaceDialogPresenter.hpp>
-#include <Xenoide/GUI/FindReplaceDialog.hpp>
-#include <Xenoide/GUI/WindowsUtils.hpp>
-#include <Xenoide/GUI/Document.hpp>
+#include <Xenoide/Gui/FindReplaceDialogPresenter.hpp>
+#include <Xenoide/Gui/FindReplaceDialog.hpp>
+#include <Xenoide/Gui/WindowsUtils.hpp>
+#include <Xenoide/Gui/Document.hpp>
 
 #include <iostream>
 

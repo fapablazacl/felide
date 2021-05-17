@@ -1,5 +1,5 @@
 
-#include "CDocument.hpp"
+#include "../include/Xenoide/Gui/Wtl/CDocument.hpp"
 
 namespace Xenoide {
     int CDocument::OnCreate(LPCREATESTRUCT lpCreateStruct) {

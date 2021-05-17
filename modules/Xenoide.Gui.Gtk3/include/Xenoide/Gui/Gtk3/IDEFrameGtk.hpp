@@ -5,7 +5,7 @@
 #include <gtkmm.h>
 #include <string>
 
-#include <Xenoide/GUI/IDEFrame.hpp>
+#include <Xenoide/Gui/IDEFrame.hpp>
 
 #include "DocumentManagerGtk.hpp"
 #include "FolderBrowserGtk.hpp"

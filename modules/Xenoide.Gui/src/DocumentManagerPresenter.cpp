@@ -1,15 +1,15 @@
 
-#include <Xenoide/GUI/DocumentManagerPresenter.hpp>
+#include <Xenoide/Gui/DocumentManagerPresenter.hpp>
 
 
 #include <algorithm>
 #include <iostream>
 
-#include <Xenoide/GUI/DialogManager.hpp>
-#include <Xenoide/GUI/DocumentModel.hpp>
-#include <Xenoide/GUI/DocumentPresenter.hpp>
-#include <Xenoide/GUI/DocumentManager.hpp>
-#include <Xenoide/GUI/DocumentManagerModel.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
+#include <Xenoide/Gui/DocumentModel.hpp>
+#include <Xenoide/Gui/DocumentPresenter.hpp>
+#include <Xenoide/Gui/DocumentManager.hpp>
+#include <Xenoide/Gui/DocumentManagerModel.hpp>
 
 
 namespace Xenoide {

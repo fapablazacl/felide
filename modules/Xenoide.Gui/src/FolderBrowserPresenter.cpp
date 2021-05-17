@@ -1,15 +1,15 @@
 
-#include <Xenoide/GUI/FolderBrowserPresenter.hpp>
+#include <Xenoide/Gui/FolderBrowserPresenter.hpp>
 
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
-#include <Xenoide/GUI/DialogManager.hpp>
-#include <Xenoide/GUI/Menu.hpp>
-#include <Xenoide/GUI/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
+#include <Xenoide/Gui/Menu.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
 
-#include <Xenoide/GUI/FolderBrowser.hpp>
-#include <Xenoide/GUI/FolderBrowserModel.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
+#include <Xenoide/Gui/FolderBrowserModel.hpp>
 
 namespace Xenoide {
     static std::string describePathKind(const boost::filesystem::path &path) {

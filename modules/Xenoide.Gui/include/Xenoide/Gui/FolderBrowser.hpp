@@ -4,7 +4,7 @@
 
 #include <string>
 #include <Xenoide/Core/Predef.hpp>
-#include <Xenoide/GUI/Menu.hpp>
+#include <Xenoide/Gui/Menu.hpp>
 #include <boost/optional/optional.hpp>
 
 namespace Xenoide {

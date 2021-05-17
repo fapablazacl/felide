@@ -2,7 +2,7 @@
 #ifndef __XENOIDE_UI_DIALOGMANAGERVIEWIMPL_HPP__
 #define __XENOIDE_UI_DIALOGMANAGERVIEWIMPL_HPP__
 
-#include <Xenoide/GUI/DialogManager.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
 #include <QWidget>
 
 namespace Xenoide {

@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/FileSearchDialog.hpp>
+#include <Xenoide/Gui/FileSearchDialog.hpp>
 
 namespace Xenoide {
     FileSearchDialog::FileSearchDialog(FileSearchDialogPresenter *presenter) {

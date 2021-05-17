@@ -1,11 +1,11 @@
 
-#include <Xenoide/GUI/DocumentPresenter.hpp>
-#include <Xenoide/GUI/DocumentModel.hpp>
-#include <Xenoide/GUI/Document.hpp>
+#include <Xenoide/Gui/DocumentPresenter.hpp>
+#include <Xenoide/Gui/DocumentModel.hpp>
+#include <Xenoide/Gui/Document.hpp>
 
 #include <boost/filesystem/path.hpp>
 
-#include <Xenoide/GUI/DialogManager.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
 #include <Xenoide/Core/FileService.hpp>
 
 namespace Xenoide {

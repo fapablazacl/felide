@@ -1,9 +1,9 @@
 
-#include <Xenoide/GUI/DocumentManagerModel.hpp>
+#include <Xenoide/Gui/DocumentManagerModel.hpp>
 
 #include <list>
 #include <algorithm>
-#include <Xenoide/GUI/DocumentModel.hpp>
+#include <Xenoide/Gui/DocumentModel.hpp>
 
 namespace Xenoide {
     class DocumentManagerModelImpl : public DocumentManagerModel {

@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/mvp/MainFrame.hpp>
+#include <Xenoide/Gui/mvp/MainFrame.hpp>
 
 #include <cassert>
 

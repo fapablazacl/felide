@@ -6,7 +6,7 @@
 #include <QTreeView>
 #include <QFileSystemModel>
 
-#include <Xenoide/GUI/FolderBrowser.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
 
 namespace Xenoide {
     class DialogManagerQt;

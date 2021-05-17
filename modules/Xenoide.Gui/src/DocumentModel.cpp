@@ -1,5 +1,5 @@
 
-#include <Xenoide/GUI/DocumentModel.hpp>
+#include <Xenoide/Gui/DocumentModel.hpp>
 
 namespace Xenoide {
     class DocumentModelImpl : public DocumentModel {

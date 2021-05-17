@@ -7,10 +7,10 @@
 #include <QMdiSubWindow>
 
 #include <boost/optional.hpp>
-#include <Xenoide/GUI/DocumentManager.hpp>
+#include <Xenoide/Gui/DocumentManager.hpp>
 
-#include <Xenoide/GUI/Qt5/DialogManagerQt.hpp>
-#include <Xenoide/GUI/Qt5/DocumentMdiSubWindowQt.hpp>
+#include <Xenoide/Gui/Qt5/DialogManagerQt.hpp>
+#include <Xenoide/Gui/Qt5/DocumentMdiSubWindowQt.hpp>
 
 namespace Xenoide {
     class DocumentMdiSubWindowQt;

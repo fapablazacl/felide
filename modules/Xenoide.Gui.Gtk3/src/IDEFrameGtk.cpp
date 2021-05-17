@@ -5,7 +5,7 @@
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <Xenoide/Core/FileService.hpp>
-#include <Xenoide/GUI/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
 #include <Xenoide/Gui/Gtk3/DocumentGtk.hpp>
 
 namespace fs = boost::filesystem;
@@ -108,7 +108,7 @@ namespace Xenoide {
         std::string path = editor.get_key();
         std::string text = editor.get_text();
 
-        // felide::FileUtil::save(path, text);
+        // Xenoide::FileUtil::save(path, text);
 
         editor.set_dirty_flag(false);
     }
@@ -134,7 +134,7 @@ namespace Xenoide {
         if (result == Gtk::RESPONSE_OK) {            
             const std::string path = dialog.get_filename();
             const std::string name = fs::path(path).filename().string();
-            const std::string content = ""/*felide::FileUtil::load(path)*/;
+            const std::string content = ""/*Xenoide::FileUtil::load(path)*/;
 
             documentManager.open_editor(path, name, content);
         }
@@ -169,7 +169,7 @@ namespace Xenoide {
         }
 
         const std::string name = fs::path(path).filename().string();
-        const std::string content = "" /*felide::FileUtil::load(path)*/;
+        const std::string content = "" /*Xenoide::FileUtil::load(path)*/;
 
         documentManager.open_editor(path, name, content);
     }

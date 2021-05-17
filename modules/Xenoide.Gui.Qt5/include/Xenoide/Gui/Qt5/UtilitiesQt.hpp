@@ -3,7 +3,7 @@
 #define __XENOIDE_UI_QT5_UTILITIESQT_HPP__
 
 #include <QMenuBar>
-#include <Xenoide/GUI/Menu.hpp>
+#include <Xenoide/Gui/Menu.hpp>
 
 namespace Xenoide {
     extern void setupMenu(QMenu *parentMenuPtr, const Menu &menu);

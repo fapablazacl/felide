@@ -29,4 +29,4 @@ set (sources
 
 add_executable (${target} ${sources})
 target_include_directories (${target} PUBLIC "include")
-target_link_libraries (${target} ${GTKMM_LIBRARIES} Xenoide.Core Xenoide.GUI stdc++fs)
+target_link_libraries (${target} ${GTKMM_LIBRARIES} Xenoide.Core Xenoide.Gui stdc++fs)
