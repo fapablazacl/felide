@@ -62,25 +62,27 @@ namespace Xenoide {
         const HTREEITEM rootItem = treeView.InsertItem(title, 0, 0, nullptr, nullptr);
         const DWORD style = TVIF_TEXT /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
 
+        // TODO: Fix those ugly const_cast's ...
+
         TVINSERTSTRUCT insertStruct = {};
 
         insertStruct.hParent = rootItem;
         insertStruct.item.mask = style;
-        insertStruct.item.pszText = "Class1";
+        insertStruct.item.pszText = const_cast<char*>("Class1");
         insertStruct.item.iImage = 1;
         insertStruct.item.iSelectedImage = 1;
         treeView.InsertItem(&insertStruct);
 
         insertStruct.hParent = rootItem;
         insertStruct.item.mask = style;
-        insertStruct.item.pszText = "Class2";
+        insertStruct.item.pszText = const_cast<char*>("Class2");
         insertStruct.item.iImage = 1;
         insertStruct.item.iSelectedImage = 1;
         treeView.InsertItem(&insertStruct);
 
         insertStruct.hParent = rootItem;
         insertStruct.item.mask = style;
-        insertStruct.item.pszText = "Function1";
+        insertStruct.item.pszText = const_cast<char*>("Function1");
         insertStruct.item.iImage = 2;
         insertStruct.item.iSelectedImage = 2;
         treeView.InsertItem(&insertStruct);

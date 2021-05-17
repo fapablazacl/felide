@@ -1,7 +1,7 @@
 
 #pragma once 
 
-#include <felide/gui/document/Document.hpp>
+#include <Xenoide/Gui/Document.hpp>
 
 #include <atlbase.h>
 #include <atlwin.h>

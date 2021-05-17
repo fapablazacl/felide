@@ -1,17 +1,17 @@
 
-#include "../include/Xenoide/Gui/Wtl/CIdeFrame.hpp"
-
-#include "../resource.h"
+#include <Xenoide/Gui/Wtl/CIdeFrame.hpp>
 
 #include <boost/algorithm/string/join.hpp>
-#include <felide/core/util/FileService.hpp>
-#include <felide/core/util/FolderService.hpp>
-#include <felide/gui/ide-frame/IDEFramePresenter.hpp>
-#include <felide/gui/folder-browser/FolderBrowserModel.hpp>
-#include <felide/gui/document-manager/DocumentManagerModel.hpp>
-#include <atldlgs.h>
+#include <Xenoide/Core/FileService.hpp>
+#include <Xenoide/Core/FolderService.hpp>
+#include <Xenoide/Gui/IDEFramePresenter.hpp>
+#include <Xenoide/Gui/FolderBrowserModel.hpp>
+#include <Xenoide/Gui/DocumentManagerModel.hpp>
+#include <Xenoide/Gui/Wtl/CFolderBrowser.hpp>
 
-#include "../include/Xenoide/Gui/Wtl/CFolderBrowser.hpp"
+#include <atldlgs.h>
+#include <resource.h>
+
 
 namespace Xenoide {
     CIdeFrame::CIdeFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {
@@ -49,11 +49,17 @@ namespace Xenoide {
 
 
     void CIdeFrame::close() {
-
+        // TODO: Add implementation
     }
 
-    void CIdeFrame::show() {
 
+    void CIdeFrame::show() {
+        // TODO: Add implementation
+    }
+
+
+    void CIdeFrame::showPanel(const Panel panel) {
+        // TODO: Add implementation
     }
 }
 
@@ -228,7 +234,8 @@ namespace Xenoide {
         splitterWindow.m_cxyMin = 35; // minimum size
         splitterWindow.SetSplitterPos(85); // from left
 
-        m_presenter->onInitialized(this, dialogManager.get(), this);
+        // TODO: Notify initialization
+        mPresenter->onInitialized(this, dialogManager.get(), this);
 
         return 0;
     }

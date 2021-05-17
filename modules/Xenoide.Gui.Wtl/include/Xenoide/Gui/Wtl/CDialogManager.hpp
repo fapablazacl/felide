@@ -1,7 +1,7 @@
 
 #pragma once 
 
-#include <felide/gui/DialogManager.hpp>
+#include <Xenoide/Gui/DialogManager.hpp>
 
 #include <atlbase.h>
 #include <atlapp.h>

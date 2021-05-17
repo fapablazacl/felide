@@ -10,7 +10,7 @@
 #include <atlcrack.h>
 #include <atlsplit.h>
 
-#include <felide/gui/folder-browser/FolderBrowser.hpp>
+#include <Xenoide/Gui/FolderBrowser.hpp>
 
 namespace Xenoide {
     class CFolderBrowser : public CWindowImpl<CFolderBrowser, CWindow, CControlWinTraits>, public FolderBrowser {

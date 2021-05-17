@@ -1,9 +1,9 @@
 
-#include "../include/Xenoide/Gui/Wtl/CDialogManager.hpp"
+#include <Xenoide/Gui/Wtl/CDialogManager.hpp>
 
 #include <atldlgs.h>
 
-namespace felide  {
+namespace Xenoide  {
     CDialogManager::CDialogManager() {}
 
 
@@ -92,7 +92,7 @@ namespace felide  {
 
         if (dialog.DoModal() == IDOK) {
             std::string fileName = dialog.m_szFileName;
-            return fileName;
+            return boost::filesystem::path{fileName};
         }
         
         return {};

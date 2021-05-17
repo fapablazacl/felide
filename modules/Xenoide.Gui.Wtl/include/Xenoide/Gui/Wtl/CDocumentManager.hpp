@@ -1,7 +1,7 @@
 
 #pragma once 
 
-#include <felide/gui/document-manager/DocumentManager.hpp>
+#include <Xenoide/Gui/DocumentManager.hpp>
 
 #include <atlbase.h>
 #include <atlwin.h>
@@ -11,7 +11,6 @@
 #include <atlcrack.h>
 
 namespace Xenoide {
-
     /**
      * @brief Source code editor window
      */

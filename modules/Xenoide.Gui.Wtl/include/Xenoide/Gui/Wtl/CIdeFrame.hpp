@@ -12,11 +12,11 @@
 #include <atlcrack.h>
 #include <atlsplit.h>
 
-#include <felide/gui/MenuPanel.hpp>
-#include <felide/gui/ide-frame/IDEFrame.hpp>
-#include <felide/gui/document-manager/DocumentManagerPresenter.hpp>
-#include <felide/gui/folder-browser/FolderBrowserPresenter.hpp>
-#include <felide/core/util/FolderService.hpp>
+#include <Xenoide/Core/FolderService.hpp>
+#include <Xenoide/Gui/MenuPanel.hpp>
+#include <Xenoide/Gui/IDEFrame.hpp>
+#include <Xenoide/Gui/DocumentManagerPresenter.hpp>
+#include <Xenoide/Gui/FolderBrowserPresenter.hpp>
 
 #include "CDocument.hpp"
 #include "CDocumentManager.hpp"
@@ -41,6 +41,8 @@ namespace Xenoide {
 
         virtual void show() override;
 
+        virtual void showPanel(const Panel panel) override;
+
     public:
         void fillMenuItem(CMenuHandle parent, const Menu &menu);
 
@@ -49,7 +51,7 @@ namespace Xenoide {
         virtual void setupMenuBar(const Menu &menu) override;
 
     public:
-        DECLARE_WND_CLASS(_T("CIdeFrame Class"))
+        DECLARE_WND_CLASS(_T("CIdeFrame"))
 
         BEGIN_MSG_MAP(CIdeFrame)
             COMMAND_CODE_HANDLER(0, OnCommand)
