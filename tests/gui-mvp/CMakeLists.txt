@@ -1,5 +1,6 @@
 
 set (target "gui-mvp")
+
 set (sources
     "include/Xenoide/Gui/mvp/MainFrame.hpp"
 	"include/Xenoide/Gui/mvp/DocumentManager.hpp"
@@ -21,5 +22,5 @@ target_link_libraries (
     ${DL_LIBRARY}
     ${Boost_LIBRARIES}
     Xenoide.Core
-	Xenoide.GUI
+	Xenoide.Gui
 )

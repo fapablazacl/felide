@@ -1,4 +1,4 @@
-set (target "Xenoide.GUI.Qt5")
+set (target "Xenoide.Gui.Qt5")
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (CMAKE_AUTOMOC ON)
@@ -11,31 +11,33 @@ if (WIN32)
   find_library(QScintilla REQUIRED)
 endif()
 
-set (sources 
-    "src/main_qt5.cpp"
+set (sources
     "include/Xenoide/Gui/Qt5/FindReplaceDialogQt.hpp"
-    "src//FindReplaceDialogQt.cpp"
     "include/Xenoide/Gui/Qt5/IDEFrameQt.hpp"
-    "src//IDEFrameQt.cpp"
     "include/Xenoide/Gui/Qt5/DialogManagerQt.hpp"
-    "src//DialogManagerQt.cpp"
     "include/Xenoide/Gui/Qt5/FolderBrowserQt.hpp"
-    "src//FolderBrowserQt.cpp"
     "include/Xenoide/Gui/Qt5/FileSearchDialogQt.hpp"
-    "src//FileSearchDialogQt.cpp"
     "include/Xenoide/Gui/Qt5/FileSearchDialogItemWidgetQt.hpp"
-    "src//FileSearchDialogItemWidgetQt.cpp"
     "include/Xenoide/Gui/Qt5/UtilitiesQt.hpp"
-    "src//UtilitiesQt.cpp"
     "include/Xenoide/Gui/Qt5/DocumentManagerMdiQt.hpp"
-    "src//DocumentManagerMdiQt.cpp"
     "include/Xenoide/Gui/Qt5/DocumentMdiSubWindowQt.hpp"
-    "src//DocumentMdiSubWindowQt.cpp"
+
+    "src/main_qt5.cpp"
+    "src/FindReplaceDialogQt.cpp"
+    "src/IDEFrameQt.cpp"
+    "src/DialogManagerQt.cpp"
+    "src/FolderBrowserQt.cpp"
+    "src/FileSearchDialogQt.cpp"
+    "src/FileSearchDialogItemWidgetQt.cpp"
+    "src/UtilitiesQt.cpp"
+    "src/DocumentManagerMdiQt.cpp"
+    "src/DocumentMdiSubWindowQt.cpp"
 )
 
 add_definitions (-DXENOIDE_TARGET_NAME=${target})
 add_library(${target} ${sources})
 
+# this is needed for QScintilla
 target_include_directories(${target} PRIVATE "${Qt5_DIR}/../../../include")
 target_link_directories(${target} PUBLIC "${Qt5_DIR}/../../")
 
