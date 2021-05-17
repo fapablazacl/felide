@@ -10,7 +10,7 @@
 #include <atlmisc.h>
 #include <atlcrack.h>
 
-namespace felide {
+namespace Xenoide {
 
     /**
      * @brief Source code editor window

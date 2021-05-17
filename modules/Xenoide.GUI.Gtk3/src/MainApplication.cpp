@@ -1,7 +1,7 @@
 
 #include <Xenoide/Gui/Gtk3/MainApplication.hpp>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     MainApplication::MainApplication(int argc, char* argv[], const char *name) 
         : Gtk::Application(argc, argv, name) {}
 

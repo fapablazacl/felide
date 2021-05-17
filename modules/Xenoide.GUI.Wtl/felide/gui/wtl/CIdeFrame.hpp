@@ -23,7 +23,7 @@
 #include "CFolderBrowser.hpp"
 #include "CDialogManager.hpp"
 
-namespace felide {
+namespace Xenoide {
     
     class CIdeFrame : public CWindowImpl<CIdeFrame, CWindow, CFrameWinTraits>, public IDEFrame, public MenuPanel {
     public:

@@ -2,7 +2,7 @@
 #include <Xenoide/Gui/Gtk3/DocumentHeader.hpp>
 #include <Xenoide/Gui/Gtk3/DocumentGtk.hpp>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     DocumentHeader::DocumentHeader(DocumentGtk &editor, const std::string &title) 
             : m_editor(editor), m_closeImage(Gtk::Stock::CLOSE, Gtk::IconSize(Gtk::ICON_SIZE_MENU)) {
         m_title = title;

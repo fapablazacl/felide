@@ -1,7 +1,7 @@
 
 #include <Xenoide/Gui/Gtk3/DialogManagerGtk.hpp>
 
-namespace felide {
+namespace Xenoide {
     DialogManagerGtk::DialogManagerGtk(Gtk::Window &parent_) : parent(parent_)  {}
 
     DialogManagerGtk::~DialogManagerGtk() {}

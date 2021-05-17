@@ -5,7 +5,7 @@
 #include <gtkmm.h>
 #include <string>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     class DocumentGtk;
     class DocumentHeader : public Gtk::HBox {
     public:

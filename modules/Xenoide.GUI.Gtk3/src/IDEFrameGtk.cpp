@@ -10,7 +10,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace felide::gtk3 {
+namespace Xenoide {
     IDEFrameGtk::IDEFrameGtk(IDEFramePresenter *presenter) : IDEFrame(presenter), dialogManager(*this), folderBrowser(presenter->getFolderBrowserPresenter()) {
         // setup supported actions
         add_action("file_new", sigc::mem_fun(*this, &IDEFrameGtk::on_action_file_new));
@@ -76,6 +76,11 @@ namespace felide::gtk3 {
         // TODO: Add implementation
     }
 
+
+    void IDEFrameGtk::showPanel(const Panel panel) {
+        // TODO: Add implementation
+    }
+
     /*
     void IDEFrameGtk::setupMenuBar(const Menu &menu) {
         
@@ -103,7 +108,7 @@ namespace felide::gtk3 {
         std::string path = editor.get_key();
         std::string text = editor.get_text();
 
-        felide::FileUtil::save(path, text);
+        // felide::FileUtil::save(path, text);
 
         editor.set_dirty_flag(false);
     }
@@ -129,7 +134,7 @@ namespace felide::gtk3 {
         if (result == Gtk::RESPONSE_OK) {            
             const std::string path = dialog.get_filename();
             const std::string name = fs::path(path).filename().string();
-            const std::string content = felide::FileUtil::load(path);
+            const std::string content = ""/*felide::FileUtil::load(path)*/;
 
             documentManager.open_editor(path, name, content);
         }
@@ -164,7 +169,7 @@ namespace felide::gtk3 {
         }
 
         const std::string name = fs::path(path).filename().string();
-        const std::string content = felide::FileUtil::load(path);
+        const std::string content = "" /*felide::FileUtil::load(path)*/;
 
         documentManager.open_editor(path, name, content);
     }

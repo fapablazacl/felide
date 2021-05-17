@@ -1,7 +1,7 @@
 
 #include <Xenoide/Gui/Gtk3/FolderBrowserGtk.hpp>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     FolderBrowserGtk::FolderBrowserGtk(FolderBrowserPresenter *presenter) : FolderBrowser(presenter) {
         // setup UI
         add(m_scrolled);

@@ -1,7 +1,7 @@
 
 #include "CDocument.hpp"
 
-namespace felide {
+namespace Xenoide {
     int CDocument::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         RECT rcClient;
         this->GetClientRect(&rcClient);
@@ -27,7 +27,7 @@ namespace felide {
 }
 
 
-namespace felide {
+namespace Xenoide {
     void CDocument::setTitle(const std::string &title)
     {
     }

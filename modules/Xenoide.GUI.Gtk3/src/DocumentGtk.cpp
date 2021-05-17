@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     DocumentGtk::DocumentGtk(const std::string &key) {
         add(m_scrolled);
 

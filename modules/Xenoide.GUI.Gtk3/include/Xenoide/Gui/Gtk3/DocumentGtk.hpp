@@ -6,7 +6,7 @@
 #include <gtkmm.h>
 #include <gtksourceviewmm.h>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     typedef sigc::signal<void> signal_editor_dirty_changed_t;
 
     /**

@@ -5,7 +5,7 @@
 #include <gtkmm.h>
 #include <Xenoide/GUI/DialogManager.hpp>
 
-namespace felide {
+namespace Xenoide {
     class DialogManagerGtk : public DialogManager {
     public:
         DialogManagerGtk(Gtk::Window &parent);

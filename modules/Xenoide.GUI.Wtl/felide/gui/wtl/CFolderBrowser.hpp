@@ -12,7 +12,7 @@
 
 #include <felide/gui/folder-browser/FolderBrowser.hpp>
 
-namespace felide {
+namespace Xenoide {
     class CFolderBrowser : public CWindowImpl<CFolderBrowser, CWindow, CControlWinTraits>, public FolderBrowser {
     public:
         DECLARE_WND_CLASS(_T("Xenoide::CFolderBrowser"))

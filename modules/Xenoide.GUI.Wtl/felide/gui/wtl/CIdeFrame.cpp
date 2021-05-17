@@ -13,7 +13,7 @@
 
 #include "CFolderBrowser.hpp"
 
-namespace felide {
+namespace Xenoide {
     CIdeFrame::CIdeFrame(IDEFramePresenter *presenter) : IDEFrame(presenter) {
         folderService = FolderService::create();
         folderBrowserModel = FolderBrowserModel::create(folderService.get());
@@ -58,7 +58,7 @@ namespace felide {
 }
 
 
-namespace felide {
+namespace Xenoide {
     const int commandIdBase = 1000;
 
     void CIdeFrame::fillMenuItem(CMenuHandle parent, const Menu &menu) {
@@ -180,7 +180,7 @@ namespace felide {
 }
 
 
-namespace felide {
+namespace Xenoide {
     /*
     int CIdeFrame::OnFileOpen(WORD wNotifyCode, WORD wID, HWND hWndCtrl, BOOL &bHandled) {
         CFileDialog dialog(TRUE, _T("All Files\0*.*"));

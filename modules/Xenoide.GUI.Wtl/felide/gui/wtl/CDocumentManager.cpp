@@ -1,7 +1,7 @@
 
 #include "CDocumentManager.hpp"
 
-namespace felide {
+namespace Xenoide {
     int CDocumentManager::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         const DWORD dwStyle = WS_CHILD | WS_VISIBLE;
 
@@ -23,7 +23,7 @@ namespace felide {
 }
 
 
-namespace felide {
+namespace Xenoide {
     Document* CDocumentManager::getDocument(const std::size_t index)
     {
         return nullptr;

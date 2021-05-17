@@ -7,7 +7,7 @@
 #include <map>
 #include <iostream>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     DocumentManagerGtk::DocumentManagerGtk() {
         add(m_notebook);
         m_notebook.show();

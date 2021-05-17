@@ -4,7 +4,7 @@
 
 #include <gtkmm.h>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     class MainApplication : public Gtk::Application {
     public:
         MainApplication(int argc, char* argv[], const char *name);

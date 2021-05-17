@@ -4,7 +4,7 @@
 
 #include <gtkmm.h>
 
-namespace felide::gtk3 {
+namespace Xenoide {
     class DocumentGtk;
 
     typedef sigc::signal<bool, DocumentGtk*> signal_editor_closed_t;

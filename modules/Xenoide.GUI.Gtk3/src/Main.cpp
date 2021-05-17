@@ -10,8 +10,7 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    using namespace felide;
-    using namespace felide::gtk3;
+    using namespace Xenoide;
 
     std::cout << "Initializing Application ..." << std::endl;
     auto app = MainApplication::create(argc, argv, "org.devwarecl.Xenoide");

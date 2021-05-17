@@ -10,7 +10,7 @@
 #include <atlcrack.h>
 #include <atlsplit.h>
 
-namespace felide {
+namespace Xenoide {
     class CClassView : public CWindowImpl<CClassView, CWindow, CControlWinTraits> {
     public:
         DECLARE_WND_CLASS(_T("Xenoide::CClassBrowser"))

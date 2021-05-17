@@ -12,7 +12,7 @@
 #include <atlcrack.h>
 #include <atlsplit.h>
 
-namespace felide {
+namespace Xenoide {
     class CDialogManager : public DialogManager {
     public:
         CDialogManager();

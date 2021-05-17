@@ -11,7 +11,7 @@
 #include "FolderBrowserGtk.hpp"
 #include "DialogManagerGtk.hpp"
 
-namespace felide::gtk3 {
+namespace Xenoide {
     class IDEFrameGtk : public Gtk::ApplicationWindow, public IDEFrame {
     public:
         IDEFrameGtk(IDEFramePresenter *presenter);
@@ -27,6 +27,8 @@ namespace felide::gtk3 {
         virtual void close() override;
 
         virtual void show() override;
+
+        virtual void showPanel(const Panel panel) override;
 
     private:
         void on_action_file_new();

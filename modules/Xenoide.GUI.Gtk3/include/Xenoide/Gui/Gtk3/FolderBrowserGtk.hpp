@@ -12,7 +12,7 @@
 
 namespace fs = boost::filesystem;
 
-namespace felide::gtk3 {
+namespace Xenoide {
     /**
      * @brief FolderBrowserGtk that opens a "vanilla" project style (it just open a folder and shows it contents)
      */ 

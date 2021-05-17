@@ -3,7 +3,7 @@
 
 #include "../../../resource.h"
 
-namespace felide {
+namespace Xenoide {
     CClassView::CClassView() {
 
     }

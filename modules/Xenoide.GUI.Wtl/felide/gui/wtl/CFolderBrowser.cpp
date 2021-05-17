@@ -1,7 +1,7 @@
 
 #include "CFolderBrowser.hpp"
 
-namespace felide {
+namespace Xenoide {
     CFolderBrowser::CFolderBrowser(FolderBrowserPresenter *presenter) : FolderBrowser(presenter) {
 
     }
@@ -24,7 +24,7 @@ namespace felide {
 }
 
 
-namespace felide {
+namespace Xenoide {
     int CFolderBrowser::OnCreate(LPCREATESTRUCT lpCreateStruct) {
         RECT clientRect;
         this->GetClientRect(&clientRect);
