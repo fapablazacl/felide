@@ -26,8 +26,6 @@ endforeach()
 # message("CMAKE_SOURCE_DIR ${CMAKE_SOURCE_DIR}")
 # message("CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR}")
 
-source_group("\\" FILES ${sources} ${resources})
-
 add_executable(${target} MACOSX_BUNDLE ${sources} ${resources})
 set_target_properties(${target} PROPERTIES
     MACOSX_BUNDLE_INFO_PLIST                "${CMAKE_SOURCE_DIR}/modules/${target}/Info.plist.in"
