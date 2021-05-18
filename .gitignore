@@ -10,3 +10,4 @@ build-clang/*
 .vs/*
 .cmake*
 .idea/*
+cmake-*
