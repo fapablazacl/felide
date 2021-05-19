@@ -1,8 +1,6 @@
 
 #include <gtkmm/main.h>
 
-#include <Xenoide/Gui/IDEFrameModel.hpp>
-#include <Xenoide/Gui/IDEFramePresenter.hpp>
 #include <Xenoide/Gui/Gtk3/IDEFrameGtk.hpp>
 #include <Xenoide/Gui/Gtk3/MainApplication.hpp>
 
@@ -17,8 +15,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Done." << std::endl;
 
     std::cout << "Initializing IDEFrameGtk ..." << std::endl;
-    auto model = IDEFrameModel::create();
-    auto presenter = IDEFramePresenter{model.get()};
+    auto model = IDEFrame::Model::create();
+    auto presenter = IDEFrame::Presenter{model.get()};
     auto window = IDEFrameGtk{&presenter};
     std::cout << "Done." << std::endl;
 
