@@ -49,6 +49,7 @@ if (XENOIDE_GUI_COCOA)
 endif ()
 
 if (XENOIDE_GUI_GTK3)
+    add_subdirectory ("modules/Xenoide.Gui.Gtk3.Controls")
     add_subdirectory ("modules/Xenoide.Gui.Gtk3")
 endif ()
 

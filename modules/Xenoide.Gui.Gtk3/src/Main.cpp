@@ -1,4 +1,4 @@
-
+/*
 #include <gtkmm.h>
 
 class MainWindow : public Gtk::Window
@@ -86,9 +86,8 @@ int main(int argc, char** argv)
 
     return 0;
 }
+*/
 
-
-/*
 
 #include <gtkmm/main.h>
 
@@ -115,4 +114,3 @@ int main(int argc, char* argv[]) {
 
     return app->run(window);
 }
-*/
