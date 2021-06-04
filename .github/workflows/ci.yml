@@ -12,10 +12,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Development dependencies
-        run: sudo apt-get install libboost-all-dev
+        run: sudo apt-get install libboost-all-dev libgtkmm-3.0-dev libgtksourceviewmm-3.0-3.0-dev
 
       - name: Configuring a debug build, using the GTK3 Frontend.
         run: mkdir -p .cmake/ && cd .cmake/ && cmake ../ -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DXENOIDE_GUI_GTK3=ON
 
       - name: Configuring a debug build, using the GTK3 Frontend
-        run: make 
+        run: cd .cmake/ && make 
