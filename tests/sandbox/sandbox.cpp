@@ -100,6 +100,177 @@
 //    return 1001;
 //}
 
-int main() {
-    return 0;
+
+#define STRICT
+#define WIN32_LEAN_AND_MEAN
+
+#include <atlbase.h>
+#include <atlwin.h>
+
+#include <atlapp.h>
+#include <atlframe.h>
+#include <atlctrls.h>
+#include <atlctrlx.h>
+#include <atluser.h>
+#include <atlcrack.h>
+#include <atlsplit.h>
+
+#include "resource.h"
+
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
+
+// All Dialogs must inherit from the CDialogImpl template class.
+// Must declar a class-scoped member IDD, wich haves the dialog's resource identifier.
+class AboutDlg : public CDialogImpl<AboutDlg> {
+public:
+    enum {IDD = IDD_ABOUT};
+
+public:
+    BEGIN_MSG_MAP(AboutDlg)
+        MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+        MESSAGE_HANDLER(WM_CLOSE, OnClose)
+        COMMAND_ID_HANDLER(IDOK, OnOKCancel)
+        COMMAND_ID_HANDLER(IDCANCEL, OnOKCancel)
+    END_MSG_MAP()
+
+public:
+    LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+        CenterWindow();
+
+        // let the system set the focus
+        return TRUE;
+    }
+ 
+    LRESULT OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+        EndDialog(IDCANCEL);
+        return 0;
+    }
+ 
+    LRESULT OnOKCancel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled) {
+        EndDialog(wID);
+        return 0;
+    }
+};
+
+
+template<typename T, COLORREF crColorBrush>
+class PaintBackground {
+public:
+    BEGIN_MSG_MAP(PaintBackground)
+        MESSAGE_HANDLER(WM_ERASEBKGND, OnEraseBkgnd)
+    END_MSG_MAP()
+
+public:
+    PaintBackground() {
+        m_hbrBackground = ::CreateSolidBrush(crColorBrush);
+    }
+
+    ~PaintBackground() {
+        ::DeleteObject(m_hbrBackground);
+    }
+
+    LRESULT OnEraseBkgnd(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+        const T* pT = static_cast<T*>(this);
+        HDC hDC = reinterpret_cast<HDC>(wParam);
+
+        RECT rc;
+        pT->GetClientRect(&rc);
+
+        FillRect(hDC, &rc, m_hbrBackground);
+
+        // Let know that we painted the background
+        return 1;
+    }
+
+protected:
+    HBRUSH m_hbrBackground = nullptr;
+};
+
+
+// using MainWindowTraits = CWinTraits<WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, WS_EX_APPWINDOW>;
+using MainWindowTraits = CFrameWinTraits;
+
+// CWindow: Interface. Doesn't own any handle
+// CWindowImpl: Implementation.
+// MainWindowTraits: Traits for a Top-Level Window (MainWindow in this case)
+class MainWindow :  public CWindowImpl<MainWindow, CWindow, MainWindowTraits>, 
+                    public PaintBackground<MainWindow, RGB(0, 0, 255)> {
+
+public:
+    // MESSAGE_HANDLER: Maps a Window Message with a specific method
+    // CHAIN_MSG_MAP: Chains the main message map with the one of the specified base class
+
+public:
+    using PaintBackgroundBase = PaintBackground<MainWindow, RGB(0, 0, 255)>;
+
+public:
+    DECLARE_WND_CLASS(_T("MainWindow"))
+
+    BEGIN_MSG_MAP(MainWindow)
+        COMMAND_ID_HANDLER(ID_HELP_ABOUT, OnAbout)
+        COMMAND_ID_HANDLER(ID_FILE_EXIT, OnFileExit);
+
+        MESSAGE_HANDLER(WM_CREATE, OnCreate)
+        MESSAGE_HANDLER(WM_CLOSE, OnClose)
+        MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+
+        CHAIN_MSG_MAP(PaintBackgroundBase)
+    END_MSG_MAP()
+
+public:
+    LRESULT OnFileExit(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled) {
+        DestroyWindow();
+        return 0;
+    }
+
+    LRESULT OnAbout(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled) {
+        AboutDlg dlg;
+        dlg.DoModal();
+
+        return 0;
+    }
+
+public:
+    LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL bHandled) {
+        HMENU hMenu = LoadMenu(_AtlBaseModule.GetResourceInstance(), MAKEINTRESOURCE(IDR_MENU1));
+
+        SetMenu(hMenu);
+        
+        return 0L;
+    }
+
+    LRESULT OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL bHandled) {
+        DestroyWindow();
+        return 0L;
+    }
+
+    LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+        PostQuitMessage(0);
+        return 0;
+    }
+};
+
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+    ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+    ::AtlInitCommonControls(ICC_COOL_CLASSES | ICC_TREEVIEW_CLASSES | ICC_BAR_CLASSES);
+
+    MainWindow mainWindow;
+
+    MSG msg;
+
+    if (NULL == mainWindow.Create(NULL, CWindow::rcDefault, _T("Xenoide"))) {
+        return 1;
+    }
+
+    mainWindow.ShowWindow(nCmdShow);
+    mainWindow.UpdateWindow();
+
+    while (::GetMessage(&msg, NULL, 0, 0) > 0) {
+        ::TranslateMessage(&msg);
+        ::DispatchMessage(&msg);
+    }
+
+    return static_cast<int>(msg.wParam);
 }
