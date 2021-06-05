@@ -103,15 +103,20 @@
 
 #define STRICT
 #define WIN32_LEAN_AND_MEAN
+#define _WTL_USE_CSTRING
 
 #include <atlbase.h>
-#include <atlwin.h>
-
 #include <atlapp.h>
+
+// WTL version of CComModule
+extern CAppModule _Module;
+
+#include <atlwin.h>
 #include <atlframe.h>
 #include <atlctrls.h>
 #include <atlctrlx.h>
 #include <atluser.h>
+#include <atlmisc.h>
 #include <atlcrack.h>
 #include <atlsplit.h>
 
@@ -252,25 +257,95 @@ public:
 };
 
 
+// Frame Windows are defined with CFrameWindowImpl
+class MainFrame :   public CFrameWindowImpl<MainFrame>,
+                    public CUpdateUI<MainFrame>/*,
+                    public CMessageFilter,
+                    public CIdleHandler*/ {
+public:
+    DECLARE_FRAME_WND_CLASS("MainFrame", IDR_MAINFRAME)
+
+    BEGIN_UPDATE_UI_MAP(MainFrame)
+    END_UPDATE_UI_MAP()
+
+    BEGIN_MSG_MAP(MainFrame)
+        MSG_WM_CREATE(OnCreate)
+        MSG_WM_DESTROY(OnDestroy)
+        MSG_WM_TIMER(OnTimer)
+        MSG_WM_ERASEBKGND(OnEraseBkgnd)
+
+        CHAIN_MSG_MAP(CUpdateUI<MainFrame>)
+        // CHAIN_MSG_MAP(CFrameWindowImpl<MainFrame>)
+    END_MSG_MAP()
+
+
+public:
+    LRESULT OnCreate(LPCREATESTRUCT cs) {
+        SetTimer(1, 1000);
+        SetMsgHandled(true);
+
+        return 0;
+    }
+
+    void OnDestroy() {
+        KillTimer(1);
+        SetMsgHandled(false);
+        PostQuitMessage(0);
+    }
+
+    void OnTimer(UINT uTimerID) {
+        if (uTimerID != 1) {
+            SetMsgHandled(false);
+        } else {
+            RedrawWindow();
+        }
+    }
+
+    LRESULT OnEraseBkgnd(HDC hDC) {
+        CDCHandle dc(hDC);
+        CRect rc;
+        SYSTEMTIME st;
+        CString sTime;
+
+        GetClientRect(rc);
+
+        GetLocalTime(&st);
+        sTime.Format(_T("The time is %d:%02d:%02d"), st.wHour, st.wMinute, st.wSecond);
+
+        dc.SaveDC();
+        dc.SetBkColor(RGB(255, 133, 0));
+        dc.SetTextColor(RGB(0, 0, 0));
+        dc.ExtTextOut (0, 0, ETO_OPAQUE, rc, sTime,  sTime.GetLength(), NULL);
+        dc.RestoreDC(-1);
+
+        return 1;
+    }
+};
+
+CAppModule _Module;
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
     ::AtlInitCommonControls(ICC_COOL_CLASSES | ICC_TREEVIEW_CLASSES | ICC_BAR_CLASSES);
 
-    MainWindow mainWindow;
+    _Module.Init(NULL, hInstance);
 
+    MainFrame mainFrame;
     MSG msg;
 
-    if (NULL == mainWindow.Create(NULL, CWindow::rcDefault, _T("Xenoide"))) {
+    if (NULL == mainFrame.CreateEx()) {
         return 1;
     }
 
-    mainWindow.ShowWindow(nCmdShow);
-    mainWindow.UpdateWindow();
+    mainFrame.ShowWindow(nCmdShow);
+    mainFrame.UpdateWindow();
 
     while (::GetMessage(&msg, NULL, 0, 0) > 0) {
         ::TranslateMessage(&msg);
         ::DispatchMessage(&msg);
     }
+
+    _Module.Term();
 
     return static_cast<int>(msg.wParam);
 }

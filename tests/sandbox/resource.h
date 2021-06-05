@@ -36,8 +36,6 @@
 #define _USE_DECLSPECS_FOR_SAL          0
 #define _USE_ATTRIBUTES_FOR_SAL         0
 #define __drv_typeConst                 0
-#define CREATEPROCESS_MANIFEST_RESOURCE_ID 1
-#define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID 1
 #define SW_SHOWNORMAL                   1
 #define SW_NORMAL                       1
 #define SHOW_OPENWINDOW                 1
@@ -219,8 +217,9 @@
 #define VFFF_ISSHAREDFILE               0x0001
 #define VFF_CURNEDEST                   0x0001
 #define VIFF_FORCEINSTALL               0x0001
+#define CREATEPROCESS_MANIFEST_RESOURCE_ID 1
+#define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID 1
 #define WINAPI_FAMILY_PC_APP            2
-#define ISOLATIONAWARE_MANIFEST_RESOURCE_ID 2
 #define SW_SHOWMINIMIZED                2
 #define SHOW_ICONWINDOW                 2
 #define SW_OTHERZOOM                    2
@@ -308,8 +307,8 @@
 #define __drv_typeBitset                2
 #define VFF_FILEINUSE                   0x0002
 #define VIFF_DONTDELETEOLD              0x0002
+#define ISOLATIONAWARE_MANIFEST_RESOURCE_ID 2
 #define WINAPI_FAMILY_PHONE_APP         3
-#define ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID 3
 #define SW_SHOWMAXIMIZED                3
 #define SW_MAXIMIZE                     3
 #define SHOW_FULLSCREEN                 3
@@ -342,8 +341,8 @@
 #define SUBLANG_SPANISH_MODERN          0x03
 #define SORT_CHINESE_BOPOMOFO           0x3
 #define __drv_typeExpr                  3
+#define ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID 3
 #define WINAPI_FAMILY_SYSTEM            4
-#define ISOLATIONPOLICY_MANIFEST_RESOURCE_ID 4
 #define SW_SHOWNOACTIVATE               4
 #define SHOW_OPENNOACTIVATE             4
 #define SW_OTHERUNZOOM                  4
@@ -392,8 +391,8 @@
 #define SORT_JAPANESE_RADICALSTROKE     0x4
 #define SORT_CHINESE_RADICALSTROKE      0x4
 #define VFF_BUFFTOOSMALL                0x0004
+#define ISOLATIONPOLICY_MANIFEST_RESOURCE_ID 4
 #define WINAPI_FAMILY_SERVER            5
-#define ISOLATIONPOLICY_BROWSER_MANIFEST_RESOURCE_ID 5
 #define SW_SHOW                         5
 #define VK_XBUTTON1                     0x05
 #define WM_SIZE                         0x0005
@@ -412,6 +411,7 @@
 #define SUBLANG_GERMAN_LIECHTENSTEIN    0x05
 #define SUBLANG_SAMI_LULE_SWEDEN        0x05
 #define SUBLANG_SPANISH_COSTA_RICA      0x05
+#define ISOLATIONPOLICY_BROWSER_MANIFEST_RESOURCE_ID 5
 #define WINAPI_FAMILY_GAMES             6
 #define SW_MINIMIZE                     6
 #define VK_XBUTTON2                     0x06
@@ -813,6 +813,7 @@
 #define VK_DECIMAL                      0x6E
 #define LANG_LUXEMBOURGISH              0x6e
 #define IDR_MENU1                       110
+#define IDR_MAINFRAME                   110
 #define VK_DIVIDE                       0x6F
 #define LANG_GREENLANDIC                0x6f
 #define VK_F1                           0x70
@@ -1584,6 +1585,18 @@
 #define TCS_FOCUSNEVER                  0x8000
 #define ID_FILE_EXIT                    40001
 #define ID_HELP_ABOUT                   40002
+#define ID_FILE_NEW                     40003
+#define ID_FILE_OPEN                    40004
+#define ID_FILE_SAVE                    40005
+#define ID_FILE_SAVEAS                  40006
+#define ID_FILE_OPENFOLDER              40007
+#define ID_EDIT_UNDO                    40008
+#define ID_EDIT_REDO                    40009
+#define ID_EDIT_CUT                     40010
+#define ID_EDIT_COPY                    40011
+#define ID_EDIT_PASTE                   40012
+#define ID_EDIT_FIND                    40013
+#define ID_EDIT_REPLACE                 40014
 #define SC_SIZE                         0xF000
 #define SC_SEPARATOR                    0xF00F
 #define SC_MOVE                         0xF010
@@ -1606,18 +1619,15 @@
 #define SC_CONTEXTHELP                  0xF180
 #define LVS_TYPESTYLEMASK               0xfc00
 #define SPVERSION_MASK                  0x0000FF00
-#define HTERROR                         -2
-#define IDC_STATIC                      -1
-#define PWR_FAIL                        -1
 #define UNICODE_NOCHAR                  0xFFFF
-#define HTTRANSPARENT                   -1
+
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        111
-#define _APS_NEXT_COMMAND_VALUE         40003
+#define _APS_NEXT_COMMAND_VALUE         40015
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
