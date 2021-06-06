@@ -59,6 +59,7 @@ if (XENOIDE_GUI_QT5)
 endif ()
 
 if (XENOIDE_GUI_WTL)
+	add_subdirectory ("apps/XenoShader.Wtl")
     add_subdirectory ("modules/Xenoide.Gui.Wtl")
 endif ()
 
