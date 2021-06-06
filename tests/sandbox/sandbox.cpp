@@ -257,40 +257,30 @@ public:
 };
 
 
-// Frame Windows are defined with CFrameWindowImpl
-class MainFrame :   public CFrameWindowImpl<MainFrame>,
-                    public CUpdateUI<MainFrame>/*,
-                    public CMessageFilter,
-                    public CIdleHandler*/ {
+class ClockView : public CWindowImpl<ClockView> {
 public:
-    DECLARE_FRAME_WND_CLASS("MainFrame", IDR_MAINFRAME)
+    DECLARE_WND_CLASS(NULL)
 
-    BEGIN_UPDATE_UI_MAP(MainFrame)
-    END_UPDATE_UI_MAP()
-
-    BEGIN_MSG_MAP(MainFrame)
+    BEGIN_MSG_MAP_EX(ClockView)
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
         MSG_WM_TIMER(OnTimer)
         MSG_WM_ERASEBKGND(OnEraseBkgnd)
-
-        CHAIN_MSG_MAP(CUpdateUI<MainFrame>)
-        // CHAIN_MSG_MAP(CFrameWindowImpl<MainFrame>)
     END_MSG_MAP()
 
-
 public:
+    ClockView() {
+        m_bMsgHandled = false;
+    }
+
     LRESULT OnCreate(LPCREATESTRUCT cs) {
-        SetTimer(1, 1000);
         SetMsgHandled(true);
 
         return 0;
     }
 
     void OnDestroy() {
-        KillTimer(1);
         SetMsgHandled(false);
-        PostQuitMessage(0);
     }
 
     void OnTimer(UINT uTimerID) {
@@ -320,9 +310,80 @@ public:
 
         return 1;
     }
+
+    void StartClock() {
+        SetTimer(1, 1000);
+    }
+
+    void StopClock() {
+        KillTimer(1);
+    }
 };
 
+
+// Frame Windows are defined with CFrameWindowImpl
+class MainFrame :   public CFrameWindowImpl<MainFrame>,
+                    public CUpdateUI<MainFrame>/*,
+                    public CMessageFilter,
+                    public CIdleHandler*/ {
+public:
+    DECLARE_FRAME_WND_CLASS("MainFrame", IDR_MAINFRAME)
+
+    BEGIN_UPDATE_UI_MAP(MainFrame)
+        UPDATE_ELEMENT(ID_CLOCK_START, UPDUI_MENUPOPUP)
+        UPDATE_ELEMENT(ID_CLOCK_STOP, UPDUI_MENUPOPUP)
+    END_UPDATE_UI_MAP()
+
+    BEGIN_MSG_MAP(MainFrame)
+        COMMAND_ID_HANDLER_EX(ID_CLOCK_START, OnStart)
+        COMMAND_ID_HANDLER_EX(ID_CLOCK_STOP, OnStop)
+
+        MSG_WM_CREATE(OnCreate)
+        MSG_WM_DESTROY(OnDestroy)
+
+        CHAIN_MSG_MAP(CUpdateUI<MainFrame>)
+        CHAIN_MSG_MAP(CFrameWindowImpl<MainFrame>)
+    END_MSG_MAP()
+
+private:
+    ClockView mClockView;
+
+public:
+    LRESULT OnCreate(LPCREATESTRUCT cs) {
+        const DWORD dwClientStyle = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+        const DWORD dwClientExStyle = WS_EX_CLIENTEDGE;
+
+        m_hWndClient = mClockView.Create(m_hWnd, rcDefault, NULL, dwClientStyle, dwClientExStyle);
+        
+        UIEnable(ID_CLOCK_START, true);
+        UIEnable(ID_CLOCK_STOP, false);
+
+        return 0;
+    }
+
+    void OnDestroy() {
+        SetMsgHandled(false);
+        PostQuitMessage(0);
+    }
+
+    void OnStart(UINT uCode, int nID, HWND hwndCtrl) {
+        UIEnable(ID_CLOCK_START, false);
+        UIEnable(ID_CLOCK_STOP, true);
+
+        mClockView.StartClock();
+    }
+
+    void OnStop(UINT uCode, int nID, HWND hwndCtrl) {
+        UIEnable(ID_CLOCK_START, true);
+        UIEnable(ID_CLOCK_STOP, false);
+
+        mClockView.StopClock();
+    }
+};
+
+
 CAppModule _Module;
+
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
