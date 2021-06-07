@@ -29,11 +29,7 @@ if (UNIX)
 endif ()
 
 # Specify the use of the C++17 standard
-if (MSVC)
-    add_definitions ("/std:c++latest")
-else ()
-    set (CMAKE_CXX_STANDARD 17)
-endif (MSVC)
+set (CMAKE_CXX_STANDARD 17)
 
 if (UNIX)
     add_definitions ("-fPIC")

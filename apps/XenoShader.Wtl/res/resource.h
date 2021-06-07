@@ -1601,6 +1601,7 @@
 #define ID_FILE_OPEN40015               40015
 #define ID_FILE_SAVE_AS                 40016
 #define ID_EDIT_FINDANDREPLACE          40017
+#define ID_FILE_OPENFOLDER              40018
 #define SC_SIZE                         0xF000
 #define SC_SEPARATOR                    0xF00F
 #define SC_MOVE                         0xF010
@@ -1634,7 +1635,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        111
-#define _APS_NEXT_COMMAND_VALUE         40018
+#define _APS_NEXT_COMMAND_VALUE         40019
 #define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

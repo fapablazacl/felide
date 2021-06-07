@@ -1,4 +1,5 @@
 
+#include <tuple>
 
 #define STRICT
 #define WIN32_LEAN_AND_MEAN
@@ -18,7 +19,17 @@ extern CAppModule _Module;
 #include <atlmisc.h>
 #include <atlcrack.h>
 #include <atlsplit.h>
+#include <atldlgs.h>
 
+#include <Scintilla.h>
+#include <Sci_Position.h>
+#include <SciLexer.h>
+#include <ILexer.h>
+#include <Lexilla.h>
+
+#include <vector>
+#include <string_view>
+#include "LexillaAccess.h"
 #include "resource.h"
 
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
@@ -58,19 +69,17 @@ public:
 };
 
 
-class CodeView : public CWindowImpl<CodeView> {
+class FolderView : public CWindowImpl<FolderView> {
 public:
     DECLARE_WND_CLASS(NULL)
 
-    BEGIN_MSG_MAP_EX(ClockView)
+    BEGIN_MSG_MAP_EX(FolderView)
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
-        MSG_WM_TIMER(OnTimer)
-        MSG_WM_ERASEBKGND(OnEraseBkgnd)
     END_MSG_MAP()
 
 public:
-    CodeView() {
+    FolderView () {
         m_bMsgHandled = false;
     }
 
@@ -84,41 +93,160 @@ public:
         SetMsgHandled(false);
     }
 
-    void OnTimer(UINT uTimerID) {
-        if (uTimerID != 1) {
-            SetMsgHandled(false);
-        } else {
-            RedrawWindow();
+    void DisplayFolder(CString folderPath) {
+
+    }
+
+private:
+    
+};
+
+
+struct CodeViewStyleAttribs {
+    COLORREF fore = RGB(255, 255, 255);
+    COLORREF back = RGB(255, 255, 255);
+    int size = 0;
+    const char *face = nullptr;
+};
+
+
+static const ILexer5 *lexerC = nullptr;
+
+constexpr COLORREF black = RGB(0, 0, 0);
+constexpr COLORREF white = RGB(255, 255, 255);
+constexpr char * defaultFontName = "Courier New";
+constexpr int defaultFontSize = 12;
+
+struct CodeViewLanguageConfig {
+    CodeViewStyleAttribs defaultStyle = {
+        black, white, defaultFontSize, defaultFontName
+    };
+
+    std::string keywords;
+    std::vector<std::pair<int, COLORREF>> stylesColors;
+};
+
+
+// C++ (11?) keywords
+static const char* cpp_keywords = {
+	"alignas alignof and and_eq asm atomic_cancel atomic_commit atomic_noexcept auto bitand bitor bool break case catch char "
+	"char16_t char32_t class compl concept const constexpr const_cast continue decltype default delete do "
+	"double dynamic_cast else enum explicit export extern false float for friend goto if inline int import long "
+	"module mutable namespace new noexcept not not_eq nullptr operator or or_eq private protected public "
+	"register reinterpret_cast requires return short signed sizeof static static_assert static_cast struct "
+	"switch synchronized template this thread_local "
+	"throw true try typedef typeid typename union unsigned "
+	"using virtual void volatile wchar_t while xor xor_eq"
+};
+
+static std::pair<int, COLORREF> stylesColors[] = {
+    {SCE_C_COMMENT, RGB(0x00, 0x80, 0x00)}, 
+    {SCE_C_COMMENTLINE, RGB(0x00, 0x80, 0x00)}, 
+    {SCE_C_COMMENTDOC, RGB(0x00, 0x80, 0x00)}, 
+    {SCE_C_NUMBER, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_WORD, RGB(0x00, 0x00, 0xFF)}, 
+    {SCE_C_STRING, RGB(0x80, 0x00, 0x00)}, 
+    {SCE_C_CHARACTER, RGB(0x80, 0x00, 0x00)}, 
+    {SCE_C_UUID, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_PREPROCESSOR, RGB(0xA0, 0x00, 0xFF)}, 
+    {SCE_C_OPERATOR, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_IDENTIFIER, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_STRINGEOL, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_VERBATIM, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_REGEX, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_COMMENTLINEDOC, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_WORD2, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_COMMENTDOCKEYWORD, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_COMMENTDOCKEYWORDERROR, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_GLOBALCLASS, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_STRINGRAW, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_TRIPLEVERBATIM, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_HASHQUOTEDSTRING, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_PREPROCESSORCOMMENT, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_PREPROCESSORCOMMENTDOC, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_USERLITERAL, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_TASKMARKER, RGB(0x00, 0x00, 0x00)}, 
+    {SCE_C_ESCAPESEQUENCE, RGB(0x00, 0x00, 0x00)}
+};
+
+class CodeView : public CWindowImpl<CodeView> {
+public:
+    DECLARE_WND_CLASS(NULL)
+
+    BEGIN_MSG_MAP_EX(CodeView)
+        MSG_WM_CREATE(OnCreate)
+        MSG_WM_DESTROY(OnDestroy)
+        MSG_WM_SIZE(OnSize)
+    END_MSG_MAP()
+
+public:
+    CodeView() {
+        m_bMsgHandled = false;
+    }
+
+    LRESULT OnCreate(LPCREATESTRUCT cs) {
+        mWndScintilla.Create(_T("Scintilla"), m_hWnd, rcDefault, _T(""), WS_CHILD | WS_VISIBLE);
+        mWndScintilla.SendMessage(SCI_SETUSETABS, 0);
+        mWndScintilla.SendMessage(SCI_SETTABWIDTH, 4);
+        
+        // configure for generic text
+        SetStyleAttribs(STYLE_DEFAULT, {black, white, 10, "Courier New"});
+
+        // configure keywords, colors and fonts for C/C++
+        {        
+            // clear any previously setted lexer
+            mWndScintilla.SendMessage(SCI_STYLECLEARALL);
+
+            mWndScintilla.SendMessage(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(lexerC));
+            mWndScintilla.SendMessage(SCI_SETKEYWORDS, 0, (LPARAM)(cpp_keywords));
+
+            SetStyleAttribs(SCE_C_DEFAULT, {black, white, 10, "Courier New"});
+            for (const auto styleColor : stylesColors) {
+                SetStyleAttribs(styleColor.first, {styleColor.second, white, 0, nullptr});
+            }
+
+            mWndScintilla.SendMessage(SCI_STYLESETBOLD, SCE_C_WORD, 1);
+            mWndScintilla.SendMessage(SCI_STYLESETBOLD, SCE_C_WORD2, 1);
+        }
+
+        SetMsgHandled(true);
+
+        return 0;
+    }
+
+    void OnDestroy() {
+        mWndScintilla.DestroyWindow();
+        mWndScintilla.Detach();
+
+        SetMsgHandled(false);
+    }
+
+    void OnSize(UINT nType, CSize size) {
+        const CRect rect = { 0, 0, size.cx, size.cy };
+
+        mWndScintilla.SetWindowPos(NULL, rect, 0);
+    }
+
+    void SetStyleAttribs(const int style, const CodeViewStyleAttribs &attribs) {
+        mWndScintilla.SendMessage(SCI_STYLESETFORE, style, attribs.fore);
+        mWndScintilla.SendMessage(SCI_STYLESETBACK, style, attribs.back);
+
+        if (attribs.size >= 1) {
+            mWndScintilla.SendMessage(SCI_STYLESETSIZE, style, attribs.size);
+        }
+        
+        if (attribs.face) {
+            mWndScintilla.SendMessage(SCI_STYLESETFONT, style, reinterpret_cast<LPARAM>(attribs.face));
         }
     }
 
-    LRESULT OnEraseBkgnd(HDC hDC) {
-        CDCHandle dc(hDC);
-        CRect rc;
-        SYSTEMTIME st;
-        CString sTime;
+    void SetLanguage(ILexer5 *lexer, const CodeViewLanguageConfig &config) {
 
-        GetClientRect(rc);
-
-        GetLocalTime(&st);
-        sTime.Format(_T("The time is %d:%02d:%02d"), st.wHour, st.wMinute, st.wSecond);
-
-        dc.SaveDC();
-        dc.SetBkColor(RGB(255, 133, 0));
-        dc.SetTextColor(RGB(0, 0, 0));
-        dc.ExtTextOut (0, 0, ETO_OPAQUE, rc, sTime,  sTime.GetLength(), NULL);
-        dc.RestoreDC(-1);
-
-        return 1;
     }
 
-    void StartClock() {
-        SetTimer(1, 1000);
-    }
-
-    void StopClock() {
-        KillTimer(1);
-    }
+private:
+    CWindow mWndScintilla;
+    CFont mFntFixed;
 };
 
 
@@ -138,6 +266,7 @@ public:
     BEGIN_MSG_MAP(MainFrame)
         COMMAND_ID_HANDLER_EX(ID_FILE_NEW, OnFileMenu)
         COMMAND_ID_HANDLER_EX(ID_FILE_OPEN, OnFileMenu)
+        COMMAND_ID_HANDLER_EX(ID_FILE_OPENFOLDER, OnFileMenu)
         COMMAND_ID_HANDLER_EX(ID_FILE_SAVE, OnFileMenu)
         COMMAND_ID_HANDLER_EX(ID_FILE_SAVE_AS, OnFileMenu)
         COMMAND_ID_HANDLER_EX(ID_FILE_EXIT, OnFileMenu)
@@ -156,9 +285,6 @@ public:
         CHAIN_MSG_MAP(CUpdateUI<MainFrame>)
         CHAIN_MSG_MAP(CFrameWindowImpl<MainFrame>)
     END_MSG_MAP()
-
-private:
-    CodeView mCodeView;
 
 public:
     LRESULT OnCreate(LPCREATESTRUCT cs) {
@@ -179,12 +305,20 @@ public:
         if (nID == ID_FILE_OPEN) {
             
         }
+        
+        if (nID == ID_FILE_OPENFOLDER) {
+            auto folderDialog = CFolderDialog(m_hWnd, _T("Open Folder"));
 
-        if (nID == ID_FILE_SAVE_AS) {
+            if (folderDialog.DoModal() != IDOK) {
+                return;
+            }
 
-            int x = 0;
+            const CString folderPath =  folderDialog.GetFolderPath();
         }
 
+        if (nID == ID_FILE_SAVE_AS) {
+            int x = 0;
+        }
 
         if (nID == ID_FILE_EXIT) {
             DestroyWindow();
@@ -201,6 +335,10 @@ public:
             dlg.DoModal();
         }
     }
+
+private:
+    CodeView mCodeView;
+    CString mFolderPath;
 };
 
 
@@ -210,6 +348,20 @@ CAppModule _Module;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     ::SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
     ::AtlInitCommonControls(ICC_COOL_CLASSES | ICC_TREEVIEW_CLASSES | ICC_BAR_CLASSES);
+
+    HMODULE hModScintilla = ::LoadLibrary(_T("Scintilla.dll"));
+
+    if (hModScintilla == nullptr) {
+        constexpr auto msg = _T("Required Scintilla.dll module wasn't found.");
+        constexpr auto title = _T("XenoShader");
+
+        ::MessageBox(nullptr, msg, title, MB_OK | MB_ICONERROR);
+        return 1;
+    }
+
+    Lexilla::SetDefaultDirectory(".");
+    Lexilla::Load(".");
+    lexerC = Lexilla::MakeLexer("cpp");
 
     _Module.Init(NULL, hInstance);
 
@@ -230,5 +382,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     _Module.Term();
 
+    ::FreeLibrary(hModScintilla);
+    
     return static_cast<int>(msg.wParam);
 }
