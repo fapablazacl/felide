@@ -282,7 +282,7 @@ public:
         SetStyleAttribs(STYLE_DEFAULT, {black, white, defaultFontSize, defaultFontName});
 
         // configure keywords, colors and fonts for C/C++
-        SetLanguage(lexerC, languageConfigC);
+        SetLanguage(lexerC, languageConfigGLSL);
 
         SetMsgHandled(true);
 
