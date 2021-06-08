@@ -32,6 +32,8 @@ extern CAppModule _Module;
 #include "LexillaAccess.h"
 #include "resource.h"
 
+#include <Xenoide/Core/FileService.hpp>
+
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 
@@ -110,12 +112,47 @@ struct CodeViewStyleAttribs {
 };
 
 
-static const ILexer5 *lexerC = nullptr;
+// static const ILexer5 *lexerC = nullptr;
 
 constexpr COLORREF black = RGB(0, 0, 0);
 constexpr COLORREF white = RGB(255, 255, 255);
 constexpr char *defaultFontName = "Courier New";
 constexpr int defaultFontSize = 10;
+
+enum class CodeLanguage {
+    TEXT,
+    CPP,
+    GLSL
+};
+
+static std::vector<std::string> extensionsC = {
+    ".cpp", ".hpp", ".cxx", ".hxx", ".c++", ".h++", ".cc", ".hh", ".c", ".h"
+};
+
+static std::vector<std::string> extensionsGLSL = {
+    ".vert", ".tesc", ".tese", ".geom", ".frag", ".comp", ".glsl"
+};
+
+CodeLanguage getCodeLanguage(const boost::filesystem::path &filePath) {
+    if (filePath.has_extension()) {
+        const auto ext = filePath.extension();
+
+        for (const auto &extC : extensionsC) {
+            if (ext == extC) {
+                return CodeLanguage::CPP;
+            }
+        }
+
+        for (const auto &extGLSL : extensionsGLSL) {
+            if (ext == extGLSL) {
+                return CodeLanguage::GLSL;
+            }
+        }
+    }
+
+    return CodeLanguage::TEXT;
+}
+
 
 struct CodeViewLanguageConfig {
     CodeViewStyleAttribs defaultStyle = {
@@ -281,8 +318,8 @@ public:
         // configure for generic text
         SetStyleAttribs(STYLE_DEFAULT, {black, white, defaultFontSize, defaultFontName});
 
-        // configure keywords, colors and fonts for C/C++
-        SetLanguage(lexerC, languageConfigGLSL);
+        // configure keywords, colors and fonts for GLSL
+        // SetLanguage(lexerC, languageConfigGLSL);
 
         SetMsgHandled(true);
 
@@ -306,7 +343,7 @@ public:
         mWndScintilla.SendMessage(SCI_STYLESETFORE, style, attribs.fore);
         mWndScintilla.SendMessage(SCI_STYLESETBACK, style, attribs.back);
 
-        if (attribs.size >= 1) {
+        if (attribs.size > 0) {
             mWndScintilla.SendMessage(SCI_STYLESETSIZE, style, attribs.size);
         }
         
@@ -315,8 +352,14 @@ public:
         }
     }
 
+    void ClearLanguage() {
+        mWndScintilla.SendMessage(SCI_STYLECLEARALL);
+        mWndScintilla.SendMessage(SCI_CLEARDOCUMENTSTYLE);
+    }
+
     void SetLanguage(const ILexer5 *lexer, const CodeViewLanguageConfig &config) {
         mWndScintilla.SendMessage(SCI_STYLECLEARALL);
+        mWndScintilla.SendMessage(SCI_CLEARDOCUMENTSTYLE);
 
         mWndScintilla.SendMessage(SCI_SETILEXER, 0, reinterpret_cast<LPARAM>(lexer));
         mWndScintilla.SendMessage(SCI_SETKEYWORDS, 0, reinterpret_cast<LPARAM>(config.keywords.c_str()));
@@ -328,6 +371,12 @@ public:
 
         mWndScintilla.SendMessage(SCI_STYLESETBOLD, SCE_C_WORD, 1);
         mWndScintilla.SendMessage(SCI_STYLESETBOLD, SCE_C_WORD2, 1);
+    }
+
+    void SetInitialContent(const char *textContent) {
+        mWndScintilla.SendMessage(SCI_SETTEXT, 0, reinterpret_cast<LPARAM>(textContent));
+        mWndScintilla.SendMessage(SCI_EMPTYUNDOBUFFER);
+        mWndScintilla.SendMessage(SCI_SETSAVEPOINT);
     }
 
 private:
@@ -389,7 +438,35 @@ public:
 
     void OnFileMenu(UINT uCode, int nID, HWND hwndCtrl) {
         if (nID == ID_FILE_OPEN) {
-            
+            auto dialog = CFileDialog{TRUE, _T("All Files\0*.*")};
+
+            if (dialog.DoModal() != IDOK) {
+                return;
+            }
+
+            const auto filePath = CString{dialog.m_szFileName};
+
+            // load the file and put the content into the 
+            const auto fileService = Xenoide::FileService::create();
+            const auto fileContent = fileService->load(filePath.GetString());
+
+            mCodeView.SetInitialContent(fileContent.c_str());
+
+            // 
+            const auto codeLang = getCodeLanguage(filePath.GetString());
+
+            switch (codeLang) {
+                case CodeLanguage::CPP: 
+                    mCodeView.SetLanguage(Lexilla::MakeLexer("cpp"), languageConfigC); 
+                    break;
+
+                case CodeLanguage::GLSL: 
+                    mCodeView.SetLanguage(Lexilla::MakeLexer("cpp"), languageConfigGLSL); 
+                    break;
+
+                default: 
+                    mCodeView.ClearLanguage();
+            }
         }
         
         if (nID == ID_FILE_OPENFOLDER) {
@@ -447,8 +524,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     Lexilla::SetDefaultDirectory(".");
     Lexilla::Load(".");
-    lexerC = Lexilla::MakeLexer("cpp");
-
+    
     _Module.Init(NULL, hInstance);
 
     MainFrame mainFrame;
