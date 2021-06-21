@@ -32,7 +32,11 @@ extern CAppModule _Module;
 #include "LexillaAccess.h"
 #include "resource.h"
 
+#include <optional>
+#include <boost/filesystem.hpp>
+
 #include <Xenoide/Core/FileService.hpp>
+
 
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
@@ -78,6 +82,7 @@ public:
     BEGIN_MSG_MAP_EX(FolderView)
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
+        MSG_WM_SIZE(OnSize)
     END_MSG_MAP()
 
 public:
@@ -88,6 +93,11 @@ public:
     LRESULT OnCreate(LPCREATESTRUCT cs) {
         SetMsgHandled(true);
 
+        const DWORD dwStyle = TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | WS_VISIBLE | WS_CHILD;
+        const DWORD dwExStyle = TVS_EX_DOUBLEBUFFER;
+
+        mTreeView.Create(m_hWnd, rcDefault, "", dwStyle, dwExStyle);
+
         return 0;
     }
 
@@ -95,12 +105,54 @@ public:
         SetMsgHandled(false);
     }
 
-    void DisplayFolder(CString folderPath) {
+    void OnSize(UINT nType, CSize size) {
+        const CRect rect = { 0, 0, size.cx, size.cy };
 
+        mTreeView.SetWindowPos(NULL, rect, 0);
+    }
+
+    void DisplayFolder(const boost::filesystem::path &folderPath) {
+        using boost::filesystem::recursive_directory_iterator;
+        using boost::filesystem::directory_iterator;
+
+        const std::string folderName = folderPath.filename().string();
+
+        mTreeView.DeleteAllItems();
+
+        mRootItem = InsertTreeItem(mTreeView, folderName.c_str());
+        
+        directory_iterator current{folderPath}, end;
+
+        while (current != end) {
+            const std::string name = current->path().filename().string();
+
+            InsertTreeItem(mTreeView, name.c_str(), mRootItem);
+        
+            ++current;
+        }
     }
 
 private:
-    
+    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text) {
+        return treeView.InsertItem(text, 0, 0, nullptr, nullptr);
+    }
+
+    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text, const HTREEITEM parentItem) {
+        const DWORD style = TVIF_TEXT /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
+
+        TVINSERTSTRUCT insertStruct = {};
+
+        insertStruct.hParent = parentItem;
+        insertStruct.item.mask = style;
+        insertStruct.item.pszText = const_cast<char*>(text);
+        // insertStruct.item.iImage = 1;
+        // insertStruct.item.iSelectedImage = 1;
+        return treeView.InsertItem(&insertStruct);
+    }
+
+private:
+    CTreeViewCtrl mTreeView;
+    HTREEITEM mRootItem = NULL;
 };
 
 
@@ -303,6 +355,8 @@ public:
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
         MSG_WM_SIZE(OnSize)
+
+        MSG_WM_NOTIFY(OnNotify)
     END_MSG_MAP()
 
 public:
@@ -323,6 +377,11 @@ public:
 
         SetMsgHandled(true);
 
+        return 0;
+    }
+
+    LRESULT OnNotify(int idCtrl, LPNMHDR pnmh) {
+        SetMsgHandled(false);
         return 0;
     }
 
@@ -379,9 +438,24 @@ public:
         mWndScintilla.SendMessage(SCI_SETSAVEPOINT);
     }
 
+    std::string GetContent() const {
+        std::string content;
+
+        const LRESULT contentLength = mWndScintilla.SendMessage(SCI_GETLENGTH);
+
+        content.resize(static_cast<size_t>(contentLength));
+
+        mWndScintilla.SendMessage(SCI_GETTEXT, contentLength + 1, reinterpret_cast<LPARAM>(content.c_str()));
+
+        return content;
+    }
+
+    void ClearSaveState() {
+        mWndScintilla.SendMessage(SCI_SETSAVEPOINT);
+    }
+
 private:
-    CWindow mWndScintilla;
-    CFont mFntFixed;
+    mutable CWindow mWndScintilla;
 };
 
 
@@ -426,8 +500,17 @@ public:
         const DWORD dwClientStyle = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
         const DWORD dwClientExStyle = WS_EX_CLIENTEDGE;
 
-        m_hWndClient = mCodeView.Create(m_hWnd, rcDefault, NULL, dwClientStyle, dwClientExStyle);
-        
+        mSplitterWindow.Create(*this, rcDefault);
+
+        mFolderView.Create(mSplitterWindow, rcDefault, NULL);
+        mCodeView.Create(mSplitterWindow, rcDefault, NULL, dwClientStyle, dwClientExStyle);
+
+        mSplitterWindow.SetSplitterPanes(mFolderView, mCodeView);
+
+        m_hWndClient = mSplitterWindow;
+        UpdateLayout();
+        mSplitterWindow.SetSplitterPos(200);
+
         return 0;
     }
 
@@ -444,16 +527,16 @@ public:
                 return;
             }
 
-            const auto filePath = CString{dialog.m_szFileName};
+            mFilePath = boost::filesystem::path{dialog.m_szFileName};
 
             // load the file and put the content into the 
             const auto fileService = Xenoide::FileService::create();
-            const auto fileContent = fileService->load(filePath.GetString());
+            const auto fileContent = fileService->load(*mFilePath);
 
             mCodeView.SetInitialContent(fileContent.c_str());
 
             // 
-            const auto codeLang = getCodeLanguage(filePath.GetString());
+            const auto codeLang = getCodeLanguage(*mFilePath);
 
             switch (codeLang) {
                 case CodeLanguage::CPP: 
@@ -476,7 +559,21 @@ public:
                 return;
             }
 
-            const CString folderPath =  folderDialog.GetFolderPath();
+            const boost::filesystem::path folderPath = folderDialog.GetFolderPath();
+
+            mFolderView.DisplayFolder(folderPath);
+        }
+
+        if (nID == ID_FILE_SAVE) {
+            if (mFilePath) {
+                const auto fileService = Xenoide::FileService::create();
+                const auto content = mCodeView.GetContent();
+                fileService->save(mFilePath.value(), content);
+
+                mCodeView.ClearSaveState();
+            } else {
+                OnFileMenu(uCode, ID_FILE_SAVE_AS, hwndCtrl);
+            }
         }
 
         if (nID == ID_FILE_SAVE_AS) {
@@ -501,7 +598,11 @@ public:
 
 private:
     CodeView mCodeView;
+    FolderView mFolderView;
+
     CString mFolderPath;
+    CSplitterWindow mSplitterWindow;
+    std::optional<boost::filesystem::path> mFilePath;
 };
 
 
