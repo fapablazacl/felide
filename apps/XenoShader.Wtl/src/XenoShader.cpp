@@ -33,6 +33,7 @@ extern CAppModule _Module;
 #include "resource.h"
 
 #include <optional>
+#include <set>
 #include <boost/filesystem.hpp>
 #include <boost/bimap.hpp>
 
@@ -78,12 +79,18 @@ public:
 
 class FolderView : public CWindowImpl<FolderView> {
 public:
+    enum {
+        ID_FOLDERVIEW_TREEVIEW = 10000
+    };
+
+public:
     DECLARE_WND_CLASS(NULL)
 
     BEGIN_MSG_MAP_EX(FolderView)
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
         MSG_WM_SIZE(OnSize)
+        MSG_WM_NOTIFY(OnNotify)
     END_MSG_MAP()
 
 public:
@@ -97,7 +104,7 @@ public:
         const DWORD dwStyle = TVS_HASLINES | TVS_HASBUTTONS | TVS_LINESATROOT | WS_VISIBLE | WS_CHILD;
         const DWORD dwExStyle = TVS_EX_DOUBLEBUFFER;
 
-        mTreeView.Create(m_hWnd, rcDefault, "", dwStyle, dwExStyle);
+        mTreeView.Create(m_hWnd, rcDefault, "", dwStyle, dwExStyle, ID_FOLDERVIEW_TREEVIEW);
 
         return 0;
     }
@@ -112,80 +119,100 @@ public:
         mTreeView.SetWindowPos(NULL, rect, 0);
     }
 
+
+    LRESULT OnNotify(int idCtrl, LPNMHDR pnmh) {
+        SetMsgHandled(true);
+
+        switch (pnmh->code) {
+        case TVN_ITEMEXPANDING: {
+            const auto &pnmtv = *reinterpret_cast<LPNMTREEVIEW>(pnmh);
+
+            if (pnmtv.action == TVE_EXPAND) {
+                const HTREEITEM hTreeItem = pnmtv.itemNew.hItem;
+
+                if (const auto it = mPopulatedItems.find(hTreeItem); it == mPopulatedItems.end()) {
+                    PopulateTreeItem(hTreeItem);
+                    mPopulatedItems.insert(hTreeItem);
+                }
+            }
+            
+            break;
+        }
+        
+        default:
+            SetMsgHandled(false);
+        }
+
+        return 0;
+    }
+
     void DisplayFolder(const boost::filesystem::path &folderPath) {
         mTreeView.DeleteAllItems();
         mPathItemsCache.clear();
-
-        using boost::filesystem::recursive_directory_iterator;
-        using boost::filesystem::directory_iterator;
 
         const std::string folderName = folderPath.filename().string();
 
         mRootItem = InsertTreeItem(mTreeView, folderName.c_str());
         mPathItemsCache.insert({mRootItem, folderPath});
+    }
 
-        recursive_directory_iterator current{folderPath}, end;
+
+    void PopulateTreeItem(const HTREEITEM hParentItem) {
+        using boost::filesystem::recursive_directory_iterator;
+        using boost::filesystem::directory_iterator;
+
+        const auto folderPathIt = mPathItemsCache.left.find(hParentItem);
+
+        if (folderPathIt == mPathItemsCache.left.end()) {
+            return;
+        }
+
+        directory_iterator current{folderPathIt->second}, end;
 
         while (current != end) {
             const auto currentPath = current->path();
 
             const auto parentCacheIt = mPathItemsCache.right.find(currentPath.parent_path());
 
-            if (parentCacheIt != mPathItemsCache.right.end()) {
-                const HTREEITEM hParentItem = parentCacheIt->second;
-
-                const std::string name = currentPath.filename().string();
-                const HTREEITEM hTreeItem = InsertTreeItem(mTreeView, name.c_str(), hParentItem);
-                mPathItemsCache.insert({hTreeItem, currentPath});
+            if (parentCacheIt == mPathItemsCache.right.end()) {
+                continue;
             }
 
+            const bool isDirectory = boost::filesystem::is_directory(currentPath);
+
+            const HTREEITEM hParentItem = parentCacheIt->second;
+
+            const std::string name = currentPath.filename().string();
+            const HTREEITEM hTreeItem = InsertTreeItem(mTreeView, name.c_str(), hParentItem, isDirectory);
+            mPathItemsCache.insert({hTreeItem, currentPath});
+            
             ++current;
         }
     }
-
-    /*
-    void Expand(HTREEITEM hParent, const boost::filesystem::path &path) {
-        const auto treeItemIt = mPathItemsCache.find(path);
-
-        if (treeItemIt == mPathItemsCache.end()) {
-
-        }
-
-        using boost::filesystem::recursive_directory_iterator;
-        using boost::filesystem::directory_iterator;
-
-        const std::string folderName = path.filename().string();
-
-        mTreeView.DeleteAllItems();
-
-        mRootItem = InsertTreeItem(mTreeView, folderName.c_str());
-        
-        directory_iterator current{folderPath}, end;
-
-        while (current != end) {
-            const std::string name = current->path().filename().string();
-            const HTREEITEM hTreeItem = InsertTreeItem(mTreeView, name.c_str(), mRootItem);
-
-            mPathItemsCache.insert({});
-        
-            ++current;
-        }
-    }
-    */
 
 private:
     HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text) {
-        return treeView.InsertItem(text, 0, 0, nullptr, nullptr);
+        const DWORD style = TVIF_TEXT | TVIF_CHILDREN /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
+
+        TVINSERTSTRUCT insertStruct = {};
+
+        insertStruct.item.mask = style;
+        insertStruct.item.pszText = const_cast<char*>(text);
+        insertStruct.item.cChildren = 1;
+        // insertStruct.item.iImage = 1;
+        // insertStruct.item.iSelectedImage = 1;
+        return treeView.InsertItem(&insertStruct);
     }
 
-    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text, const HTREEITEM parentItem) {
-        const DWORD style = TVIF_TEXT /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
+    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text, const HTREEITEM parentItem, const bool hasChildren) {
+        const DWORD style = TVIF_TEXT | (hasChildren ? TVIF_CHILDREN : 0) /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
 
         TVINSERTSTRUCT insertStruct = {};
 
         insertStruct.hParent = parentItem;
         insertStruct.item.mask = style;
         insertStruct.item.pszText = const_cast<char*>(text);
+        insertStruct.item.cChildren = hasChildren ? 1 : 0;
         // insertStruct.item.iImage = 1;
         // insertStruct.item.iSelectedImage = 1;
         return treeView.InsertItem(&insertStruct);
@@ -196,6 +223,7 @@ private:
     HTREEITEM mRootItem = NULL;
 
     boost::bimap<HTREEITEM, boost::filesystem::path> mPathItemsCache;
+    std::set<HTREEITEM> mPopulatedItems;
 };
 
 
