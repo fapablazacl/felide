@@ -817,13 +817,16 @@
 #define IDI_ICON1                       110
 #define VK_DIVIDE                       0x6F
 #define LANG_GREENLANDIC                0x6f
+#define IDR_TOOLBAR1                    111
 #define VK_F1                           0x70
 #define LANG_IGBO                       0x70
 #define VK_F2                           0x71
+#define IDR_TOOLBAR2                    113
 #define VK_F3                           0x72
 #define VK_F4                           0x73
 #define LANG_TIGRIGNA                   0x73
 #define LANG_TIGRINYA                   0x73
+#define IDR_TOOLBAR3                    115
 #define VK_F5                           0x74
 #define VK_F6                           0x75
 #define LANG_HAWAIIAN                   0x75
@@ -1602,6 +1605,7 @@
 #define ID_FILE_SAVE_AS                 40016
 #define ID_EDIT_FINDANDREPLACE          40017
 #define ID_FILE_OPENFOLDER              40018
+#define ID_                             40019
 #define SC_SIZE                         0xF000
 #define SC_SEPARATOR                    0xF00F
 #define SC_MOVE                         0xF010
@@ -1634,8 +1638,8 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        111
-#define _APS_NEXT_COMMAND_VALUE         40019
+#define _APS_NEXT_RESOURCE_VALUE        117
+#define _APS_NEXT_COMMAND_VALUE         40020
 #define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

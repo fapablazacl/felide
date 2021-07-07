@@ -42,6 +42,11 @@ extern CAppModule _Module;
 
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
+class AppController {
+public:
+    virtual void openFile(const boost::filesystem::path &filePath) = 0;
+};
+
 
 // All Dialogs must inherit from the CDialogImpl template class.
 // Must declar a class-scoped member IDD, wich haves the dialog's resource identifier.
@@ -90,13 +95,15 @@ public:
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
         MSG_WM_SIZE(OnSize)
+        // MESSAGE_HANDLER(OnNotify)
         MSG_WM_NOTIFY(OnNotify)
     END_MSG_MAP()
 
 public:
-    FolderView () {
+    FolderView (AppController *controller) : mController(controller) {
         m_bMsgHandled = false;
     }
+
 
     LRESULT OnCreate(LPCREATESTRUCT cs) {
         SetMsgHandled(true);
@@ -109,9 +116,11 @@ public:
         return 0;
     }
 
+
     void OnDestroy() {
         SetMsgHandled(false);
     }
+
 
     void OnSize(UINT nType, CSize size) {
         const CRect rect = { 0, 0, size.cx, size.cy };
@@ -123,8 +132,20 @@ public:
     LRESULT OnNotify(int idCtrl, LPNMHDR pnmh) {
         SetMsgHandled(true);
 
-        switch (pnmh->code) {
-        case TVN_ITEMEXPANDING: {
+        if (pnmh->code == NM_DBLCLK) {
+            const HTREEITEM selectedItem = mTreeView.GetSelectedItem();
+
+            if (selectedItem) {
+                const auto pathIt = mPathItemsCache.left.find(selectedItem);
+
+                if (pathIt != mPathItemsCache.left.end()) {
+                    if (boost::filesystem::is_regular_file(pathIt->second)) {
+                        const auto filePath = pathIt->second;
+                        mController->openFile(filePath);
+                    }
+                }
+            }
+        } else if (pnmh->code == TVN_ITEMEXPANDING) {
             const auto &pnmtv = *reinterpret_cast<LPNMTREEVIEW>(pnmh);
 
             if (pnmtv.action == TVE_EXPAND) {
@@ -135,16 +156,13 @@ public:
                     mPopulatedItems.insert(hTreeItem);
                 }
             }
-            
-            break;
-        }
-        
-        default:
+        } else {
             SetMsgHandled(false);
         }
 
         return 0;
     }
+
 
     void DisplayFolder(const boost::filesystem::path &folderPath) {
         mTreeView.DeleteAllItems();
@@ -224,6 +242,8 @@ private:
 
     boost::bimap<HTREEITEM, boost::filesystem::path> mPathItemsCache;
     std::set<HTREEITEM> mPopulatedItems;
+
+    AppController *mController = nullptr;
 };
 
 
@@ -234,8 +254,6 @@ struct CodeViewStyleAttribs {
     const char *face = nullptr;
 };
 
-
-// static const ILexer5 *lexerC = nullptr;
 
 constexpr COLORREF black = RGB(0, 0, 0);
 constexpr COLORREF white = RGB(255, 255, 255);
@@ -534,7 +552,7 @@ private:
 class MainFrame :   public CFrameWindowImpl<MainFrame>,
                     public CUpdateUI<MainFrame>/*,
                     public CMessageFilter,
-                    public CIdleHandler*/ {
+                    public CIdleHandler*/, AppController {
 public:
     DECLARE_FRAME_WND_CLASS("MainFrame", IDR_MAINFRAME)
 
@@ -567,7 +585,17 @@ public:
     END_MSG_MAP()
 
 public:
+    MainFrame() : mFolderView(this) {}
+
+    void openFile(const boost::filesystem::path &filePath) override {
+        doOpenFile(filePath);
+    }
+
+public:
     LRESULT OnCreate(LPCREATESTRUCT cs) {
+        CreateSimpleToolBar();
+        CreateSimpleStatusBar();
+
         const DWORD dwClientStyle = WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
         const DWORD dwClientExStyle = WS_EX_CLIENTEDGE;
 
@@ -598,29 +626,7 @@ public:
                 return;
             }
 
-            mFilePath = boost::filesystem::path{dialog.m_szFileName};
-
-            // load the file and put the content into the 
-            const auto fileService = Xenoide::FileService::create();
-            const auto fileContent = fileService->load(*mFilePath);
-
-            mCodeView.SetInitialContent(fileContent.c_str());
-
-            // 
-            const auto codeLang = getCodeLanguage(*mFilePath);
-
-            switch (codeLang) {
-                case CodeLanguage::CPP: 
-                    mCodeView.SetLanguage(Lexilla::MakeLexer("cpp"), languageConfigC); 
-                    break;
-
-                case CodeLanguage::GLSL: 
-                    mCodeView.SetLanguage(Lexilla::MakeLexer("cpp"), languageConfigGLSL); 
-                    break;
-
-                default: 
-                    mCodeView.ClearLanguage();
-            }
+            doOpenFile(boost::filesystem::path{dialog.m_szFileName});
         }
         
         if (nID == ID_FILE_OPENFOLDER) {
@@ -666,6 +672,34 @@ public:
             dlg.DoModal();
         }
     }
+
+private:
+    void doOpenFile(const boost::filesystem::path &filePath) {
+        mFilePath = filePath;
+
+        // load the file and put the content into the 
+        const auto fileService = Xenoide::FileService::create();
+        const auto fileContent = fileService->load(*mFilePath);
+
+        mCodeView.SetInitialContent(fileContent.c_str());
+
+        // 
+        const auto codeLang = getCodeLanguage(*mFilePath);
+
+        switch (codeLang) {
+            case CodeLanguage::CPP: 
+                mCodeView.SetLanguage(Lexilla::MakeLexer("cpp"), languageConfigC); 
+                break;
+
+            case CodeLanguage::GLSL: 
+                mCodeView.SetLanguage(Lexilla::MakeLexer("cpp"), languageConfigGLSL); 
+                break;
+
+            default: 
+                mCodeView.ClearLanguage();
+        }
+    }
+
 
 private:
     CodeView mCodeView;
