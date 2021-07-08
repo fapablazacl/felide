@@ -82,11 +82,135 @@ public:
 };
 
 
-class FolderView : public CWindowImpl<FolderView> {
+class FolderExplorerView {
 public:
-    enum {
-        ID_FOLDERVIEW_TREEVIEW = 10000
-    };
+    virtual ~FolderExplorerView() {}
+
+    virtual void clear() = 0;
+
+    virtual int insert(const std::string &title, const std::optional<int> parentItemId = {}, const bool isDirectory = false) = 0;
+
+    virtual void sort(const int itemId) = 0;
+};
+
+
+class FolderExplorerPresenter {
+public:
+    FolderExplorerPresenter(AppController *controller) : mController(controller) {}
+
+    void attachView(FolderExplorerView *view) {
+        mView = view;
+    }
+
+    void displayFolder(const boost::filesystem::path &folderPath) {
+        mView->clear();
+
+        mPathItemsCache.clear();
+        mPopulatedItems.clear();
+
+        const std::string folderName = folderPath.filename().string();
+        const int itemId = mView->insert(folderName);
+
+        mPathItemsCache.insert({itemId, folderPath});
+    }
+
+    void onItemActivated(const int itemId) {
+        const auto pathIt = mPathItemsCache.left.find(itemId);
+
+        if (pathIt == mPathItemsCache.left.end()) {
+            return;
+        }
+
+        if (boost::filesystem::is_regular_file(pathIt->second)) {
+            const auto filePath = pathIt->second;
+            mController->openFile(filePath);
+        }
+    }
+
+    void onItemExpanded(const int itemId) {
+        if (! itemIsPopulated(itemId)) {
+            populateItem(itemId);
+        }
+    }
+
+public:
+    void populateItem(const int parentItemId) {
+        using boost::filesystem::recursive_directory_iterator;
+        using boost::filesystem::directory_iterator;
+
+        const auto folderPathIt = mPathItemsCache.left.find(parentItemId);
+
+        if (folderPathIt == mPathItemsCache.left.end()) {
+            return;
+        }
+
+        directory_iterator current{folderPathIt->second}, end;
+
+        while (current != end) {
+            const auto currentPath = current->path();
+
+            const auto parentCacheIt = mPathItemsCache.right.find(currentPath.parent_path());
+
+            if (parentCacheIt == mPathItemsCache.right.end()) {
+                continue;
+            }
+
+            const bool isDirectory = boost::filesystem::is_directory(currentPath);
+            const std::string name = currentPath.filename().string();
+            const int itemId = mView->insert(name, parentItemId, isDirectory);
+            mPathItemsCache.insert({itemId, currentPath});
+            
+            ++current;
+        }
+
+        mPopulatedItems.insert(parentItemId);
+
+        mView->sort(parentItemId);
+    }
+
+
+    bool itemIsPopulated(const int itemId) const {
+        const auto it = mPopulatedItems.find(itemId); 
+
+        return it != mPopulatedItems.end();
+    }
+
+private:
+    FolderExplorerView *mView = nullptr;
+    AppController *mController = nullptr;
+    boost::bimap<int, boost::filesystem::path> mPathItemsCache;
+    std::set<int> mPopulatedItems;
+};
+
+
+/*
+struct FolderViewData {
+    boost::bimap<LPARAM, boost::filesystem::path> &pathItemsCache;
+};
+
+
+int CALLBACK FolderView_CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort) {
+    const auto &folderViewData = *reinterpret_cast<FolderViewData*>(lParamSort);
+
+    const auto path1 = folderViewData.pathItemsCache.left.find(lParam1)->second;
+    const auto path2 = folderViewData.pathItemsCache.left.find(lParam2)->second;
+
+    if (boost::filesystem::is_directory(path1) && !boost::filesystem::is_directory(path2)) {
+        return -1;
+    }
+
+    if (!boost::filesystem::is_directory(path1) && boost::filesystem::is_directory(path2)) {
+        return 1;
+    }
+
+    return path1.compare(path2);
+}
+*/
+
+
+class FolderView : public CWindowImpl<FolderView>, public FolderExplorerView {
+public:
+    enum { ID_FOLDERVIEW_TREEVIEW = 10000 };
 
 public:
     DECLARE_WND_CLASS(NULL)
@@ -95,16 +219,51 @@ public:
         MSG_WM_CREATE(OnCreate)
         MSG_WM_DESTROY(OnDestroy)
         MSG_WM_SIZE(OnSize)
-        // MESSAGE_HANDLER(OnNotify)
         MSG_WM_NOTIFY(OnNotify)
     END_MSG_MAP()
 
 public:
-    FolderView (AppController *controller) : mController(controller) {
+    FolderView (AppController *controller) : mPresenter(controller) {
         m_bMsgHandled = false;
     }
 
+    void clear() override {
+        mTreeView.DeleteAllItems();
+    }
 
+    int insert(const std::string &title, const std::optional<int> parentItemId, const bool hasChildren) override {
+        const int itemId = ++mItemCount;
+
+        HTREEITEM hItem = NULL;
+
+        if (! parentItemId) {
+            hItem = InsertTreeItem(mTreeView, title.c_str(), itemId);
+        } else {
+            const HTREEITEM hParentItem = mTreeItemBimap.right.find(*parentItemId)->second;
+
+            hItem = InsertTreeItem(mTreeView, title.c_str(), itemId, hParentItem, hasChildren);
+        }
+
+        mTreeItemBimap.insert({hItem, itemId});
+
+        return itemId;
+    }
+
+    void sort(const int itemId) override {
+        const HTREEITEM hItem = mTreeItemBimap.right.find(itemId)->second;
+        mTreeView.SortChildren(hItem);
+
+        /*
+        TVSORTCB sort = {};
+
+        sort.hParent = hParentItem;
+        sort.lpfnCompare = FolderView_CompareFunc;
+
+        mTreeView.SortChildrenCB(&sort, FALSE);
+        */
+    }
+
+public:
     LRESULT OnCreate(LPCREATESTRUCT cs) {
         SetMsgHandled(true);
 
@@ -112,6 +271,8 @@ public:
         const DWORD dwExStyle = TVS_EX_DOUBLEBUFFER;
 
         mTreeView.Create(m_hWnd, rcDefault, "", dwStyle, dwExStyle, ID_FOLDERVIEW_TREEVIEW);
+
+        mPresenter.attachView(this);
 
         return 0;
     }
@@ -132,88 +293,46 @@ public:
     LRESULT OnNotify(int idCtrl, LPNMHDR pnmh) {
         SetMsgHandled(true);
 
-        if (pnmh->code == NM_DBLCLK) {
+        switch (pnmh->code) {
+        case NM_DBLCLK: {
             const HTREEITEM selectedItem = mTreeView.GetSelectedItem();
 
             if (selectedItem) {
-                const auto pathIt = mPathItemsCache.left.find(selectedItem);
-
-                if (pathIt != mPathItemsCache.left.end()) {
-                    if (boost::filesystem::is_regular_file(pathIt->second)) {
-                        const auto filePath = pathIt->second;
-                        mController->openFile(filePath);
-                    }
-                }
+                const int itemId = mTreeItemBimap.left.find(selectedItem)->second;
+                mPresenter.onItemActivated(itemId);
             }
-        } else if (pnmh->code == TVN_ITEMEXPANDING) {
+
+            break;
+        }
+
+        case TVN_ITEMEXPANDING: {
             const auto &pnmtv = *reinterpret_cast<LPNMTREEVIEW>(pnmh);
 
             if (pnmtv.action == TVE_EXPAND) {
-                const HTREEITEM hTreeItem = pnmtv.itemNew.hItem;
-
-                if (const auto it = mPopulatedItems.find(hTreeItem); it == mPopulatedItems.end()) {
-                    PopulateTreeItem(hTreeItem);
-                    mPopulatedItems.insert(hTreeItem);
-                }
+                mPresenter.onItemExpanded(static_cast<int>(pnmtv.itemNew.lParam));
             }
-        } else {
+
+            break;
+        }
+
+        default:
             SetMsgHandled(false);
         }
 
         return 0;
     }
 
-
     void DisplayFolder(const boost::filesystem::path &folderPath) {
-        mTreeView.DeleteAllItems();
-        mPathItemsCache.clear();
-
-        const std::string folderName = folderPath.filename().string();
-
-        mRootItem = InsertTreeItem(mTreeView, folderName.c_str());
-        mPathItemsCache.insert({mRootItem, folderPath});
-    }
-
-
-    void PopulateTreeItem(const HTREEITEM hParentItem) {
-        using boost::filesystem::recursive_directory_iterator;
-        using boost::filesystem::directory_iterator;
-
-        const auto folderPathIt = mPathItemsCache.left.find(hParentItem);
-
-        if (folderPathIt == mPathItemsCache.left.end()) {
-            return;
-        }
-
-        directory_iterator current{folderPathIt->second}, end;
-
-        while (current != end) {
-            const auto currentPath = current->path();
-
-            const auto parentCacheIt = mPathItemsCache.right.find(currentPath.parent_path());
-
-            if (parentCacheIt == mPathItemsCache.right.end()) {
-                continue;
-            }
-
-            const bool isDirectory = boost::filesystem::is_directory(currentPath);
-
-            const HTREEITEM hParentItem = parentCacheIt->second;
-
-            const std::string name = currentPath.filename().string();
-            const HTREEITEM hTreeItem = InsertTreeItem(mTreeView, name.c_str(), hParentItem, isDirectory);
-            mPathItemsCache.insert({hTreeItem, currentPath});
-            
-            ++current;
-        }
+        mPresenter.displayFolder(folderPath);
     }
 
 private:
-    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text) {
-        const DWORD style = TVIF_TEXT | TVIF_CHILDREN /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
+    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text, const int itemId) {
+        const DWORD style = TVIF_PARAM | TVIF_TEXT | TVIF_CHILDREN /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
 
         TVINSERTSTRUCT insertStruct = {};
 
+        insertStruct.item.lParam = static_cast<LPARAM>(itemId);
         insertStruct.item.mask = style;
         insertStruct.item.pszText = const_cast<char*>(text);
         insertStruct.item.cChildren = 1;
@@ -222,12 +341,13 @@ private:
         return treeView.InsertItem(&insertStruct);
     }
 
-    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text, const HTREEITEM parentItem, const bool hasChildren) {
-        const DWORD style = TVIF_TEXT | (hasChildren ? TVIF_CHILDREN : 0) /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
+    HTREEITEM InsertTreeItem(CTreeViewCtrl &treeView, const char *text, const int itemId, const HTREEITEM parentItem, const bool hasChildren) {
+        const DWORD style = TVIF_PARAM | TVIF_TEXT | (hasChildren ? TVIF_CHILDREN : 0) /*| TVIF_IMAGE | TVIF_SELECTEDIMAGE*/;
 
         TVINSERTSTRUCT insertStruct = {};
 
         insertStruct.hParent = parentItem;
+        insertStruct.item.lParam = static_cast<LPARAM>(itemId);
         insertStruct.item.mask = style;
         insertStruct.item.pszText = const_cast<char*>(text);
         insertStruct.item.cChildren = hasChildren ? 1 : 0;
@@ -237,13 +357,11 @@ private:
     }
 
 private:
+    int mItemCount = 0;
+
     CTreeViewCtrl mTreeView;
-    HTREEITEM mRootItem = NULL;
-
-    boost::bimap<HTREEITEM, boost::filesystem::path> mPathItemsCache;
-    std::set<HTREEITEM> mPopulatedItems;
-
-    AppController *mController = nullptr;
+    boost::bimap<HTREEITEM, int> mTreeItemBimap;
+    FolderExplorerPresenter mPresenter;
 };
 
 
@@ -552,7 +670,8 @@ private:
 class MainFrame :   public CFrameWindowImpl<MainFrame>,
                     public CUpdateUI<MainFrame>/*,
                     public CMessageFilter,
-                    public CIdleHandler*/, AppController {
+                    public CIdleHandler*/, 
+                    public AppController {
 public:
     DECLARE_FRAME_WND_CLASS("MainFrame", IDR_MAINFRAME)
 
