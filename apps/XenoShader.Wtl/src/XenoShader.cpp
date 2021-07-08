@@ -91,6 +91,8 @@ public:
     virtual int insert(const std::string &title, const std::optional<int> parentItemId = {}, const bool isDirectory = false) = 0;
 
     virtual void sort(const int itemId) = 0;
+
+    virtual void sort(const int itemId, std::function<int (int, int)> cmp) = 0;
 };
 
 
@@ -165,7 +167,13 @@ public:
 
         mPopulatedItems.insert(parentItemId);
 
-        mView->sort(parentItemId);
+        mView->sort(parentItemId, [this](const int i1, const int i2) {
+            return this->compare(i1, i2);
+        });
+
+        /*
+
+        */
     }
 
 
@@ -173,6 +181,21 @@ public:
         const auto it = mPopulatedItems.find(itemId); 
 
         return it != mPopulatedItems.end();
+    }
+
+    bool compare(const int itemId1, const int itemId2) const {
+        const auto path1 = mPathItemsCache.left.find(itemId1)->second;
+        const auto path2 = mPathItemsCache.left.find(itemId2)->second;
+
+        if (boost::filesystem::is_directory(path1) && !boost::filesystem::is_directory(path2)) {
+            return -1;
+        }
+
+        if (!boost::filesystem::is_directory(path1) && boost::filesystem::is_directory(path2)) {
+            return 1;
+        }
+
+        return path1.filename().string().compare(path2.filename().string());
     }
 
 private:
@@ -183,29 +206,11 @@ private:
 };
 
 
-/*
-struct FolderViewData {
-    boost::bimap<LPARAM, boost::filesystem::path> &pathItemsCache;
-};
-
-
 int CALLBACK FolderView_CompareFunc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort) {
-    const auto &folderViewData = *reinterpret_cast<FolderViewData*>(lParamSort);
+    auto &cmp = *reinterpret_cast<std::function<int (int, int)>*>(lParamSort);
 
-    const auto path1 = folderViewData.pathItemsCache.left.find(lParam1)->second;
-    const auto path2 = folderViewData.pathItemsCache.left.find(lParam2)->second;
-
-    if (boost::filesystem::is_directory(path1) && !boost::filesystem::is_directory(path2)) {
-        return -1;
-    }
-
-    if (!boost::filesystem::is_directory(path1) && boost::filesystem::is_directory(path2)) {
-        return 1;
-    }
-
-    return path1.compare(path2);
+    return cmp(static_cast<int>(lParam1), static_cast<int>(lParam2));
 }
-*/
 
 
 class FolderView : public CWindowImpl<FolderView>, public FolderExplorerView {
@@ -252,15 +257,16 @@ public:
     void sort(const int itemId) override {
         const HTREEITEM hItem = mTreeItemBimap.right.find(itemId)->second;
         mTreeView.SortChildren(hItem);
+    }
 
-        /*
+    void sort(const int itemId, std::function<int (int, int)> cmp) override {
         TVSORTCB sort = {};
 
-        sort.hParent = hParentItem;
+        sort.hParent = mTreeItemBimap.right.find(itemId)->second;
         sort.lpfnCompare = FolderView_CompareFunc;
+        sort.lParam = reinterpret_cast<LPARAM>(&cmp);
 
         mTreeView.SortChildrenCB(&sort, FALSE);
-        */
     }
 
 public:
